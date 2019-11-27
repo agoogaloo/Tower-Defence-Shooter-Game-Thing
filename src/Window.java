@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ public class Window{
 	 */
 	public void render() {
 		panel.setBackground(Color.GREEN);//setting the background colour to see if it works
-		window.add(panel);
+		//window.add(panel);
 	}
 	
 	public Window(int width, int height) {
@@ -26,11 +27,9 @@ public class Window{
 		this.height = height;
 		window=new JFrame("a title");
 		panel = new JPanel();
-		
-		panel.setSize(width, height);//setting the size of the panel to the desired width and height
+		panel.setPreferredSize(new Dimension(width, height));//setting the size of the panel to the desired width and height
 		window.add(panel);//adding the panel to the window so it can actually show it
-		window.setSize(width, height);//setting the size of the window
-		//window.pack();//making the window fit the panel perfecly but it doesnt work for some reason
+		window.pack();//making the window fit the panel perfectly 
 		window.setVisible(true);//making the window visible
 		window.setLocationRelativeTo(null);//centers the window
 		window.setResizable(false);//not letting you resize the window so it doesn't mess things up when rendering
