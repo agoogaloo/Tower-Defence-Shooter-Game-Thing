@@ -27,6 +27,7 @@ public class Window{
 		this.height = height;
 		window=new JFrame("a title");
 		panel = new JPanel();
+		
 		panel.setPreferredSize(new Dimension(width, height));//setting the size of the panel to the desired width and height
 		window.add(panel);//adding the panel to the window so it can actually show it
 		window.pack();//making the window fit the panel perfectly 
