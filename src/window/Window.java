@@ -19,13 +19,13 @@ public class Window {
 		//this.width = width;//initializing variables
 		//this.height = height;
 		window=new JFrame("a title");
-		display=new Display(width, height);
+		display=new Display(width, height, 3);
 
 		window.add(display);//adding the display to the window so it can actually show it
 		window.setResizable(false);//not letting you resize the window so it doesn't mess things up when rendering
 		//pack needs to come after setResizable because it changes the window size, so the window will be the wrong size
 		window.pack();//making the window fit the panel perfectly 
-		//display.setPreferredSize(new Dimension(width/3, height/3));
+		
 		window.setLocationRelativeTo(null);//centers the window
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//makes the program stop when you close the window
 		window.setVisible(true);//making the window visible

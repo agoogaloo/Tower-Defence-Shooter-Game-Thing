@@ -17,16 +17,19 @@ import javax.swing.JPanel;
  * because you aren't supposed to draw directly onto it
  */
 public class Display extends JPanel{
-	private int imgX=0, imgY=0,width, height;
+	private int imgX=0, imgY=0,width, height, scale;
 	private BufferedImage image;
 	
-	public Display(int width, int height) {
-		//setting the proper size so that the window will pack properly
-		this.width=width/3;//the display is scaled up to look 8-bit so the 
-		this.height=height/3;//resolution is actually 1/3 of the screen width
-		/*this will probably be done in a separate class to hold all the assets and stuff but I
-		 * just wanted to test the scaling effect
-		 */
+	public Display(int width, int height, int scale){
+		 //setting the proper size so that the window will pack properly
+		 //the display is scaled up to look 8-bit so the 
+		 //resolution is actually 1/3 of the screen width
+		this.width=width/scale;
+		this.height=height/scale;
+		this.scale=scale;
+		
+		//this will probably be done in a separate class to hold all the assets and stuff but I
+		// just wanted to test the scaling effect
 		try { //this can throw an error so it needs to be in a try catch to run
 			image =ImageIO.read(new File ("res/test.png"));//loading the test image
 		} catch (IOException e) {
@@ -43,7 +46,7 @@ public class Display extends JPanel{
 		//a normal graphics object cannot scale so I cast it to a graphisc2D which can
 		Graphics2D g2d = (Graphics2D) g;
 		
-		g2d.scale(3, 3);//scaling the graphics
+		g2d.scale(scale, scale);//scaling the graphics
 		g2d.clearRect(0, 0, width, height);//clearing the previous frame
         g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
         
