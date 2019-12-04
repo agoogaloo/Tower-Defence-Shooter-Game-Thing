@@ -14,7 +14,7 @@ public class Main {
 			window.render();//draws everything on the window
 			
 			try {//this will be handled better later and is just to test is render works
-				Thread.sleep(10l);//stalls for 100 milliseconds
+				Thread.sleep(10l);//stalls for 10 milliseconds
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

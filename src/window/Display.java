@@ -1,15 +1,13 @@
 package window;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import graphics.Assets;
 
 /*
  * extending JPanel so that you have access to the PaintComponent to actually draw things
@@ -18,7 +16,7 @@ import javax.swing.JPanel;
  */
 public class Display extends JPanel{
 	private int imgX=0, imgY=0,width, height, scale;
-	private BufferedImage image;
+	private BufferedImage image=Assets.getTest();//the image that moves around the screen
 	
 	public Display(int width, int height, int scale){
 		 //setting the proper size so that the window will pack properly
@@ -27,14 +25,6 @@ public class Display extends JPanel{
 		this.width=width/scale;
 		this.height=height/scale;
 		this.scale=scale;
-		
-		//this will probably be done in a separate class to hold all the assets and stuff but I
-		// just wanted to test the scaling effect
-		try { //this can throw an error so it needs to be in a try catch to run
-			image =ImageIO.read(new File ("res/test.png"));//loading the test image
-		} catch (IOException e) {
-			System.out.println("picture not loaded");//showing what the problem is
-		}
 		
 		this.setPreferredSize(new Dimension(width, height));
 		//setting the preferred size to the inputed one so that the pack method will work properly

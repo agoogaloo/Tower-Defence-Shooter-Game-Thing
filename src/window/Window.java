@@ -1,6 +1,4 @@
 package window;
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 
 
@@ -11,13 +9,11 @@ import javax.swing.JFrame;
  * on it but I can for JFrame because it's old
  */
 public class Window {
-	//private int width, height;//how big the screen is
 	private JFrame window;
 	private Display display;
 	
 	public Window(int width, int height) {
-		//this.width = width;//initializing variables
-		//this.height = height;
+		//initializing variables
 		window=new JFrame("a title");
 		display=new Display(width, height, 3);
 
@@ -34,6 +30,7 @@ public class Window {
 	public void render() {
 		display.repaint();//this tells the JFrame to repaint the window, which calls paintComponent 
 	}
+	
 	public void update() {
 		display.update();//a test method that changes things to tell its working
 	}
