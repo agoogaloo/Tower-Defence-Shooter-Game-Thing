@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import graphics.Assets;
 
 /*
+ * by: Matthew Milum
  * extending JPanel so that you have access to the PaintComponent to actually draw things
  * everything is drawn onto a display which is then added onto the window,
  * because you aren't supposed to draw directly onto it

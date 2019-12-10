@@ -3,7 +3,7 @@ import javax.swing.JFrame;
 
 
 
-/*
+/* by: Matthew Milum
  * this class represents the window that the game is played on
  * I used swing/JFrame instead of javaFX because I can't find an easy tutorial
  * on it but I can for JFrame because it's old
