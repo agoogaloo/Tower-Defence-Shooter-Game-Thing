@@ -14,7 +14,7 @@ public class Window {
 	
 	public Window(int width, int height) {
 		//initializing variables
-		window=new JFrame("a title");
+		window=new JFrame("According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible. Yellow, black. ");
 		display=new Display(width, height, 3);
 
 		window.add(display);//adding the display to the window so it can actually show it
