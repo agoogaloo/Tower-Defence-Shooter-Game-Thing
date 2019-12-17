@@ -21,11 +21,15 @@ public class EntityManager {
 //			}
 		}
 	}
-	public void render(){
+	public void render(Graphics g){
 		for (Entity i: entities){
-			
-			i.render(Graphics g);
+			i.render(g);
 		}
 	}
-	
+	public void addEntity(Entity e){ //allows us to add to the entity manager
+		entities.add(e);
+	}
+	public ArrayList<Entity> getEntities(){ //Accessor method for the entities
+		return entities;
+	}
 }
