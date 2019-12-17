@@ -1,6 +1,8 @@
 package window;
 import javax.swing.JFrame;
 
+import floors.Room;
+
 
 
 /* by: Matthew Milum
@@ -25,6 +27,7 @@ public class Window {
 		window.setLocationRelativeTo(null);//centers the window
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//makes the program stop when you close the window
 		window.setVisible(true);//making the window visible
+		new Room("res/room1.txt", 10);
 	}
 	
 	public void render() {
