@@ -1,3 +1,4 @@
+import floors.Room;
 import window.Window;
 /*
  * by Matthew Milum
@@ -7,6 +8,10 @@ public class Main {
 	 * the main class that will create the window then updates and renders it
 	 * (basically holds the main game loop)
 	 */
+	
+	//statics
+	private static Room roomTest=new Room("res/room1.txt", 10);
+	
 	public static void main(String[] args) {
 		Window window = new Window(800, 600);
 		boolean run = true;
@@ -15,7 +20,7 @@ public class Main {
 		final int FPS = 60, DELAY = 1000000000 / FPS;
 		long delta = 0, frameStart = System.nanoTime(), fpsTimer = frameStart;
 		int frames = 0;
-
+		
 		while (run) {// running the game while run is true
 			frameStart = System.nanoTime();// getting the time the frame started
 			// this is where everything in the game actualy happens
