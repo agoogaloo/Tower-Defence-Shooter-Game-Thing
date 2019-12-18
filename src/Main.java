@@ -10,7 +10,7 @@ public class Main {
 	 */
 	
 	//statics
-	private static Floor floor=new Floor(2);
+	private static Floor floor=new Floor(5);
 	
 	public static void main(String[] args) {
 		Window window = new Window(800, 600);
