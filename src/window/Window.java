@@ -3,7 +3,7 @@ import javax.swing.JFrame;
 
 
 
-/*
+/* by: Matthew Milum
  * this class represents the window that the game is played on
  * I used swing/JFrame instead of javaFX because I can't find an easy tutorial
  * on it but I can for JFrame because it's old
@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 public class Window {
 	private JFrame window;
 	private Display display;
+	int width, height;
 	
 	public Window(int width, int height) {
 		//initializing variables
@@ -38,6 +39,12 @@ public class Window {
 	//getters/setters
 	public Display getDisplay() {
 		return display;
+	}
+	public int getWidth(){
+		return this.width;
+	}
+	public int getHeight(){
+		return this.height;
 	}
 	
 	

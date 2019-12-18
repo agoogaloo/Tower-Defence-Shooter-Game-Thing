@@ -1,8 +1,6 @@
 import window.Window;
-
-/**
- * @author The Computer Man
- *
+/*
+ * by Matthew Milum
  */
 public class Main {
 	/*
