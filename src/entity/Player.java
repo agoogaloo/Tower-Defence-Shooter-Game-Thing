@@ -18,7 +18,7 @@ public class Player extends Mobs implements MouseListener{
 			targetX = MouseInfo.getPointerInfo().getLocation().getX();
 			targetY = MouseInfo.getPointerInfo().getLocation().getY();
 			
-			entityManager.add(new bullet (x,y,targetX,targetY));
+			Entity.add(new bullet (x,y,targetX,targetY));
 			shotBuffer = 30;
 		}
 	}
