@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /*
+ * by: Matthew Milum
  * a class that contains all the pictures, sounds, etc. for the game
  */
 public class Assets {
