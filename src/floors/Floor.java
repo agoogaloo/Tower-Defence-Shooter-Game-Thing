@@ -17,19 +17,20 @@ public class Floor {
 		rooms = new Room[size * 2][size];
 		rooms=generateFloor();
 		//tiles=roomsToInt(rooms);
+		//tiles=roomsToInt(rooms);
 
 	}
 
 	private Room[][] generateFloor() {
 		Random random=new Random();
 		Room[][] floor = new Room[size*2][size];
-		Room validRoom=POSSIBLEROOMS[0];
+		Room validRoom=POSSIBLEROOMS[1];
 		Room checkRoom=POSSIBLEROOMS[0];
 		int x=size, y=size-1;
 		for(int i=0;i<size;i++){
 			floor[x][y]=validRoom;
 			do{
-				checkRoom=POSSIBLEROOMS[0];
+				checkRoom=POSSIBLEROOMS[1];
 				System.out.println("chechRoom e="+checkRoom.getEntrance()+" previous room exit="+validRoom.getExit());
 			}while(checkRoom.getEntrance()!=validRoom.getExit());
 			
@@ -40,12 +41,19 @@ public class Floor {
 
 	private int[][] roomsToInt(Room[][] roomList) {
 		int[][] tilesList = new int[size * ROOMSIZE * 2][size * ROOMSIZE];
-		for (int ry = 0; ry < 2; ry++) {
-			for (int rx = 0; rx < 2 * 2; rx++) {
+		System.out.println(roomList[size][size-1].getTile(3, 3));
+		for (int ry = 0; ry < (size-1); ry++) {
+			for (int rx = 0; rx < (size-1) * 2; rx++) {
 				for (int ty = 0; ty < ROOMSIZE; ty++) {
 					for (int tx = 0; tx < ROOMSIZE; tx++) {
-						tilesList[(rx * ROOMSIZE) + tx][(ry * ROOMSIZE) + ty] = rooms[rx][ry].getTile(tx, ty);
-						System.out.println(rooms[rx][ry].getTile(tx, ty));
+						try {
+							tilesList[(rx*ROOMSIZE)+tx][(ry*ROOMSIZE)+ty]=rooms[rx][ry].getTile(tx,ty);
+							
+						} catch (NullPointerException e) {
+							tilesList[(rx*ROOMSIZE)+tx][(ry*ROOMSIZE)+ty]=1;
+							
+						}
+						
 					}
 				}
 			}
@@ -65,11 +73,19 @@ public class Floor {
 	public void test() {
 		for(int y=0;y<size*ROOMSIZE;y++) {
 			for(int x=0;x<size*2*ROOMSIZE;x++) {
-				System.out.print(tiles[x][y]);
+				System.out.print(getTile(x,y));
 			}
-			System.out.print("\n");
 		}
-
+			System.out.print("\n");
 	}
+	
+	public int getTile(int x,int y){
+		int roomX=(int)Math.floor(x/ROOMSIZE),roomY=(int)Math.floor(y/ROOMSIZE);
+		return getRoom(roomX,roomY).getTile(roomX-x, roomY-y);
 
+		
+	}
+	public Room getRoom(int x, int y){
+		return rooms[x][y];
+	}
 }
