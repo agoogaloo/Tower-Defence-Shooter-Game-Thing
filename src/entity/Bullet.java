@@ -5,7 +5,8 @@ import java.awt.Graphics;
 public class Bullet extends Mobs{
 	double bulletPath;
 	double velocityX,velocityY;
-	public void bullet(double startX,double startY,double targetX,double targetY){
+
+	public void bullet(int startX,int startY,double targetX,double targetY){
 		double bulletPath = Math.atan2(targetY, targetX);
 		double velocityX = speed*Math.cos(bulletPath);
 		double velocityY = speed*Math.sin(bulletPath);

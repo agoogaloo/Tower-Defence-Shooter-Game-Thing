@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 public class Player extends Mobs implements MouseListener{
 	int currency;
@@ -41,20 +42,20 @@ public class Player extends Mobs implements MouseListener{
 		}
 		if (key==KeyEvent.VK_S){
 			changeY=0;
-	
+		}
 	public void shoot(){
 		if (shotBuffer == 0){
 			targetX = MouseInfo.getPointerInfo().getLocation().getX();
 			targetY = MouseInfo.getPointerInfo().getLocation().getY();
 			
-			Entity.add(new bullet (x,y,targetX,targetY));
+			Entity.add(new Bullet (x,y,targetX,targetY));
 			shotBuffer = 30;
 		}
 	}
 		
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		shoot();
 		
 	}
 
