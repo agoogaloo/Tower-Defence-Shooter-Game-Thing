@@ -16,7 +16,7 @@ public class Floor {
 		this.size = size;
 		rooms = new Room[size * 2][size];
 		rooms=generateFloor();
-		tiles=roomsToInt(rooms);
+		//tiles=roomsToInt(rooms);
 
 	}
 
@@ -25,25 +25,27 @@ public class Floor {
 		Room[][] floor = new Room[size*2][size];
 		Room validRoom=POSSIBLEROOMS[0];
 		Room checkRoom=POSSIBLEROOMS[0];
-		int x=size, y=size;
+		int x=size, y=size-1;
 		for(int i=0;i<size;i++){
 			floor[x][y]=validRoom;
 			do{
-				checkRoom=POSSIBLEROOMS[random.nextInt(POSSIBLEROOMS.length)];
+				checkRoom=POSSIBLEROOMS[0];
+				System.out.println("chechRoom e="+checkRoom.getEntrance()+" previous room exit="+validRoom.getExit());
 			}while(checkRoom.getEntrance()!=validRoom.getExit());
+			
 			validRoom=checkRoom;
 		}
-
 		return floor;
 	}
 
 	private int[][] roomsToInt(Room[][] roomList) {
 		int[][] tilesList = new int[size * ROOMSIZE * 2][size * ROOMSIZE];
-		for (int ry = 0; ry < size; ry++) {
-			for (int rx = 0; rx < size * 2; rx++) {
+		for (int ry = 0; ry < 2; ry++) {
+			for (int rx = 0; rx < 2 * 2; rx++) {
 				for (int ty = 0; ty < ROOMSIZE; ty++) {
 					for (int tx = 0; tx < ROOMSIZE; tx++) {
 						tilesList[(rx * ROOMSIZE) + tx][(ry * ROOMSIZE) + ty] = rooms[rx][ry].getTile(tx, ty);
+						System.out.println(rooms[rx][ry].getTile(tx, ty));
 					}
 				}
 			}
@@ -61,8 +63,12 @@ public class Floor {
 	}
 
 	public void test() {
-		System.out.println("room 1" + POSSIBLEROOMS[0].getEntrance());
-		System.out.println("room 2" + POSSIBLEROOMS[1].getEntrance());
+		for(int y=0;y<size*ROOMSIZE;y++) {
+			for(int x=0;x<size*2*ROOMSIZE;x++) {
+				System.out.print(tiles[x][y]);
+			}
+			System.out.print("\n");
+		}
 
 	}
 
