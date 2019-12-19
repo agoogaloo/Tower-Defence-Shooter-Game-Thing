@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 public class Window {
 	private JFrame window;
 	private Display display;
+	int width, height;
 	
 	public Window(int width, int height) {
 		//initializing variables
@@ -38,6 +39,12 @@ public class Window {
 	//getters/setters
 	public Display getDisplay() {
 		return display;
+	}
+	public int getWidth(){
+		return this.width;
+	}
+	public int getHeight(){
+		return this.height;
 	}
 	
 	
