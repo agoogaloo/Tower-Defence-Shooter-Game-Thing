@@ -1,7 +1,10 @@
 package floors;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+/*
+ * by: Matthew Milum
+ */
 
 public class Floor {
 
@@ -16,50 +19,34 @@ public class Floor {
 		this.size = size;
 		rooms = new Room[size * 2][size];
 		rooms=generateFloor();
-		//tiles=roomsToInt(rooms);
-		//tiles=roomsToInt(rooms);
-
 	}
 
 	private Room[][] generateFloor() {
-		Random random=new Random();
-		Room[][] floor = new Room[size*2][size];
-		Room validRoom=POSSIBLEROOMS[1];
+		Room[][] floor = new Room[size*2][size+1];
+		Room validRoom=POSSIBLEROOMS[2];
 		Room checkRoom=POSSIBLEROOMS[0];
 		int x=size, y=size-1;
 		for(int i=0;i<size;i++){
 			floor[x][y]=validRoom;
+			switch (validRoom.getExit()){
+			case 'u': 
+				y--;
+				break;
+			case'r': 
+				x++;
+				break;
+			case 'l':
+				x--;
+				break;
+			}
 			do{
-				checkRoom=POSSIBLEROOMS[1];
-				System.out.println("chechRoom e="+checkRoom.getEntrance()+" previous room exit="+validRoom.getExit());
+				checkRoom=POSSIBLEROOMS[ThreadLocalRandom.current().nextInt(0, POSSIBLEROOMS.length)];
+				System.out.println("checkRoom entrance="+checkRoom.getEntrance()+" previous room exit="+validRoom.getExit());
 			}while(checkRoom.getEntrance()!=validRoom.getExit());
 			
 			validRoom=checkRoom;
 		}
 		return floor;
-	}
-
-	private int[][] roomsToInt(Room[][] roomList) {
-		int[][] tilesList = new int[size * ROOMSIZE * 2][size * ROOMSIZE];
-		System.out.println(roomList[size][size-1].getTile(3, 3));
-		for (int ry = 0; ry < (size-1); ry++) {
-			for (int rx = 0; rx < (size-1) * 2; rx++) {
-				for (int ty = 0; ty < ROOMSIZE; ty++) {
-					for (int tx = 0; tx < ROOMSIZE; tx++) {
-						try {
-							tilesList[(rx*ROOMSIZE)+tx][(ry*ROOMSIZE)+ty]=rooms[rx][ry].getTile(tx,ty);
-							
-						} catch (NullPointerException e) {
-							tilesList[(rx*ROOMSIZE)+tx][(ry*ROOMSIZE)+ty]=1;
-							
-						}
-						
-					}
-				}
-			}
-		}
-		return tilesList;
-
 	}
 
 	private Room[] loadAllRooms(String path, int amount) {
@@ -71,18 +58,32 @@ public class Floor {
 	}
 
 	public void test() {
+		System.out.println(getTile(0,0));
 		for(int y=0;y<size*ROOMSIZE;y++) {
-			for(int x=0;x<size*2*ROOMSIZE;x++) {
-				System.out.print(getTile(x,y));
+			for(int x=0;x<size*ROOMSIZE*2;x++) {
+				if(x%ROOMSIZE==0) {
+					System.out.print(" ");
+				}
+				System.out.print(getTile(x,y)+",");
 			}
-		}
 			System.out.print("\n");
+		}
+			
 	}
 	
 	public int getTile(int x,int y){
 		int roomX=(int)Math.floor(x/ROOMSIZE),roomY=(int)Math.floor(y/ROOMSIZE);
-		return getRoom(roomX,roomY).getTile(roomX-x, roomY-y);
-
+		
+		int result;
+		try {
+			result=getRoom(roomX,roomY).getTile(x-roomX*ROOMSIZE, y-roomY*ROOMSIZE);
+			
+		} catch (NullPointerException e) {
+			result=0;
+			
+		}
+		
+		return result;
 		
 	}
 	public Room getRoom(int x, int y){

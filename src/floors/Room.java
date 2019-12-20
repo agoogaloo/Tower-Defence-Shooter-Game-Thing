@@ -55,10 +55,10 @@ public class Room {
 	}
 
 	public int getTile(int x, int y) {
-		//if(x>=0&&x<tiles.length&&y<=0&&y<tiles.length){
-			return tiles[x][y];
-		//}
-		//return 0;
+		if(x<0||x>=tiles.length||y<0||y>=tiles.length){
+			return 2;
+		}
+		return tiles[x][y];
 	}
 
 	// getters/setters
