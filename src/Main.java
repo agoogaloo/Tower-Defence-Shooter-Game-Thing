@@ -15,7 +15,7 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		Window window = new Window(6000, 1000);
+		Window window = new Window(800, 600);
 		boolean run = true;
 		
 		// variables for limiting frame rate

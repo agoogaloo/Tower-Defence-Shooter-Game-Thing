@@ -35,10 +35,11 @@ public class Display extends JPanel{
 		//a normal graphics object cannot scale so I cast it to a graphisc2D which can
 		Graphics2D g2d = (Graphics2D) g;
 		
-		//g2d.scale(scale, scale);//scaling the graphics
+		g2d.scale(scale, scale);//scaling the graphics
 		g2d.clearRect(0, 0, width, height);//clearing the previous frame
+		Window.getFloor().render(g2d);
         g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
-        Window.getFloor().render(g2d);
+      
         
 	}
 	/*
