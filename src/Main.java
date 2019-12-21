@@ -1,4 +1,5 @@
 import floors.Floor;
+import graphics.Assets;
 import window.Window;
 /*
  * by Matthew Milum
@@ -10,12 +11,13 @@ public class Main {
 	 */
 	
 	//statics
-	private static Floor floor=new Floor(10);
+	
+	
 	
 	public static void main(String[] args) {
-		Window window = new Window(800, 600);
+		Window window = new Window(6000, 1000);
 		boolean run = true;
-		floor.test();
+		
 		// variables for limiting frame rate
 		final int FPS = 60, DELAY = 1000000000 / FPS;
 		long delta = 0, frameStart = System.nanoTime(), fpsTimer = frameStart;
@@ -45,4 +47,5 @@ public class Main {
 			} while (delta < DELAY);// looping until the frame has lasted the target number of nanoseconds
 		}
 	}
+	
 }

@@ -1,7 +1,12 @@
 package floors;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import window.Window;
+
+
 /*
  * by: Matthew Milum
  */
@@ -11,19 +16,29 @@ public class Floor {
 	private Room[][] rooms;
 	private int[][] tiles;
 	private int size;
-	private final int TILESIZE = 16, ROOMSIZE = 10;// should actually be 20 but
-													// i was just testing stuff
+	private final int TILESIZE = 16, ROOMSIZE = 20;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);
+	int move=1100;
 
 	public Floor(int size) {
 		this.size = size;
 		rooms = new Room[size * 2][size];
 		rooms=generateFloor();
 	}
-
+	public void render(Graphics g) {
+		move-=3;
+		for(int y=0;y<size*ROOMSIZE;y++) {
+			for(int x=0;x<size*ROOMSIZE*2;x++) {
+				if(x%ROOMSIZE==0) {
+				}
+				g.drawImage(Window.getAssets().getTiles()[getTile(x,y)-1], x*16-1500,y*16-move,null);
+			}
+		}
+			
+	}
 	private Room[][] generateFloor() {
 		Room[][] floor = new Room[size*2][size+1];
-		Room validRoom=POSSIBLEROOMS[2];
+		Room validRoom=POSSIBLEROOMS[0];
 		Room checkRoom=POSSIBLEROOMS[0];
 		int x=size, y=size-1;
 		for(int i=0;i<size;i++){
@@ -58,7 +73,6 @@ public class Floor {
 	}
 
 	public void test() {
-		System.out.println(getTile(0,0));
 		for(int y=0;y<size*ROOMSIZE;y++) {
 			for(int x=0;x<size*ROOMSIZE*2;x++) {
 				if(x%ROOMSIZE==0) {
@@ -79,7 +93,7 @@ public class Floor {
 			result=getRoom(roomX,roomY).getTile(x-roomX*ROOMSIZE, y-roomY*ROOMSIZE);
 			
 		} catch (NullPointerException e) {
-			result=0;
+			result=29;
 			
 		}
 		

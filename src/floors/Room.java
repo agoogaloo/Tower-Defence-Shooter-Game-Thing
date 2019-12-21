@@ -38,7 +38,7 @@ public class Room {
 			e.printStackTrace();// printing the error
 		}
 		// splitting the String every blank character so that I can get each entry in the text
-		entries = fileText.split("\\s+");
+		entries = fileText.split(",\\s+");
 		try {
 			entrance = entries[0].charAt(0);// setting the entrance to the 1st entry of the file
 			exit = entries[1].charAt(0);// setting the entrance to the 2nd entry of the file
@@ -56,7 +56,7 @@ public class Room {
 
 	public int getTile(int x, int y) {
 		if(x<0||x>=tiles.length||y<0||y>=tiles.length){
-			return 2;
+			return 27;
 		}
 		return tiles[x][y];
 	}

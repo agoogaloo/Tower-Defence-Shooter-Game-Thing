@@ -1,7 +1,9 @@
 package window;
 import javax.swing.JFrame;
 
+import floors.Floor;
 import floors.Room;
+import graphics.Assets;
 
 
 
@@ -13,6 +15,8 @@ import floors.Room;
 public class Window {
 	private JFrame window;
 	private Display display;
+	private static Assets assets=new Assets();
+	private static Floor floor=new Floor(6);
 	
 	public Window(int width, int height) {
 		//initializing variables
@@ -41,6 +45,12 @@ public class Window {
 	//getters/setters
 	public Display getDisplay() {
 		return display;
+	}
+	public static Assets getAssets() {
+		return assets;
+	}
+	public static Floor getFloor() {
+		return floor;
 	}
 	
 	

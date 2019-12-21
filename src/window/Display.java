@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import graphics.Assets;
-
 /*
  * by: Matthew Milum
  * extending JPanel so that you have access to the PaintComponent to actually draw things
@@ -17,7 +15,7 @@ import graphics.Assets;
  */
 public class Display extends JPanel{
 	private int imgX=0, imgY=0,width, height, scale;
-	private BufferedImage image=Assets.getTest();//the image that moves around the screen
+	private BufferedImage image=Window.getAssets().getTest();//the image that moves around the screen
 	
 	public Display(int width, int height, int scale){
 		 //setting the proper size so that the window will pack properly
@@ -37,9 +35,10 @@ public class Display extends JPanel{
 		//a normal graphics object cannot scale so I cast it to a graphisc2D which can
 		Graphics2D g2d = (Graphics2D) g;
 		
-		g2d.scale(scale, scale);//scaling the graphics
+		//g2d.scale(scale, scale);//scaling the graphics
 		g2d.clearRect(0, 0, width, height);//clearing the previous frame
         g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
+        Window.getFloor().render(g2d);
         
 	}
 	/*
