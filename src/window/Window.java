@@ -42,5 +42,4 @@ public class Window {
 	public Display getDisplay() {
 		return display;
 	}
-
 }
