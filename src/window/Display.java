@@ -16,7 +16,7 @@ import graphics.Assets;
  * because you aren't supposed to draw directly onto it
  */
 public class Display extends JPanel {
-	private int imgX = 0, imgY = 0, width, height, scale;
+	private int x,y, width, height, scale;
 	private Floor floor;//the floor that the game it played on
 	private Assets assets = new Assets();//all the assets for the game which can be sent to different classes
 	// private BufferedImage image=Window.getAssets().getTest();//the image that
@@ -49,6 +49,7 @@ public class Display extends JPanel {
 		g2d.clearRect(0, 0, width, height);// clearing the previous frame
 		// g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
 		floor.render(g2d);// rendering the floor
+		g2d.drawImage(assets.getTiles()[0], x, y, null);//drawing the image to the screen
 	}
 
 	/*
@@ -58,6 +59,8 @@ public class Display extends JPanel {
 	 */
 	public void update() {
 		// all updating code goes here
+		x++;
+		y++;
 
 	}
 
