@@ -43,6 +43,7 @@ public class Player extends Mobs implements MouseListener{
 		if (key==KeyEvent.VK_S){
 			changeY=0;
 		}
+	}
 	public void shoot(){
 		if (shotBuffer == 0){
 			targetX = MouseInfo.getPointerInfo().getLocation().getX();
