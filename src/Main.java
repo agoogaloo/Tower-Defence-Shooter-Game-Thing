@@ -1,4 +1,5 @@
 import window.Window;
+
 /*
  * by Matthew Milum
  */
@@ -27,7 +28,8 @@ public class Main {
 			// note: you could get the current time instead of frame start, however would be
 			// a bit slower, and we are just printing the FPS so it's ok if its a bit off.
 			// another note: if you want it more accurate you can take take the frame
-			// rate every few seconds and just divide frames by how many second you increased
+			// rate every few seconds and just divide frames by how many second you
+			// increased
 			if (frameStart - fpsTimer >= 1000000000) {
 				// outputting the number of frames that happened that second
 				System.out.println(frames + "fps");
@@ -40,4 +42,5 @@ public class Main {
 			} while (delta < DELAY);// looping until the frame has lasted the target number of nanoseconds
 		}
 	}
+
 }

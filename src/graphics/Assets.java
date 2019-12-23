@@ -11,9 +11,19 @@ import javax.imageio.ImageIO;
  * a class that contains all the pictures, sounds, etc. for the game
  */
 public class Assets {
-	private static BufferedImage test=load("res/test.png");//creating all the assets
+	private BufferedImage test=load("res/test.png");//creating all the assets
+	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	
-	private static BufferedImage load(String path) {
+	private BufferedImage[] splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
+		BufferedImage[] pics=new BufferedImage[rows*columns];
+		for(int y=0;y<columns;y++) {
+			for(int x=0;x<rows;x++) {
+				pics[(y*rows)+x]=sheet.getSubimage(x*width, y*height, width, height);
+			}
+		}
+		return pics;
+	}
+	private BufferedImage load(String path) {
 		/*
 		 * this method loads a image from a String so you don't need to put 
 		 * it in a try catch every time
@@ -28,7 +38,11 @@ public class Assets {
 	}
 
 	//methods that return the assets
-	public static BufferedImage getTest() {
+	public BufferedImage getTest() {
 		return test;
-	}		
+	}
+	public BufferedImage[] getTiles() {
+		return tiles;
+	}
+	
 }
