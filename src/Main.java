@@ -1,6 +1,5 @@
-import floors.Floor;
-import graphics.Assets;
 import window.Window;
+
 /*
  * by Matthew Milum
  */
@@ -9,20 +8,15 @@ public class Main {
 	 * the main class that will create the window then updates and renders it
 	 * (basically holds the main game loop)
 	 */
-	
-	//statics
-	
-	
-	
 	public static void main(String[] args) {
 		Window window = new Window(800, 600);
 		boolean run = true;
-		
+
 		// variables for limiting frame rate
 		final int FPS = 60, DELAY = 1000000000 / FPS;
 		long delta = 0, frameStart = System.nanoTime(), fpsTimer = frameStart;
 		int frames = 0;
-		
+
 		while (run) {// running the game while run is true
 			frameStart = System.nanoTime();// getting the time the frame started
 			// this is where everything in the game actualy happens
@@ -34,7 +28,8 @@ public class Main {
 			// note: you could get the current time instead of frame start, however would be
 			// a bit slower, and we are just printing the FPS so it's ok if its a bit off.
 			// another note: if you want it more accurate you can take take the frame
-			// rate every few seconds and just divide frames by how many second you increased
+			// rate every few seconds and just divide frames by how many second you
+			// increased
 			if (frameStart - fpsTimer >= 1000000000) {
 				// outputting the number of frames that happened that second
 				System.out.println(frames + "fps");
@@ -47,5 +42,5 @@ public class Main {
 			} while (delta < DELAY);// looping until the frame has lasted the target number of nanoseconds
 		}
 	}
-	
+
 }
