@@ -1,20 +1,42 @@
 package entity;
 
-import javafx.scene.shape.Circle; 
+import java.awt.Rectangle;
+
 /**
  * @author Kevin Tea
  */
 public abstract class Tower extends Statics {
 	
-	boolean shooting = false;
-	int shootDelay = 0;
-	int rangeDistance = 30;
-	//Circle towerRange = new Circle(width/2,height/2,rangeDistance); //Creates a circle for the towers range (Not Working)
+	boolean attack = false;
+	int shotDelay = 0;
+	int rangeWidth, rangeHeight = 30;
+	Rectangle towerRange = new Rectangle(x,y,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
 	
 	private void shoot() {
-		int enemyX, enemyY;
-		for(Entity e:EntityManager.getEntities()) {
-			
+		double enemyX=0, enemyY=0;
+		for(Entity e:EntityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
+			if(e.bounds.intersects(towerRange)) { //If an entity is detected within tower range get it's x and y and set it to the appropriate variables
+				enemyX = e.getEntityX();
+				enemyY = e.getEntityY();
+				attack = true; //An entity has been detected so the tower will start shooting
+			}
+		}
+		if (attack = true && shotDelay == 30) {
+			EntityManager.addEntity(new Bullet(x,y,enemyX,enemyY));
+			shotDelay = 0;
+		}
+		if (shotDelay>30) { //When 30 frames pass reset shot delay
+			shotDelay=0;
 		}
 	}
+	
+	@Override
+	public void update(){ //Every frame check to see if an entity is within towers range, if so start attacking
+		shoot();
+		shotDelay+=1; //Counts up for every frame, towers can only shoot every 30 frames
+	}
+//	@Override
+//	public void render() {
+//		
+//	}
 }
