@@ -4,6 +4,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
+/**
+ * @author Sahib
+ */
 public class Player extends Mobs implements MouseListener{
 	int currency;
 	int width=50, height=50;
@@ -44,6 +47,10 @@ public class Player extends Mobs implements MouseListener{
 			changeY=0;
 		}
 	}
+	
+	/**
+	 * @author Kevin Tea
+	 */
 	public void shoot(){
 		if (shotBuffer == 0){
 			targetX = MouseInfo.getPointerInfo().getLocation().getX();
@@ -57,7 +64,6 @@ public class Player extends Mobs implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		shoot();
-		
 	}
 
 	@Override
@@ -87,8 +93,18 @@ public class Player extends Mobs implements MouseListener{
 	public void update(){
 		x+=changeX;
 		y+=changeY;
-		if (entities.contains(enemies)){
-			
-		}
+//		if (EntityManager.getEntities().contains(Bullet)){
+//			health-=2;
+//		}
+//		if (EntityManager.getEntities().contains(enemies)){
+//			health-=1;
+//		}
+		shoot();
+		shotBuffer-=1;
 	}
+	
+//	@Override
+//	public void render() {
+//		
+//	}
 }
