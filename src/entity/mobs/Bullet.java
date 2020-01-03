@@ -1,4 +1,4 @@
-package entity;
+package entity.mobs;
 
 import java.awt.Graphics;
 

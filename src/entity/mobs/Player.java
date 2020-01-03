@@ -1,7 +1,10 @@
-package entity;
+package entity.mobs;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import entity.EntityManager;
+
 import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 /**

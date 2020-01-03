@@ -1,6 +1,8 @@
-package entity;
+package entity.mobs;
 
 import java.awt.Graphics;
+
+import entity.Entity;
 
 public class Mobs extends Entity{
 	int speed, changeX , changeY;
