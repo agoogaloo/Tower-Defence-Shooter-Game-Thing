@@ -2,16 +2,25 @@ package entity;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import entity.mobs.Player;
+import graphics.Assets;
 /**
  * @author Kevin Tea
  *
  */
 public class EntityManager {
+	Assets assets= new Assets();
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
+	public EntityManager() {
+		entities.add(new Player(assets.getPlayer()));
+	}
+	
 	public void update(){
-		for (Entity i:entities){ //Loop through arraylist checking for what got hit
-			i.update();
+		for (int i=0;i<entities.size();i++){ //Loop through arraylist to update 
+			//everything needs to loop like this so that entities can be added in update methods
+			entities.get(i).update();
 //			if(i.getKilled()){ 
 //				if(i.instanceOf(Player)){ //If player gets hit reset level
 //					level.reset();

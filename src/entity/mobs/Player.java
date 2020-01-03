@@ -2,114 +2,80 @@ package entity.mobs;
 
 import java.awt.Graphics;
 import java.awt.MouseInfo;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
 /**
- * @author Sahib
+ * @author Sahib and Matthew
  */
-//inputs and such should be split into another class because it is imposible to 
-//find anything and know whats going on already and we dont even have anything in the class yet
-public class Player extends Mobs implements MouseListener {
+public class Player extends Mobs {
+	//declaring variables
 	int money=0;
 	int width = 50, height = 50;
-	int x = 540, y = 960;
 	int shotBuffer = 0;
-	int speed = 1;
+	
 	int health = 100;
-
 	double bulletPath;
-	public void keypressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		if (key == KeyEvent.VK_A) {
-			changeX = -speed;
-		}
-		if (key == KeyEvent.VK_D) {
-			changeX = +speed;
-		}
-		if (key == KeyEvent.VK_W) {
-			changeY = +speed;
-		}
-		if (key == KeyEvent.VK_S) {
-			changeY = -speed;
-		}
-	}
-
-	public void keyreleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		if (key == KeyEvent.VK_A) {
-			changeX = 0;
-		}
-		if (key == KeyEvent.VK_D) {
-			changeX = 0;
-		}
-		if (key == KeyEvent.VK_W) {
-			changeY = 0;
-		}
-		if (key == KeyEvent.VK_S) {
-			changeY = 0;
-		}
+	
+	PlayerInput input=new PlayerInput();//letting it get the inputs
+	BufferedImage[] pics;
+	
+	public Player(BufferedImage[] pics) {
+		this.pics=pics;//the pictures that are drawn where the player is
+		speed = 2;
 	}
 
 	/**
 	 * @author Kevin Tea
 	 */
 	public void shoot() {
-		if (shotBuffer == 0) {
+		
+		if (shotBuffer <= 0) {
 			double targetX, targetY;
 			targetX = MouseInfo.getPointerInfo().getLocation().getX();
 			targetY = MouseInfo.getPointerInfo().getLocation().getY();
-
+			System.out.println("peew");
 			entityManager.addEntity(new Bullet(x, y, targetX, targetY));
 			shotBuffer = 30;
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		shoot();
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
 
 	@Override
 	public void update() {
-		x += changeX;
+		input.update();//updating input so that it can get the current inputs 
+		if(input.isShoot()) {
+			shoot();
+
+		}
+		if(input.isUp()) {//if the up input is triggered than itwil move the player up
+			changeY-=speed;
+		}
+		if(input.isDown()) {//moving other directions
+			changeY+=speed;
+		}
+		if(input.isLeft()) {
+			changeX-=speed;
+		}
+		if(input.isRight()) {
+			changeX+=speed;
+		}
+		x += changeX;//actually moving the player
 		y += changeY;
+		changeX=0;//resting change x and y
+		changeY=0;
 //		if (EntityManager.getEntities().contains(Bullet)){
 //			health-=2;
 //		}
 //		if (EntityManager.getEntities().contains(enemies)){
 //			health-=1;
 //		}
-		shoot();
+		
 		shotBuffer -= 1;
 	}
 
 	@Override
 	public void render(Graphics g) {
+		g.drawImage(pics[1], x, y, null);
 
 	}
 }

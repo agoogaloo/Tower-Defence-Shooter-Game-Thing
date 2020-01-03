@@ -5,13 +5,8 @@ import java.awt.Graphics;
 import entity.Entity;
 
 public class Mobs extends Entity{
-	int speed, changeX , changeY;
-	public int getchangeX(){
-		return x+=changeX;
-	}
-	public int getchangeY(){
-		return y=+changeY;
-	}
+	protected int speed=1, changeX, changeY;
+	
 	/*public void wallCollision(){
 		if (changeX+x>Window.getWidth()){
 			changeX=0;

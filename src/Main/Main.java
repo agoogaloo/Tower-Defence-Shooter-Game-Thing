@@ -1,3 +1,4 @@
+package Main;
 import window.Window;
 
 /*
@@ -8,8 +9,9 @@ public class Main {
 	 * the main class that will create the window then updates and renders it
 	 * (basically holds the main game loop)
 	 */
+	private static Window window;
 	public static void main(String[] args) {
-		Window window = new Window(800, 600);
+		window = new Window(800, 600);
 		boolean run = true;
 
 		// variables for limiting frame rate
@@ -41,6 +43,9 @@ public class Main {
 				delta = System.nanoTime() - frameStart;// setting delta to how long the frame has lasted for
 			} while (delta < DELAY);// looping until the frame has lasted the target number of nanoseconds
 		}
+	}
+	public static Window getWindow() {
+		return window;
 	}
 
 }
