@@ -1,6 +1,9 @@
-package entity;
+package entity.statics;
 
 import java.awt.Rectangle;
+
+import entity.Entity;
+import entity.mobs.Bullet;
 
 /**
  * @author Kevin Tea
@@ -14,15 +17,15 @@ public abstract class Tower extends Statics {
 	
 	private void shoot() {
 		double enemyX=0, enemyY=0;
-		for(Entity e:EntityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
-			if(e.bounds.intersects(towerRange)) { //If an entity is detected within tower range get it's x and y and set it to the appropriate variables
-				enemyX = e.getEntityX();
-				enemyY = e.getEntityY();
+		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
+			if(e.getBounds().intersects(towerRange)) { //If an entity is detected within tower range get it's x and y and set it to the appropriate variables
+				enemyX = e.getX();
+				enemyY = e.getY();
 				attack = true; //An entity has been detected so the tower will start shooting
 			}
 		}
 		if (attack = true && shotDelay == 30) {
-			EntityManager.addEntity(new Bullet(x,y,enemyX,enemyY));
+			entityManager.addEntity(new Bullet(x,y,enemyX,enemyY));
 			shotDelay = 0;
 		}
 		if (shotDelay>30) { //When 30 frames pass reset shot delay

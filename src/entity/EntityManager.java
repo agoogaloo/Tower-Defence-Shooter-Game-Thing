@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  */
 public class EntityManager {
-	static ArrayList<Entity> entities = new ArrayList<Entity>();
+	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	public void update(){
 		for (Entity i:entities){ //Loop through arraylist checking for what got hit
@@ -26,10 +26,10 @@ public class EntityManager {
 			i.render(g);
 		}
 	}
-	public static void addEntity(Entity e){ //allows us to add to the entity manager
+	public void addEntity(Entity e){ //allows us to add to the entity manager
 		entities.add(e);
 	}
-	public static ArrayList<Entity> getEntities(){ //Accessor method for the entities
+	public ArrayList<Entity> getEntities(){ //Accessor method for the entities
 		return entities;
 	}
 }

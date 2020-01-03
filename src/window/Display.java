@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Entity;
 import floors.Floor;
 import graphics.Assets;
 
@@ -50,6 +51,7 @@ public class Display extends JPanel {
 		// g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
 		floor.render(g2d);// rendering the floor
 		g2d.drawImage(assets.getTiles()[0], x, y, null);//drawing the image to the screen
+		Entity.getEntityManager().render(g2d);//rendering th entities
 	}
 
 	/*
@@ -58,10 +60,10 @@ public class Display extends JPanel {
 	 * did it this way
 	 */
 	public void update() {
-		// all updating code goes here
+		Entity.getEntityManager().update();//updating the entities
 		x++;
 		y++;
 
-	}
+	} 
 
 }

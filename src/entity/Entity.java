@@ -8,24 +8,32 @@ import java.awt.Rectangle;
  *
  */
 public abstract class Entity {
-	int x, y;
-	int health;
-	int width, height;
-	double changeX, changeY;
-	boolean killed = false;
+	protected int x, y;
+	protected int health;
+	protected int width, height;
+	protected double changeX, changeY;
+	protected boolean killed = false;
 	
-	Rectangle bounds = new Rectangle(0,0, width,height); //Gives enemies a hitbox of their width and height
+	protected static EntityManager entityManager=new EntityManager();
 	
-	public int getEntityX(){
+	protected Rectangle bounds = new Rectangle(0,0, width,height); //Gives enemies a hitbox of their width and height
+	
+	public int getX(){
 		return this.x;
 	}
-	public int getEntityY(){
+	public int getY(){
 		return this.y;
 	}
 	public boolean getKilled(){
 		return this.killed;
 	}
 	
-	abstract void update();
-	abstract void render(Graphics g);
+	public Rectangle getBounds() {
+		return bounds;
+	}
+	public static EntityManager getEntityManager() {
+		return entityManager;
+	}
+	public abstract void update();
+	public abstract void render(Graphics g);
 }

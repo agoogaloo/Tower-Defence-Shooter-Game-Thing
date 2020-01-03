@@ -21,13 +21,13 @@ public class Mobs extends Entity{
 		}
 	}*/
 	@Override
-	void update() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	void render(Graphics g) {
+	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}
