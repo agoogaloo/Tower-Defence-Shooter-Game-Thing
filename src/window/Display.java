@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import entity.Entity;
 import floors.Floor;
 import graphics.Assets;
+import graphics.Camera;
 
 /*
  * by: Matthew Milum
@@ -19,6 +20,7 @@ import graphics.Assets;
 public class Display extends JPanel {
 	private int x,y, width, height, scale;
 	private Floor floor;//the floor that the game it played on
+	private Camera camera;
 	private Assets assets = new Assets();//all the assets for the game which can be sent to different classes
 	// private BufferedImage image=Window.getAssets().getTest();//the image that
 	// moves around the screen
@@ -34,6 +36,7 @@ public class Display extends JPanel {
 		// setting the preferred size to the inputed one so that the pack method will
 		// work properly
 		floor = new Floor(5, this.width, this.height, assets.getTiles());// creating a floor for the game
+		camera =new Camera(this.width, this.height);
 		// in the future we would probably want to put things like the level in a
 		// gameState class or something similar but I will just leave it here for now
 
@@ -61,6 +64,7 @@ public class Display extends JPanel {
 	 */
 	public void update() {
 		Entity.getEntityManager().update();//updating the entities
+		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
 		x++;
 		y++;
 

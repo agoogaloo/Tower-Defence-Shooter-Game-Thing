@@ -1,20 +1,24 @@
 package graphics;
 
-import game.Handler;
-import game.entities.Entity;
+import entity.Entity;
 
 public class Camera {
-	private int xOffset, yOffset;
+	private int xOffset, yOffset, screenWidth, screenHeight;
 	
 	
-	public Camera() {
+	public Camera(int screenWidth, int screenHeight) {
 		this.xOffset = 0;
 		this.yOffset = 0;
+		this.screenWidth=screenWidth;
+		this.screenHeight=screenHeight;
+		
 	}
 
-	public Camera(int xOffset, int yOffset) {
+	public Camera(int screenWidth, int screenHeight, int xOffset, int yOffset) {
 		this.xOffset=xOffset;
 		this.yOffset=yOffset;
+		this.screenWidth=screenWidth;
+		this.screenHeight=screenHeight;
 	}
 	
 	public void move(int xMove, int yMove) {
@@ -23,8 +27,8 @@ public class Camera {
 	}
 	
 	public void centerOnEntity(Entity e) {
-		xOffset = e.getX() - Handler.getScreenWidth()/2 + e.getWidth()/2;
-		yOffset= e.getY()-Handler.getScreenHeight()/2 +e.getHeight()/2;								
+		xOffset = e.getX() - screenWidth/2 + e.getWidth()/2;
+		yOffset= e.getY()- screenHeight/2 +e.getHeight()/2;								
 	}
 
 }

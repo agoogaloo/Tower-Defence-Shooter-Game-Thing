@@ -11,6 +11,7 @@ public abstract class Entity {
 	protected int x, y;
 	protected int health;
 	protected int width, height;
+	
 	protected double changeX, changeY;
 	protected boolean killed = false;
 	
@@ -23,6 +24,12 @@ public abstract class Entity {
 	}
 	public int getY(){
 		return this.y;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
 	}
 	public boolean getKilled(){
 		return this.killed;

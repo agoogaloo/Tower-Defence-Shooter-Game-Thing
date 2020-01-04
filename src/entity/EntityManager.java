@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import entity.mobs.Player;
 import graphics.Assets;
 /**
- * @author Kevin Tea
+ * by: Kevin Tea and Matthew Milum
  *
  */
 public class EntityManager {
 	Assets assets= new Assets();
 	ArrayList<Entity> entities = new ArrayList<Entity>();
+	Player player=new Player(assets.getPlayer());
 	
 	public EntityManager() {
-		entities.add(new Player(assets.getPlayer()));
+		entities.add(player);
 	}
 	
 	public void update(){
@@ -40,5 +41,8 @@ public class EntityManager {
 	}
 	public ArrayList<Entity> getEntities(){ //Accessor method for the entities
 		return entities;
+	}
+	public Player getPlayer(){
+		return player;
 	}
 }
