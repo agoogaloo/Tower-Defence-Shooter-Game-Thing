@@ -30,5 +30,14 @@ public class Camera {
 		xOffset = e.getX() - screenWidth/2 + e.getWidth()/2;
 		yOffset= e.getY()- screenHeight/2 +e.getHeight()/2;								
 	}
+	
+	public int getxOffset() {
+		return xOffset;
+	}
+
+	public int getyOffset() {
+		return yOffset;
+	}
+
 
 }

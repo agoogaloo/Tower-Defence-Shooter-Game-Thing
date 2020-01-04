@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 
+import Main.Main;
+
 /**
  * @author Sahib and Matthew
  */
@@ -22,6 +24,8 @@ public class Player extends Mobs {
 	public Player(BufferedImage[] pics) {
 		this.pics=pics;//the pictures that are drawn where the player is
 		speed = 2;
+		x=1000;
+		y=1000;
 	}
 
 	/**

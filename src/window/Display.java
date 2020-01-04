@@ -19,7 +19,7 @@ import graphics.Camera;
  */
 public class Display extends JPanel {
 	private int x,y, width, height, scale;
-	private Floor floor;//the floor that the game it played on
+	private Floor floor;//the floor that the game it played on5
 	private Camera camera;
 	private Assets assets = new Assets();//all the assets for the game which can be sent to different classes
 	// private BufferedImage image=Window.getAssets().getTest();//the image that
@@ -50,6 +50,7 @@ public class Display extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.scale(scale, scale);// scaling the graphics
+		g2d.translate(-camera.getxOffset(), -camera.getyOffset());
 		g2d.clearRect(0, 0, width, height);// clearing the previous frame
 		// g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
 		floor.render(g2d);// rendering the floor
@@ -68,6 +69,9 @@ public class Display extends JPanel {
 		x++;
 		y++;
 
-	} 
+	}
+	public Camera getCamera() {
+		return camera;
+	}
 
 }
