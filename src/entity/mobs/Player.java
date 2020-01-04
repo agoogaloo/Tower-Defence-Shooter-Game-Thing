@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 
+import graphics.Assets;
+
 /**
  * @author Sahib and Matthew
  */
@@ -18,6 +20,7 @@ public class Player extends Mobs {
 	
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 	BufferedImage[] pics;
+	private Assets assets = new Assets();
 	
 	public Player(BufferedImage[] pics) {
 		this.pics=pics;//the pictures that are drawn where the player is
@@ -34,7 +37,7 @@ public class Player extends Mobs {
 			targetX = MouseInfo.getPointerInfo().getLocation().getX();
 			targetY = MouseInfo.getPointerInfo().getLocation().getY();
 			System.out.println("peew");
-			entityManager.addEntity(new Bullet(x, y, targetX, targetY));
+			entityManager.addEntity(new Bullet(x, y, targetX, targetY, assets.getBullet()));
 			shotBuffer = 30;
 		}
 	}
@@ -72,7 +75,7 @@ public class Player extends Mobs {
 		
 		shotBuffer -= 1;
 	}
-
+	//@author Kevin
 	@Override
 	public void render(Graphics g) {
 		if (input.getDirection() == 'd') {

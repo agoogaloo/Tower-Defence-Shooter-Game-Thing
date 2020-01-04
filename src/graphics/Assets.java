@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
  */
 public class Assets {
 	private BufferedImage test=load("res/test.png");//creating all the assets
+	private BufferedImage bullet = load("res/bullet.png");
 	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	private final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 29, 7, 4);
 	
@@ -47,6 +48,9 @@ public class Assets {
 	}
 	public BufferedImage[] getPlayer() {
 		return player;
+	}
+	public BufferedImage getBullet() {
+		return bullet;
 	}
 	
 }
