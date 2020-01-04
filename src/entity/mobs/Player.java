@@ -75,7 +75,18 @@ public class Player extends Mobs {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(pics[1], x, y, null);
-
+		if (input.getDirection() == 'd') {
+			g.drawImage(pics[0], x, y, null);
+			System.out.println("Down");
+		}else if (input.getDirection() == 'l') {
+			g.drawImage(pics[7], x, y, null);
+			System.out.println("Left");
+		}else if (input.getDirection() == 'u') {
+			g.drawImage(pics[14], x, y, null);
+			System.out.println("Up");
+		}else if (input.getDirection() == 'r') {
+			g.drawImage(pics[21], x, y, null);
+			System.out.println("Right");
+		}
 	}
 }

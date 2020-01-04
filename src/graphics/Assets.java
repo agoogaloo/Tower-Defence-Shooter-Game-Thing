@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 public class Assets {
 	private BufferedImage test=load("res/test.png");//creating all the assets
 	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
-	private final BufferedImage[] player=splitSpriteSheet(load("res/player guy d.png"), 16, 29, 3, 3);
+	private final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 29, 7, 4);
 	
 	private BufferedImage[] splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		BufferedImage[] pics=new BufferedImage[rows*columns];
