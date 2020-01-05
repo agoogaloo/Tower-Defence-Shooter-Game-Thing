@@ -119,7 +119,8 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		return mouseX/3;//the window is scaled so the location for the mouse needs to match it
 	}
 	public int getMouseY() {
-		return mouseY/3;//the window is scaled so the location for the mouse needs to match it
+		//the position needs to be a bit offset because if the bar at the top of the window
+		return (mouseY-24)/3;//the window is scaled so the location for the mouse needs to match it
 	}
 	
 }

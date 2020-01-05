@@ -31,8 +31,8 @@ public class EntityManager {
 		}
 	}
 	public void render(Graphics g){
-		for (Entity i: entities){
-			i.render(g);
+		for (int i=0;i<entities.size();i++){
+			entities.get(i).render(g);
 		}
 	}
 	public void addEntity(Entity e){ //allows us to add to the entity manager
