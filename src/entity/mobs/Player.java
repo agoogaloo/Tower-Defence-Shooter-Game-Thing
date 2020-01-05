@@ -34,8 +34,9 @@ public class Player extends Mobs {
 		
 		if (shotBuffer <= 0) {
 			double targetX, targetY;
-			targetX = MouseInfo.getPointerInfo().getLocation().getX();
-			targetY = MouseInfo.getPointerInfo().getLocation().getY();
+			targetX = (MouseInfo.getPointerInfo().getLocation().getX()/3);
+			targetY = (MouseInfo.getPointerInfo().getLocation().getY())/3;
+			System.out.println("targetX " + targetX + " targetY " + targetY);
 			System.out.println("peew");
 			entityManager.addEntity(new Bullet(x, y, targetX, targetY, assets.getBullet()));
 			shotBuffer = 30;
@@ -80,16 +81,12 @@ public class Player extends Mobs {
 	public void render(Graphics g) {
 		if (input.getDirection() == 'd') {
 			g.drawImage(pics[0], x, y, null);
-			System.out.println("Down");
 		}else if (input.getDirection() == 'l') {
 			g.drawImage(pics[7], x, y, null);
-			System.out.println("Left");
 		}else if (input.getDirection() == 'u') {
 			g.drawImage(pics[14], x, y, null);
-			System.out.println("Up");
 		}else if (input.getDirection() == 'r') {
 			g.drawImage(pics[21], x, y, null);
-			System.out.println("Right");
 		}
 	}
 }

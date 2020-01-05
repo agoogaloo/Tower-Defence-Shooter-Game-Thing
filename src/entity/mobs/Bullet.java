@@ -15,7 +15,7 @@ public class Bullet extends Mobs{
 	public Bullet(int startX,int startY,double targetX,double targetY,BufferedImage pics){
 		x = startX;
 		y = startY;		
-		bulletPath = Math.atan2(targetY, targetX);
+		bulletPath = Math.atan2(targetY-y, targetX-x);
 		velocityX = speed*Math.cos(bulletPath);
 		velocityY = speed*Math.sin(bulletPath);
 	}
