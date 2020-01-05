@@ -8,26 +8,22 @@ import graphics.Assets;
 public class Bullet extends Mobs{
 	double bulletPath;
 	double velocityX,velocityY;
-
+	int startX, startY;
+	int speed = 5;
 	private Assets assets = new Assets();
 
 	public Bullet(int startX,int startY,double targetX,double targetY,BufferedImage pics){
-		double bulletPath = Math.atan2(targetY, targetX);
-		double velocityX = speed*Math.cos(bulletPath);
-		double velocityY = speed*Math.sin(bulletPath);
+		x = startX;
+		y = startY;		
+		bulletPath = Math.atan2(targetY, targetX);
+		velocityX = speed*Math.cos(bulletPath);
+		velocityY = speed*Math.sin(bulletPath);
 	}
 
-
-	public double getVelocityX(){
-		return this.velocityX;
-	}
-	public double getVelocityY(){
-		return this.velocityY;
-	}
 	@Override
 	public void update(){
-		x+=getVelocityX();
-		y+=getVelocityY();
+		x+=velocityX;
+		y+=velocityY;
 	}
 	@Override
 	public void render(Graphics g){
