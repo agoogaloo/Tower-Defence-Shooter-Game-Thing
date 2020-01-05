@@ -18,13 +18,10 @@ import graphics.Camera;
  * because you aren't supposed to draw directly onto it
  */
 public class Display extends JPanel {
-	private int x,y, width, height, scale;
-	private Floor floor;//the floor that the game it played on5
+	private int x, y, width, height, scale;
+	private Floor floor;// the floor that the game it played on
 	private Camera camera;
-	private Assets assets = new Assets();//all the assets for the game which can be sent to different classes
-	// private BufferedImage image=Window.getAssets().getTest();//the image that
-	// moves around the screen
-
+		
 	public Display(int width, int height, int scale) {
 		// setting the proper size so that the window will pack properly
 		// the display is scaled up to look 8-bit so the
@@ -34,12 +31,11 @@ public class Display extends JPanel {
 		this.scale = scale;
 		this.setPreferredSize(new Dimension(width, height));
 		// setting the preferred size to the inputed one so that the pack method will
-		// work properly
-		floor = new Floor(5, this.width, this.height, assets.getTiles());// creating a floor for the game
-		camera =new Camera(this.width, this.height);
+		floor = new Floor(5, this.width, this.height, new Assets().getTiles());
+		// creating a floor for the game and giving it the tileset
+		camera = new Camera(this.width, this.height);
 		// in the future we would probably want to put things like the level in a
-		// gameState class or something similar but I will just leave it here for now
-
+		// gameState class or something similar but I it is fine this way for now
 	}
 
 	@Override
@@ -53,11 +49,12 @@ public class Display extends JPanel {
 		g2d.clearRect(0, 0, width, height);// clearing the previous frame
 		// g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
 		floor.render(g2d, camera);// rendering the floor
-		Entity.getEntityManager().render(g2d, camera);//rendering th entities
+		Entity.getEntityManager().render(g2d, camera);// rendering the entities
 	}
 
 	public void update() {
-		Entity.getEntityManager().update();//updating the entities
+		Entity.getEntityManager().update();// updating the entities
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
+		// updating the camera position to center on the player
 	}
 }

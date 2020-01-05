@@ -34,13 +34,12 @@ public class Floor {
 	}
 
 	// this method draws everything to the screen
-	//note: this will only draw the top-left corner because it the camera isn't a thing yet
 	public void render(Graphics g, Camera camera) {
-		for (int y = 0; y < size * ROOMSIZE; y++) {
-			for (int x = 0; x < size * ROOMSIZE * 2; x++) {// looping though all the tiles
-				//these would be replaced with whatever place the tile is being rendered at
+		for (int y = 0; y < size * ROOMSIZE; y++) {// looping though all the tiles
+			for (int x = 0; x < size * ROOMSIZE * 2; x++) {
+				//these will be whatever place the tile is being rendered at
 				int drawX=x * TILESIZE-camera.getxOffset(), drawY=y * TILESIZE-camera.getyOffset();
-				if(drawX>=-TILESIZE&&drawX<=SCREENWIDTH&&//checking if the tile is actually on screen
+				if(drawX>=-TILESIZE&&drawX<=SCREENWIDTH&&//checking if it would actually be renderd in the screen
 						drawY>-TILESIZE&&drawY<=SCREENHEIGHT) {
 					g.drawImage(PICS[getTile(x, y) - 1], drawX, drawY, null);
 					// drawing the proper tile in the proper place
