@@ -9,12 +9,11 @@ import java.awt.image.BufferedImage;
  */
 public class Player extends Mobs {
 	//declaring variables
-	int money=0;
-	int width = 50, height = 50;
-	int shotBuffer = 0;
-	
-	int health = 100;
-	double bulletPath;
+	private int money=0;
+	private int width = 50, height = 50;
+	private int shotBuffer = 0;
+	private int health = 100;
+	private double bulletPath;
 	
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 	BufferedImage[] pics;

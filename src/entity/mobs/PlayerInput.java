@@ -14,8 +14,9 @@ import Main.Main;
 
 public class PlayerInput implements MouseListener, KeyListener{
 	private boolean[] keys = new boolean[256];
-	public boolean up, down, left, right, shoot;
-	public char direction;
+	private boolean up, down, left, right, shoot;
+	private char direction;
+	
 	public PlayerInput() {
 		Main.getWindow().getWindow().addKeyListener(this);
 		Main.getWindow().getWindow().addMouseListener(this);
