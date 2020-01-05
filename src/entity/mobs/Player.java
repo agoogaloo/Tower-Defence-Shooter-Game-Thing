@@ -1,7 +1,6 @@
 package entity.mobs;
 
 import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 
 import graphics.Assets;
@@ -39,7 +38,7 @@ public class Player extends Mobs {
 			System.out.println("targetX " + targetX + " targetY " + targetY);
 			System.out.println("peew");
 			entityManager.addEntity(new Bullet(x, y, targetX, targetY, assets.getBullet()));
-			//shotBuffer = 30;
+			shotBuffer = 30;
 		}
 	}
 
