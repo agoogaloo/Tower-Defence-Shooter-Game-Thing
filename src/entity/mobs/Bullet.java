@@ -2,6 +2,8 @@ package entity.mobs;
 
 import java.awt.Graphics;
 
+import graphics.Camera;
+
 public class Bullet extends Mobs{
 	double bulletPath;
 	double velocityX,velocityY;
@@ -25,7 +27,7 @@ public class Bullet extends Mobs{
 		y+=getVelocityY();
 	}
 	@Override
-	public void render(Graphics G){
+	public void render(Graphics g, Camera camera){
 		
 	}
 }

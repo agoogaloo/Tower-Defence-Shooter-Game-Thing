@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 
-import Main.Main;
+import graphics.Camera;
 
 /**
  * @author Sahib and Matthew
@@ -24,8 +24,8 @@ public class Player extends Mobs {
 	public Player(BufferedImage[] pics) {
 		this.pics=pics;//the pictures that are drawn where the player is
 		speed = 2;
-		x=1000;
-		y=1000;
+		x=1600;
+		y=1600;
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class Player extends Mobs {
 	}
 
 	@Override
-	public void render(Graphics g) {
-		g.drawImage(pics[1], x, y, null);
+	public void render(Graphics g, Camera camera) {
+		g.drawImage(pics[1], x-camera.getxOffset(), y-camera.getyOffset(), null);
 
 	}
 }

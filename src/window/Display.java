@@ -50,28 +50,14 @@ public class Display extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.scale(scale, scale);// scaling the graphics
-		g2d.translate(-camera.getxOffset(), -camera.getyOffset());
 		g2d.clearRect(0, 0, width, height);// clearing the previous frame
 		// g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
-		floor.render(g2d);// rendering the floor
-		g2d.drawImage(assets.getTiles()[0], x, y, null);//drawing the image to the screen
-		Entity.getEntityManager().render(g2d);//rendering th entities
+		floor.render(g2d, camera);// rendering the floor
+		Entity.getEntityManager().render(g2d, camera);//rendering th entities
 	}
 
-	/*
-	 * the display probably shouldn't have an update method and everything will be
-	 * updated from the window class but the rectangle is in the display class so I
-	 * did it this way
-	 */
 	public void update() {
 		Entity.getEntityManager().update();//updating the entities
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
-		x++;
-		y++;
-
 	}
-	public Camera getCamera() {
-		return camera;
-	}
-
 }

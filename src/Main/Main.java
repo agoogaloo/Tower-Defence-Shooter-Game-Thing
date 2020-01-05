@@ -48,8 +48,4 @@ public class Main {
 	public static Window getWindow() {
 		return window;
 	}
-	public static Camera getCamera() {
-		return window.getDisplay().getCamera();
-	}
-
 }

@@ -3,6 +3,8 @@ package entity;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import graphics.Camera;
+
 /**
  * @author Kevin Tea
  *
@@ -42,5 +44,5 @@ public abstract class Entity {
 		return entityManager;
 	}
 	public abstract void update();
-	public abstract void render(Graphics g);
+	public abstract void render(Graphics g, Camera camera);
 }

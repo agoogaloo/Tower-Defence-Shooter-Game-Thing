@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entity.mobs.Player;
 import graphics.Assets;
+import graphics.Camera;
 /**
  * by: Kevin Tea and Matthew Milum
  *
@@ -31,9 +32,9 @@ public class EntityManager {
 //			}
 		}
 	}
-	public void render(Graphics g){
+	public void render(Graphics g, Camera camera){
 		for (Entity i: entities){
-			i.render(g);
+			i.render(g, camera);
 		}
 	}
 	public void addEntity(Entity e){ //allows us to add to the entity manager
