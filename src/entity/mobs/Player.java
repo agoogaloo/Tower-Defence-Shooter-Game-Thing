@@ -34,12 +34,12 @@ public class Player extends Mobs {
 		
 		if (shotBuffer <= 0) {
 			double targetX, targetY;
-			targetX = (MouseInfo.getPointerInfo().getLocation().getX()/3);
-			targetY = (MouseInfo.getPointerInfo().getLocation().getY())/3;
+			targetX = (input.getMouseX());
+			targetY = (input.getMouseY());
 			System.out.println("targetX " + targetX + " targetY " + targetY);
 			System.out.println("peew");
 			entityManager.addEntity(new Bullet(x, y, targetX, targetY, assets.getBullet()));
-			shotBuffer = 30;
+			//shotBuffer = 30;
 		}
 	}
 
