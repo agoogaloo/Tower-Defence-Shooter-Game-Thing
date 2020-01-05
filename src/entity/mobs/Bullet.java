@@ -12,7 +12,7 @@ public class Bullet extends Mobs{
 	int speed = 5;
 	private Assets assets = new Assets();
 
-	public Bullet(int startX,int startY,double targetX,double targetY,BufferedImage pics){
+	public Bullet(int startX,int startY,double targetX,double targetY){
 		x = startX;
 		y = startY;		
 		bulletPath = Math.atan2(targetY-y, targetX-x);
