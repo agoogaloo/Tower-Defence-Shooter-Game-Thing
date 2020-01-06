@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 import graphics.Assets;
 
+import graphics.Camera;
+
 public class Bullet extends Mobs{
 	double bulletPath;
 	double velocityX,velocityY, trueX, trueY;
@@ -30,7 +32,8 @@ public class Bullet extends Mobs{
 		y=(int)(trueY);
 	}
 	@Override
-	public void render(Graphics g){
+
+	public void render(Graphics g, Camera camera){
 		g.drawImage(assets.getBullet(), x-assets.getBullet().getWidth()/2,
 				y-assets.getBullet().getHeight()/2, null);
 	}

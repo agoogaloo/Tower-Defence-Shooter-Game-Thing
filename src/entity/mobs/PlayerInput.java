@@ -17,9 +17,10 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 	private boolean[] keys = new boolean[256];
 	private boolean up, down, left, right, shoot;
 	private char direction;
+
 	private int mouseX, mouseY;
 	
-	public  PlayerInput() {
+	public PlayerInput() {
 		Main.getWindow().getWindow().addKeyListener(this);
 		Main.getWindow().getWindow().addMouseListener(this);
 		Main.getWindow().getWindow().addMouseMotionListener(this);

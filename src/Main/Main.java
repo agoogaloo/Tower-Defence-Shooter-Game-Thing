@@ -1,4 +1,5 @@
 package Main;
+import graphics.Camera;
 import window.Window;
 
 /*
@@ -47,5 +48,4 @@ public class Main {
 	public static Window getWindow() {
 		return window;
 	}
-
 }
