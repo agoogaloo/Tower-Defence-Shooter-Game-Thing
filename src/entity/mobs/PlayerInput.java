@@ -10,9 +10,12 @@ import java.awt.event.MouseListener;
 
 import Main.Main;
 
+
+
 public class PlayerInput implements MouseListener, KeyListener{
 	private boolean[] keys = new boolean[256];
-	public boolean up, down, left, right, shoot;
+	private boolean up, down, left, right, shoot;
+	private char direction;
 	
 	public PlayerInput() {
 		Main.getWindow().getWindow().addKeyListener(this);
@@ -23,6 +26,16 @@ public class PlayerInput implements MouseListener, KeyListener{
 		down = keys[KeyEvent.VK_DOWN];//is pushed or false if its not pushed 
 		left = keys[KeyEvent.VK_LEFT];//by setting it to the right index in the array
 		right = keys[KeyEvent.VK_RIGHT];
+		
+		if(up) {
+			direction = 'u';
+		}else if(down) {
+			direction = 'd';
+		}else if(left) {
+			direction = 'l';
+		}else if(right) {
+			direction = 'r';
+		}
 		
 	}
 	
@@ -82,5 +95,9 @@ public class PlayerInput implements MouseListener, KeyListener{
 	}
 	public boolean isShoot() {
 		return shoot;
+	}
+	//@author Kevin
+	public char getDirection(){
+		return direction;
 	}
 }

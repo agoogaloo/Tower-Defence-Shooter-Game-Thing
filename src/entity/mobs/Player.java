@@ -11,15 +11,17 @@ import graphics.Camera;
  * @author Sahib and Matthew
  */
 public class Player extends Mobs {
-	// declaring variables
-	private int money = 0;
+	//declaring variables
+	private int money=0;
+	private int width = 50, height = 50;
 	private int shotBuffer = 0;
+	private int health = 100;
 	private double bulletPath;
-
-	private PlayerInput input = new PlayerInput();// letting it get the inputs
-	private Assets assets = new Assets();
-	private BufferedImage[] pics = assets.getPlayer();
-
+	
+	PlayerInput input=new PlayerInput();//letting it get the inputs
+  private Assets assets = new Assets();
+	BufferedImage[] pics=assets.getPlayer();
+	
 	public Player() {
 		// initializing variables
 		speed = 3;
@@ -77,7 +79,19 @@ public class Player extends Mobs {
 
 	@Override
 	public void render(Graphics g, Camera camera) {
-		g.drawImage(pics[1], x - camera.getxOffset(), y - camera.getyOffset(), null);// rendering at the right place
+		if (input.getDirection() == 'd') {
+			g.drawImage(pics[0], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			System.out.println("Down");
+		}else if (input.getDirection() == 'l') {
+			g.drawImage(pics[7],x - camera.getxOffset(), y - camera.getyOffset(), null);
+			System.out.println("Left");
+		}else if (input.getDirection() == 'u') {
+			g.drawImage(pics[14], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			System.out.println("Up");
+		}else if (input.getDirection() == 'r') {
+			g.drawImage(pics[21], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			System.out.println("Right");
+		}
 
 	}
 }
