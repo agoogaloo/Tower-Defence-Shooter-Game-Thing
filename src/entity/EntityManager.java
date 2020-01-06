@@ -13,9 +13,10 @@ import graphics.Camera;
  */
 public class EntityManager {
 	ArrayList<Entity> entities = new ArrayList<Entity>();
-	Player player = new Player();// creating a player
+	Player player;// creating a player
 
 	public EntityManager() {
+		player=new Player();
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 
@@ -34,9 +35,9 @@ public class EntityManager {
 		}
 	}
 
-	public void render(Graphics g, Camera camera) {
-		for (Entity i : entities) {
-			i.render(g, camera);//rendering all the entities
+	public void render(Graphics g, Camera camera){
+		for (int i=0;i<entities.size();i++){
+			entities.get(i).render(g, camera);//rendering all the entities
 		}
 	}
 

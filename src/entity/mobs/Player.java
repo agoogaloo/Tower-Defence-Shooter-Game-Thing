@@ -1,11 +1,11 @@
 package entity.mobs;
 
 import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 
 import graphics.Assets;
 import graphics.Camera;
+
 
 /**
  * @author Sahib and Matthew
@@ -17,8 +17,10 @@ public class Player extends Mobs {
 	private int shotBuffer = 0;
 	private int health = 100;
 	private double bulletPath;
+	private Camera camera;
 	
 	PlayerInput input=new PlayerInput();//letting it get the inputs
+
   private Assets assets = new Assets();
 	BufferedImage[] pics=assets.getPlayer();
 	
@@ -28,6 +30,7 @@ public class Player extends Mobs {
 		health = 100;
 		x = 1600;
 		y = 1600;
+		this.camera=Main.Main.getWindow().getDisplay().getCamera();
 	}
 
 	/**
@@ -37,11 +40,12 @@ public class Player extends Mobs {
 
 		if (shotBuffer <= 0) {
 			double targetX, targetY;
-			targetX = MouseInfo.getPointerInfo().getLocation().getX();
-			targetY = MouseInfo.getPointerInfo().getLocation().getY();
+			targetX = (input.getMouseX());
+			targetY = (input.getMouseY());
+			System.out.println("targetX " + targetX + " targetY " + targetY);
 			System.out.println("peew");
-			entityManager.addEntity(new Bullet(x, y, targetX, targetY));
-			shotBuffer = 30;
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset()));
+			//shotBuffer = 30;
 		}
 	}
 
@@ -76,7 +80,7 @@ public class Player extends Mobs {
 
 		shotBuffer -= 1;
 	}
-
+	//@author Kevin
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
