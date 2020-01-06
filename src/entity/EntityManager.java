@@ -5,21 +5,24 @@ import java.util.ArrayList;
 
 import entity.mobs.Player;
 import graphics.Assets;
+import graphics.Camera;
+
 /**
- * @author Kevin Tea
+ * by: Kevin Tea and Matthew Milum
  *
  */
 public class EntityManager {
-	Assets assets= new Assets();
 	ArrayList<Entity> entities = new ArrayList<Entity>();
-	
+	Player player = new Player();// creating a player
+
 	public EntityManager() {
-		entities.add(new Player(assets.getPlayer()));
+		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
-	
-	public void update(){
-		for (int i=0;i<entities.size();i++){ //Loop through arraylist to update 
-			//everything needs to loop like this so that entities can be added in update methods
+
+	public void update() {
+		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
+			// everything needs to loop like this so that entities can be added in update
+			// methods
 			entities.get(i).update();
 //			if(i.getKilled()){ 
 //				if(i.instanceOf(Player)){ //If player gets hit reset level
@@ -30,15 +33,22 @@ public class EntityManager {
 //			}
 		}
 	}
-	public void render(Graphics g){
-		for (Entity i: entities){
-			i.render(g);
+
+	public void render(Graphics g, Camera camera) {
+		for (Entity i : entities) {
+			i.render(g, camera);//rendering all the entities
 		}
 	}
-	public void addEntity(Entity e){ //allows us to add to the entity manager
+
+	public void addEntity(Entity e) { // allows us to add to the entity manager
 		entities.add(e);
 	}
-	public ArrayList<Entity> getEntities(){ //Accessor method for the entities
+
+	public ArrayList<Entity> getEntities() { // Accessor method for the entities
 		return entities;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }
