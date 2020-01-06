@@ -20,7 +20,7 @@ public class Player extends Mobs {
 	
 	PlayerInput input=new PlayerInput();//letting it get the inputs
   private Assets assets = new Assets();
-	BufferedImage[] pics;
+	BufferedImage[] pics=assets.getPlayer();
 	
 	public Player() {
 		// initializing variables
