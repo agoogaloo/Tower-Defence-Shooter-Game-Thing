@@ -17,6 +17,7 @@ public class Player extends Mobs {
 	private int shotBuffer = 0;
 	private int health = 100;
 	private double bulletPath;
+	private Camera camera;
 	
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 
@@ -29,6 +30,7 @@ public class Player extends Mobs {
 		health = 100;
 		x = 1600;
 		y = 1600;
+		this.camera=Main.Main.getWindow().getDisplay().getCamera();
 	}
 
 	/**
@@ -42,7 +44,7 @@ public class Player extends Mobs {
 			targetY = (input.getMouseY());
 			System.out.println("targetX " + targetX + " targetY " + targetY);
 			System.out.println("peew");
-			entityManager.addEntity(new Bullet(x, y, targetX, targetY));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset()));
 			//shotBuffer = 30;
 		}
 	}

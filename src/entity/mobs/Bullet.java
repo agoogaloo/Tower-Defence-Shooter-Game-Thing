@@ -34,8 +34,8 @@ public class Bullet extends Mobs{
 	@Override
 
 	public void render(Graphics g, Camera camera){
-		g.drawImage(assets.getBullet(), x-assets.getBullet().getWidth()/2,
-				y-assets.getBullet().getHeight()/2, null);
+		g.drawImage(assets.getBullet(), x-assets.getBullet().getWidth()/2-camera.getxOffset(),
+				y-assets.getBullet().getHeight()/2- camera.getyOffset(), null);
 	}
 }
 
