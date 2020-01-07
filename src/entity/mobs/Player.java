@@ -42,7 +42,6 @@ public class Player extends Mobs {
 			double targetX, targetY;
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			System.out.println("targetX " + targetX + " targetY " + targetY);
 			System.out.println("peew");
 			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0));
 			shotBuffer = 10;
@@ -85,16 +84,12 @@ public class Player extends Mobs {
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
 			g.drawImage(pics[0], x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Down");
 		}else if (input.getDirection() == 'l') {
 			g.drawImage(pics[7],x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Left");
 		}else if (input.getDirection() == 'u') {
 			g.drawImage(pics[14], x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Up");
 		}else if (input.getDirection() == 'r') {
 			g.drawImage(pics[21], x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Right");
 		}
 
 	}
