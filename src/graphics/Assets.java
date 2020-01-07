@@ -13,10 +13,12 @@ import javax.imageio.ImageIO;
 public class Assets {
 	private BufferedImage test=load("res/test.png");//creating all the assets
 	private BufferedImage bullet = load("res/bullet.png");
-	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
+	public static final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	private final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 29, 7, 4);
+	public static final BufferedImage[] core = splitSpriteSheet(load("res/core heart thingy.png"), 40, 35, 3, 3);
 	
-	private BufferedImage[] splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
+	
+	private static BufferedImage[] splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		BufferedImage[] pics=new BufferedImage[rows*columns];
 		for(int y=0;y<columns;y++) {
 			for(int x=0;x<rows;x++) {
@@ -25,7 +27,7 @@ public class Assets {
 		}
 		return pics;
 	}
-	private BufferedImage load(String path) {
+	private static BufferedImage load(String path) {
 		/*
 		 * this method loads a image from a String so you don't need to put 
 		 * it in a try catch every time
@@ -51,6 +53,9 @@ public class Assets {
 	}
 	public BufferedImage getBullet() {
 		return bullet;
+	}
+	public BufferedImage[] getCore() {
+		return core;
 	}
 	
 }

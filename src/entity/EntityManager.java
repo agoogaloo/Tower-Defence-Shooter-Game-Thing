@@ -12,7 +12,7 @@ import graphics.Camera;
  *
  */
 public class EntityManager {
-	ArrayList<Entity> entities = new ArrayList<Entity>();
+	protected static ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
 
 	public EntityManager() {
@@ -45,7 +45,7 @@ public class EntityManager {
 		entities.add(e);
 	}
 
-	public ArrayList<Entity> getEntities() { // Accessor method for the entities
+	public static ArrayList<Entity> getEntities() { // Accessor method for the entities
 		return entities;
 	}
 
