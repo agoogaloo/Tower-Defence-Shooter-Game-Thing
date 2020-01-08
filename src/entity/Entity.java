@@ -18,7 +18,7 @@ public abstract class Entity {
 	protected int width, height;
 	protected boolean killed = false;
 	
-	protected Rectangle bounds = new Rectangle(0,0, width,height); //Gives enemies a hitbox of their width and height
+	protected Rectangle bounds = new Rectangle(10,10, 30,30); //Gives enemies a hitbox of their width and height
 	
 	
 	protected ArrayList<Entity> entityCollide(){
@@ -28,6 +28,7 @@ public abstract class Entity {
 				entities.add(e);
 			}
 		}
+		System.out.println(entities);
 		return entities;
 	}
 	

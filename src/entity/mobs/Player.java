@@ -32,7 +32,7 @@ public class Player extends Mobs {
 		health = 100;
 		x = 1600;
 		y = 1600;
-		core=new Core(100,100);
+		core=new Core(1000,1000);
 		camera=Main.Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
 		
@@ -57,7 +57,10 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
+		super.update();
 		input.update();// updating input so that it can get the current inputs
+		health-=core.giveDamage();
+		System.out.println(health);
 		if (input.isShoot()) {
 			shoot();
 		}
@@ -85,16 +88,16 @@ public class Player extends Mobs {
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
 			g.drawImage(pics[0], x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Down");
+			
 		}else if (input.getDirection() == 'l') {
 			g.drawImage(pics[7],x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Left");
+		
 		}else if (input.getDirection() == 'u') {
 			g.drawImage(pics[14], x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Up");
+
 		}else if (input.getDirection() == 'r') {
 			g.drawImage(pics[21], x - camera.getxOffset(), y - camera.getyOffset(), null);
-			System.out.println("Right");
+		
 		}
 
 	}
