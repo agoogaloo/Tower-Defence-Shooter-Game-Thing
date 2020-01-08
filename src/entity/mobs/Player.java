@@ -3,6 +3,8 @@ package entity.mobs;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import Main.Main;
+import floors.Floor;
 import graphics.Assets;
 import graphics.Camera;
 
@@ -70,6 +72,7 @@ public class Player extends Mobs {
 		y += changeY;
 		changeX = 0;// resting change x and y
 		changeY = 0;
+		Main.getWindow().getDisplay().getFloor().
 //		if (EntityManager.getEntities().contains(Bullet)){
 //			health-=2;
 //		}
