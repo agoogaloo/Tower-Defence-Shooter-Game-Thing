@@ -20,6 +20,7 @@ public abstract class Entity {
 	
 	protected Rectangle bounds = new Rectangle(0,0, width,height); //Gives enemies a hitbox of their width and height
 	
+	
 	protected ArrayList<Entity> entityCollide(){
 		ArrayList<Entity> entities=new ArrayList<Entity>();
 		for (Entity e:entityManager.getEntities()){
@@ -30,6 +31,9 @@ public abstract class Entity {
 		return entities;
 	}
 	
+	public static void init(){
+		entityManager.init();
+	}
 	public int getX(){
 		return this.x;
 	}

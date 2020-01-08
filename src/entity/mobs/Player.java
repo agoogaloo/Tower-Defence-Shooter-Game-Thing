@@ -3,6 +3,7 @@ package entity.mobs;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import entity.statics.Core;
 import graphics.Assets;
 import graphics.Camera;
 
@@ -18,6 +19,7 @@ public class Player extends Mobs {
 	private int health = 100;
 	private double bulletPath;
 	private Camera camera;
+	private Core core;
 	
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 
@@ -30,7 +32,11 @@ public class Player extends Mobs {
 		health = 100;
 		x = 1600;
 		y = 1600;
-		this.camera=Main.Main.getWindow().getDisplay().getCamera();
+		core=new Core(100,100);
+		camera=Main.Main.getWindow().getDisplay().getCamera();
+		entityManager.addEntity(core);
+		
+
 	}
 
 	/**
@@ -71,12 +77,6 @@ public class Player extends Mobs {
 		y += changeY;
 		changeX = 0;// resting change x and y
 		changeY = 0;
-//		if (EntityManager.getEntities().contains(Bullet)){
-//			health-=2;
-//		}
-//		if (EntityManager.getEntities().contains(enemies)){
-//			health-=1;
-//		}
 
 		shotBuffer -= 1;
 	}

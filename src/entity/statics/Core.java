@@ -9,8 +9,7 @@ import graphics.Camera;
 public class Core extends Statics{
 	BufferedImage[] pics=Assets.core;
 	
-	public Core(){
-		entityManager.addEntity(this);
+	public Core(int x, int y){
 		this.x=x;
 		this.y=y;
 		System.out.println("made a core");

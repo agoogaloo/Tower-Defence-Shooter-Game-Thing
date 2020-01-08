@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import entity.mobs.Player;
-import graphics.Assets;
+import entity.statics.Core;
 import graphics.Camera;
 
 /**
@@ -15,11 +15,13 @@ public class EntityManager {
 	protected static ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
 
-	public EntityManager() {
+	public void init() {
+
 		player=new Player();
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
+		
 	}
-
+	
 	public void update() {
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
