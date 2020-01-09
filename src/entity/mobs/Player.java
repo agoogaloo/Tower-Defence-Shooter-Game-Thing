@@ -23,15 +23,11 @@ public class Player extends Mobs {
 	private Assets assets = new Assets();
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 
-	BufferedImage[] playerDown=assets.getPlayerD();
-	BufferedImage[] playerLeft=assets.getPlayerL();
-	BufferedImage[] playerUp=assets.getPlayerU();
-	BufferedImage[] playerRight=assets.getPlayerR();
-//	BufferedImage[] pics = assets.getPlayer();
-	Animation animationDown = new Animation(playerDown,10);
-	Animation animationLeft = new Animation(playerLeft,10);
-	Animation animationUp = new Animation(playerUp,10);
-	Animation animationRight = new Animation(playerRight,10);
+
+	Animation animationDown = new Animation(Assets.playerD,6);
+	Animation animationLeft = new Animation(Assets.playerL,6);
+	Animation animationUp = new Animation(Assets.playerU,6);
+	Animation animationRight = new Animation(Assets.playerR,6);
 //	Animation animation = new Animation(pics,10);
 	public Player() {
 		// initializing variables
@@ -96,14 +92,14 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
-			g.drawImage(playerDown[animationDown.getCurrentFrame()],
+			g.drawImage(animationDown.getCurrentFrame(),
 					x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'l') {
-			g.drawImage(playerLeft[animationLeft.getCurrentFrame()],x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'u') {
-			g.drawImage(playerUp[animationUp.getCurrentFrame()], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'r') {
-			g.drawImage(playerRight[animationRight.getCurrentFrame()], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
 	}

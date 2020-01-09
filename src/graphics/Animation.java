@@ -17,11 +17,12 @@ public class Animation {
 	public Animation(BufferedImage[] pics, int frameDelay) {
 		this.frameDelay = frameDelay;	
 		this.totalFrames = pics.length; //Sets the total frames of animation to how many frames there are in the arraylist
+		this.pics=pics;
 		
 	}
 	
-	public int getCurrentFrame() {
-		return currentFrame;
+	public BufferedImage getCurrentFrame() {
+		return pics[currentFrame];
 	}
 	
 
