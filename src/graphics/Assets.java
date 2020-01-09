@@ -15,8 +15,11 @@ public class Assets {
 	private final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
 	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	private final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 29, 7, 4);
-	
-	
+	private final BufferedImage[] playerD = splitSpriteSheet(load("res/player down.png"), 16, 29, 7, 1);
+	private final BufferedImage[] playerL = splitSpriteSheet(load("res/player left.png"), 16, 29, 7, 1);
+	private final BufferedImage[] playerU = splitSpriteSheet(load("res/player up.png"), 16, 29, 7, 1);
+	private final BufferedImage[] playerR = splitSpriteSheet(load("res/player right.png"), 16, 29, 7, 1);
+
 	private BufferedImage[] splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		BufferedImage[] pics=new BufferedImage[rows*columns];
 		for(int y=0;y<columns;y++) {
@@ -50,8 +53,19 @@ public class Assets {
 	public BufferedImage[] getPlayer() {
 		return player;
 	}
+	public BufferedImage[] getPlayerD() {
+		return playerD;
+	}
+	public BufferedImage[] getPlayerL() {
+		return playerL;
+	}
+	public BufferedImage[] getPlayerU() {
+		return playerU;
+	}
+	public BufferedImage[] getPlayerR() {
+		return playerR;
+	}
 	public BufferedImage[] getBullet() {
 		return bullet;
 	}
-	
 }

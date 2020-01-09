@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import graphics.Assets;
 import graphics.Camera;
-
+import graphics.Animation;
 
 /**
  * @author Sahib and Matthew
@@ -17,13 +17,22 @@ public class Player extends Mobs {
 	private int shotBuffer = 0;
 	private int health = 100;
 	private double bulletPath;
+	
 	private Camera camera;
 	
+	private Assets assets = new Assets();
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 
-  private Assets assets = new Assets();
-	BufferedImage[] pics=assets.getPlayer();
-	
+	BufferedImage[] playerDown=assets.getPlayerD();
+	BufferedImage[] playerLeft=assets.getPlayerL();
+	BufferedImage[] playerUp=assets.getPlayerU();
+	BufferedImage[] playerRight=assets.getPlayerR();
+//	BufferedImage[] pics = assets.getPlayer();
+	Animation animationDown = new Animation(playerDown,10);
+	Animation animationLeft = new Animation(playerLeft,10);
+	Animation animationUp = new Animation(playerUp,10);
+	Animation animationRight = new Animation(playerRight,10);
+//	Animation animation = new Animation(pics,10);
 	public Player() {
 		// initializing variables
 		speed = 3;
@@ -50,6 +59,10 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
+		animationDown.update();
+		animationLeft.update();
+		animationUp.update();
+		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		if (input.isShoot()) {
 			shoot();
@@ -83,13 +96,14 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
-			g.drawImage(pics[0], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(playerDown[animationDown.getCurrentFrame()],
+					x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'l') {
-			g.drawImage(pics[7],x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(playerLeft[animationLeft.getCurrentFrame()],x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'u') {
-			g.drawImage(pics[14], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(playerUp[animationUp.getCurrentFrame()], x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'r') {
-			g.drawImage(pics[21], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(playerRight[animationRight.getCurrentFrame()], x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
 	}
