@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import graphics.Assets;
 import graphics.Camera;
-
+import graphics.Animation;
 
 /**
  * @author Sahib and Matthew
@@ -17,13 +17,18 @@ public class Player extends Mobs {
 	private int shotBuffer = 0;
 	private int health = 100;
 	private double bulletPath;
+	
 	private Camera camera;
 	
+	private Assets assets = new Assets();
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 
-  private Assets assets = new Assets();
-	BufferedImage[] pics=assets.getPlayer();
-	
+
+	Animation animationDown = new Animation(Assets.playerD,6);
+	Animation animationLeft = new Animation(Assets.playerL,6);
+	Animation animationUp = new Animation(Assets.playerU,6);
+	Animation animationRight = new Animation(Assets.playerR,6);
+//	Animation animation = new Animation(pics,10);
 	public Player() {
 		// initializing variables
 		speed = 3;
@@ -50,6 +55,10 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
+		animationDown.update();
+		animationLeft.update();
+		animationUp.update();
+		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		if (input.isShoot()) {
 			shoot();
@@ -83,13 +92,14 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
-			g.drawImage(pics[0], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationDown.getCurrentFrame(),
+					x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'l') {
-			g.drawImage(pics[7],x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'u') {
-			g.drawImage(pics[14], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'r') {
-			g.drawImage(pics[21], x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
 	}

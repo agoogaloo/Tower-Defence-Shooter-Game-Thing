@@ -16,7 +16,7 @@ import Main.Main;
 public class PlayerInput implements MouseListener, MouseMotionListener, KeyListener{
 	private boolean[] keys = new boolean[256];
 	private boolean up, down, left, right, shoot;
-	private char direction;
+	private char direction='d';
 
 	private int mouseX, mouseY;
 	
