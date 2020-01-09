@@ -38,6 +38,10 @@ public class Display extends JPanel {
 		// gameState class or something similar but I it is fine this way for now
 	}
 
+	public Floor getFloor() {
+		return floor;
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {// where everything is actually drawn
 		// all rendering code goes here

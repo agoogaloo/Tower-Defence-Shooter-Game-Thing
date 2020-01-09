@@ -32,7 +32,7 @@ public class Player extends Mobs {
 		health = 100;
 		x = 1600;
 		y = 1600;
-		this.camera=Main.Main.getWindow().getDisplay().getCamera();
+		this.camera=Main.getWindow().getDisplay().getCamera();
 	}
 
 	/**
@@ -70,9 +70,13 @@ public class Player extends Mobs {
 		}
 		x += changeX;// actually moving the player
 		y += changeY;
+		if(Main.getWindow().getDisplay().getFloor().checkwall(x,y)){
+			System.out.println("aaaaaaaah");
+		}
+		System.out.println(Main.getWindow().getDisplay().getFloor().getTile(x/16,y/16));
 		changeX = 0;// resting change x and y
 		changeY = 0;
-		Main.getWindow().getDisplay().getFloor().
+		
 //		if (EntityManager.getEntities().contains(Bullet)){
 //			health-=2;
 //		}
