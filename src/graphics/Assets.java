@@ -14,13 +14,13 @@ public class Assets {
 	private BufferedImage test=load("res/test.png");//creating all the assets
 	private final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
 	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
-	private final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 29, 7, 4);
-	public static final BufferedImage[] playerIdle = splitSpriteSheet(load("res/player idle.png"), 16, 29, 7, 4);
+	private final BufferedImage[] player = splitSpriteSheet(load("res/smol player idle.png"), 16, 27, 7, 4);
+ 
 	public static  final BufferedImage[] playerD=new BufferedImage[7];
-	
 	public static  final BufferedImage[] playerL = new BufferedImage[7];
 	public static  final BufferedImage[] playerU =new BufferedImage[7];
 	public static  final BufferedImage[] playerR =new BufferedImage[7];
+	
 	public Assets(){
 		System.arraycopy(player, 0, playerD, 0, 7);
 		System.arraycopy(player, 7, playerL, 0, 7);
