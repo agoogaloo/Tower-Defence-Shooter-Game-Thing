@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import entity.mobs.Enemy;
 import entity.mobs.Player;
-import entity.statics.Core;
 import graphics.Camera;
 
 /**

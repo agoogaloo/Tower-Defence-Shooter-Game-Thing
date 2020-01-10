@@ -1,6 +1,5 @@
 package entity.mobs;
 
-import Main.Main;
 import entity.Entity;
 
 public abstract class Mobs extends Entity{

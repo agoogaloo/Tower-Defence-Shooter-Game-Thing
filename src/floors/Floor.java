@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import entity.statics.Core;
 import graphics.Camera;
 
 /*

@@ -11,11 +11,11 @@ import javax.imageio.ImageIO;
  * a class that contains all the pictures, sounds, etc. for the game
  */
 public class Assets {
-	private BufferedImage test=load("res/test.png");//creating all the assets
-	private final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
-	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
-	private final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
-	private final BufferedImage[] enemy = splitSpriteSheet(load("res/robot.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
+	public static final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
+	public static final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
+	public static final BufferedImage[] enemy = splitSpriteSheet(load("res/robot.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] core = splitSpriteSheet(load("res/core.png"), 40, 35, 3, 3);
 	
 	public static  final BufferedImage[] playerD=new BufferedImage[7];
 	public static  final BufferedImage[] playerL = new BufferedImage[7];
@@ -60,43 +60,5 @@ public class Assets {
 			System.out.println("picture "+path+" not found");//showing what the problem is
 		}
 		return image;
-	}
-
-	//methods that return the assets
-	public BufferedImage getTest() {
-		return test;
-	}
-	public BufferedImage[] getTiles() {
-		return tiles;
-	}
-	public BufferedImage[] getPlayer() {
-		return player;
-	}
-	public BufferedImage[] getPlayerD() {
-		return playerD;
-	}
-	public BufferedImage[] getPlayerL() {
-		return playerL;
-	}
-	public BufferedImage[] getPlayerU() {
-		return playerU;
-	}
-	public BufferedImage[] getPlayerR() {
-		return playerR;
-	}
-	public BufferedImage[] getEnemyD() {
-		return enemyD;
-	}
-	public BufferedImage[] getEnemyL() {
-		return enemyL;
-	}
-	public BufferedImage[] getEnemyU() {
-		return enemyU;
-	}
-	public BufferedImage[] getEnemyR() {
-		return enemyR;
-	}
-	public BufferedImage[] getBullet() {
-		return bullet;
 	}
 }

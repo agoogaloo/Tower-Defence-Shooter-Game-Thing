@@ -1,7 +1,11 @@
 package entity.mobs;
 
 import java.awt.Graphics;
-import graphics.*;
+
+import entity.statics.Core;
+import graphics.Animation;
+import graphics.Assets;
+import graphics.Camera;
 
 
 
