@@ -2,7 +2,7 @@ package entity.mobs;
 
 import java.awt.Graphics;
 
-
+import Main.Main;
 import graphics.*;
 
 
@@ -37,7 +37,7 @@ public class Player extends Mobs {
 		health = 100;
 		x = 1600;
 		y = 1600;
-		this.camera=Main.Main.getWindow().getDisplay().getCamera();
+		this.camera=Main.getWindow().getDisplay().getCamera();
 	}
 
 	/**
@@ -76,6 +76,22 @@ public class Player extends Mobs {
 		}
 		if (input.isRight()) {
 			changeX += speed;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+29+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+29+changeY)/16)){
+			changeX=0;
+			changeY=0;
 		}
 		x += changeX;// actually moving the player
 		y += changeY;

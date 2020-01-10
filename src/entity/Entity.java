@@ -19,7 +19,7 @@ public abstract class Entity {
 	
 	protected static EntityManager entityManager=new EntityManager();
 	
-	//protected Rectangle bounds = new Rectangle(x,y, 100,100); //Gives enemies a hitbox of their width and height
+	protected Rectangle bounds = new Rectangle(0,0, width,height); //Gives enemies a hitbox of their width and height
 	
 	public int getX(){
 		return this.x;
@@ -37,9 +37,9 @@ public abstract class Entity {
 		return this.killed;
 	}
 	
-//	public Rectangle getBounds() {
-//		return bounds;
-//	}
+	public Rectangle getBounds() {
+		return bounds;
+	}
 	public static EntityManager getEntityManager() {
 		return entityManager;
 	}
