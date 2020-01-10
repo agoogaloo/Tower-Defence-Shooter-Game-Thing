@@ -1,11 +1,8 @@
 package entity.mobs;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import graphics.*;
 
-import entity.statics.Core;
-import graphics.Assets;
-import graphics.Camera;
 
 
 /**
@@ -18,16 +15,22 @@ public class Player extends Mobs {
 	private int shotBuffer = 0;
 	private int health = 100;
 	private double bulletPath;
+	
 	private Camera camera;
 	private Core core;
 	
+	private Assets assets = new Assets();
 	PlayerInput input=new PlayerInput();//letting it get the inputs
 
-  private Assets assets = new Assets();
-	BufferedImage[] pics=assets.getPlayer();
-	
+	Animation animationDown = new Animation(Assets.playerD,6);
+	Animation animationLeft = new Animation(Assets.playerL,6);
+	Animation animationUp = new Animation(Assets.playerU,6);
+	Animation animationRight = new Animation(Assets.playerR,6);
+//	Animation animation = new Animation(pics,10);
 	public Player(int x, int y) {
 		// initializing variables
+		this.x = x;
+		this.y = y;
 		speed = 3;
 		health = 100;
 		this.x = x;
@@ -48,16 +51,20 @@ public class Player extends Mobs {
 			double targetX, targetY;
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			System.out.println("targetX " + targetX + " targetY " + targetY);
 			System.out.println("peew");
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset()));
-			//shotBuffer = 30;
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0));
+			shotBuffer = 10;
 		}
 	}
 
 	@Override
 	public void update() {
+
 		super.update();
+		animationDown.update();
+		animationLeft.update();
+		animationUp.update();
+		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		health-=core.giveDamage();
 		System.out.println(health);
@@ -87,17 +94,15 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
-			g.drawImage(pics[0], x - camera.getxOffset(), y - camera.getyOffset(), null);
-			
-		}else if (input.getDirection() == 'l') {
-			g.drawImage(pics[7],x - camera.getxOffset(), y - camera.getyOffset(), null);
-		
-		}else if (input.getDirection() == 'u') {
-			g.drawImage(pics[14], x - camera.getxOffset(), y - camera.getyOffset(), null);
 
+			g.drawImage(animationDown.getCurrentFrame(),
+					x - camera.getxOffset(), y - camera.getyOffset(), null);
+		}else if (input.getDirection() == 'l') {
+			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
+		}else if (input.getDirection() == 'u') {
+			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'r') {
-			g.drawImage(pics[21], x - camera.getxOffset(), y - camera.getyOffset(), null);
-		
+			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
 	}

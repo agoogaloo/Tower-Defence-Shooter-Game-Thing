@@ -3,6 +3,7 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import entity.mobs.Enemy;
 import entity.mobs.Player;
 import entity.statics.Core;
 import graphics.Camera;
@@ -17,9 +18,9 @@ public class EntityManager {
 
 	public void init() {
 
-		player=new Player(1747,1520);
+		player=new Player(1747,1520);	
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
-		
+		entities.add(new Enemy(1750,800,'d'));
 	}
 	
 	public void update() {

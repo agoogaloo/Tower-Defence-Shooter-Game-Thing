@@ -57,7 +57,13 @@ public class Display extends JPanel {
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
 		// updating the camera position to center on the player
 	}
+	
+	//getters
 	public Camera getCamera(){
 		return camera;
+	}
+
+	public Floor getFloor() {
+		return floor;
 	}
 }

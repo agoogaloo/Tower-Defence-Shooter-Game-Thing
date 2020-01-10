@@ -21,8 +21,7 @@ public class Floor {
 	private final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
-	
-
+	//it holds its own tileset so taht it is easy if we want to have different floor with different themes
 	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
 		
@@ -46,7 +45,7 @@ public class Floor {
 				int drawX=x * TILESIZE-camera.getxOffset(), drawY=y * TILESIZE-camera.getyOffset();
 				if(drawX>=-TILESIZE&&drawX<=SCREENWIDTH&&//checking if it would actually be renderd in the screen
 						drawY>-TILESIZE&&drawY<=SCREENHEIGHT) {
-					g.drawImage(PICS[getTile(x, y) - 1], drawX, drawY, null);
+					g.drawImage(PICS[getTile(x, y)-1], drawX, drawY, null);
 					// drawing the proper tile in the proper place
 				}
 			}
