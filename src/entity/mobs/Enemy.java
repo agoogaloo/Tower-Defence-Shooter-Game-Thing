@@ -13,7 +13,7 @@ import graphics.Camera;
 
 public class Enemy extends Mobs {
 	private char direction;
-	private int rangeWidth = 100, rangeHeight = 100;
+	private int rangeWidth = 150, rangeHeight = 150;
 	private int shotDelay = 0;
 	private boolean attack = false;
 	
@@ -83,7 +83,7 @@ public class Enemy extends Mobs {
 		playerY = entityManager.getPlayer().getY();
 
 
-			entityManager.addEntity(new Bullet (x,y, playerX, playerY,2));
+			entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3));
 			shotDelay = 0;
 		
 
@@ -102,7 +102,7 @@ public class Enemy extends Mobs {
 				attack = false;
 			}
 		}
-		if (shotDelay == 5 && attack == true) {
+		if (shotDelay == 30 && attack == true) {
 			shoot();
 		}
 		updateDirection();
@@ -113,7 +113,7 @@ public class Enemy extends Mobs {
 		animationRight.update();
 		
 		shotDelay+=1;
-		if (shotDelay>10) { //When 60 frames pass reset shot buffer
+		if (shotDelay>30) { //When 60 frames pass reset shot buffer
 			shotDelay=0;
 		}
 	}

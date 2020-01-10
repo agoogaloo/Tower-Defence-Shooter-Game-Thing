@@ -55,7 +55,7 @@ public class Player extends Mobs {
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
 			System.out.println("peew");
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5));
 			shotBuffer = 10;
 		}
 	}
