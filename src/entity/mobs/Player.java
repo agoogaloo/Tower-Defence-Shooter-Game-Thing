@@ -63,8 +63,7 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
-
-		super.update();
+		updateBounds();
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();

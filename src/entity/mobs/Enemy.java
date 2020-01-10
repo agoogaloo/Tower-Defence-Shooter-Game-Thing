@@ -31,6 +31,7 @@ public class Enemy extends Mobs {
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
+		speed=2;
 	}
 	private void updateDirection() {
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
@@ -89,6 +90,7 @@ public class Enemy extends Mobs {
 	}
 	@Override
 	public void update() {
+		updateBounds();
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
 	

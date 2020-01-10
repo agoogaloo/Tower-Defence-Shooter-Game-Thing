@@ -30,7 +30,6 @@ public abstract class Entity {
 		System.out.println(entities);
 		return entities;
 	}
-	
 	public static void init(){
 		entityManager.init();
 	}
