@@ -2,25 +2,37 @@ package entity;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import graphics.Camera;
 
 /**
- * @author Kevin Tea
+ * @author Kevin Tea and Matthew Milum
  *
  */
 public abstract class Entity {
+	protected static EntityManager entityManager=new EntityManager();
+	
 	protected int x, y;
 	protected int health;
 	protected int width, height;
-	
-	protected double changeX, changeY;
 	protected boolean killed = false;
 	
-	protected static EntityManager entityManager=new EntityManager();
-	
-	//protected Rectangle bounds = new Rectangle(x,y, 100,100); //Gives enemies a hitbox of their width and height
-	
+	protected Rectangle bounds = new Rectangle(10,10, 30,30); //Gives enemies a hitbox of their width and height
+
+	protected ArrayList<Entity> entityCollide(){
+		ArrayList<Entity> entities=new ArrayList<Entity>();
+		for (Entity e:entityManager.getEntities()){
+			if(e!=this&&e.getBounds().intersects(this.bounds)){
+				entities.add(e);
+			}
+		}
+		System.out.println(entities);
+		return entities;
+	}
+	public static void init(){
+		entityManager.init();
+	}
 	public int getX(){
 		return this.x;
 	}
@@ -37,9 +49,10 @@ public abstract class Entity {
 		return this.killed;
 	}
 	
-//	public Rectangle getBounds() {
-//		return bounds;
-//	}
+	public Rectangle getBounds() {
+		return bounds;
+	}
+	
 	public static EntityManager getEntityManager() {
 		return entityManager;
 	}

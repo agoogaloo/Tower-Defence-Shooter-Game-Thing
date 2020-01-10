@@ -23,18 +23,21 @@ public class Floor {
 	//it holds its own tileset so taht it is easy if we want to have different floor with different themes
 	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
+		
 		this.size = size;
 		PICS = pics;
 		SCREENHEIGHT = screenHeight;
 		SCREENWIDTH = screenWidth;
 		rooms = new Room[size * 2][size];
+		
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		rooms = generateFloor();// generating a random floor layout
 	}
-
 	// this method draws everything to the screen
 	public void render(Graphics g, Camera camera) {
+		
+		
 		for (int y = 0; y < size * ROOMSIZE; y++) {// looping though all the tiles
 			for (int x = 0; x < size * ROOMSIZE * 2; x++) {
 				//these will be whatever place the tile is being rendered at

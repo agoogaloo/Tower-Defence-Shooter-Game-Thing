@@ -1,5 +1,5 @@
 package Main;
-import graphics.Camera;
+import entity.Entity;
 import window.Window;
 
 /*
@@ -13,6 +13,7 @@ public class Main {
 	private static Window window;
 	public static void main(String[] args) {
 		window = new Window(800, 600);
+		Entity.init();
 		boolean run = true;
 
 		// variables for limiting frame rate

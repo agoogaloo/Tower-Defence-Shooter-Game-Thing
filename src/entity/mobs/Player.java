@@ -2,8 +2,10 @@ package entity.mobs;
 
 import java.awt.Graphics;
 
-
-import graphics.*;
+import entity.statics.Core;
+import graphics.Animation;
+import graphics.Assets;
+import graphics.Camera;
 
 
 
@@ -19,10 +21,10 @@ public class Player extends Mobs {
 	private double bulletPath;
 	
 	private Camera camera;
+	private Core core;
 	
 	private Assets assets = new Assets();
 	PlayerInput input=new PlayerInput();//letting it get the inputs
-
 
 	Animation animationDown = new Animation(Assets.playerD,6);
 	Animation animationLeft = new Animation(Assets.playerL,6);
@@ -35,9 +37,13 @@ public class Player extends Mobs {
 		this.y = y;
 		speed = 3;
 		health = 100;
-		x = 1600;
-		y = 1600;
-		this.camera=Main.Main.getWindow().getDisplay().getCamera();
+		this.x = x;
+		this.y = y;
+		core=new Core(x,y);
+		camera=Main.Main.getWindow().getDisplay().getCamera();
+		entityManager.addEntity(core);
+		
+
 	}
 
 	/**
@@ -57,11 +63,14 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
+		updateBounds();
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
+		health-=core.giveDamage();
+		System.out.println(health);
 		if (input.isShoot()) {
 			shoot();
 		}
@@ -81,12 +90,6 @@ public class Player extends Mobs {
 		y += changeY;
 		changeX = 0;// resting change x and y
 		changeY = 0;
-//		if (EntityManager.getEntities().contains(Bullet)){
-//			health-=2;
-//		}
-//		if (EntityManager.getEntities().contains(enemies)){
-//			health-=1;
-//		}
 
 		shotBuffer -= 1;
 	}
@@ -94,6 +97,7 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
+
 			g.drawImage(animationDown.getCurrentFrame(),
 					x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'l') {
