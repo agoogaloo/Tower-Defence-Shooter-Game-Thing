@@ -19,10 +19,9 @@ public class Floor {
 	// constants
 	private final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);
-	private final Room BLANKROOM=new Room("res/blank.txt", 2);
+	private final Room BLANKROOM = new Room("res/blank.txt", 2);
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
-	private final int[]WALLS=new int[]{1,2,3,4,5,6};
-	//{19,20,25,26,27,28,37,38,49,40,41};
+	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 
 	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
@@ -40,10 +39,11 @@ public class Floor {
 	public void render(Graphics g, Camera camera) {
 		for (int y = 0; y < size * ROOMSIZE; y++) {// looping though all the tiles
 			for (int x = 0; x < size * ROOMSIZE * 2; x++) {
-				//these will be whatever place the tile is being rendered at
-				int drawX=x * TILESIZE-camera.getxOffset(), drawY=y * TILESIZE-camera.getyOffset();
-				if(drawX>=-TILESIZE&&drawX<=SCREENWIDTH&&//checking if it would actually be renderd in the screen
-						drawY>-TILESIZE&&drawY<=SCREENHEIGHT) {
+				// these will be whatever place the tile is being rendered at
+				int drawX = x * TILESIZE - camera.getxOffset(), drawY = y * TILESIZE - camera.getyOffset();
+				if (drawX >= -TILESIZE && drawX <= SCREENWIDTH && 
+						// checking if the tile would actually be rendered on the screen
+						drawY > -TILESIZE && drawY <= SCREENHEIGHT) {
 					g.drawImage(PICS[getTile(x, y) - 1], drawX, drawY, null);
 					// drawing the proper tile in the proper place
 				}
@@ -85,7 +85,8 @@ public class Floor {
 			} while (checkRoom.getEntrance() != validRoom.getExit());
 			// looping until a room i found that will line up with the previous room
 
-			validRoom = checkRoom;// checkRoom is now confirmed to line up so it can be added to the list the next loop
+			validRoom = checkRoom;// checkRoom is now confirmed to line up so it can be added to the list the next
+									// loop
 		}
 		return floor;// returning the array
 	}
@@ -118,24 +119,25 @@ public class Floor {
 		}
 		return result;// Returning the tile
 	}
-	
-	public boolean checkwall(int x, int y){
-		
-		int tile=getTile(x,y);
-		for(int i=0;i<WALLS.length;i++){
-			if(WALLS[i]==tile){
+
+	public boolean checkwall(int x, int y) {
+
+		int tile = getTile(x, y);
+		for (int i = 0; i < WALLS.length; i++) {
+			if (WALLS[i] == tile) {
 				return true;
 			}
 		}
 		return false;
 	}
+
 	// if you need a specific room it can return it
 	public Room getRoom(int x, int y) {
-		
+
 		try {
 			return rooms[x][y];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			return BLANKROOM;		
+			return BLANKROOM;
 		}
 	}
 }

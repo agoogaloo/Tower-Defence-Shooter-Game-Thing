@@ -30,8 +30,8 @@ public class Player extends Mobs {
 		// initializing variables
 		speed = 3;
 		health = 100;
-		x = 1600;
-		y = 1600;
+		x = 1760;
+		y = 1500;
 		this.camera=Main.getWindow().getDisplay().getCamera();
 	}
 
@@ -68,12 +68,14 @@ public class Player extends Mobs {
 		if (input.isRight()) {
 			changeX += speed;
 		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		System.out.println(Main.getWindow().getDisplay().getFloor().getTile((x+changeX)/16,(y+changeY)/16));
 		x += changeX;// actually moving the player
 		y += changeY;
-		if(Main.getWindow().getDisplay().getFloor().checkwall(x,y)){
-			System.out.println("aaaaaaaah");
-		}
-		System.out.println(Main.getWindow().getDisplay().getFloor().getTile(x/16,y/16));
+		
 		changeX = 0;// resting change x and y
 		changeY = 0;
 		
