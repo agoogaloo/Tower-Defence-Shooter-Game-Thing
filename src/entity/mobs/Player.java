@@ -26,13 +26,13 @@ public class Player extends Mobs {
   private Assets assets = new Assets();
 	BufferedImage[] pics=assets.getPlayer();
 	
-	public Player() {
+	public Player(int x, int y) {
 		// initializing variables
 		speed = 3;
 		health = 100;
-		x = 1600;
-		y = 1600;
-		core=new Core(1000,1000);
+		this.x = x;
+		this.y = y;
+		core=new Core(x,y);
 		camera=Main.Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
 		
