@@ -1,9 +1,6 @@
 package graphics;
 
-import java.awt.List;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import graphics.Assets;
 public class Animation {
 	
 	private int frameCount; //Keeps track of the frames so it can change at proper times
