@@ -13,17 +13,20 @@ import graphics.Camera;
 
 public class Enemy extends Mobs {
 	private char direction;
-	private int rangeWidth, rangeHeight = 100;
+	private int rangeWidth = 100, rangeHeight = 100;
 	private int shotDelay = 0;
 	private boolean attack = false;
-	private Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 	
+
 	private Camera camera;
+
+	
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
 	Animation animationRight = new Animation(Assets.enemyR,4);
 	
+
 	public Enemy(int x, int y, char direction) {
 		this.x=x;
 		this.y=y;
@@ -77,24 +80,27 @@ public class Enemy extends Mobs {
 		double playerX, playerY;
 		playerX = entityManager.getPlayer().getX();
 		playerY = entityManager.getPlayer().getY();
-//		for(Entity e:entityManager.getEntities()) {
-//			if(e.getBounds().intersects(attackRange)) {
-//				playerX = entityManager.getPlayer().getX();
-//				playerY = entityManager.getPlayer().getX();
-//				attack = true;
-//			}
-//		}
+
 
 			entityManager.addEntity(new Bullet (x,y, playerX, playerY,0));
 			shotDelay = 0;
 		
-		if (shotDelay>10) { //When 60 frames pass reset shot buffer
-			shotDelay=0;
-		}
+
 	}
 	@Override
 	public void update() {
-		if (shotDelay == 5) {
+		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
+		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
+	
+		System.out.println(attack);
+		for(Entity e:entityManager.getEntities()) {
+			if(playerBox.intersects(attackRange)) {
+				attack = true;
+			}else{
+				attack = false;
+			}
+		}
+		if (shotDelay == 5 && attack == true) {
 			shoot();
 		}
 		updateDirection();
@@ -105,9 +111,14 @@ public class Enemy extends Mobs {
 		animationRight.update();
 		
 		shotDelay+=1;
+		if (shotDelay>10) { //When 60 frames pass reset shot buffer
+			shotDelay=0;
+		}
 	}
 	
 	public void render(Graphics g, Camera camera) {
+		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
+		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
 		if (direction == 'd'){
 			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 		}else if (direction == 'l') {
