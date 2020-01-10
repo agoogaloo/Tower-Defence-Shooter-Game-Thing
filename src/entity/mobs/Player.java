@@ -1,11 +1,9 @@
 package entity.mobs;
 
 import java.awt.Graphics;
+import Main.Main;
+import graphics.*;
 
-import entity.statics.Core;
-import graphics.Animation;
-import graphics.Assets;
-import graphics.Camera;
 
 
 
@@ -37,12 +35,10 @@ public class Player extends Mobs {
 		this.y = y;
 		speed = 3;
 		health = 100;
-		this.x = x;
-		this.y = y;
-		core=new Core(x,y);
-		camera=Main.Main.getWindow().getDisplay().getCamera();
-		entityManager.addEntity(core);
-		
+
+		x = 1600;
+		y = 1600;
+		this.camera=Main.getWindow().getDisplay().getCamera();
 
 	}
 
@@ -85,6 +81,22 @@ public class Player extends Mobs {
 		}
 		if (input.isRight()) {
 			changeX += speed;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+29+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+29+changeY)/16)){
+			changeX=0;
+			changeY=0;
 		}
 		x += changeX;// actually moving the player
 		y += changeY;

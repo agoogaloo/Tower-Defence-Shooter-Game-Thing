@@ -19,7 +19,9 @@ public class Floor {
 	// constants
 	private final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);
+	private final Room BLANKROOM = new Room("res/blank.txt", 2);
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
+	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 	//it holds its own tileset so taht it is easy if we want to have different floor with different themes
 	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
@@ -118,9 +120,23 @@ public class Floor {
 		}
 		return result;// Returning the tile
 	}
+	public boolean checkwall(int x, int y) {
 
+		int tile = getTile(x, y);
+		for (int i = 0; i < WALLS.length; i++) {
+			if (WALLS[i] == tile) {
+				return true;
+			}
+		}
+		return false;
+	}
 	// if you need a specific room it can return it
 	public Room getRoom(int x, int y) {
-		return rooms[x][y];
+		
+		try {
+			return rooms[x][y];
+		} catch(ArrayIndexOutOfBoundsException e){
+			return BLANKROOM;
+		}
 	}
 }
