@@ -82,7 +82,7 @@ public class Enemy extends Mobs {
 		playerY = entityManager.getPlayer().getY();
 
 
-			entityManager.addEntity(new Bullet (x,y, playerX, playerY,0));
+			entityManager.addEntity(new Bullet (x,y, playerX, playerY,2));
 			shotDelay = 0;
 		
 
@@ -117,8 +117,8 @@ public class Enemy extends Mobs {
 	}
 	
 	public void render(Graphics g, Camera camera) {
-		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
-		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
+//		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
+//		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
 		if (direction == 'd'){
 			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 		}else if (direction == 'l') {
