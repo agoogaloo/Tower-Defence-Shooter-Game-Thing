@@ -19,7 +19,7 @@ public class Player extends Mobs {
 	private double bulletPath;
 	
 	private Camera camera;
-	private Core core;
+	
 	
 	private Assets assets = new Assets();
 	PlayerInput input=new PlayerInput();//letting it get the inputs
@@ -65,7 +65,6 @@ public class Player extends Mobs {
 		animationUp.update();
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
-		health-=core.giveDamage();
 		System.out.println(health);
 		if (input.isShoot()) {
 			shoot();

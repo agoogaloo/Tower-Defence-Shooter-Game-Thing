@@ -18,9 +18,6 @@ public abstract class Entity {
 	protected int width, height;
 	protected boolean killed = false;
 	
-
-	protected static EntityManager entityManager=new EntityManager();
-	
 	protected Rectangle bounds = new Rectangle(0,0, width,height); //Gives enemies a hitbox of their width and height
 	
 

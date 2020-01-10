@@ -15,7 +15,7 @@ public class EntityManager {
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
 
-	public void init() {
+	public EntityManager() {
 
 		player=new Player(1747,1520);	
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
