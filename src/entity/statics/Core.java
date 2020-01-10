@@ -1,8 +1,8 @@
 package entity.statics;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
+import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 
@@ -10,7 +10,7 @@ import graphics.Camera;
  * by: Matthew Milum
  */
 public class Core extends Statics{
-	BufferedImage[] pics=Assets.core;
+	Animation anim = new Animation(Assets.core,6);
 	int damage=0;
 	
 	public Core(int x, int y){
@@ -25,12 +25,13 @@ public class Core extends Statics{
 		if(entityCollide().size()>0){
 			getHit(1);
 		}
+		anim.update();
 		
 	}
 	
 	@Override
 	public void render(Graphics g, Camera camera) {
-		g.drawImage(pics[0], x-camera.getxOffset(), y-camera.getyOffset(), null);
+		g.drawImage(anim.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 	
 	}
 	public int giveDamage(){
