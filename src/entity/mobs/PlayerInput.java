@@ -21,9 +21,9 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 	private int mouseX, mouseY;
 	
 	public PlayerInput() {
-		Main.getWindow().getWindow().addKeyListener(this);
-		Main.getWindow().getWindow().addMouseListener(this);
-		Main.getWindow().getWindow().addMouseMotionListener(this);
+		Main.getWindow().getFrame().addKeyListener(this);
+		Main.getWindow().getFrame().addMouseListener(this);
+		Main.getWindow().getFrame().addMouseMotionListener(this);
 	}
 	public void update() {
 		up = keys[KeyEvent.VK_UP];//setting the input to true if its button

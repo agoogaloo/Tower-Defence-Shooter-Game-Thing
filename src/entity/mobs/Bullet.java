@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import graphics.Assets;
-
 import graphics.Camera;
 
 public class Bullet extends Mobs{
@@ -13,9 +12,8 @@ public class Bullet extends Mobs{
 	int startX, startY;
 	int speed = 5;
 	int i;
-	private Assets assets = new Assets();
-	BufferedImage [] bulletPics = assets.getBullet();
-	BufferedImage [] playerPics = assets.getPlayer();
+	BufferedImage [] bulletPics = Assets.bullet;
+	BufferedImage [] playerPics = Assets.player;
 	public Bullet(int startX,int startY,double targetX,double targetY, int pics){
 		x = startX;
 		y = startY;	

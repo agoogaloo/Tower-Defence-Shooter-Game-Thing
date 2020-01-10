@@ -2,11 +2,11 @@
 
 package entity.mobs;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import Main.Main;
 import entity.Entity;
-import java.awt.Graphics;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -31,6 +31,7 @@ public class Enemy extends Mobs {
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
+		speed=2;
 	}
 	private void updateDirection() {
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
@@ -82,13 +83,14 @@ public class Enemy extends Mobs {
 		playerY = entityManager.getPlayer().getY();
 
 
-			entityManager.addEntity(new Bullet (x,y, playerX, playerY,0));
+			entityManager.addEntity(new Bullet (x,y, playerX, playerY,2));
 			shotDelay = 0;
 		
 
 	}
 	@Override
 	public void update() {
+		updateBounds();
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
 	
@@ -117,8 +119,8 @@ public class Enemy extends Mobs {
 	}
 	
 	public void render(Graphics g, Camera camera) {
-		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
-		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
+//		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
+//		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
 		if (direction == 'd'){
 			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 		}else if (direction == 'l') {

@@ -12,15 +12,16 @@ import graphics.Camera;
  *
  */
 public class EntityManager {
-	ArrayList<Entity> entities = new ArrayList<Entity>();
+	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
 
-	public EntityManager() {
-		player=new Player(1760,1560);
+	public void init() {
+
+		player=new Player(1747,1520);	
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 		entities.add(new Enemy(1750,800,'d'));
 	}
-
+	
 	public void update() {
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
