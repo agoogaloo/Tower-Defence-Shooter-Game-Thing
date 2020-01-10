@@ -15,7 +15,6 @@ import graphics.Camera;
 public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
-	private int width = 50, height = 50;
 	private int shotBuffer = 0;
 	private int health = 100;
 	private double bulletPath;
@@ -69,6 +68,18 @@ public class Player extends Mobs {
 			changeX += speed;
 		}
 		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+29+changeY)/16)){
+			changeX=0;
+			changeY=0;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+29+changeY)/16)){
 			changeX=0;
 			changeY=0;
 		}
