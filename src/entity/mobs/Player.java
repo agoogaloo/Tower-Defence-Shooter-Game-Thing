@@ -43,8 +43,6 @@ public class Player extends Mobs {
 		core=new Core(x,y);
 		camera=Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
-		
-
 	}
 
 	/**
