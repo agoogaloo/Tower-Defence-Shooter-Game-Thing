@@ -1,11 +1,9 @@
 package entity.mobs;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-import graphics.Assets;
-import graphics.Camera;
-import graphics.Animation;
+import graphics.*;
+
 
 /**
  * @author Sahib and Matthew

@@ -3,6 +3,8 @@
 package entity.mobs;
 
 import java.awt.Rectangle;
+
+import Main.Main;
 import entity.Entity;
 import java.awt.Graphics;
 import graphics.Animation;
@@ -27,7 +29,50 @@ public class Enemy extends Mobs {
 		this.y=y;
 		this.direction=direction;
 	}
-	
+	private void updateDirection() {
+		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
+				(y+Assets.enemyD[0].getHeight()/2)/16)){
+		case 5:
+			direction='r';
+			break;
+		case 6:
+			direction='u';
+			break;
+		case 7:
+			direction='u';
+			break;
+		case 8:
+			direction='r';
+			break;
+		case 9:
+			direction='d';
+			break;
+		case 10:
+			direction='d';
+			break;
+		case 11:
+			direction='l';
+			break;
+		case 12:
+			direction='l';
+		}
+	}
+	private void move() {
+		switch(direction) {
+		case 'u':
+			y-=speed;
+			break;
+		case 'd':
+			y+=speed;
+			break;
+		case 'l':
+			x-=speed;
+			break;
+		case 'r':
+			x+=speed;
+			break;
+		}
+	}
 	private void shoot() {
 		double playerX, playerY;
 		playerX = entityManager.getPlayer().getX();
@@ -52,6 +97,8 @@ public class Enemy extends Mobs {
 		if (shotDelay == 5) {
 			shoot();
 		}
+		updateDirection();
+		move();
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
