@@ -15,17 +15,29 @@ public class Assets {
 	private final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
 	private final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	private final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
- 
+	private final BufferedImage[] enemy = splitSpriteSheet(load("res/robot.png"), 21, 25, 4, 4);
+	
 	public static  final BufferedImage[] playerD=new BufferedImage[7];
 	public static  final BufferedImage[] playerL = new BufferedImage[7];
 	public static  final BufferedImage[] playerU =new BufferedImage[7];
 	public static  final BufferedImage[] playerR =new BufferedImage[7];
+	
+	public static final BufferedImage[] enemyD = new BufferedImage[4];
+	public static final BufferedImage[] enemyL = new BufferedImage[4];
+	public static final BufferedImage[] enemyU = new BufferedImage[4];
+	public static final BufferedImage[] enemyR = new BufferedImage[4];
+	
 	
 	public Assets(){
 		System.arraycopy(player, 0, playerD, 0, 7);
 		System.arraycopy(player, 7, playerL, 0, 7);
 		System.arraycopy(player, 14, playerU, 0, 7);
 		System.arraycopy(player, 21, playerR, 0, 7);
+		
+		System.arraycopy(enemy, 0, enemyD, 0, 4);
+		System.arraycopy(enemy, 4, enemyL, 0, 4);
+		System.arraycopy(enemy, 8, enemyU, 0, 4);
+		System.arraycopy(enemy, 12, enemyR, 0, 4);
 	}
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		BufferedImage[] pics=new BufferedImage[rows*columns];
@@ -71,6 +83,18 @@ public class Assets {
 	}
 	public BufferedImage[] getPlayerR() {
 		return playerR;
+	}
+	public BufferedImage[] getEnemyD() {
+		return enemyD;
+	}
+	public BufferedImage[] getEnemyL() {
+		return enemyL;
+	}
+	public BufferedImage[] getEnemyU() {
+		return enemyU;
+	}
+	public BufferedImage[] getEnemyR() {
+		return enemyR;
 	}
 	public BufferedImage[] getBullet() {
 		return bullet;

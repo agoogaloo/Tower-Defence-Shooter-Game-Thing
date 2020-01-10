@@ -2,9 +2,10 @@ package entity.mobs;
 
 import java.awt.Graphics;
 
-import graphics.Animation;
-import graphics.Assets;
-import graphics.Camera;
+
+import graphics.*;
+
+
 
 /**
  * @author Sahib and Matthew

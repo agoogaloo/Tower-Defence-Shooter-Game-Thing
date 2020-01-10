@@ -25,7 +25,6 @@ public class Animation {
 
 	public void update() {
 		frameCount++;
-		System.out.println(currentFrame);
 		if (frameCount > frameDelay) {
 			frameCount = 0;
 			currentFrame++;
