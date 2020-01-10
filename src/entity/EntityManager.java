@@ -16,7 +16,7 @@ public class EntityManager {
 	Player player;// creating a player
 
 	public EntityManager() {
-		player=new Player();
+		player=new Player(1760,1560);
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 		entities.add(new Enemy(1750,800,'d'));
 	}

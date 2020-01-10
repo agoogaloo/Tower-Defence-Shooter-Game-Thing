@@ -2,7 +2,9 @@ package entity.mobs;
 
 import java.awt.Graphics;
 
+
 import graphics.*;
+
 
 
 /**
@@ -27,8 +29,10 @@ public class Player extends Mobs {
 	Animation animationUp = new Animation(Assets.playerU,6);
 	Animation animationRight = new Animation(Assets.playerR,6);
 //	Animation animation = new Animation(pics,10);
-	public Player() {
+	public Player(int x, int y) {
 		// initializing variables
+		this.x = x;
+		this.y = y;
 		speed = 3;
 		health = 100;
 		x = 1600;
