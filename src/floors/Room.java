@@ -51,6 +51,7 @@ public class Room {
 			}
 		}catch(Exception e) {
 			System.out.println("coulndt load "+path);
+			e.printStackTrace();
 		}
 	}
 
