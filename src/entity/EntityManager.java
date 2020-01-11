@@ -12,14 +12,20 @@ import graphics.Camera;
  *
  */
 public class EntityManager {
+	/*
+	 * this class lets us hold all the entities like the player, enemies, and bullets
+	 * in one place so that we know they are all being updated and rendered
+	 */
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	// an arrayList that holds all the entities in the game
 	Player player;// creating a player
 
 	public void init() {
 		// this init method needs to be seperate from the constructor so that player can
-		// add the core to the array if it was added in the constructor the entityManager 
-		//wouldn't be created yet and would throw an error so the init method is called after it is created.
+		// add the core to the array if it was added in the constructor the
+		// entityManager
+		// wouldn't be created yet and would throw an error so the init method is called
+		// after it is created.
 		player = new Player(1747, 1520);
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 		entities.add(new Enemy(1750, 800, 'd'));
