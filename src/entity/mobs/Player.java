@@ -17,30 +17,28 @@ import graphics.Camera;
 public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
-	private int width = 50, height = 50;
 	private int shotBuffer = 0;
-	private int health;
 	private double bulletPath;
 	
 	private Camera camera;
 	private Core core;
 	
-	private Assets assets = new Assets();
-	PlayerInput input=new PlayerInput();//letting it get the inputs
+	private PlayerInput input=new PlayerInput();//letting it get the inputs
 	private EntityManager em = new EntityManager(); 
-	Animation animationDown = new Animation(Assets.playerD,6);
-	Animation animationLeft = new Animation(Assets.playerL,6);
-	Animation animationUp = new Animation(Assets.playerU,6);
-	Animation animationRight = new Animation(Assets.playerR,6);
-//	Animation animation = new Animation(pics,10);
+	private Animation animationDown = new Animation(Assets.playerD,6);
+	private Animation animationLeft = new Animation(Assets.playerL,6);
+	private Animation animationUp = new Animation(Assets.playerU,6);
+	private Animation animationRight = new Animation(Assets.playerR,6);
+	
+
 	public Player(int x, int y) {
 		// initializing variables
 		this.x = x;
 		this.y = y;
+		width = 50;
+		height = 50;
 		speed = 3;
 		health = 100;
-		this.x = x;
-		this.y = y;
 		core=new Core(x,y);
 		camera=Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
@@ -63,7 +61,7 @@ public class Player extends Mobs {
 		return health;
 	}
 	
-	private boolean playerDead() {
+	private void playerHit() {
 		if(entityCollide().contains(em.getEnemy())) {
 			health-=1;
 			System.out.println("Yes Enemy");
@@ -71,17 +69,15 @@ public class Player extends Mobs {
 			System.out.println("No Enemy");
 		}
 		if(health<=0){
-			killed = true;
-			return killed;
+			killed = true;	
 		}else {
 			killed = false;
-			return killed;
 		}
 	}
 
 	@Override
 	public void update() {
-		playerDead();
+		playerHit();
 		updateBounds();
 		animationDown.update();
 		animationLeft.update();

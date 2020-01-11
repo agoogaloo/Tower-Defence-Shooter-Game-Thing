@@ -35,6 +35,7 @@ public class Enemy extends Mobs {
 	}
 	
 	private void updateDirection() {
+		Assets.enemyD[0].getWidth();
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
 				(y+Assets.enemyD[0].getHeight()/2)/16)){
 		case 5:
