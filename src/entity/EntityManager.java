@@ -27,13 +27,13 @@ public class EntityManager {
 			// everything needs to loop like this so that entities can be added in update
 			// methods
 			entities.get(i).update();
-//			if(i.getKilled()){ 
-//				if(i.instanceOf(Player)){ //If player gets hit reset level
-//					level.reset();
-//				}else{
-//				entities.remove(i); //If an other entity besides the player gets hit remove that entity
-//				}
-//			}
+			if(entities.get(i).getKilled()){ 
+			//	if(entities.get(i)).instanceOf(player)){ //If player gets hit reset level
+					//level.reset();
+				{
+				entities.remove(i); //If an other entity besides the player gets hit remove that entity
+				}
+			}
 		}
 	}
 

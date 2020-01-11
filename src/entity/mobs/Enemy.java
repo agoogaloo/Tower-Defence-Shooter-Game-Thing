@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 
 import Main.Main;
 import entity.Entity;
+import entity.EntityManager;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -16,11 +17,10 @@ public class Enemy extends Mobs {
 	private int rangeWidth = 150, rangeHeight = 150;
 	private int shotDelay = 0;
 	private boolean attack = false;
-	
+	private int damage=0;
 
 	private Camera camera;
 
-	
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
@@ -33,6 +33,7 @@ public class Enemy extends Mobs {
 		this.direction=direction;
 		speed=1;
 	}
+	
 	private void updateDirection() {
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
 				(y+Assets.enemyD[0].getHeight()/2)/16)){
@@ -88,13 +89,21 @@ public class Enemy extends Mobs {
 		
 
 	}
+	
+	private boolean enemyDead() {
+		if(entityCollide().size()>0){
+			killed = true;
+			return killed;
+		}
+		return false;
+	}
 	@Override
 	public void update() {
 		updateBounds();
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
 	
-		System.out.println(attack);
+		System.out.println(killed);
 		for(Entity e:entityManager.getEntities()) {
 			if(playerBox.intersects(attackRange)) {
 				attack = true;
@@ -105,8 +114,11 @@ public class Enemy extends Mobs {
 		if (shotDelay == 30 && attack == true) {
 			shoot();
 		}
+		
+
 		updateDirection();
 		move();
+		enemyDead();
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
@@ -116,6 +128,10 @@ public class Enemy extends Mobs {
 		if (shotDelay>30) { //When 60 frames pass reset shot buffer
 			shotDelay=0;
 		}
+	}
+	
+	public void getHit(int damage){
+		this.damage+=damage;
 	}
 	
 	public void render(Graphics g, Camera camera) {
