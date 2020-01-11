@@ -13,33 +13,31 @@ import graphics.Camera;
  */
 public class EntityManager {
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
+	// an arrayList that holds all the entities in the game
 	Player player;// creating a player
 
 	public void init() {
-
-		player=new Player(1747,1520);	
+		// this init method needs to be seperate from the constructor so that player can
+		// add the core to the array if it was added in the constructor the entityManager 
+		//wouldn't be created yet and would throw an error so the init method is called after it is created.
+		player = new Player(1747, 1520);
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
-		entities.add(new Enemy(1750,800,'d'));
+		entities.add(new Enemy(1750, 800, 'd'));
 	}
-	
+
+	// this method updates all the entitys in the entities arrayList
 	public void update() {
-		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
+		for (int i = 0; i < entities.size(); i++) { // Loop through arrayList to update
 			// everything needs to loop like this so that entities can be added in update
 			// methods
 			entities.get(i).update();
-//			if(i.getKilled()){ 
-//				if(i.instanceOf(Player)){ //If player gets hit reset level
-//					level.reset();
-//				}else{
-//				entities.remove(i); //If an other entity besides the player gets hit remove that entity
-//				}
-//			}
 		}
 	}
 
-	public void render(Graphics g, Camera camera){
-		for (int i=0;i<entities.size();i++){
-			entities.get(i).render(g, camera);//rendering all the entities
+	// same as update but rendering things instead
+	public void render(Graphics g, Camera camera) {
+		for (int i = 0; i < entities.size(); i++) {
+			entities.get(i).render(g, camera);// rendering all the entities
 		}
 	}
 

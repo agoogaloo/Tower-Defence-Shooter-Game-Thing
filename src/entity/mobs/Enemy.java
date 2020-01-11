@@ -16,11 +16,7 @@ public class Enemy extends Mobs {
 	private int rangeWidth = 150, rangeHeight = 150;
 	private int shotDelay = 0;
 	private boolean attack = false;
-	
 
-	private Camera camera;
-
-	
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
@@ -33,6 +29,7 @@ public class Enemy extends Mobs {
 		this.direction=direction;
 		speed=1;
 	}
+	
 	private void updateDirection() {
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
 				(y+Assets.enemyD[0].getHeight()/2)/16)){
