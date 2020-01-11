@@ -3,6 +3,7 @@ package entity.mobs;
 import java.awt.Graphics;
 
 import Main.Main;
+import entity.EntityManager;
 import entity.statics.Core;
 import graphics.Animation;
 import graphics.Assets;
@@ -18,7 +19,7 @@ public class Player extends Mobs {
 	private int money=0;
 	private int width = 50, height = 50;
 	private int shotBuffer = 0;
-	private int health = 100;
+	private int health;
 	private double bulletPath;
 	
 	private Camera camera;
@@ -26,7 +27,7 @@ public class Player extends Mobs {
 	
 	private Assets assets = new Assets();
 	PlayerInput input=new PlayerInput();//letting it get the inputs
-
+	private EntityManager em = new EntityManager(); 
 	Animation animationDown = new Animation(Assets.playerD,6);
 	Animation animationLeft = new Animation(Assets.playerL,6);
 	Animation animationUp = new Animation(Assets.playerU,6);
@@ -54,14 +55,33 @@ public class Player extends Mobs {
 			double targetX, targetY;
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			System.out.println("peew");
 			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5));
 			shotBuffer = 10;
+		}
+	}
+	public int getHealth() {
+		return health;
+	}
+	
+	private boolean playerDead() {
+		if(entityCollide().contains(em.getEnemy())) {
+			health-=1;
+			System.out.println("Yes Enemy");
+		}else {
+			System.out.println("No Enemy");
+		}
+		if(health<=0){
+			killed = true;
+			return killed;
+		}else {
+			killed = false;
+			return killed;
 		}
 	}
 
 	@Override
 	public void update() {
+		playerDead();
 		updateBounds();
 		animationDown.update();
 		animationLeft.update();
@@ -107,6 +127,7 @@ public class Player extends Mobs {
 		changeY = 0;
 
 		shotBuffer -= 1;
+		
 	}
 	//@author Kevin
 	@Override

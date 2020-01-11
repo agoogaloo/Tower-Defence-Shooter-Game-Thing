@@ -94,8 +94,10 @@ public class Enemy extends Mobs {
 		if(entityCollide().size()>0){
 			killed = true;
 			return killed;
+		}else {
+			killed = false;
+			return false;
 		}
-		return false;
 	}
 	@Override
 	public void update() {
@@ -103,7 +105,7 @@ public class Enemy extends Mobs {
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
 	
-		System.out.println(killed);
+		System.out.println("Enemy is collideing with Player:" + killed);
 		for(Entity e:entityManager.getEntities()) {
 			if(playerBox.intersects(attackRange)) {
 				attack = true;
