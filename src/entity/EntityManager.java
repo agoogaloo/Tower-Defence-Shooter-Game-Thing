@@ -26,7 +26,7 @@ public class EntityManager {
 		// entityManager
 		// wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
-		player = new Player(1747, 1520);
+		player = new Player(1747, 1440);
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 		entities.add(new Enemy(1750, 800, 'd'));
 	}

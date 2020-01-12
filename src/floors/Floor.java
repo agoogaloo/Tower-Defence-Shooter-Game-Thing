@@ -21,6 +21,7 @@ public class Floor {
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private final Room BLANKROOM = new Room("res/blank.txt", 2);
+	private final Room STARTROOM = new Room("res/startRoom.txt", 20);
 	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 	//it holds its own tileset so taht it is easy if we want to have different floor with different themes
 	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
@@ -58,7 +59,7 @@ public class Floor {
 	private Room[][] generateFloor() {
 		// declaring variables
 		Room[][] floor = new Room[size * 2][size + 1];
-		Room validRoom = POSSIBLEROOMS[0];
+		Room validRoom = STARTROOM;
 		Room checkRoom = POSSIBLEROOMS[0];
 		int x = size, y = size - 1;// making the starting room the bottom middle room
 
