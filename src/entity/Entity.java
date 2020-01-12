@@ -18,7 +18,7 @@ public abstract class Entity {
 	protected int health;
 	protected int width, height;
 	protected boolean killed = false;
-	
+	protected boolean friendly;
 	protected Rectangle bounds = new Rectangle(0,0, 10,10); //Gives enemies a hitbox of their width and height
 
 	protected ArrayList<Entity> entityCollide(){
@@ -53,7 +53,12 @@ public abstract class Entity {
 	public Rectangle getBounds() {
 		return bounds;
 	}
-	
+	public boolean getFriendly() {
+		return friendly;
+	}
+	public void setFriendly(boolean friendly) {
+		this.friendly = friendly;
+	}
 	public static EntityManager getEntityManager() {
 		return entityManager;
 	}

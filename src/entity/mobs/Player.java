@@ -22,7 +22,6 @@ public class Player extends Mobs {
 	private boolean friend = true;
 	private Camera camera;
 	private Core core;
-	private Bullet bullet;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
 	private Animation animationDown = new Animation(Assets.playerD,6);
 	private Animation animationLeft = new Animation(Assets.playerL,6);
@@ -53,19 +52,14 @@ public class Player extends Mobs {
 			
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, 1));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, true));
 			shotBuffer = 10;
 		}
 	}
-	public int getHealth() {
-		return health;
-	}
-	public void setHealth(int health) {
-		this.health = health;
-	}
+
 	private void playerCollide() {
 		for(Entity e: entityCollide()) {
-			if(e instanceof Enemy && bullet.getFriendly() == false) {
+			if(e instanceof Enemy && getFriendly() == false) {
 				health-=1;
 			}
 		}
@@ -80,6 +74,7 @@ public class Player extends Mobs {
 	public void update() {
 		updateBounds();
 		playerCollide();
+		System.out.println(health);
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();

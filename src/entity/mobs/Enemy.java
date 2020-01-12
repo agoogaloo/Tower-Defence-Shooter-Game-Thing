@@ -23,7 +23,6 @@ public class Enemy extends Mobs {
 	private int playerHealth; //Separate health variable allowing us to change the player's health without affecting the enemies health
 	
 	private Camera camera;
-	private Bullet bullet;
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
@@ -87,38 +86,21 @@ public class Enemy extends Mobs {
 		double playerX, playerY;
 		playerX = entityManager.getPlayer().getX();
 		playerY = entityManager.getPlayer().getY();
-		entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3, 0));
+		entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3, false));
+		setFriendly(false);
 		shotDelay = 0;
 	}
 	
-	private boolean enemyCollide() {
+	private void enemyCollide() {
 		for(Entity e: entityCollide()) {
 			if(e instanceof Player){
-				getHit(1);
-				playerHealth = entityManager.getPlayer().getHealth();
-				playerHealth -= giveDamage();
-				entityManager.getPlayer().setHealth(playerHealth);
 				killed = true;
-				return killed;
-			}else if(e instanceof Bullet && bullet.getFriendly() == false) {
+			}else if(e instanceof Bullet && getFriendly() == true) {
 				killed = true;
-				return killed;
 			}else {
 				killed = false;
-				return killed;
 			}
 		}
-		return killed;
-	}
-	
-	public int giveDamage(){
-		int num=damage;//needs to be its own variable so that when damage is reset it wont return 0
-		damage=0;//reseting damage so it doesnt stack
-		return num;
-		
-	}
-	public void getHit(int damage){
-		this.damage+=damage;
 	}
 	
 	@Override

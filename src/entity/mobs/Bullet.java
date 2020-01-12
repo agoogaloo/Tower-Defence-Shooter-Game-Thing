@@ -12,13 +12,16 @@ public class Bullet extends Mobs{
 	int startX, startY;
 	int speed = 5;
 	int i;
-	int friendly = 0;
+	
 	BufferedImage [] bulletPics = Assets.bullet;
 
-	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed, int friendly){ //0 is an enemy bullet 1 is a friendly bullet
+	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed, boolean friendly){ //0 is an enemy bullet 1 is a friendly bullet
 		this.speed = speed;
-		this.friendly = friendly;
-		friendly = 0;
+		if(friendly == true) {
+			setFriendly(true);
+		}else if (friendly == false) {
+			setFriendly(false);
+		}
 		x = startX;
 		y = startY;	
 		i = pics;
@@ -29,13 +32,7 @@ public class Bullet extends Mobs{
 		velocityY = speed*Math.sin(bulletPath);
 	}
 	
-	public boolean getFriendly() {
-		if (friendly == 0) {
-			return false;
-		}else {
-			return true;
-		}
-	}
+
 	@Override
 	public void update(){
 		updateBounds();
