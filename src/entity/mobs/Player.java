@@ -6,6 +6,8 @@ import Main.Main;
 import entity.Entity;
 import entity.EntityManager;
 import entity.statics.Core;
+import entity.statics.Tower;
+import entity.statics.WizardTower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -19,10 +21,12 @@ public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
 	private int shotBuffer = 0;
+	private int numberOfTowers = 10;
+	private boolean build = false;
 	
 	private Camera camera;
 	private Core core;
-	
+	private WizardTower wizardTower;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
 	
 	private Animation animationDown = new Animation(Assets.playerD,6);
@@ -31,12 +35,12 @@ public class Player extends Mobs {
 	private Animation animationRight = new Animation(Assets.playerR,6);
 	
 
-	public Player(int x, int y) {
+	public Player(int x, int y, int width, int height) {
 		// initializing variables
 		this.x = x;
 		this.y = y;
-		width = 50;
-		height = 50;
+		this.width = width;
+		this.height = height;
 		speed = 3;
 		health = 3; 
 		core=new Core(x,y);
@@ -53,7 +57,7 @@ public class Player extends Mobs {
 			double targetX, targetY;
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.bullet[0].getWidth(), Assets.bullet[0].getHeight(), 0, 5));
 			shotBuffer = 10;
 		}
 	}
@@ -86,7 +90,6 @@ public class Player extends Mobs {
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		health-=core.giveDamage();
-		System.out.println("Player Health: " + health);
 		if (input.isShoot()) {
 			shoot();
 		}
@@ -97,34 +100,48 @@ public class Player extends Mobs {
 			changeY += speed;
 		}
 		if (input.isLeft()) {
-			changeX -= speed;
+			velocityX -= speed;
 		}
 		if (input.isRight()) {
-			changeX += speed;
+			velocityX += speed;
 		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+changeY)/16)){
-			changeX=0;
+		if (input.isControl() ) {
+			tower();
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+velocityX)/16,(y+changeY)/16)){
+			velocityX=0;
 			changeY=0;
 		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+changeY)/16)){
-			changeX=0;
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+velocityX)/16,(y+changeY)/16)){
+			velocityX=0;
 			changeY=0;
 		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+29+changeY)/16)){
-			changeX=0;
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+velocityX)/16,(y+29+changeY)/16)){
+			velocityX=0;
 			changeY=0;
 		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+29+changeY)/16)){
-			changeX=0;
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+velocityX)/16,(y+29+changeY)/16)){
+			velocityX=0;
 			changeY=0;
 		}
-		x += changeX;// actually moving the player
+		x += velocityX;// actually moving the player
 		y += changeY;
-		changeX = 0;// resting change x and y
+		velocityX = 0;// resting change x and y
 		changeY = 0;
-
+		
 		shotBuffer -= 1;
 		
+	}
+	
+	public void tower() {
+		if(numberOfTowers>=1) {
+			Tower tower = new Tower(x,y);
+			entityManager.addEntity(tower);
+			numberOfTowers-=1;
+		}
+	}
+	public boolean getBuild() {
+		return build;
 	}
 	//@author Kevin
 	@Override

@@ -17,10 +17,10 @@ public abstract class Entity {
 	
 	protected int x, y;
 	protected int health;
-	protected int width, height;
+	protected int width = 10, height = 10;
 	protected boolean killed = false;
 	
-	protected Rectangle bounds = new Rectangle(0,0, 10,10); //Gives enemies a hitbox of their width and height
+	protected Rectangle bounds = new Rectangle(x,y, width,height); //Gives enemies a hitbox of their width and height
 
 	protected ArrayList<Entity> entityCollide(){
 		ArrayList<Entity> entities=new ArrayList<Entity>();
@@ -29,7 +29,7 @@ public abstract class Entity {
 				entities.add(e);
 			}
 		}
-	//	System.out.println(entities);
+		//System.out.println(entities);
 		return entities;
 	}
 	public static void init(){

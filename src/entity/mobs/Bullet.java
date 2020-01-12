@@ -16,8 +16,10 @@ public class Bullet extends Mobs{
 	int intVelocityX, intVelocityY;
 	BufferedImage [] bulletPics = Assets.bullet;
 	BufferedImage [] playerPics = Assets.player;
-	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed){
+	public Bullet(int startX,int startY,double targetX,double targetY, int width, int height, int pics, int speed){
 		this.speed = speed;
+		this.width = width;
+		this.height = height;
 		x = startX;
 		y = startY;	
 		i = pics;
@@ -38,18 +40,18 @@ public class Bullet extends Mobs{
 		y=((int)(trueY) - offsetY);
 		intVelocityX = ((int)(velocityX));
 		intVelocityY = ((int)(velocityY));
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
-			killed = true;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
-			killed = true;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
-			killed = true;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
-			killed = true;
-		}
+//		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+//			killed = true;
+//		}
+//		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+//			killed = true;
+//		}
+//		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+//			killed = true;
+//		}
+//		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+//			killed = true;
+//		}
 	}
 	@Override
 
