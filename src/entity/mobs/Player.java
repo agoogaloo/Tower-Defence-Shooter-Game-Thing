@@ -19,10 +19,10 @@ public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
 	private int shotBuffer = 0;
-	private boolean friend = true;
 	private Camera camera;
 	private Core core;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
+	
 	private Animation animationDown = new Animation(Assets.playerD,6);
 	private Animation animationLeft = new Animation(Assets.playerL,6);
 	private Animation animationUp = new Animation(Assets.playerU,6);
@@ -33,13 +33,15 @@ public class Player extends Mobs {
 		// initializing variables
 		this.x = x;
 		this.y = y;
-		width = 50;
-		height = 50;
+		width = 16;
+		height = 29;
 		speed = 3;
 		health = 3; 
+		friendly=true;
 		core=new Core(x,y);
 		camera=Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
+		damage=10;
 	}
 
 	/**
@@ -52,30 +54,15 @@ public class Player extends Mobs {
 			
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, true));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), 
+					targetY+camera.getyOffset(), 0, 5, true));
 			shotBuffer = 10;
-		}
-	}
-
-	private void playerCollide() {
-		for(Entity e: entityCollide()) {
-			if(e instanceof Enemy) {
-				health-=1;
-			}else if(e instanceof Bullet && getFriendly() == false) {
-				health-=1;
-			}
-		}
-		if(health<=0){
-			killed = true;	
-		}else {
-			killed = false;
 		}
 	}
 
 	@Override
 	public void update() {
-		updateBounds();
-		playerCollide();
+		
 		System.out.println(health);
 		animationDown.update();
 		animationLeft.update();
@@ -98,30 +85,9 @@ public class Player extends Mobs {
 		}
 		if (input.isRight()) {
 			changeX += speed;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+changeY)/16)){
-			changeX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+changeY)/16)){
-			changeX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+29+changeY)/16)){
-			changeX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+29+changeY)/16)){
-			changeX=0;
-			changeY=0;
-		}
-		x += changeX;// actually moving the player
-		y += changeY;
-		changeX = 0;// resting change x and y
-		changeY = 0;
-		
+		}		
 		shotBuffer -= 1;
-		
+		move();
 	}
 	//@author Kevin
 	@Override

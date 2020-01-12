@@ -25,7 +25,7 @@ public abstract class Tower extends Statics {
 			}
 		}
 		if (attack = true && shotDelay == 30) {
-			entityManager.addEntity(new Bullet(x,y,enemyX,enemyY,0,8));
+			entityManager.addEntity(new Bullet(x,y,enemyX,enemyY,0,8, true));
 			shotDelay = 0;
 		}
 		if (shotDelay>30) { //When 30 frames pass reset shot delay

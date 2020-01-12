@@ -19,16 +19,24 @@ public class EntityManager {
 	public void init() {
 
 		player=new Player(1747,1520);	
+		entities.add(new Enemy(1750,1000,'d'));
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
-		entities.add(new Enemy(1750,800,'d'));
+		
 	}
 	
 	public void update() {
+		System.out.println("");
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
 			// methods
 			entities.get(i).update();
-			if(entities.get(i).getKilled()){ 
+			entities.get(i).damage();
+		}
+		for (int i = 0; i < entities.size(); i++) {
+			entities.get(i).damage();
+		}
+		for (int i = 0; i < entities.size(); i++) {
+			if(entities.get(i).isKilled()){ 
 				if(entities.get(i) instanceof Player){ //If player gets hit reset level
 					System.out.println("Player has died");
 				}else{

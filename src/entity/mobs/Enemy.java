@@ -18,23 +18,21 @@ public class Enemy extends Mobs {
 	private int rangeWidth = 150, rangeHeight = 150;
 	private int shotDelay = 0;
 	private boolean attack = false;
-	private boolean i = true;
-	private int damage=0;
-	private int playerHealth; //Separate health variable allowing us to change the player's health without affecting the enemies health
 	
-	private Camera camera;
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
 	Animation animationRight = new Animation(Assets.enemyR,4);
-
-	
 
 	public Enemy(int x, int y, char direction) {
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
 		speed=1;
+		friendly=false;
+		damage=1;
+		width=21;
+		height=25;
 	}
 	
 	private void updateDirection() {
@@ -65,8 +63,6 @@ public class Enemy extends Mobs {
 		case 12:
 			direction='l';
 		}
-	}
-	private void move() {
 		switch(direction) {
 		case 'u':
 			y-=speed;
@@ -87,26 +83,11 @@ public class Enemy extends Mobs {
 		playerX = entityManager.getPlayer().getX();
 		playerY = entityManager.getPlayer().getY();
 		entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3, false));
-		setFriendly(false);
 		shotDelay = 0;
-	}
-	
-	private void enemyCollide() {
-		for(Entity e: entityCollide()) {
-			if(e instanceof Player){
-				killed = true;
-			}else if(e instanceof Bullet && getFriendly() == true) {
-				killed = true;
-			}else {
-				killed = false;
-			}
-		}
 	}
 	
 	@Override
 	public void update() {
-		updateBounds();
-		enemyCollide();
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
 	
@@ -120,9 +101,10 @@ public class Enemy extends Mobs {
 		if (shotDelay == 30 && attack == true) {
 			shoot();
 		}
-		
 		updateDirection();
 		move();
+		System.out.println(health);
+		
 		
 		animationDown.update();
 		animationLeft.update();
