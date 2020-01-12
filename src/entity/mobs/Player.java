@@ -59,7 +59,9 @@ public class Player extends Mobs {
 
 	private void playerCollide() {
 		for(Entity e: entityCollide()) {
-			if(e instanceof Enemy && getFriendly() == false) {
+			if(e instanceof Enemy) {
+				health-=1;
+			}else if(e instanceof Bullet && getFriendly() == false) {
 				health-=1;
 			}
 		}
