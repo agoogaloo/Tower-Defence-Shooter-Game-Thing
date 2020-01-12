@@ -16,8 +16,6 @@ public class EntityManager {
 	
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
-	Bullet bullet;
-	Enemy enemy;
 	public void init() {
 
 		player=new Player(1747,1520);	
@@ -32,9 +30,9 @@ public class EntityManager {
 			entities.get(i).update();
 			if(entities.get(i).getKilled()){ 
 				if(entities.get(i) instanceof Player){ //If player gets hit reset level
-					System.out.println("This is a player");
+					System.out.println("Player has died");
 				}else{
-					//entities.remove(i); //If an other entity besides the player gets hit remove that entity
+					entities.remove(i); //If an other entity besides the player gets hit remove that entity
 				}
 			}
 		}
@@ -57,8 +55,5 @@ public class EntityManager {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public Enemy getEnemy() {
-		return enemy;
-	}
+
 }

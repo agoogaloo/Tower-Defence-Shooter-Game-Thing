@@ -18,6 +18,7 @@ public class Enemy extends Mobs {
 	private int shotDelay = 0;
 	private boolean attack = false;
 	private int damage=0;
+	private int playerHealth; //Separate health variable allowing us to change the player's health without affecting the enemies health
 
 	private Camera camera;
 
@@ -91,8 +92,12 @@ public class Enemy extends Mobs {
 
 	}
 	
-	private boolean enemyDead() {
+	private boolean enemyCollide() {
 		if(entityCollide().size()>0){
+			getHit(1);
+			playerHealth = entityManager.getPlayer().getHealth();
+			playerHealth -= giveDamage();
+			entityManager.getPlayer().setHealth(playerHealth);
 			killed = true;
 			return killed;
 		}else {
@@ -100,13 +105,24 @@ public class Enemy extends Mobs {
 			return false;
 		}
 	}
+	
+	public int giveDamage(){
+		int num=damage;//needs to be its own variable so that when damage is reset it wont return 0
+		damage=0;//reseting damage so it doesnt stack
+		return num;
+		
+	}
+	public void getHit(int damage){
+		this.damage+=damage;
+	}
+	
 	@Override
 	public void update() {
 		updateBounds();
+		enemyCollide();
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
 	
-		System.out.println("Enemy is collideing with Player:" + killed);
 		for(Entity e:entityManager.getEntities()) {
 			if(playerBox.intersects(attackRange)) {
 				attack = true;
@@ -118,10 +134,10 @@ public class Enemy extends Mobs {
 			shoot();
 		}
 		
-
+		System.out.println("Enemy Health: " + health);
 		updateDirection();
 		move();
-		enemyDead();
+		
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
@@ -133,9 +149,6 @@ public class Enemy extends Mobs {
 		}
 	}
 	
-	public void getHit(int damage){
-		this.damage+=damage;
-	}
 	
 	public void render(Graphics g, Camera camera) {
 //		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
