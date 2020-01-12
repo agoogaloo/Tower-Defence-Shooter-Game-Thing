@@ -20,8 +20,6 @@ public class Enemy extends Mobs {
 	private int damage=0;
 	private int playerHealth; //Separate health variable allowing us to change the player's health without affecting the enemies health
 
-	private Camera camera;
-
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);

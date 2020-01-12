@@ -18,73 +18,45 @@ import graphics.Camera;
 public class Tower extends Statics {
 	
 	boolean attack = false;
-	boolean build = false;
 	int shotDelay = 0;
-	int rangeWidth = 100, rangeHeight = 100;
-	Rectangle towerRange = new Rectangle(x,y,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
-	Rectangle enemyBox;
-	private PlayerInput input = new PlayerInput();
+	int rangeWidth = 80, rangeHeight = 80;
+	Entity target;
+	Rectangle towerRange;
 	Animation animation = new Animation(Assets.wizardTower,6);
 	
 	public Tower(int x, int y) {
 		this.x = x;
 		this.y = y;
+		towerRange=new Rectangle(x-40,y-40,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
 
 	}
 	
-	public boolean search() {
+	public void search() {
+		attack=false;
 		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
-			enemyBox = new Rectangle(e.getBounds().x, e.getBounds().y, width, height);
-			if(e.getBounds().intersects(towerRange)) { //If an entity is detected within tower range get it's x and y and set it to the appropriate variables
-				return false; //An entity has been detected so the tower will start shooting	
-			}else{
-				return false;
+			if(e.getBounds().intersects(towerRange)&&e instanceof Enemy) { //If an entity is detected within tower range get it's x and y and set it to the appropriate variables
+				System.out.println(e);
+				target=e;
+				attack= true; //An entity has been detected so the tower will start shooting	
 			}
 		}
-		return false;
 	}
 	private void shoot() {
-		double enemyX=0, enemyY=0;
-		for(Entity e:entityManager.getEntities()) {
-			if (e instanceof Enemy) {
-//			enemyX = e.getX();
-//			enemyY = e.getY();
-			enemyX = e.getBounds().x;
-			enemyY = e.getBounds().y;
-			}
-		}
-		System.out.println(attack);
-		entityManager.addEntity(new Bullet(x,y,enemyX,enemyY,Assets.bullet[1].getWidth(), Assets.bullet[1].getHeight(),1,8));
-	
-	
+		entityManager.addEntity(new Bullet(x,y,target.getX(),target.getY(),Assets.bullet[1].getWidth()
+				, Assets.bullet[1].getHeight(),1,8));
 	}			
-	
-		
-
-	public void updateBounds(){
-		this.bounds.x=x;
-		this.bounds.y=y;
-				
-	}
 
 	@Override
 	public void update(){ //Every frame check to see if an entity is within towers range, if so start attacking
-		if(search()) {
-			attack = true;
-		}else {
-			attack = false;
-		}
-		if (attack == true && shotDelay == 30) {
+		search();
+		if (attack && shotDelay>= 30) {
 			shoot();
 			shotDelay = 0;
 		}
-		
+		System.out.println(attack);
 		shotDelay+=1; //Counts up for every frame, towers can only shoot every 30 frames
 		
-		if (shotDelay>30) { //When 30 frames pass reset shot delay
-			shotDelay=0;
-		}
-		updateBounds();
+		
 	}
 	@Override
 	public void render(Graphics g, Camera camera) {
@@ -93,7 +65,8 @@ public class Tower extends Statics {
 				g.drawRect(e.getX()-camera.getxOffset(),e.getY()-camera.getyOffset(),Assets.enemy[0].getWidth(),Assets.enemy[0].getHeight());
 			}
 		}
-		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
+		g.drawRect(towerRange.x-camera.getxOffset(),towerRange.y-camera.getyOffset(),
+				towerRange.width,towerRange.height);
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 	}
 }

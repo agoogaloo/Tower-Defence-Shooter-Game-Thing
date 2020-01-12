@@ -21,7 +21,7 @@ public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
 	private int shotBuffer = 0;
-	private int numberOfTowers = 10;
+	private int numberOfTowers = 1;
 	private boolean build = false;
 	
 	private Camera camera;
@@ -61,12 +61,7 @@ public class Player extends Mobs {
 			shotBuffer = 10;
 		}
 	}
-	public int getHealth() {
-		return health;
-	}
-	public void setHealth(int health) {
-		this.health = health;
-	}
+	
 	private void playerCollide() {
 		for(Entity e: entityCollide()) {
 			if(e instanceof Enemy) {
@@ -140,9 +135,7 @@ public class Player extends Mobs {
 			numberOfTowers-=1;
 		}
 	}
-	public boolean getBuild() {
-		return build;
-	}
+	
 	//@author Kevin
 	@Override
 	public void render(Graphics g, Camera camera) {
@@ -158,5 +151,14 @@ public class Player extends Mobs {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
+	}
+	public int getHealth() {
+		return health;
+	}
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	public boolean getBuild() {
+		return build;
 	}
 }

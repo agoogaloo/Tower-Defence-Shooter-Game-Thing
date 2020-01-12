@@ -20,7 +20,7 @@ public abstract class Entity {
 	protected int width = 10, height = 10;
 	protected boolean killed = false;
 	
-	protected Rectangle bounds = new Rectangle(x,y, width,height); //Gives enemies a hitbox of their width and height
+	protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 
 	protected ArrayList<Entity> entityCollide(){
 		ArrayList<Entity> entities=new ArrayList<Entity>();
