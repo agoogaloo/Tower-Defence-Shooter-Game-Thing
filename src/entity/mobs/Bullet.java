@@ -3,6 +3,7 @@ package entity.mobs;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import Main.Main;
 import graphics.Assets;
 import graphics.Camera;
 
@@ -12,6 +13,7 @@ public class Bullet extends Mobs{
 	int startX, startY;
 	int speed = 5;
 	int i;
+	int intVelocityX, intVelocityY;
 	BufferedImage [] bulletPics = Assets.bullet;
 	BufferedImage [] playerPics = Assets.player;
 	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed){
@@ -34,6 +36,20 @@ public class Bullet extends Mobs{
 		trueY+=velocityY;
 		x=((int)(trueX) - offsetX);
 		y=((int)(trueY) - offsetY);
+		intVelocityX = ((int)(velocityX));
+		intVelocityY = ((int)(velocityY));
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+			killed = true;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+			killed = true;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+			killed = true;
+		}
+		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){
+			killed = true;
+		}
 	}
 	@Override
 
