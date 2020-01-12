@@ -15,8 +15,6 @@ import graphics.Camera;
  */
 public class Player extends Mobs {
 	//declaring variables
-	private int money=0;
-	private int width = 50, height = 50;
 	private int shotBuffer = 0;
 	private int health = 100;
 	private double bulletPath;
@@ -24,23 +22,22 @@ public class Player extends Mobs {
 	private Camera camera;
 	private Core core;
 	
-	private Assets assets = new Assets();
+	
 	PlayerInput input=new PlayerInput();//letting it get the inputs
-
+	//creating all the players animations
 	Animation animationDown = new Animation(Assets.playerD,6);
 	Animation animationLeft = new Animation(Assets.playerL,6);
 	Animation animationUp = new Animation(Assets.playerU,6);
 	Animation animationRight = new Animation(Assets.playerR,6);
-//	Animation animation = new Animation(pics,10);
 	public Player(int x, int y) {
 		// initializing variables
 		this.x = x;
 		this.y = y;
 		speed = 3;
 		health = 100;
-		this.x = x;
-		this.y = y;
-		core=new Core(x,y);
+		width = 50;
+		height = 50;
+		core=new Core(x,y);//creating a core at its starting position
 		camera=Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
 	}
@@ -68,7 +65,7 @@ public class Player extends Mobs {
 		animationUp.update();
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
-		health-=core.giveDamage();
+		health-=core.giveDamage();//dealing damage to the player if the core has taken damage
 		System.out.println(health);
 		if (input.isShoot()) {
 			shoot();
@@ -85,21 +82,13 @@ public class Player extends Mobs {
 		if (input.isRight()) {
 			changeX += speed;
 		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+changeY)/16)){
-			changeX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+changeY)/16)){
-			changeX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+changeX)/16,(y+29+changeY)/16)){
-			changeX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+changeX)/16,(y+29+changeY)/16)){
-			changeX=0;
-			changeY=0;
+		//not moving if the players coreners will be inside of a wall
+		if (Main.getWindow().getDisplay().getFloor().checkwall((x + changeX) / 16, (y + changeY) / 16)
+				|| Main.getWindow().getDisplay().getFloor().checkwall((x + 16 + changeX) / 16, (y + changeY) / 16)
+				|| Main.getWindow().getDisplay().getFloor().checkwall((x + changeX) / 16, (y + 29 + changeY) / 16)
+				|| Main.getWindow().getDisplay().getFloor().checkwall((x + 16 + changeX) / 16, (y + 29 + changeY) / 16)) {
+			changeX = 0;
+			changeY = 0;
 		}
 		x += changeX;// actually moving the player
 		y += changeY;
@@ -112,14 +101,12 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
-
-			g.drawImage(animationDown.getCurrentFrame(),
-					x - camera.getxOffset(), y - camera.getyOffset(), null);
-		}else if (input.getDirection() == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
-		}else if (input.getDirection() == 'u') {
+			g.drawImage(animationDown.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
+		} else if (input.getDirection() == 'l') {
+			g.drawImage(animationLeft.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
+		} else if (input.getDirection() == 'u') {
 			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
-		}else if (input.getDirection() == 'r') {
+		} else if (input.getDirection() == 'r') {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
