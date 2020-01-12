@@ -20,6 +20,7 @@ public class EntityManager {
 
 		player=new Player(1747,1520);	
 		entities.add(new Enemy(1750,1000,'d'));
+		entities.add(new Enemy(1750,1200,'d'));
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 		
 	}
@@ -30,7 +31,6 @@ public class EntityManager {
 			// everything needs to loop like this so that entities can be added in update
 			// methods
 			entities.get(i).update();
-			entities.get(i).damage();
 		}
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).damage();
