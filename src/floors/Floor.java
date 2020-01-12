@@ -95,8 +95,8 @@ public class Floor {
 			} while (checkRoom.getEntrance() != validRoom.getExit());
 			// looping until a room i found that will line up with the previous room
 
-			validRoom = checkRoom;// checkRoom is now confirmed to line up so it can be added to the list the next
-									// loop
+			validRoom = checkRoom;
+			// checkRoom is now confirmed to line up so it can be added to the list the next loop
 		}
 		return floor;// returning the array
 	}
