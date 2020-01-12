@@ -19,7 +19,7 @@ public class Tower extends Statics {
 	
 	boolean attack = false;
 	int shotDelay = 0;
-	int rangeWidth = 80, rangeHeight = 80;
+	int rangeWidth = 100, rangeHeight = 100;
 	Entity target;
 	Rectangle towerRange;
 	Animation animation = new Animation(Assets.wizardTower,6);
@@ -27,7 +27,7 @@ public class Tower extends Statics {
 	public Tower(int x, int y) {
 		this.x = x;
 		this.y = y;
-		towerRange=new Rectangle(x-40,y-40,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
+		towerRange=new Rectangle(x-50,y-50,1,1); //Creates a rectangle for the towers range 
 
 	}
 	
