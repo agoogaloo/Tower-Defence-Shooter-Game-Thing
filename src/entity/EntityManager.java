@@ -3,6 +3,7 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import entity.mobs.Bullet;
 import entity.mobs.Enemy;
 import entity.mobs.Player;
 import graphics.Camera;
@@ -12,9 +13,9 @@ import graphics.Camera;
  *
  */
 public class EntityManager {
+	
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
-
 	public void init() {
 
 		player=new Player(1747,1520);	
@@ -27,13 +28,13 @@ public class EntityManager {
 			// everything needs to loop like this so that entities can be added in update
 			// methods
 			entities.get(i).update();
-//			if(i.getKilled()){ 
-//				if(i.instanceOf(Player)){ //If player gets hit reset level
-//					level.reset();
-//				}else{
-//				entities.remove(i); //If an other entity besides the player gets hit remove that entity
-//				}
-//			}
+			if(entities.get(i).getKilled()){ 
+				if(entities.get(i) instanceof Player){ //If player gets hit reset level
+					System.out.println("Player has died");
+				}else{
+					entities.remove(i); //If an other entity besides the player gets hit remove that entity
+				}
+			}
 		}
 	}
 
@@ -54,4 +55,5 @@ public class EntityManager {
 	public Player getPlayer() {
 		return player;
 	}
+
 }

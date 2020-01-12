@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import entity.mobs.Enemy;
+import entity.mobs.Player;
 import graphics.Camera;
 
 /**
@@ -27,7 +29,7 @@ public abstract class Entity {
 				entities.add(e);
 			}
 		}
-		System.out.println(entities);
+	//	System.out.println(entities);
 		return entities;
 	}
 	public static void init(){
@@ -58,4 +60,9 @@ public abstract class Entity {
 	}
 	public abstract void update();
 	public abstract void render(Graphics g, Camera camera);
+	
+
+
+	
+
 }

@@ -3,6 +3,8 @@ package entity.mobs;
 import java.awt.Graphics;
 
 import Main.Main;
+import entity.Entity;
+import entity.EntityManager;
 import entity.statics.Core;
 import graphics.Animation;
 import graphics.Assets;
@@ -16,30 +18,27 @@ import graphics.Camera;
 public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
-	private int width = 50, height = 50;
 	private int shotBuffer = 0;
-	private int health = 100;
-	private double bulletPath;
 	
 	private Camera camera;
 	private Core core;
 	
-	private Assets assets = new Assets();
-	PlayerInput input=new PlayerInput();//letting it get the inputs
+	private PlayerInput input=new PlayerInput();//letting it get the inputs
+	
+	private Animation animationDown = new Animation(Assets.playerD,6);
+	private Animation animationLeft = new Animation(Assets.playerL,6);
+	private Animation animationUp = new Animation(Assets.playerU,6);
+	private Animation animationRight = new Animation(Assets.playerR,6);
+	
 
-	Animation animationDown = new Animation(Assets.playerD,6);
-	Animation animationLeft = new Animation(Assets.playerL,6);
-	Animation animationUp = new Animation(Assets.playerU,6);
-	Animation animationRight = new Animation(Assets.playerR,6);
-//	Animation animation = new Animation(pics,10);
 	public Player(int x, int y) {
 		// initializing variables
 		this.x = x;
 		this.y = y;
+		width = 50;
+		height = 50;
 		speed = 3;
-		health = 100;
-		this.x = x;
-		this.y = y;
+		health = 3; 
 		core=new Core(x,y);
 		camera=Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
@@ -54,22 +53,40 @@ public class Player extends Mobs {
 			double targetX, targetY;
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			System.out.println("peew");
 			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5));
 			shotBuffer = 10;
+		}
+	}
+	public int getHealth() {
+		return health;
+	}
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	private void playerCollide() {
+		for(Entity e: entityCollide()) {
+			if(e instanceof Enemy) {
+				health-=1;
+			}
+		}
+		if(health<=0){
+			killed = true;	
+		}else {
+			killed = false;
 		}
 	}
 
 	@Override
 	public void update() {
 		updateBounds();
+		playerCollide();
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		health-=core.giveDamage();
-		System.out.println(health);
+		System.out.println("Player Health: " + health);
 		if (input.isShoot()) {
 			shoot();
 		}
@@ -107,6 +124,7 @@ public class Player extends Mobs {
 		changeY = 0;
 
 		shotBuffer -= 1;
+		
 	}
 	//@author Kevin
 	@Override

@@ -2,6 +2,8 @@ package entity.statics;
 
 import java.awt.Graphics;
 
+import entity.Entity;
+import entity.mobs.Enemy;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -22,8 +24,10 @@ public class Core extends Statics{
 	
 	@Override
 	public void update() {
-		if(entityCollide().size()>0){
-			getHit(1);
+		for(Entity e:entityCollide()) {
+			if(e instanceof Enemy) {
+				getHit(1);
+			}
 		}
 		anim.update();
 		
