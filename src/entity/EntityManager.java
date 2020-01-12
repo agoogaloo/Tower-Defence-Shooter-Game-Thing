@@ -16,8 +16,8 @@ public class EntityManager {
 	 * this class lets us hold all the entities like the player, enemies, and bullets
 	 * in one place so that we know they are all being updated and rendered
 	 */
-	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	// an arrayList that holds all the entities in the game
+	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
 
 	public void init() {
