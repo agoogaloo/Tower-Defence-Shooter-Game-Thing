@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import Main.Main;
 import entity.Entity;
 import entity.EntityManager;
+import entity.statics.Core;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -17,15 +18,17 @@ public class Enemy extends Mobs {
 	private int rangeWidth = 150, rangeHeight = 150;
 	private int shotDelay = 0;
 	private boolean attack = false;
+	private boolean i = true;
 	private int damage=0;
 	private int playerHealth; //Separate health variable allowing us to change the player's health without affecting the enemies health
-
+	
 	private Camera camera;
-
+	private Bullet bullet;
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
 	Animation animationRight = new Animation(Assets.enemyR,4);
+
 	
 
 	public Enemy(int x, int y, char direction) {
@@ -84,26 +87,28 @@ public class Enemy extends Mobs {
 		double playerX, playerY;
 		playerX = entityManager.getPlayer().getX();
 		playerY = entityManager.getPlayer().getY();
-
-
-			entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3));
-			shotDelay = 0;
-		
-
+		entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3, 0));
+		shotDelay = 0;
 	}
 	
 	private boolean enemyCollide() {
-		if(entityCollide().size()>0){
-			getHit(1);
-			playerHealth = entityManager.getPlayer().getHealth();
-			playerHealth -= giveDamage();
-			entityManager.getPlayer().setHealth(playerHealth);
-			killed = true;
-			return killed;
-		}else {
-			killed = false;
-			return false;
+		for(Entity e: entityCollide()) {
+			if(e instanceof Player){
+				getHit(1);
+				playerHealth = entityManager.getPlayer().getHealth();
+				playerHealth -= giveDamage();
+				entityManager.getPlayer().setHealth(playerHealth);
+				killed = true;
+				return killed;
+			}else if(e instanceof Bullet && bullet.getFriendly() == false) {
+				killed = true;
+				return killed;
+			}else {
+				killed = false;
+				return killed;
+			}
 		}
+		return killed;
 	}
 	
 	public int giveDamage(){
@@ -134,7 +139,6 @@ public class Enemy extends Mobs {
 			shoot();
 		}
 		
-		System.out.println("Enemy Health: " + health);
 		updateDirection();
 		move();
 		
@@ -142,7 +146,6 @@ public class Enemy extends Mobs {
 		animationLeft.update();
 		animationUp.update();
 		animationRight.update();
-		
 		shotDelay+=1;
 		if (shotDelay>30) { //When 60 frames pass reset shot buffer
 			shotDelay=0;

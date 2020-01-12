@@ -12,10 +12,13 @@ public class Bullet extends Mobs{
 	int startX, startY;
 	int speed = 5;
 	int i;
+	int friendly = 0;
 	BufferedImage [] bulletPics = Assets.bullet;
-	BufferedImage [] playerPics = Assets.player;
-	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed){
+
+	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed, int friendly){ //0 is an enemy bullet 1 is a friendly bullet
 		this.speed = speed;
+		this.friendly = friendly;
+		friendly = 0;
 		x = startX;
 		y = startY;	
 		i = pics;
@@ -25,21 +28,30 @@ public class Bullet extends Mobs{
 		velocityX = speed*Math.cos(bulletPath);
 		velocityY = speed*Math.sin(bulletPath);
 	}
-
+	
+	public boolean getFriendly() {
+		if (friendly == 0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
 	@Override
 	public void update(){
+		updateBounds();
 		int offsetX = bulletPics[i].getWidth()/2 - 10;
 		int offsetY = bulletPics[i].getHeight()/2 - 10;
 		trueX+=velocityX;
 		trueY+=velocityY;
 		x=((int)(trueX) - offsetX);
 		y=((int)(trueY) - offsetY);
+		
 	}
 	@Override
-
 	public void render(Graphics g, Camera camera){
 		g.drawImage(bulletPics[i], x-bulletPics[i].getWidth()/2-camera.getxOffset(),
 				y-bulletPics[i].getHeight()/2- camera.getyOffset(), null);
 	}
+
 }
 

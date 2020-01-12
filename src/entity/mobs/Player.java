@@ -19,12 +19,11 @@ public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
 	private int shotBuffer = 0;
-	
+	private boolean friend = true;
 	private Camera camera;
 	private Core core;
-	
+	private Bullet bullet;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
-	
 	private Animation animationDown = new Animation(Assets.playerD,6);
 	private Animation animationLeft = new Animation(Assets.playerL,6);
 	private Animation animationUp = new Animation(Assets.playerU,6);
@@ -48,12 +47,13 @@ public class Player extends Mobs {
 	 * @author Kevin Tea
 	 */
 	public void shoot() {
-
+		
 		if (shotBuffer <= 0) {
 			double targetX, targetY;
+			
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, 1));
 			shotBuffer = 10;
 		}
 	}
@@ -65,7 +65,7 @@ public class Player extends Mobs {
 	}
 	private void playerCollide() {
 		for(Entity e: entityCollide()) {
-			if(e instanceof Enemy) {
+			if(e instanceof Enemy && bullet.getFriendly() == false) {
 				health-=1;
 			}
 		}
@@ -86,7 +86,7 @@ public class Player extends Mobs {
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		health-=core.giveDamage();
-		System.out.println("Player Health: " + health);
+
 		if (input.isShoot()) {
 			shoot();
 		}
@@ -122,7 +122,7 @@ public class Player extends Mobs {
 		y += changeY;
 		changeX = 0;// resting change x and y
 		changeY = 0;
-
+		
 		shotBuffer -= 1;
 		
 	}
