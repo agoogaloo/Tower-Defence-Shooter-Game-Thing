@@ -18,15 +18,16 @@ public class Enemy extends Mobs {
 	private int rangeWidth = 150, rangeHeight = 150;
 	private int shotDelay = 0;
 	private boolean attack = false;
-	
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
 	Animation animationRight = new Animation(Assets.enemyR,4);
 
-	public Enemy(int x, int y, char direction) {
+	public Enemy(int x, int y, char direction, int width, int height) {
 		this.x=x;
 		this.y=y;
+		this.width = width;
+		this.height = height;
 		this.direction=direction;
 		speed=1;
 		friendly=false;
@@ -84,6 +85,7 @@ public class Enemy extends Mobs {
 		playerY = entityManager.getPlayer().getY();
 		entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3, false));
 		shotDelay = 0;
+
 	}
 	
 	@Override
@@ -98,6 +100,9 @@ public class Enemy extends Mobs {
 				attack = false;
 			}
 		}
+
+			
+		
 		if (shotDelay == 30 && attack == true) {
 			shoot();
 		}
@@ -119,7 +124,7 @@ public class Enemy extends Mobs {
 	
 	public void render(Graphics g, Camera camera) {
 //		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
-//		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
+		//g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
 		if (direction == 'd'){
 			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 		}else if (direction == 'l') {

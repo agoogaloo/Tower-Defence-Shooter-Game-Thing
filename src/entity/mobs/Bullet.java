@@ -3,6 +3,7 @@ package entity.mobs;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import Main.Main;
 import graphics.Assets;
 import graphics.Camera;
 
@@ -19,6 +20,7 @@ public class Bullet extends Mobs{
 		this.speed = speed;
 		this.friendly=friendly;
 		this.pic = pic;
+
 		x = startX;
 		y = startY;	
 		trueX=x;
@@ -43,7 +45,7 @@ public class Bullet extends Mobs{
 		x=((int)(trueX) - offsetX);
 		y=((int)(trueY) - offsetY);
 		move();
-		
+
 	}
 	@Override
 	public void render(Graphics g, Camera camera){

@@ -18,11 +18,12 @@ public abstract class Entity {
 	protected int health=10, damage;
 	protected int width, height;
 	protected boolean killed=false, friendly;
-	protected Rectangle bounds = new Rectangle(0,0, 10,10); //Gives enemies a hitbox of their width and height
+  protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 	
 	public static void init(){
 		entityManager.init();
 	}
+
 	protected ArrayList<Entity> entityCollide(){
 		ArrayList<Entity> entities=new ArrayList<Entity>();
 		for (Entity e:entityManager.getEntities()){

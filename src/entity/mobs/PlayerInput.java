@@ -15,7 +15,7 @@ import Main.Main;
 
 public class PlayerInput implements MouseListener, MouseMotionListener, KeyListener{
 	private boolean[] keys = new boolean[256];
-	private boolean up, down, left, right, shoot;
+	private boolean up, down, left, right, control, shoot;
 	private char direction='d';
 
 	private int mouseX, mouseY;
@@ -30,7 +30,7 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		down = keys[KeyEvent.VK_DOWN];//is pushed or false if its not pushed 
 		left = keys[KeyEvent.VK_LEFT];//by setting it to the right index in the array
 		right = keys[KeyEvent.VK_RIGHT];
-		
+		control = keys[KeyEvent.VK_CONTROL];
 		if(up) {
 			direction = 'u';
 		}else if(down) {
@@ -111,6 +111,9 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 	}
 	public boolean isShoot() {
 		return shoot;
+	}
+	public boolean isControl() {
+		return control;
 	}
 	//@author Kevin
 	public char getDirection(){

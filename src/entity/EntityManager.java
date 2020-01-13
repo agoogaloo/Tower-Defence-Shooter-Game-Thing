@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import entity.mobs.Bullet;
 import entity.mobs.Enemy;
 import entity.mobs.Player;
+import graphics.Assets;
 import graphics.Camera;
 
 /**
@@ -16,13 +17,12 @@ public class EntityManager {
 	
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
+	Enemy enemy;
 	public void init() {
-
 		player=new Player(1747,1520);	
 		entities.add(new Enemy(1750,1000,'d'));
 		entities.add(new Enemy(1750,1200,'d'));
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
-		
 	}
 	
 	public void update() {
@@ -62,6 +62,10 @@ public class EntityManager {
 
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public Enemy getEnemy() {
+		return enemy;
 	}
 
 }

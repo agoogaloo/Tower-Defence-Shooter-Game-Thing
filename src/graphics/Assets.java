@@ -17,6 +17,7 @@ public class Assets {
 	public static final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
 	public static final BufferedImage[] enemy = splitSpriteSheet(load("res/robot.png"), 21, 25, 4, 4);
 	public static final BufferedImage[] core = splitSpriteSheet(load("res/core.png"), 40, 35, 3, 3);
+	public static final BufferedImage[] wizardTower = splitSpriteSheet(load("res/wizard tower.png"), 26, 33, 3, 3);
 	
 	public static  final BufferedImage[] playerD=Arrays.copyOfRange(player, 0, 7);
 	public static  final BufferedImage[] playerL = Arrays.copyOfRange(player, 7, 14);

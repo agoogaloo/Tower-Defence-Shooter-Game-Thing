@@ -6,6 +6,7 @@ import Main.Main;
 import entity.Entity;
 import entity.EntityManager;
 import entity.statics.Core;
+import entity.statics.Tower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -19,6 +20,8 @@ public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
 	private int shotBuffer = 0;
+	private int numberOfTowers = 1;
+	private boolean build = false;
 	private Camera camera;
 	private Core core;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
@@ -81,7 +84,7 @@ public class Player extends Mobs {
 			changeY += speed;
 		}
 		if (input.isLeft()) {
-			changeX -= speed;
+			velocityX -= speed;
 		}
 		if (input.isRight()) {
 			changeX += speed;
@@ -89,6 +92,15 @@ public class Player extends Mobs {
 		shotBuffer -= 1;
 		move();
 	}
+	
+	public void tower() {
+		if(numberOfTowers>=1) {
+			Tower tower = new Tower(x,y);
+			entityManager.addEntity(tower);
+			numberOfTowers-=1;
+		}
+	}
+	
 	//@author Kevin
 	@Override
 	public void render(Graphics g, Camera camera) {
@@ -104,5 +116,14 @@ public class Player extends Mobs {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
+	}
+	public int getHealth() {
+		return health;
+	}
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	public boolean getBuild() {
+		return build;
 	}
 }
