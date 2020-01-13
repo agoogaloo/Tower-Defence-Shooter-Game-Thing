@@ -1,5 +1,5 @@
 package graphics;
-
+//@author Kevin (everything but getCurrentFrame)
 import java.awt.image.BufferedImage;
 public class Animation {
 	
@@ -15,12 +15,11 @@ public class Animation {
 		this.pics=pics;
 		
 	}
-	
+	//@author Matthew
 	public BufferedImage getCurrentFrame() { //This is what classes call when they need to know what frame to draw
 		return pics[currentFrame]; //First draw the 1st  frame, when frame count surpasses the specified frame delay increase this currentFrame by 1, which will return the next frame, thus rendering the next frame
 	}
 	
-
 	public void update() {
 		frameCount++; //Every frame this variable will receive +1, this is to keep track when to change to the next picture
 		if (frameCount > frameDelay) { //When this frame count surpasses the delay specified run this code
