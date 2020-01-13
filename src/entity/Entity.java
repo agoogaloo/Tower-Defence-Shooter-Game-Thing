@@ -21,11 +21,12 @@ public abstract class Entity {
 	protected int x, y;
 	protected int health = 10, damage;//its health and how much damage it can deal
 	protected int width, height;
-	protected boolean killed = false, friendly;//whether it is alive and what side this entity is on
-	protected Rectangle bounds = new Rectangle(x, y, 10, 10); // Gives thigs a hitbox with default width and height
-
-	public static void init() {
-		entityManager.init();// initializing the entityManager
+	protected int shotDelayAmount;
+	protected boolean killed=false, friendly;
+  protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
+	
+	public static void init(){
+		entityManager.init();
 	}
 
 	protected ArrayList<Entity> entityCollide() {

@@ -2,10 +2,14 @@ package entity;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-
-import entity.mobs.Enemy;
 import entity.mobs.Player;
+import entity.mobs.Enemy;
+import entity.mobs.enemy.BlueEnemy;
+import entity.mobs.enemy.DefaultEnemy;
+import entity.mobs.enemy.GreenEnemy;
+import entity.mobs.enemy.YellowEnemy;
 import graphics.Camera;
+import java.awt.Graphics;
 
 //@author Matthew (Did most of the logic and everything in this class)
 //@author Kevin (did the remove entity and getKilled, along with player getKilled )
@@ -20,14 +24,16 @@ public class EntityManager {
 	Player player;// creating a player
 
 	public void init() {
-		// this init method needs to be seperate from the constructor so that player can
+
+  	// this init method needs to be seperate from the constructor so that player can
 		// add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
-
-		player=new Player(1747, 1440);	
-		entities.add(new Enemy(1750,1000,'d'));
-		entities.add(new Enemy(1750,1200,'d'));
+		player=new Player(1747,1520);	
+		entities.add(new DefaultEnemy(1750,1300,'d'));
+		entities.add(new GreenEnemy(1750,1200,'d'));
+		entities.add(new BlueEnemy(1750,1100,'d'));
+		entities.add(new YellowEnemy(1750,900,'d'));
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 

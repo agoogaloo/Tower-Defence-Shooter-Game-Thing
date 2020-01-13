@@ -13,37 +13,33 @@ import graphics.Camera;
 //@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
 //@author Matthew (did update direction, and all damage/collision related code, width, height, damage, friendly)
 
-public class Enemy extends Mobs {
 	/*
 	 * this is the robot enemy guy that will go around the path to the core and try to shoot you
 	 */
-
-	private char direction; //Depending on the direction the enemy will face different ways
+public abstract class Enemy extends Mobs {
+	protected char direction; //Depending on the direction the enemy will face different ways
+	protected int shotDelayAmount;
+	private int shotDelay; //Shot delay to make sure enemies can not shoot rapidly
 	private int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
-	private int shotDelay = 0; //Shot delay to make sure enemies can not shoot rapidly
 	private boolean attack = false; //If true enemy will shoot
-	
-	private Animation animationDown = new Animation(Assets.enemyD,4); //Different animations depending on the direction the enemy is facing
-	private Animation animationLeft = new Animation(Assets.enemyL,4);
-	private Animation animationUp = new Animation(Assets.enemyU,4);
-	private Animation animationRight = new Animation(Assets.enemyR,4);
+	//setting default animations
+	protected Animation animationDown = new Animation(Assets.enemyRedD,4); //Different animations depending on the direction the enemy is facing
+	protected Animation animationLeft = new Animation(Assets.enemyRedL,4);
+	protected Animation animationUp = new Animation(Assets.enemyRedU,4);
+	protected Animation animationRight = new Animation(Assets.enemyRedR,4);
 
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
-		width=21; //The width of the enemy
-		height=25; //The height of the enemy
-		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
-		friendly=false; //The status of the bullet, bullets from this class can hurt player
-		damage=1; //The amount of damage the enemy will do if it collides with the player
 	}
-	
-	private void updateDirection() {
-		//this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
-		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
-				(y+Assets.enemyD[0].getHeight()/2)/16)){//getting its current tile
-		case 5://the 5 tile is the path that goes from up to right so the robot should turn right
+
+	public void updateDirection() {
+		Assets.enemyRedD[0].getWidth(); //Enemy will always start travelling down
+  //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
+		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyRedD[0].getWidth()/2)/16,
+				(y+Assets.enemyRedD[0].getHeight()/2)/16)){ //getting its current tile
+		case 5: //the 5 tile is the path that goes from up to right so the robot should turn right
 			direction='r';
 			break;
 		case 6:
@@ -88,7 +84,6 @@ public class Enemy extends Mobs {
 		targetX = entityManager.getPlayer().getX(); //Sets the players x location as the targetX
 		targetY = entityManager.getPlayer().getY(); //Sets the players y location as the targetY
 		entityManager.addEntity(new Bullet (x,y, targetX, targetY,2, 3, false)); //Creates red bullets that shoot towards the player
-		shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 	}
 	
 	@Override
@@ -100,8 +95,9 @@ public class Enemy extends Mobs {
 		}else{ //If the enemy can't detect the player's box it will not attack
 			attack = false; 
 		}
-		if (shotDelay >= 30 && attack == true) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
+		if (shotDelay >= shotDelayAmount && attack == true) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
 			shoot();
+			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
 		updateDirection();//setting its direction and moving based on it
 		move();//moving the enemy so its bounds can be updated 
@@ -113,15 +109,7 @@ public class Enemy extends Mobs {
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		if (direction == 'd'){
-			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'u') {
-			g.drawImage(animationUp.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'r') {
-			g.drawImage(animationRight.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}
+
 	}
 }
 
