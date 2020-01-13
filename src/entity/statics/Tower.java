@@ -42,8 +42,7 @@ public class Tower extends Statics {
 		}
 	}
 	private void shoot() {
-		entityManager.addEntity(new Bullet(x,y,target.getX(),target.getY(),Assets.bullet[1].getWidth()
-				, Assets.bullet[1].getHeight(),1,8));
+		entityManager.addEntity(new Bullet(x,y,target.getX(),target.getY(),1,8, true));
 	}			
 
 	@Override

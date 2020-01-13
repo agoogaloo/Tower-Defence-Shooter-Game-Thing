@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import Main.Main;
 import entity.Entity;
 import entity.EntityManager;
+import entity.statics.Core;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -17,22 +18,22 @@ public class Enemy extends Mobs {
 	private int rangeWidth = 150, rangeHeight = 150;
 	private int shotDelay = 0;
 	private boolean attack = false;
-	private int damage=0;
-	private int playerHealth; //Separate health variable allowing us to change the player's health without affecting the enemies health
-
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
 	Animation animationRight = new Animation(Assets.enemyR,4);
-	
 
-	public Enemy(int x, int y, char direction, int width, int height) {
+	public Enemy(int x, int y, char direction) {
 		this.x=x;
 		this.y=y;
-		this.width = width;
-		this.height = height;
+		this.width=21;
+		this.height=25;
 		this.direction=direction;
 		speed=1;
+		friendly=false;
+		damage=1;
+		width=21;
+		height=25;
 	}
 	
 	private void updateDirection() {
@@ -63,8 +64,6 @@ public class Enemy extends Mobs {
 		case 12:
 			direction='l';
 		}
-	}
-	private void move() {
 		switch(direction) {
 		case 'u':
 			y-=speed;
@@ -84,40 +83,13 @@ public class Enemy extends Mobs {
 		double playerX, playerY;
 		playerX = entityManager.getPlayer().getX();
 		playerY = entityManager.getPlayer().getY();
-		entityManager.addEntity(new Bullet (x,y, playerX, playerY,Assets.bullet[2].getWidth(), Assets.bullet[2].getHeight(),2, 3));
+		entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3, false));
 		shotDelay = 0;
-		
 
-	}
-	
-	private boolean enemyCollide() {
-		if(entityCollide().size()>0){
-			getHit(1);
-			playerHealth = entityManager.getPlayer().getHealth();
-			playerHealth -= giveDamage();
-			entityManager.getPlayer().setHealth(playerHealth);
-			killed = true;
-			return killed;
-		}else {
-			killed = false;
-			return false;
-		}
-	}
-	
-	public int giveDamage(){
-		int num=damage;//needs to be its own variable so that when damage is reset it wont return 0
-		damage=0;//reseting damage so it doesnt stack
-		return num;
-		
-	}
-	public void getHit(int damage){
-		this.damage+=damage;
 	}
 	
 	@Override
 	public void update() {
-		updateBounds();
-		enemyCollide();
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight);
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight);
 	
@@ -134,15 +106,15 @@ public class Enemy extends Mobs {
 		if (shotDelay == 30 && attack == true) {
 			shoot();
 		}
-		
 		updateDirection();
 		move();
+		System.out.println(health);
+		
 		
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
 		animationRight.update();
-		
 		shotDelay+=1;
 		if (shotDelay>30) { //When 60 frames pass reset shot buffer
 			shotDelay=0;

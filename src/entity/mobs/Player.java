@@ -22,7 +22,6 @@ public class Player extends Mobs {
 	private int shotBuffer = 0;
 	private int numberOfTowers = 1;
 	private boolean build = false;
-	
 	private Camera camera;
 	private Core core;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
@@ -33,56 +32,48 @@ public class Player extends Mobs {
 	private Animation animationRight = new Animation(Assets.playerR,6);
 	
 
-	public Player(int x, int y, int width, int height) {
+	public Player(int x, int y) {
 		// initializing variables
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
+		width = 16;
+		height = 29;
 		speed = 3;
 		health = 3; 
+		friendly=true;
 		core=new Core(x,y);
 		camera=Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
+		damage=0;
 	}
 
 	/**
 	 * @author Kevin Tea
 	 */
 	public void shoot() {
-
+		
 		if (shotBuffer <= 0) {
 			double targetX, targetY;
+			
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.bullet[0].getWidth(), Assets.bullet[0].getHeight(), 0, 5));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), 
+					targetY+camera.getyOffset(), 0, 5, true));
 			shotBuffer = 10;
-		}
-	}
-	
-	private void playerCollide() {
-		for(Entity e: entityCollide()) {
-			if(e instanceof Enemy) {
-				health-=1;
-			}
-		}
-		if(health<=0){
-			killed = true;	
-		}else {
-			killed = false;
 		}
 	}
 
 	@Override
 	public void update() {
-		updateBounds();
-		playerCollide();
+		
+		System.out.println(health);
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		health-=core.giveDamage();
+
 		if (input.isShoot()) {
 			shoot();
 		}
@@ -93,37 +84,16 @@ public class Player extends Mobs {
 			changeY += speed;
 		}
 		if (input.isLeft()) {
-			velocityX -= speed;
+			changeX -= speed;
 		}
 		if (input.isRight()) {
-			velocityX += speed;
+			changeX += speed;
 		}
-		if (input.isControl() ) {
+		if(input.isControl()) {
 			tower();
 		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+velocityX)/16,(y+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+velocityX)/16,(y+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+velocityX)/16,(y+29+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+velocityX)/16,(y+29+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		x += velocityX;// actually moving the player
-		y += changeY;
-		velocityX = 0;// resting change x and y
-		changeY = 0;
-		
 		shotBuffer -= 1;
-		
+		move();
 	}
 	
 	public void tower() {
