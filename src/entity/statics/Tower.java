@@ -16,12 +16,12 @@ public class Tower extends Statics { //extends from statics as towers don't move
 	
 	private boolean attack = false; //When this variable is true tower is capable of attacking enemies
 	private int shotDelay = 0; //Shot delay making towers shoot once a second, rather than rapidly shooting 
-	private int rangeWidth = 80, rangeHeight = 80; //The specified range and height of the the tower's attack range
+	private int rangeWidth = 80, rangeHeight = 80; //The specific width and height of the the tower's attack range
 	private Entity target; //The specific target the tower gets the x and y of
 	private Rectangle towerRange; //A rectangle of range where the tower can shoot at
 	private Animation animation = new Animation(Assets.wizardTowerFix,6); //Animations
 	
-	public Tower(int x, int y) { //Tower class, can only be called when player presses the control key, and  spawns on the player's location
+	public Tower(int x, int y) { //Tower class, can only be called when player presses the control key, and spawns on the player's location
 		this.x = x;
 		this.y = y;
 		towerRange=new Rectangle(x-28,y-17,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
@@ -43,7 +43,7 @@ public class Tower extends Statics { //extends from statics as towers don't move
 
 	@Override
 	public void update(){ 
-		animation.update();
+		animation.update(); //Updates animations, allowing it to loop through the animation array
 		search(); //Every frame check to see if an entity is within towers range, if so start attacking
 		if (attack && shotDelay>= 60) { //If attack is true and it's been 60 frames since last shot, shoot again
 			shoot(); //Calls shoot method
