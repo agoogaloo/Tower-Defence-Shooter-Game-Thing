@@ -1,11 +1,8 @@
 package entity.mobs.enemy;
 
-import java.awt.Graphics;
-
 import entity.mobs.Enemy;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.Camera;
 
 public class YellowEnemy extends Enemy{
 

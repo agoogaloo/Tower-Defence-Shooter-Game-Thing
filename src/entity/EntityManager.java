@@ -3,13 +3,11 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import entity.mobs.Player;
-import entity.mobs.Enemy;
 import entity.mobs.enemy.BlueEnemy;
 import entity.mobs.enemy.DefaultEnemy;
 import entity.mobs.enemy.GreenEnemy;
 import entity.mobs.enemy.YellowEnemy;
 import graphics.Camera;
-import java.awt.Graphics;
 
 //@author Matthew (Did most of the logic and everything in this class)
 //@author Kevin (did the remove entity and getKilled, along with player getKilled )
