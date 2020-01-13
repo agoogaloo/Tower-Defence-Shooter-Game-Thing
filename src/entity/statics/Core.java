@@ -29,7 +29,7 @@ public class Core extends Statics{
 	public void update() {
 		for(Entity e:entityCollide()) {
 			if(e instanceof Enemy) {
-				getHit(1000);
+				getHit(10);
 			}
 		}
 		anim.update();

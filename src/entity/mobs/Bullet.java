@@ -23,7 +23,7 @@ public class Bullet extends Mobs{
 		y = startY;	
 		trueX=x;
 		trueY=y;
-		damage=2;
+		damage=1;
 		width=6;
 		height=6;
 		
