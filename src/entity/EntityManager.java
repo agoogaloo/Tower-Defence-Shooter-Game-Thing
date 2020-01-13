@@ -1,9 +1,10 @@
 package entity;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
+
 import entity.mobs.Enemy;
 import entity.mobs.Player;
-import java.awt.Graphics;
 import graphics.Camera;
 
 //@author Matthew (Did most of the logic and everything in this class)

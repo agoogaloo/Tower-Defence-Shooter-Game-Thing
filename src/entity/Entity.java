@@ -3,6 +3,7 @@ package entity;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+
 import graphics.Camera;
 
 //@author Matthew (basically did all the logic and everything in this class)

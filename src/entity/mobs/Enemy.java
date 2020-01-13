@@ -4,8 +4,8 @@ package entity.mobs;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
 import Main.Main;
-import entity.Entity;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -43,7 +43,7 @@ public class Enemy extends Mobs {
 		//this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
 				(y+Assets.enemyD[0].getHeight()/2)/16)){//getting its current tile
-		case 5://the 5 tile is the ath that goes from up to right so the robot should turn right
+		case 5://the 5 tile is the path that goes from up to right so the robot should turn right
 			direction='r';
 			break;
 		case 6:

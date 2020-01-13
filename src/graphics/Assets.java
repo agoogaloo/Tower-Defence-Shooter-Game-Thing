@@ -16,7 +16,7 @@ public class Assets {
 	 * this class holds and loads all the images, sounds or other assets 
 	 * so other classes can access them easily
 	 */
-	//creating all the images
+	//spliting all the spritesheets int the right pictuures and holding them in arrays
 	public static final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
 	public static final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	public static final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
@@ -39,13 +39,16 @@ public class Assets {
 	public static final BufferedImage[] wizardTowerFix = Arrays.copyOfRange(wizardTower, 0, 8);
 
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
-		BufferedImage[] pics=new BufferedImage[rows*columns];
-		for(int y=0;y<columns;y++) {
-			for(int x=0;x<rows;x++) {
+		//this takes on image and splits it into an array of several smaller photos so we 
+		//only need to load a few big spritesheet instead of a million single images
+		BufferedImage[] pics=new BufferedImage[rows*columns];//creating the array
+		for(int y=0;y<columns;y++) {//looping through the image vertically
+			for(int x=0;x<rows;x++) {//looping horizontally
 				pics[(y*rows)+x]=sheet.getSubimage(x*width, y*height, width, height);
+				//spliting the image and putting it in the array
 			}
 		}
-		return pics;
+		return pics;//returning the array
 	}
 	private static BufferedImage load(String path) {
 		/*

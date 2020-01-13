@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
 import Main.Main;
 
 //@author Matthew (Organized all player inputs into it's own class, did basically all of this class)
