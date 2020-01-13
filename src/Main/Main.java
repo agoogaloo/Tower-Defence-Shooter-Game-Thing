@@ -10,9 +10,10 @@ public class Main {
 	 * the main class that will create the window then updates and renders it
 	 * (basically holds the main game loop)
 	 */
-	private static final Window window= new Window(800, 600);//creating a window so we can see things
+	private static Window window;
 	public static void main(String[] args) {
-		Entity.init();//initializing the enities
+		window = new Window(800, 600);
+		Entity.init();
 		boolean run = true;
 
 		// variables for limiting frame rate
@@ -45,7 +46,6 @@ public class Main {
 			} while (delta < DELAY);// looping until the frame has lasted the target number of nanoseconds
 		}
 	}
-	//lets other classes get the window so they can know things like window size 
 	public static Window getWindow() {
 		return window;
 	}

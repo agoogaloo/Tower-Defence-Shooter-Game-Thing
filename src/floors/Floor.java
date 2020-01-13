@@ -12,49 +12,41 @@ import graphics.Camera;
  */
 
 public class Floor {
-	/*
-	 * this class is the randomly generated floor made out of several rooms that
-	 * have been created in the res folder
-	 */
-	
 	// declaring variables
 	private Room[][] rooms;
 	private int size;// how many rooms big the floor is
 
 	// constants
 	private final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
-	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);// loads all the possible rooms
+	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private final Room BLANKROOM = new Room("res/blank.txt", 2);
-	private final Room STARTROOM = new Room("res/startRoom.txt", 20);
 	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
-
-	// it holds its own tileset so that it is easy if we want to have different
-	// floor with different themes
+	//it holds its own tileset so taht it is easy if we want to have different floor with different themes
 	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
+		
 		this.size = size;
 		PICS = pics;
-		SCREENHEIGHT = screenHeight;//needs the screen width/height 
-		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
+		SCREENHEIGHT = screenHeight;
+		SCREENWIDTH = screenWidth;
 		rooms = new Room[size * 2][size];
-
+		
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		rooms = generateFloor();// generating a random floor layout
 	}
-
 	// this method draws everything to the screen
 	public void render(Graphics g, Camera camera) {
-
+		
+		
 		for (int y = 0; y < size * ROOMSIZE; y++) {// looping though all the tiles
 			for (int x = 0; x < size * ROOMSIZE * 2; x++) {
-				// these will be whatever place the tile is being rendered at
-				int drawX = x * TILESIZE - camera.getxOffset(), drawY = y * TILESIZE - camera.getyOffset();
-				if (drawX >= -TILESIZE && drawX <= SCREENWIDTH && // checking if it would actually be renderd in the
-																	// screen
-						drawY > -TILESIZE && drawY <= SCREENHEIGHT) {
-					g.drawImage(PICS[getTile(x, y) - 1], drawX, drawY, null);
+				//these will be whatever place the tile is being rendered at
+				int drawX=x * TILESIZE-camera.getxOffset(), drawY=y * TILESIZE-camera.getyOffset();
+				if(drawX>=-TILESIZE&&drawX<=SCREENWIDTH&&//checking if it would actually be renderd in the screen
+						drawY>-TILESIZE&&drawY<=SCREENHEIGHT) {
+					g.drawImage(PICS[getTile(x, y)-1], drawX, drawY, null);
 					// drawing the proper tile in the proper place
 				}
 			}
@@ -66,7 +58,7 @@ public class Floor {
 	private Room[][] generateFloor() {
 		// declaring variables
 		Room[][] floor = new Room[size * 2][size + 1];
-		Room validRoom = STARTROOM;// making the 1st room the start room, which only has an exit
+		Room validRoom = POSSIBLEROOMS[0];
 		Room checkRoom = POSSIBLEROOMS[0];
 		int x = size, y = size - 1;// making the starting room the bottom middle room
 
@@ -95,8 +87,7 @@ public class Floor {
 			} while (checkRoom.getEntrance() != validRoom.getExit());
 			// looping until a room i found that will line up with the previous room
 
-			validRoom = checkRoom;
-			// checkRoom is now confirmed to line up so it can be added to the list the next loop
+			validRoom = checkRoom;// checkRoom is now confirmed to line up so it can be added to the list the next loop
 		}
 		return floor;// returning the array
 	}
@@ -129,7 +120,6 @@ public class Floor {
 		}
 		return result;// Returning the tile
 	}
-
 	public boolean checkwall(int x, int y) {
 
 		int tile = getTile(x, y);
@@ -140,14 +130,13 @@ public class Floor {
 		}
 		return false;
 	}
-
 	// if you need a specific room it can return it
 	public Room getRoom(int x, int y) {
-		try {
+		try{
 			return rooms[x][y];
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch(ArrayIndexOutOfBoundsException e){
 			return BLANKROOM;
 		}
-
+		
 	}
 }
