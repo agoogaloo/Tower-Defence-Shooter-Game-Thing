@@ -24,7 +24,7 @@ public class Core extends Statics{
 		health=999999999;//the core should never die so it has a lot of health
 		this.x=x;
 		this.y=y;
-		this.bounds.x=x;//setting the bounds to bee the right size/location
+		this.bounds.x=x;//setting the bounds to be the right size/location
 		this.bounds.y=y;
 		bounds.width=40;
 		bounds.height=35;

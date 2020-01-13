@@ -11,9 +11,12 @@ import graphics.Assets;
 import graphics.Camera;
 
 //@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
-//@author Matthew (did update direction, and all direction related code, width, height, damage, friendly)
+//@author Matthew (did update direction, and all damage/collision related code, width, height, damage, friendly)
 
 public class Enemy extends Mobs {
+	/*
+	 * this is the robot enemy guy that will go around the path to the core and try to shoot you
+	 */
 
 	private char direction; //Depending on the direction the enemy will face different ways
 	private int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
@@ -37,14 +40,14 @@ public class Enemy extends Mobs {
 	}
 	
 	private void updateDirection() {
-		Assets.enemyD[0].getWidth(); //Enemy will always start travelling down
+		//this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
-				(y+Assets.enemyD[0].getHeight()/2)/16)){
-		case 5:
+				(y+Assets.enemyD[0].getHeight()/2)/16)){//getting its current tile
+		case 5://the 5 tile is the ath that goes from up to right so the robot should turn right
 			direction='r';
 			break;
 		case 6:
-			direction='u';
+			direction='u';//cases for all the other corner tiles
 			break;
 		case 7:
 			direction='u';
@@ -64,11 +67,12 @@ public class Enemy extends Mobs {
 		case 12:
 			direction='l';
 		}
-		switch(direction) {
-		case 'u':
-			y-=speed;
+		
+		switch(direction) {//moving a different direction depending on which way it is facing
+		case 'u'://if it is facing up 
+			y-=speed;//it should move up
 			break;
-		case 'd':
+		case 'd'://move cases for the other directions
 			y+=speed;
 			break;
 		case 'l':
@@ -99,8 +103,8 @@ public class Enemy extends Mobs {
 		if (shotDelay >= 30 && attack == true) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
 			shoot();
 		}
-		updateDirection();
-		move();
+		updateDirection();//setting its direction and moving based on it
+		move();//moving the enemy so its bounds can be updated 
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animationLeft.update(); //Animation and spites change depending on the direction
 		animationUp.update();
