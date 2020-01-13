@@ -26,14 +26,7 @@ public class Enemy extends Mobs {
 	Animation animationRight = new Animation(Assets.enemyR,4);
 	
 
-	public Enemy(int x, int y, char direction, int width, int height) {
-		this.x=x;
-		this.y=y;
-		this.width = width;
-		this.height = height;
-		this.direction=direction;
-		speed=1;
-	}
+	=
 	
 	private void updateDirection() {
 		Assets.enemyD[0].getWidth();
