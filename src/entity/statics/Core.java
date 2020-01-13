@@ -2,6 +2,8 @@ package entity.statics;
 
 import java.awt.Graphics;
 
+import entity.Entity;
+import entity.mobs.Enemy;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -11,19 +13,24 @@ import graphics.Camera;
  */
 public class Core extends Statics{
 	Animation anim = new Animation(Assets.core,6);
-	int damage=0;
+	int damageTaken=0;
 	
 	public Core(int x, int y){
+		friendly=true;
+		health=999999999;
 		this.x=x;
 		this.y=y;
 		this.bounds.x=x;
 		this.bounds.y=y;
+		damage=5;
 	}
 	
 	@Override
 	public void update() {
-		if(entityCollide().size()>0){
-			getHit(1);
+		for(Entity e:entityCollide()) {
+			if(e instanceof Enemy) {
+				getHit(10);
+			}
 		}
 		anim.update();
 		
@@ -35,13 +42,13 @@ public class Core extends Statics{
 	
 	}
 	public int giveDamage(){
-		int num=damage;//needs to be its own variable so that when damage is reset it wont return 0
-		damage=0;//reseting damage so it doesnt stack
+		int num=damageTaken;//needs to be its own variable so that when damage is reset it wont return 0
+		damageTaken=0;//reseting damage so it doesnt stack
 		return num;
 		
 	}
 	public void getHit(int damage){
-		this.damage+=damage;
+		damageTaken+=damage;
 	}
 
 }

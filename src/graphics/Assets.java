@@ -21,8 +21,10 @@ public class Assets {
 	public static final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
 	public static final BufferedImage[] enemy = splitSpriteSheet(load("res/robot.png"), 21, 25, 4, 4);
 	public static final BufferedImage[] core = splitSpriteSheet(load("res/core.png"), 40, 35, 3, 3);
+	public static final BufferedImage[] wizardTower = splitSpriteSheet(load("res/wizard tower.png"), 26, 33, 3, 3);
 	
 	//splitting players spritesheet into all its animations
+
 	public static  final BufferedImage[] playerD=Arrays.copyOfRange(player, 0, 7);
 	public static  final BufferedImage[] playerL = Arrays.copyOfRange(player, 7, 14);
 	public static  final BufferedImage[] playerU =Arrays.copyOfRange(player, 14, 21);
@@ -32,7 +34,9 @@ public class Assets {
 	public static final BufferedImage[] enemyL = Arrays.copyOfRange(enemy, 4, 8);
 	public static final BufferedImage[] enemyU = Arrays.copyOfRange(enemy, 8, 12);
 	public static final BufferedImage[] enemyR = Arrays.copyOfRange(enemy, 12, 16);
-	
+  
+	public static final BufferedImage[] wizardTowerFix = Arrays.copyOfRange(wizardTower, 0, 8);
+
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		BufferedImage[] pics=new BufferedImage[rows*columns];
 		for(int y=0;y<columns;y++) {

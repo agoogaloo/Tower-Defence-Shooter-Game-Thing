@@ -3,7 +3,10 @@ package entity.mobs;
 import java.awt.Graphics;
 
 import Main.Main;
+import entity.Entity;
+import entity.EntityManager;
 import entity.statics.Core;
+import entity.statics.Tower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -16,57 +19,60 @@ import graphics.Camera;
 public class Player extends Mobs {
 	//declaring variables
 	private int shotBuffer = 0;
-	private int health = 100;
-	private double bulletPath;
-	
+	private int numberOfTowers = 1;
+	private boolean build = false;
 	private Camera camera;
 	private Core core;
-	
-	
-	PlayerInput input=new PlayerInput();//letting it get the inputs
+	private PlayerInput input=new PlayerInput();//letting it get the inputs
 	//creating all the players animations
-	Animation animationDown = new Animation(Assets.playerD,6);
-	Animation animationLeft = new Animation(Assets.playerL,6);
-	Animation animationUp = new Animation(Assets.playerU,6);
-	Animation animationRight = new Animation(Assets.playerR,6);
+	private Animation animationDown = new Animation(Assets.playerD,6);
+	private Animation animationLeft = new Animation(Assets.playerL,6);
+	private Animation animationUp = new Animation(Assets.playerU,6);
+	private Animation animationRight = new Animation(Assets.playerR,6);
+	
 	public Player(int x, int y) {
 		// initializing variables
 		this.x = x;
 		this.y = y;
+		width = 16;
+		height = 29;
 		speed = 3;
-		health = 100;
-		width = 50;
-		height = 50;
+		health = 3; 
+		friendly=true;
 		core=new Core(x,y);//creating a core at its starting position
+
 		camera=Main.getWindow().getDisplay().getCamera();
 		entityManager.addEntity(core);
+		damage=0;
 	}
 
 	/**
 	 * @author Kevin Tea
 	 */
 	public void shoot() {
-
+		
 		if (shotBuffer <= 0) {
 			double targetX, targetY;
+			
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
-			System.out.println("peew");
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5));
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), 
+					targetY+camera.getyOffset(), 0, 5, true));
 			shotBuffer = 10;
 		}
 	}
 
 	@Override
 	public void update() {
-		updateBounds();
+		
+		System.out.println(health);
 		animationDown.update();
 		animationLeft.update();
 		animationUp.update();
 		animationRight.update();
 		input.update();// updating input so that it can get the current inputs
 		health-=core.giveDamage();//dealing damage to the player if the core has taken damage
-		System.out.println(health);
+    
 		if (input.isShoot()) {
 			shoot();
 		}
@@ -82,21 +88,21 @@ public class Player extends Mobs {
 		if (input.isRight()) {
 			changeX += speed;
 		}
-		//not moving if the players coreners will be inside of a wall
-		if (Main.getWindow().getDisplay().getFloor().checkwall((x + changeX) / 16, (y + changeY) / 16)
-				|| Main.getWindow().getDisplay().getFloor().checkwall((x + 16 + changeX) / 16, (y + changeY) / 16)
-				|| Main.getWindow().getDisplay().getFloor().checkwall((x + changeX) / 16, (y + 29 + changeY) / 16)
-				|| Main.getWindow().getDisplay().getFloor().checkwall((x + 16 + changeX) / 16, (y + 29 + changeY) / 16)) {
-			changeX = 0;
-			changeY = 0;
+		if(input.isControl()) {
+			tower();
 		}
-		x += changeX;// actually moving the player
-		y += changeY;
-		changeX = 0;// resting change x and y
-		changeY = 0;
-
 		shotBuffer -= 1;
+		move();
 	}
+	
+	public void tower() {
+		if(numberOfTowers>=1) {
+			Tower tower = new Tower(x,y);
+			entityManager.addEntity(tower);
+			numberOfTowers-=1;
+		}
+	}
+	
 	//@author Kevin
 	@Override
 	public void render(Graphics g, Camera camera) {
@@ -110,5 +116,14 @@ public class Player extends Mobs {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
+	}
+	public int getHealth() {
+		return health;
+	}
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	public boolean getBuild() {
+		return build;
 	}
 }
