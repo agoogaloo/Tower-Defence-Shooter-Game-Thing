@@ -8,9 +8,8 @@ import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 
-/*
- * by: Matthew Milum
- */
+//@author Matthew
+
 public class Core extends Statics{
 	Animation anim = new Animation(Assets.core,6);
 	int damageTaken=0;
@@ -33,7 +32,6 @@ public class Core extends Statics{
 			}
 		}
 		anim.update();
-		
 	}
 	
 	@Override

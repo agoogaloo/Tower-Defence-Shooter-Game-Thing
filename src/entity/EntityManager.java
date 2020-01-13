@@ -1,18 +1,13 @@
 package entity;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
-
-import entity.mobs.Bullet;
 import entity.mobs.Enemy;
 import entity.mobs.Player;
-import graphics.Assets;
+import java.awt.Graphics;
 import graphics.Camera;
 
-/**
- * by: Kevin Tea and Matthew Milum
- *
- */
+//@author Matthew (Did most of the logic and everything in this class)
+//@author Kevin (did the remove entity and getKilled, along with player getKilled )
 public class EntityManager {
 	/*
 	 * this class lets us hold all the entities like the player, enemies, and bullets
@@ -22,7 +17,7 @@ public class EntityManager {
   
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
-	Enemy enemy;
+
 	public void init() {
 		// this init method needs to be seperate from the constructor so that player can
 		// add the core to the array if it was added in the constructor the
@@ -77,9 +72,4 @@ public class EntityManager {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public Enemy getEnemy() {
-		return enemy;
-	}
-
 }
