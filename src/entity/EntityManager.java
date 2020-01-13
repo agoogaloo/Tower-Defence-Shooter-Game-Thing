@@ -29,7 +29,7 @@ public class EntityManager {
 		// add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
-		player=new Player(1747,1440);	
+		player=new Player(1747,1520);	
 		entities.add(new DefaultEnemy(1750,1300,'d'));
 		entities.add(new GreenEnemy(1750,1200,'d'));
 		entities.add(new BlueEnemy(1750,1100,'d'));
