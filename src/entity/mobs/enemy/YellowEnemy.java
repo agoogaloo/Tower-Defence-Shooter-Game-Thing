@@ -24,18 +24,4 @@ public class YellowEnemy extends Enemy{
 		shotDelayAmount = 1000;
 		health = 1;
 	}
-	
-	
-	
-	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		if (direction == 'd'){
-			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'u') {
-			g.drawImage(animationUp.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'r') {
-			g.drawImage(animationRight.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}
-	}
 }

@@ -1,11 +1,8 @@
 package entity.mobs.enemy;
 
-import java.awt.Graphics;
-
 import entity.mobs.Enemy;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.Camera;
 
 public class BlueEnemy extends Enemy{
 
@@ -24,19 +21,5 @@ public class BlueEnemy extends Enemy{
 		animationLeft = new Animation(Assets.enemyBlueL,4);
 		animationUp = new Animation(Assets.enemyBlueU,4);
 		animationRight = new Animation(Assets.enemyBlueR,4);
-	}
-	
-	
-	
-	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		if (direction == 'd'){
-			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'u') {
-			g.drawImage(animationUp.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'r') {
-			g.drawImage(animationRight.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}
 	}
 }

@@ -18,17 +18,4 @@ public class DefaultEnemy extends Enemy{
 		damage=1; //The amount of damage the enemy will do if it collides with the player
 		shotDelayAmount = 60;
 	}
-	
-	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		g.drawRect(x,y,width,height);
-		if (direction == 'd'){
-			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'u') {
-			g.drawImage(animationUp.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'r') {
-			g.drawImage(animationRight.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}
-	}
 }
