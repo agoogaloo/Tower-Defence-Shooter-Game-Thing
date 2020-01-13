@@ -12,6 +12,11 @@ import javax.imageio.ImageIO;
  * a class that contains all the pictures, sounds, etc. for the game
  */
 public class Assets {
+	/*
+	 * this class holds and loads all the images, sounds or other assets 
+	 * so other classes can access them easily
+	 */
+	//creating all the images
 	public static final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
 	public static final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	public static final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
@@ -19,17 +24,20 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(load("res/core.png"), 40, 35, 3, 3);
 	public static final BufferedImage[] wizardTower = splitSpriteSheet(load("res/wizard tower.png"), 26, 33, 3, 3);
 	
+	//splitting players spritesheet into all its animations
+
 	public static  final BufferedImage[] playerD=Arrays.copyOfRange(player, 0, 7);
 	public static  final BufferedImage[] playerL = Arrays.copyOfRange(player, 7, 14);
 	public static  final BufferedImage[] playerU =Arrays.copyOfRange(player, 14, 21);
 	public static  final BufferedImage[] playerR =Arrays.copyOfRange(player,21, 28);
-	
+	//splitting enemy's spritesheet into all its animations
 	public static final BufferedImage[] enemyD = Arrays.copyOfRange(enemy, 0, 4);
 	public static final BufferedImage[] enemyL = Arrays.copyOfRange(enemy, 4, 8);
 	public static final BufferedImage[] enemyU = Arrays.copyOfRange(enemy, 8, 12);
 	public static final BufferedImage[] enemyR = Arrays.copyOfRange(enemy, 12, 16);
-
+  
 	public static final BufferedImage[] wizardTowerFix = Arrays.copyOfRange(wizardTower, 0, 8);
+
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		BufferedImage[] pics=new BufferedImage[rows*columns];
 		for(int y=0;y<columns;y++) {
@@ -46,7 +54,7 @@ public class Assets {
 		 */
 		BufferedImage image = null;
 		try { //this can throw an error so it needs to be in a try catch to run
-			image =ImageIO.read(new File (path));//loading the test image
+			image =ImageIO.read(new File (path));//loading the image
 		} catch (IOException e) {
 			System.out.println("picture "+path+" not found");//showing what the problem is
 		}

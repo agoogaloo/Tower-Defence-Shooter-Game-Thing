@@ -14,6 +14,7 @@ import graphics.Camera;
 //@author Matthew (did update direction, and all direction related code, width, height, damage, friendly)
 
 public class Enemy extends Mobs {
+
 	private char direction; //Depending on the direction the enemy will face different ways
 	private int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
 	private int shotDelay = 0; //Shot delay to make sure enemies can not shoot rapidly
