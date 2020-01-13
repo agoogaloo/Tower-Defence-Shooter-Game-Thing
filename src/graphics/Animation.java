@@ -1,5 +1,7 @@
 package graphics;
+
 //@author Kevin (everything but getCurrentFrame)
+
 import java.awt.image.BufferedImage;
 public class Animation {
 	

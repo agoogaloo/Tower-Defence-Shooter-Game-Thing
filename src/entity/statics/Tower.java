@@ -58,10 +58,4 @@ public class Tower extends Statics { //extends from statics as towers don't move
 				towerRange.width,towerRange.height);
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
 }
