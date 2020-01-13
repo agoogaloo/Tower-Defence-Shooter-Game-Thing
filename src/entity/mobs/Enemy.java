@@ -20,17 +20,17 @@ public class Enemy extends Mobs {
 	private int damage=0;
 	private int playerHealth; //Separate health variable allowing us to change the player's health without affecting the enemies health
 
-	private Camera camera;
-
 	Animation animationDown = new Animation(Assets.enemyD,4);
 	Animation animationLeft = new Animation(Assets.enemyL,4);
 	Animation animationUp = new Animation(Assets.enemyU,4);
 	Animation animationRight = new Animation(Assets.enemyR,4);
 	
 
-	public Enemy(int x, int y, char direction) {
+	public Enemy(int x, int y, char direction, int width, int height) {
 		this.x=x;
 		this.y=y;
+		this.width = width;
+		this.height = height;
 		this.direction=direction;
 		speed=1;
 	}
@@ -84,10 +84,8 @@ public class Enemy extends Mobs {
 		double playerX, playerY;
 		playerX = entityManager.getPlayer().getX();
 		playerY = entityManager.getPlayer().getY();
-
-
-			entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3));
-			shotDelay = 0;
+		entityManager.addEntity(new Bullet (x,y, playerX, playerY,Assets.bullet[2].getWidth(), Assets.bullet[2].getHeight(),2, 3));
+		shotDelay = 0;
 		
 
 	}
@@ -130,11 +128,13 @@ public class Enemy extends Mobs {
 				attack = false;
 			}
 		}
+
+			
+		
 		if (shotDelay == 30 && attack == true) {
 			shoot();
 		}
 		
-		System.out.println("Enemy Health: " + health);
 		updateDirection();
 		move();
 		
@@ -152,7 +152,7 @@ public class Enemy extends Mobs {
 	
 	public void render(Graphics g, Camera camera) {
 //		g.drawRect(entityManager.getPlayer().getX()-camera.getxOffset(),entityManager.getPlayer().getY()-camera.getyOffset(),rangeWidth,rangeHeight);
-//		g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
+		//g.drawRect(x-camera.getxOffset(),y-camera.getyOffset(),rangeWidth,rangeHeight);
 		if (direction == 'd'){
 			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 		}else if (direction == 'l') {

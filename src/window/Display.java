@@ -47,7 +47,6 @@ public class Display extends JPanel {
 
 		g2d.scale(scale, scale);// scaling the graphics
 		g2d.clearRect(0, 0, width, height);// clearing the previous frame
-		// g2d.drawImage(image, imgX, imgY, null);//drawing the image to the screen
 		floor.render(g2d, camera);// rendering the floor
 		Entity.getEntityManager().render(g2d, camera);// rendering the entities
 	}
