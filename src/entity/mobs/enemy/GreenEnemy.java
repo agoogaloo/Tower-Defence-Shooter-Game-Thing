@@ -9,13 +9,15 @@ import graphics.Camera;
 
 public class GreenEnemy extends Enemy {
 
-	private Animation animationDown = new Animation(Assets.enemyGreenD,4); //Different animations depending on the direction the enemy is facing
-	private Animation animationLeft = new Animation(Assets.enemyGreenL,4);
-	private Animation animationUp = new Animation(Assets.enemyGreenU,4);
-	private Animation animationRight = new Animation(Assets.enemyGreenR,4);
+	
 	
 	public GreenEnemy(int x, int y, char direction) {
 		super(x, y, direction);
+		//changing the animations to the right pictures
+		animationDown = new Animation(Assets.enemyGreenD,4); //Different animations depending on the direction the enemy is facing
+		animationLeft = new Animation(Assets.enemyGreenL,4);
+		animationUp = new Animation(Assets.enemyGreenU,4);
+		animationRight = new Animation(Assets.enemyGreenR,4);
 		width=21; //The width of the enemy
 		height=25; //The height of the enemy
 		speed=2; //The speed which the enemy travels, higher nubmer resuts in higher speeds

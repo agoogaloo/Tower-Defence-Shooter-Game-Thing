@@ -18,12 +18,15 @@ public class BlueEnemy extends Enemy{
 		damage=1; //The amount of damage the enemy will do if it collides with the player
 		health = 100;
 		shotDelayAmount = 120;
+		
+		//using the blue enemy animations so it looks different
+		animationDown = new Animation(Assets.enemyBlueD,4); //Different animations depending on the direction the enemy is facing
+		animationLeft = new Animation(Assets.enemyBlueL,4);
+		animationUp = new Animation(Assets.enemyBlueU,4);
+		animationRight = new Animation(Assets.enemyBlueR,4);
 	}
 	
-	private Animation animationDown = new Animation(Assets.enemyBlueD,4); //Different animations depending on the direction the enemy is facing
-	private Animation animationLeft = new Animation(Assets.enemyBlueL,4);
-	private Animation animationUp = new Animation(Assets.enemyBlueU,4);
-	private Animation animationRight = new Animation(Assets.enemyBlueR,4);
+	
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
 		if (direction == 'd'){
