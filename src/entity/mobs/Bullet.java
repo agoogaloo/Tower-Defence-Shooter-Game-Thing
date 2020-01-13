@@ -3,7 +3,6 @@ package entity.mobs;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import Main.Main;
 import graphics.Assets;
 import graphics.Camera;
 

@@ -2,7 +2,9 @@ package entity.mobs;
 
 import Main.Main;
 import entity.Entity;
-
+/*
+ * By: Sahib
+ */
 public abstract class Mobs extends Entity{
 	protected int speed=1, changeX, changeY;
 	

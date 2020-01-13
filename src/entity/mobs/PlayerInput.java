@@ -14,13 +14,21 @@ import Main.Main;
 
 
 public class PlayerInput implements MouseListener, MouseMotionListener, KeyListener{
+	/*
+	 *this class separates all the keyboard and mouse inputs from the player class
+	 *so that it is smaller and easier to manage. it has a variable for each input 
+	 *which is true or false depending on if it is pushed. these variables can be used by 
+	 *the is__() methods at the end
+	 */
+	
+	//declaring variables
 	private boolean[] keys = new boolean[256];
 	private boolean up, down, left, right, control, shoot;
 	private char direction='d';
-
 	private int mouseX, mouseY;
 	
 	public PlayerInput() {
+		//adding itself to the Jframe so that the inputs will actually work when the window is open
 		Main.getWindow().getFrame().addKeyListener(this);
 		Main.getWindow().getFrame().addMouseListener(this);
 		Main.getWindow().getFrame().addMouseMotionListener(this);
@@ -31,6 +39,7 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		left = keys[KeyEvent.VK_LEFT];//by setting it to the right index in the array
 		right = keys[KeyEvent.VK_RIGHT];
 		control = keys[KeyEvent.VK_CONTROL];
+		//setting the diection the player is facing so it is easy to tell which animation should be playing
 		if(up) {
 			direction = 'u';
 		}else if(down) {
@@ -74,12 +83,12 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		shoot=true;
+		shoot=true;//the shoot command will be activated when the mouse is clicked
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		shoot=false;
+		shoot=false;//it has been released so the command can stop now
 	}
 	
 	//keyboard input methods

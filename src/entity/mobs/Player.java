@@ -3,8 +3,6 @@ package entity.mobs;
 import java.awt.Graphics;
 
 import Main.Main;
-import entity.Entity;
-import entity.EntityManager;
 import entity.statics.Core;
 import entity.statics.Tower;
 import graphics.Animation;
@@ -14,7 +12,7 @@ import graphics.Camera;
 
 
 /**
- * @author Sahib and Matthew
+ * By: Sahib and Matthew
  */
 public class Player extends Mobs {
 	//declaring variables
@@ -23,7 +21,8 @@ public class Player extends Mobs {
 	private boolean build = false;
 	private Camera camera;
 	private Core core;
-	private PlayerInput input=new PlayerInput();//letting it get the inputs
+	private PlayerInput input=new PlayerInput();//letting it get inputs
+	
 	//creating all the players animations
 	private Animation animationDown = new Animation(Assets.playerD,6);
 	private Animation animationLeft = new Animation(Assets.playerL,6);
@@ -31,6 +30,9 @@ public class Player extends Mobs {
 	private Animation animationRight = new Animation(Assets.playerR,6);
 	
 	public Player(int x, int y) {
+		/*
+		 * this class is the player that you control 
+		 */
 		// initializing variables
 		this.x = x;
 		this.y = y;
