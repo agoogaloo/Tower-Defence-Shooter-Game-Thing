@@ -2,9 +2,13 @@ package graphics;
 
 import entity.Entity;
 
+//@author Matthew
 public class Camera {
+	/*
+	 * this is the camera which works by giving everything an offset, which then 
+	 * causes everything to be drawn in a different place making it look like the camera is moving
+	 */
 	private int xOffset, yOffset, screenWidth, screenHeight;
-
 	//constructors
 	public Camera(int screenWidth, int screenHeight) {
 		//screen height and width are required to center an entity on the screen

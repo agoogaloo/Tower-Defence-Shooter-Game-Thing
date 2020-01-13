@@ -3,89 +3,67 @@ package entity.mobs;
 import java.awt.Graphics;
 
 import Main.Main;
-import entity.Entity;
-import entity.EntityManager;
 import entity.statics.Core;
 import entity.statics.Tower;
-import entity.statics.WizardTower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 
+//@author Matthew (did all of player movement, the player class, anything related to core)
+//@author Kevin (did animation, shoot method, shot delay, anything related to tower, rendering)
 
-
-/**
- * @author Sahib and Matthew
- */
 public class Player extends Mobs {
 	//declaring variables
-	private int money=0;
-	private int shotBuffer = 0;
-	private int numberOfTowers = 1;
-	private boolean build = false;
+	private int shotDelay = 0; //Prevents player from shooting too fast
+	private int numberOfTowers = 1; //The amount of towers player can build
+	private Camera camera; //Camera needed so it can follow player
+	private Core core; //Core is related to player, as core effects player health
+	private PlayerInput input=new PlayerInput(); //Letting player get all the inputs in PlayerInput
 	
-	private Camera camera;
-	private Core core;
-	private WizardTower wizardTower;
-	private PlayerInput input=new PlayerInput();//letting it get the inputs
-	
-	private Animation animationDown = new Animation(Assets.playerD,6);
+	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation animationLeft = new Animation(Assets.playerL,6);
 	private Animation animationUp = new Animation(Assets.playerU,6);
 	private Animation animationRight = new Animation(Assets.playerR,6);
 	
-
-	public Player(int x, int y, int width, int height) {
+	public Player(int x, int y) {
+		/*
+		 * this class is the player that you control 
+		 */
 		// initializing variables
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
-		speed = 3;
-		health = 3; 
-		core=new Core(x,y);
-		camera=Main.getWindow().getDisplay().getCamera();
-		entityManager.addEntity(core);
+		width = 16; //The specific width of the player
+		height = 29; //The specific height of the player
+		speed = 3; //The speed which the player moves at, higher the value the faster the speed
+		health = 3;  //The amount of health the player has, when health hits 0 the player dies
+		damage=0; // The amount of damage the player will do when it runs into an enemy
+		friendly=true; //The status of the bullets shot by this class, can hurt enemies but it's own bullets won't damage itself
+		core=new Core(x,y); //Calls the core class, spawning it where the player spawns, AKA spawns the core at the start
+		entityManager.addEntity(core); //Adds the core to the entityManager allowing it to detect collisions
+		camera=Main.getWindow().getDisplay().getCamera(); //The camera will follow the player
 	}
 
-	/**
-	 * @author Kevin Tea
-	 */
 	public void shoot() {
-
-		if (shotBuffer <= 0) {
+		if (shotDelay >= 10) { //Allows the player to shoot every 10 frames
 			double targetX, targetY;
-			targetX = (input.getMouseX());
-			targetY = (input.getMouseY());
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.bullet[0].getWidth(), Assets.bullet[0].getHeight(), 0, 5));
-			shotBuffer = 10;
-		}
-	}
-	
-	private void playerCollide() {
-		for(Entity e: entityCollide()) {
-			if(e instanceof Enemy) {
-				health-=1;
-			}
-		}
-		if(health<=0){
-			killed = true;	
-		}else {
-			killed = false;
+			targetX = (input.getMouseX()); //Sets the mousesX position to targetX
+			targetY = (input.getMouseY()); //Sets the mousesY position to targetY
+			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
+			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 		}
 	}
 
 	@Override
 	public void update() {
-		updateBounds();
-		playerCollide();
-		animationDown.update();
-		animationLeft.update();
+		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
+		animationLeft.update(); //Animation and sprites change depending on the direction
 		animationUp.update();
 		animationRight.update();
-		input.update();// updating input so that it can get the current inputs
-		health-=core.giveDamage();
-		if (input.isShoot()) {
+		input.update(); //Updating input so that it can get the current inputs
+		
+		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
+
+		if (input.isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
 			shoot();
 		}
 		if (input.isUp()) {// if the up input is triggered than it will move the player up
@@ -95,70 +73,37 @@ public class Player extends Mobs {
 			changeY += speed;
 		}
 		if (input.isLeft()) {
-			velocityX -= speed;
+			changeX -= speed;
 		}
 		if (input.isRight()) {
-			velocityX += speed;
+			changeX += speed;
 		}
-		if (input.isControl() ) {
+		if(input.isControl()) { //If control is pressed call the twoer method
 			tower();
 		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+velocityX)/16,(y+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+velocityX)/16,(y+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+velocityX)/16,(y+29+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+16+velocityX)/16,(y+29+changeY)/16)){
-			velocityX=0;
-			changeY=0;
-		}
-		x += velocityX;// actually moving the player
-		y += changeY;
-		velocityX = 0;// resting change x and y
-		changeY = 0;
-		
-		shotBuffer -= 1;
-		
+		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
+		shotDelay += 1; //Increase shotDelay by one every frame
 	}
 	
-	public void tower() {
-		if(numberOfTowers>=1) {
-			Tower tower = new Tower(x,y);
-			entityManager.addEntity(tower);
-			numberOfTowers-=1;
+	public void tower() { //Tower method to create a tower
+		if(numberOfTowers>=1) { //As long as the player has at least one tower they can create a tower
+			Tower tower = new Tower(x,y); //Creates a tower at the player's current location
+			entityManager.addEntity(tower); //Adds that tower to the entityManager
+			numberOfTowers-=1; //Decreases the amount of towers the player holds by 1 
 		}
 	}
 	
-	//@author Kevin
 	@Override
-	public void render(Graphics g, Camera camera) {
+	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		if (input.getDirection() == 'd') {
 
-			g.drawImage(animationDown.getCurrentFrame(),
-					x - camera.getxOffset(), y - camera.getyOffset(), null);
+			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'l') {
 			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'u') {
 			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
-		}else if (input.getDirection() == 'r') {
+		} else if (input.getDirection() == 'r') {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
-
-	}
-	public int getHealth() {
-		return health;
-	}
-	public void setHealth(int health) {
-		this.health = health;
-	}
-	public boolean getBuild() {
-		return build;
 	}
 }

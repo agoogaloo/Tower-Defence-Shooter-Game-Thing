@@ -13,12 +13,16 @@ import graphics.Camera;
 
 /*
  * by: Matthew Milum
- * extending JPanel so that you have access to the PaintComponent to actually draw things
- * everything is drawn onto a display which is then added onto the window,
- * because you aren't supposed to draw directly onto it
  */
 public class Display extends JPanel {
-	private int x, y, width, height, scale;
+	/*
+	 * this is the display where everything is actually drawn onto the display is then put onto
+	 * the window so we can see it
+	 * extending JPanel so that you have access to the PaintComponent to actually draw things
+	 * everything is drawn onto a display which is then added onto the window,
+	 * because you aren't supposed to draw directly onto it
+	 */
+	private int width, height, scale;
 	private Floor floor;// the floor that the game it played on
 	private Camera camera;
 		
@@ -45,7 +49,7 @@ public class Display extends JPanel {
 		// a normal graphics object cannot scale so I cast it to a graphics2D which can
 		Graphics2D g2d = (Graphics2D) g;
 
-		g2d.scale(scale, scale);// scaling the graphics
+		g2d.scale(scale, scale);// scaling the graphics so the pixel art looks the right size
 		g2d.clearRect(0, 0, width, height);// clearing the previous frame
 		floor.render(g2d, camera);// rendering the floor
 		Entity.getEntityManager().render(g2d, camera);// rendering the entities

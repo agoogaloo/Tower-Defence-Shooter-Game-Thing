@@ -2,12 +2,14 @@ package window;
 
 import javax.swing.JFrame;
 
-/* by: Matthew Milum
- * this class represents the window that the game is played on
- * I used swing/JFrame instead of javaFX because I can't find an easy tutorial
- * on it but I can for JFrame because it's old
+/* 
+ * by: Matthew Milum
  */
 public class Window {
+	/*
+	 * this class represents the window that the game is played on and uses java
+	 * swing not javaFX
+	 */
 	private JFrame frame;
 	private Display display;
 
@@ -29,12 +31,13 @@ public class Window {
 	}
 
 	public void render() {
-		display.repaint();// this tells the JFrame to repaint the window, which calls paintComponent
+		display.repaint();
+		// this tells the JFrame to repaint the window, which calls paintComponent, drawing everything
 
 	}
 
 	public void update() {
-		display.update();// a test method that changes things to tell its working
+		display.update();//updating the display which then updates everyother part of the game
 
 	}
 
@@ -42,6 +45,7 @@ public class Window {
 	public Display getDisplay() {
 		return display;
 	}
+
 	public JFrame getFrame() {
 		return frame;
 	}
