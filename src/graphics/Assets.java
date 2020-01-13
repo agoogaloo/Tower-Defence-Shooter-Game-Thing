@@ -29,6 +29,7 @@ public class Assets {
 	public static final BufferedImage[] enemyU = Arrays.copyOfRange(enemy, 8, 12);
 	public static final BufferedImage[] enemyR = Arrays.copyOfRange(enemy, 12, 16);
 
+	public static final BufferedImage[] wizardTowerFix = Arrays.copyOfRange(wizardTower, 0, 8);
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		BufferedImage[] pics=new BufferedImage[rows*columns];
 		for(int y=0;y<columns;y++) {

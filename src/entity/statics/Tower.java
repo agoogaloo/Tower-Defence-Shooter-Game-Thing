@@ -22,12 +22,12 @@ public class Tower extends Statics {
 	int rangeWidth = 80, rangeHeight = 80;
 	Entity target;
 	Rectangle towerRange;
-	Animation animation = new Animation(Assets.wizardTower,6);
+	Animation animation = new Animation(Assets.wizardTowerFix,6);
 	
 	public Tower(int x, int y) {
 		this.x = x;
 		this.y = y;
-		towerRange=new Rectangle(x-28,y-17,1,1); //Creates a rectangle for the towers range 
+		towerRange=new Rectangle(x-28,y-17,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
 
 	}
 	
@@ -48,6 +48,7 @@ public class Tower extends Statics {
 
 	@Override
 	public void update(){ //Every frame check to see if an entity is within towers range, if so start attacking
+		animation.update();
 		search();
 		if (attack && shotDelay>= 30) {
 			shoot();
