@@ -100,8 +100,8 @@ public class Enemy extends Mobs {
 		}
 		updateDirection();
 		move();
-		animationDown.update(); //Updates animations, allowing it to loop through the animation array
-		animationLeft.update();
+		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
+		animationLeft.update(); //Animation and spites change depending on the direction
 		animationUp.update();
 		animationRight.update();
 		shotDelay+=1; //Increase shotDelay by one every frame

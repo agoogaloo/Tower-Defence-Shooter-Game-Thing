@@ -43,7 +43,7 @@ public class Tower extends Statics { //extends from statics as towers don't move
 
 	@Override
 	public void update(){ 
-		animation.update(); //Updates animations, allowing it to loop through the animation array
+		animation.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		search(); //Every frame check to see if an entity is within towers range, if so start attacking
 		if (attack && shotDelay>= 60) { //If attack is true and it's been 60 frames since last shot, shoot again
 			shoot(); //Calls shoot method
