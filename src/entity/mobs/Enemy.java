@@ -28,12 +28,12 @@ public abstract class Enemy extends Mobs {
 	protected Animation animationUp = new Animation(Assets.enemyRedU,4);
 	protected Animation animationRight = new Animation(Assets.enemyRedR,4);
 
+
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
 	}
-
 	public void updateDirection() {
 		Assets.enemyRedD[0].getWidth(); //Enemy will always start travelling down
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
