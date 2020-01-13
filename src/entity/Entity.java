@@ -18,9 +18,9 @@ public abstract class Entity {
 	protected static EntityManager entityManager = new EntityManager();
 	// declaring instance variables
 	protected int x, y;
-	protected int health = 10, damage;
+	protected int health = 10, damage;//its health and how much damage it can deal
 	protected int width, height;
-	protected boolean killed = false, friendly;
+	protected boolean killed = false, friendly;//whether it is alive and what side this entity is on
 	protected Rectangle bounds = new Rectangle(x, y, 10, 10); // Gives thigs a hitbox with default width and height
 
 	public static void init() {

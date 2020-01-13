@@ -21,8 +21,7 @@ public class EntityManager {
 	public void init() {
 		// this init method needs to be seperate from the constructor so that player can
 		// add the core to the array if it was added in the constructor the
-		// entityManager
-		// wouldn't be created yet and would throw an error so the init method is called
+		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
 
 		player=new Player(1747, 1440);	
@@ -31,7 +30,7 @@ public class EntityManager {
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 
-	// this method updates all the entitys in the entities arrayList
+	// this method updates all the entitys in the entities arrayList and removes the dead ones
 	public void update() {
 
 		System.out.println("");
@@ -40,9 +39,13 @@ public class EntityManager {
 			// methods
 			entities.get(i).update();
 		}
+		//this needs to be done after everything stops moving so that it will be 
+		//consistent no matter which entity is updated 1st
 		for (int i = 0; i < entities.size(); i++) {
-			entities.get(i).damage();
+			entities.get(i).damage();//dealing damage to everything that is overlapping
 		}
+		//removing all the corpses from the game this is done after damage is dealt so if things touch
+		//each other on the same frame they will both take damage
 		for (int i = 0; i < entities.size(); i++) {
 			if(entities.get(i).isKilled()){ 
 				if(entities.get(i) instanceof Player){ //If player gets hit reset level
@@ -61,11 +64,12 @@ public class EntityManager {
 		}
 	}
 
+	//getters/setters
 	public void addEntity(Entity e) { // allows us to add to the entity manager
 		entities.add(e);
 	}
 
-	public ArrayList<Entity> getEntities() { // Accessor method for the entities
+	public ArrayList<Entity> getEntities() { //lets us check what entities exist and thier state
 		return entities;
 	}
 
