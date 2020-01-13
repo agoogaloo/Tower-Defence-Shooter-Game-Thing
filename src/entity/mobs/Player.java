@@ -3,25 +3,21 @@ package entity.mobs;
 import java.awt.Graphics;
 
 import Main.Main;
-import entity.Entity;
-import entity.EntityManager;
 import entity.statics.Core;
 import entity.statics.Tower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 
-
-
-/**
- * @author Sahib and Matthew
- */
+//@author Matthew (did all of player movement, the player class, anything related to core)
+//@author Kevin (did animation, shoot method, shot delay, anything related to tower, rendering)
 public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
 	private int shotDelay = 0;
 	private int numberOfTowers = 1;
 	private boolean build = false;
+	
 	private Camera camera;
 	private Core core;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
@@ -31,7 +27,6 @@ public class Player extends Mobs {
 	private Animation animationUp = new Animation(Assets.playerU,6);
 	private Animation animationRight = new Animation(Assets.playerR,6);
 	
-
 	public Player(int x, int y) {
 		// initializing variables
 		this.x = x;
@@ -47,25 +42,20 @@ public class Player extends Mobs {
 		damage=0;
 	}
 
-	/**
-	 * @author Kevin Tea
-	 */
 	public void shoot() {
 		
-		if (shotDelay <= 0) {
+		if (shotDelay >= 10) {
 			double targetX, targetY;
-			
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
 			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), 
 					targetY+camera.getyOffset(), 0, 5, true));
-			shotDelay = 10;
+			shotDelay = 0;
 		}
 	}
 
 	@Override
 	public void update() {
-		
 		System.out.println(health);
 		animationDown.update();
 		animationLeft.update();
@@ -92,8 +82,8 @@ public class Player extends Mobs {
 		if(input.isControl()) {
 			tower();
 		}
-		shotDelay -= 1;
 		move();
+		shotDelay += 1;
 	}
 	
 	public void tower() {
@@ -104,11 +94,9 @@ public class Player extends Mobs {
 		}
 	}
 	
-	//@author Kevin
 	@Override
 	public void render(Graphics g, Camera camera) {
 		if (input.getDirection() == 'd') {
-
 			g.drawImage(animationDown.getCurrentFrame(),
 					x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'l') {
@@ -119,14 +107,5 @@ public class Player extends Mobs {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 
-	}
-	public int getHealth() {
-		return health;
-	}
-	public void setHealth(int health) {
-		this.health = health;
-	}
-	public boolean getBuild() {
-		return build;
 	}
 }

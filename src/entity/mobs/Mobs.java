@@ -3,6 +3,9 @@ package entity.mobs;
 import Main.Main;
 import entity.Entity;
 
+//@author Matthew (updateBounds)
+//@author Sahib (move() also known as wall collision)
+
 public abstract class Mobs extends Entity{
 	protected int speed=1, changeX, changeY;
 	
@@ -34,7 +37,6 @@ public abstract class Mobs extends Entity{
 		this.bounds.x=x;
 		this.bounds.y=y;
 		this.bounds.width=width;
-		this.bounds.height=height;
-				
+		this.bounds.height=height;	
 	}
 }

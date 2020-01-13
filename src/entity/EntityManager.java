@@ -1,23 +1,18 @@
 package entity;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
-
-import entity.mobs.Bullet;
 import entity.mobs.Enemy;
 import entity.mobs.Player;
-import graphics.Assets;
+import java.awt.Graphics;
 import graphics.Camera;
 
-/**
- * by: Kevin Tea and Matthew Milum
- *
- */
+//@author Matthew (Did most of the logic and everything in this class)
+//@author Kevin (did the remove entity and getKilled, along with player getKilled )
 public class EntityManager {
 	
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
-	Enemy enemy;
+
 	public void init() {
 		player=new Player(1747,1520);	
 		entities.add(new Enemy(1750,1000,'d'));
@@ -63,9 +58,4 @@ public class EntityManager {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public Enemy getEnemy() {
-		return enemy;
-	}
-
 }

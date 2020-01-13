@@ -8,7 +8,7 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 
 /*
- * by: Matthew Milum
+ * by: Matthew Milum and Kevin Tea
  * a class that contains all the pictures, sounds, etc. for the game
  */
 public class Assets {

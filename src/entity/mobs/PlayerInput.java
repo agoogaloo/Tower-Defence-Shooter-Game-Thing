@@ -8,10 +8,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
 import Main.Main;
 
-
+//@author Matthew (Organized all player inputs into it's own class, did basically all of this class)
+//@author Kevin (Only control key, mouse, and direction in updates)
 
 public class PlayerInput implements MouseListener, MouseMotionListener, KeyListener{
 	private boolean[] keys = new boolean[256];
@@ -31,6 +31,7 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		left = keys[KeyEvent.VK_LEFT];//by setting it to the right index in the array
 		right = keys[KeyEvent.VK_RIGHT];
 		control = keys[KeyEvent.VK_CONTROL];
+		
 		if(up) {
 			direction = 'u';
 		}else if(down) {
@@ -40,7 +41,6 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		}else if(right) {
 			direction = 'r';
 		}
-		
 	}
 	//mouse position methods
 	@Override

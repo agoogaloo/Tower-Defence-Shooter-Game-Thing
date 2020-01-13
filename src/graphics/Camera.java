@@ -2,6 +2,7 @@ package graphics;
 
 import entity.Entity;
 
+//@author Matthew
 public class Camera {
 	private int xOffset, yOffset, screenWidth, screenHeight;
 

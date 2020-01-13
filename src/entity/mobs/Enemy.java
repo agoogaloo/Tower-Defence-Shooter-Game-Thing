@@ -4,14 +4,14 @@ package entity.mobs;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
 import Main.Main;
 import entity.Entity;
-import entity.EntityManager;
-import entity.statics.Core;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+
+//@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
+//@author Matthew (did update direction, and all direction related code, width, height, damage, friendly)
 
 public class Enemy extends Mobs {
 	private char direction;
@@ -85,7 +85,6 @@ public class Enemy extends Mobs {
 		playerY = entityManager.getPlayer().getY();
 		entityManager.addEntity(new Bullet (x,y, playerX, playerY,2, 3, false));
 		shotDelay = 0;
-
 	}
 	
 	@Override
