@@ -3,6 +3,11 @@ package entity;
 import java.util.ArrayList;
 import entity.mobs.Enemy;
 import entity.mobs.Player;
+import entity.mobs.enemy.BlueEnemy;
+import entity.mobs.enemy.DefaultEnemy;
+import entity.mobs.enemy.GreenEnemy;
+import entity.mobs.enemy.YellowEnemy;
+
 import java.awt.Graphics;
 import graphics.Camera;
 
@@ -15,8 +20,10 @@ public class EntityManager {
 
 	public void init() {
 		player=new Player(1747,1520);	
-		entities.add(new Enemy(1750,1000,'d'));
-		entities.add(new Enemy(1750,1200,'d'));
+		entities.add(new DefaultEnemy(1750,1300,'d'));
+		entities.add(new GreenEnemy(1750,1200,'d'));
+		entities.add(new BlueEnemy(1750,1100,'d'));
+		entities.add(new YellowEnemy(1750,900,'d'));
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 	

@@ -14,6 +14,7 @@ public abstract class Entity {
 	protected int x, y;
 	protected int health=10, damage;
 	protected int width, height;
+	protected int shotDelayAmount;
 	protected boolean killed=false, friendly;
   protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 	

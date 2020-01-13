@@ -13,32 +13,28 @@ import graphics.Camera;
 //@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
 //@author Matthew (did update direction, and all direction related code, width, height, damage, friendly)
 
-public class Enemy extends Mobs {
-	private char direction; //Depending on the direction the enemy will face different ways
+public abstract class Enemy extends Mobs {
+	protected char direction; //Depending on the direction the enemy will face different ways
+	protected int shotDelayAmount;
+	private int shotDelay; //Shot delay to make sure enemies can not shoot rapidly
 	private int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
-	private int shotDelay = 0; //Shot delay to make sure enemies can not shoot rapidly
 	private boolean attack = false; //If true enemy will shoot
 	
-	private Animation animationDown = new Animation(Assets.enemyD,4); //Different animations depending on the direction the enemy is facing
-	private Animation animationLeft = new Animation(Assets.enemyL,4);
-	private Animation animationUp = new Animation(Assets.enemyU,4);
-	private Animation animationRight = new Animation(Assets.enemyR,4);
+	private Animation animationDown = new Animation(Assets.enemyRedD,4); //Different animations depending on the direction the enemy is facing
+	private Animation animationLeft = new Animation(Assets.enemyRedL,4);
+	private Animation animationUp = new Animation(Assets.enemyRedU,4);
+	private Animation animationRight = new Animation(Assets.enemyRedR,4);
 
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
-		width=21; //The width of the enemy
-		height=25; //The height of the enemy
-		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
-		friendly=false; //The status of the bullet, bullets from this class can hurt player
-		damage=1; //The amount of damage the enemy will do if it collides with the player
 	}
 	
-	private void updateDirection() {
-		Assets.enemyD[0].getWidth(); //Enemy will always start travelling down
-		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyD[0].getWidth()/2)/16,
-				(y+Assets.enemyD[0].getHeight()/2)/16)){
+	public void updateDirection() {
+		Assets.enemyRedD[0].getWidth(); //Enemy will always start travelling down
+		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyRedD[0].getWidth()/2)/16,
+				(y+Assets.enemyRedD[0].getHeight()/2)/16)){
 		case 5:
 			direction='r';
 			break;
@@ -83,7 +79,6 @@ public class Enemy extends Mobs {
 		targetX = entityManager.getPlayer().getX(); //Sets the players x location as the targetX
 		targetY = entityManager.getPlayer().getY(); //Sets the players y location as the targetY
 		entityManager.addEntity(new Bullet (x,y, targetX, targetY,2, 3, false)); //Creates red bullets that shoot towards the player
-		shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 	}
 	
 	@Override
@@ -95,8 +90,9 @@ public class Enemy extends Mobs {
 		}else{ //If the enemy can't detect the player's box it will not attack
 			attack = false; 
 		}
-		if (shotDelay >= 30 && attack == true) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
+		if (shotDelay >= shotDelayAmount && attack == true) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
 			shoot();
+			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
 		updateDirection();
 		move();
@@ -108,15 +104,7 @@ public class Enemy extends Mobs {
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		if (direction == 'd'){
-			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'u') {
-			g.drawImage(animationUp.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'r') {
-			g.drawImage(animationRight.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}
+
 	}
 }
 
