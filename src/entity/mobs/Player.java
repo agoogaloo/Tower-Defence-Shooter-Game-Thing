@@ -25,7 +25,10 @@ public class Player extends Mobs {
 	private Animation animationUp = new Animation(Assets.playerU,6);
 	private Animation animationRight = new Animation(Assets.playerR,6);
 	
-	public Player(int x, int y) { //Player class, contains traits of the Player
+	public Player(int x, int y) {
+		/*
+		 * this class is the player that you control 
+		 */
 		// initializing variables
 		this.x = x;
 		this.y = y;
@@ -60,7 +63,7 @@ public class Player extends Mobs {
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
 
-		if (input.isShoot()) { //If shoot in PlayerInput is triggered (by left clicking) than it will call the shoot method
+		if (input.isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
 			shoot();
 		}
 		if (input.isUp()) {// if the up input is triggered than it will move the player up
@@ -93,12 +96,13 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		if (input.getDirection() == 'd') {
+
 			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'l') {
 			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}else if (input.getDirection() == 'u') {
 			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
-		}else if (input.getDirection() == 'r') {
+		} else if (input.getDirection() == 'r') {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 	}

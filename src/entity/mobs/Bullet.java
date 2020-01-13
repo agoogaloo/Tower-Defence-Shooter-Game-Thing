@@ -2,11 +2,12 @@ package entity.mobs;
 //@author Kevin (all of bullet except for a few parts)
 //@author Matthew (trueX, trueY, width, height, damage, friendly, move())
 
-import Main.Main;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import Main.Main;
 import graphics.Assets;
 import graphics.Camera;
-import java.awt.image.BufferedImage;
 
 public class Bullet extends Mobs{
 

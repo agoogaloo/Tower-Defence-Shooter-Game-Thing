@@ -4,15 +4,18 @@ package entity.mobs;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
 import Main.Main;
-import entity.Entity;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 
 //@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
-//@author Matthew (did update direction, and all direction related code, width, height, damage, friendly)
+//@author Matthew (did update direction, and all damage/collision related code, width, height, damage, friendly)
 
+	/*
+	 * this is the robot enemy guy that will go around the path to the core and try to shoot you
+	 */
 public abstract class Enemy extends Mobs {
 	protected char direction; //Depending on the direction the enemy will face different ways
 	protected int shotDelayAmount;
@@ -30,16 +33,17 @@ public abstract class Enemy extends Mobs {
 		this.y=y;
 		this.direction=direction;
 	}
-	
+
 	public void updateDirection() {
 		Assets.enemyRedD[0].getWidth(); //Enemy will always start travelling down
+  //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
 		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyRedD[0].getWidth()/2)/16,
-				(y+Assets.enemyRedD[0].getHeight()/2)/16)){
-		case 5:
+				(y+Assets.enemyRedD[0].getHeight()/2)/16)){ //getting its current tile
+		case 5: //the 5 tile is the path that goes from up to right so the robot should turn right
 			direction='r';
 			break;
 		case 6:
-			direction='u';
+			direction='u';//cases for all the other corner tiles
 			break;
 		case 7:
 			direction='u';
@@ -59,11 +63,12 @@ public abstract class Enemy extends Mobs {
 		case 12:
 			direction='l';
 		}
-		switch(direction) {
-		case 'u':
-			y-=speed;
+		
+		switch(direction) {//moving a different direction depending on which way it is facing
+		case 'u'://if it is facing up 
+			y-=speed;//it should move up
 			break;
-		case 'd':
+		case 'd'://move cases for the other directions
 			y+=speed;
 			break;
 		case 'l':
@@ -94,8 +99,8 @@ public abstract class Enemy extends Mobs {
 			shoot();
 			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
-		updateDirection();
-		move();
+		updateDirection();//setting its direction and moving based on it
+		move();//moving the enemy so its bounds can be updated 
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animationLeft.update(); //Animation and spites change depending on the direction
 		animationUp.update();
@@ -104,15 +109,7 @@ public abstract class Enemy extends Mobs {
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		if (direction == 'd'){
-			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'u') {
-			g.drawImage(animationUp.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'r') {
-			g.drawImage(animationRight.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}
+
 	}
 }
 
