@@ -19,7 +19,7 @@ import graphics.Camera;
 public class Player extends Mobs {
 	//declaring variables
 	private int money=0;
-	private int shotBuffer = 0;
+	private int shotDelay = 0;
 	private int numberOfTowers = 1;
 	private boolean build = false;
 	private Camera camera;
@@ -52,14 +52,14 @@ public class Player extends Mobs {
 	 */
 	public void shoot() {
 		
-		if (shotBuffer <= 0) {
+		if (shotDelay <= 0) {
 			double targetX, targetY;
 			
 			targetX = (input.getMouseX());
 			targetY = (input.getMouseY());
 			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), 
 					targetY+camera.getyOffset(), 0, 5, true));
-			shotBuffer = 10;
+			shotDelay = 10;
 		}
 	}
 
@@ -92,7 +92,7 @@ public class Player extends Mobs {
 		if(input.isControl()) {
 			tower();
 		}
-		shotBuffer -= 1;
+		shotDelay -= 1;
 		move();
 	}
 	
