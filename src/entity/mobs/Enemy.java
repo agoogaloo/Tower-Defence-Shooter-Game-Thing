@@ -23,11 +23,11 @@ public class Enemy extends Mobs {
 	Animation animationUp = new Animation(Assets.enemyU,4);
 	Animation animationRight = new Animation(Assets.enemyR,4);
 
-	public Enemy(int x, int y, char direction, int width, int height) {
+	public Enemy(int x, int y, char direction) {
 		this.x=x;
 		this.y=y;
-		this.width = width;
-		this.height = height;
+		this.width=21;
+		this.height=25;
 		this.direction=direction;
 		speed=1;
 		friendly=false;

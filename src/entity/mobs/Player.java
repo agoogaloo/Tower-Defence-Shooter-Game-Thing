@@ -84,11 +84,14 @@ public class Player extends Mobs {
 			changeY += speed;
 		}
 		if (input.isLeft()) {
-			velocityX -= speed;
+			changeX -= speed;
 		}
 		if (input.isRight()) {
 			changeX += speed;
-		}		
+		}
+		if(input.isControl()) {
+			tower();
+		}
 		shotBuffer -= 1;
 		move();
 	}

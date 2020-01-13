@@ -4,7 +4,7 @@ import Main.Main;
 import entity.Entity;
 
 public abstract class Mobs extends Entity{
-	protected int speed=1, velocityX, changeY;
+	protected int speed=1, changeX, changeY;
 	
 	@Override
 	public void move() {
