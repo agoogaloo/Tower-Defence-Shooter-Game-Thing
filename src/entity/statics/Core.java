@@ -11,6 +11,7 @@ import graphics.Camera;
 //@author Matthew
 
 public class Core extends Statics{
+	
 	Animation anim = new Animation(Assets.core,6);
 	int damageTaken=0;
 	
@@ -21,6 +22,8 @@ public class Core extends Statics{
 		this.y=y;
 		this.bounds.x=x;
 		this.bounds.y=y;
+		bounds.width=40;
+		bounds.height=35;
 		damage=5;
 	}
 	
