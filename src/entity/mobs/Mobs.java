@@ -25,9 +25,9 @@ public abstract class Mobs extends Entity{
 		updateBounds();
 	}
 	protected void updateBounds(){
-		this.bounds.x=x;
-		this.bounds.y=y;
-		this.bounds.width=width;
-		this.bounds.height=height;	
+		this.bounds.x=x;//setting the bounds to match the entities state this needs to 
+		this.bounds.y=y;//be called every frame for mobs so other things know where they actually are 
+		this.bounds.width=width;//now but it can be called by statics once when it is initialized because 
+		this.bounds.height=height;//it will never change
 	}
 }
