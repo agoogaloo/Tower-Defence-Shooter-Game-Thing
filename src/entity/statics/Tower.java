@@ -19,7 +19,7 @@ public class Tower extends Statics {
 	
 	boolean attack = false;
 	int shotDelay = 0;
-	int rangeWidth = 100, rangeHeight = 100;
+	int rangeWidth = 80, rangeHeight = 80;
 	Entity target;
 	Rectangle towerRange;
 	Animation animation = new Animation(Assets.wizardTower,6);
@@ -27,7 +27,7 @@ public class Tower extends Statics {
 	public Tower(int x, int y) {
 		this.x = x;
 		this.y = y;
-		towerRange=new Rectangle(x-50,y-50,1,1); //Creates a rectangle for the towers range 
+		towerRange=new Rectangle(x-28,y-17,1,1); //Creates a rectangle for the towers range 
 
 	}
 	
@@ -60,11 +60,6 @@ public class Tower extends Statics {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) {
-		for(Entity e:entityManager.getEntities()) {
-			if(e instanceof Enemy) {
-				g.drawRect(e.getX()-camera.getxOffset(),e.getY()-camera.getyOffset(),Assets.enemy[0].getWidth(),Assets.enemy[0].getHeight());
-			}
-		}
 		g.drawRect(towerRange.x-camera.getxOffset(),towerRange.y-camera.getyOffset(),
 				towerRange.width,towerRange.height);
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);

@@ -7,7 +7,6 @@ import entity.Entity;
 import entity.EntityManager;
 import entity.statics.Core;
 import entity.statics.Tower;
-import entity.statics.WizardTower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -26,7 +25,6 @@ public class Player extends Mobs {
 	
 	private Camera camera;
 	private Core core;
-	private WizardTower wizardTower;
 	private PlayerInput input=new PlayerInput();//letting it get the inputs
 	
 	private Animation animationDown = new Animation(Assets.playerD,6);
