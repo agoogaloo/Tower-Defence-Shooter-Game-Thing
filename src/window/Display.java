@@ -35,7 +35,7 @@ public class Display extends JPanel {
 		this.scale = scale;
 		this.setPreferredSize(new Dimension(width, height));
 		// setting the preferred size to the inputed one so that the pack method will
-		floor = new Floor(5, this.width, this.height, Assets.tiles);
+		floor = new Floor(10, this.width, this.height, Assets.tiles);
 		// creating a floor for the game and giving it the tileset
 		camera = new Camera(this.width, this.height);
 		// in the future we would probably want to put things like the level in a
