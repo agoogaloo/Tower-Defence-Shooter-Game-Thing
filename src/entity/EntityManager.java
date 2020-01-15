@@ -3,6 +3,7 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import Main.Main;
 import entity.mobs.Player;
 import entity.mobs.enemy.EnemySpawner;
 import graphics.Camera;
@@ -26,7 +27,8 @@ public class EntityManager {
 		// add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
-		player=new Player(1747,1440);	
+		player=new Player(Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()+148,
+				Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()-180);	
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 

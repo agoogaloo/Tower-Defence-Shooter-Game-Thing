@@ -149,4 +149,7 @@ public class Floor {
 		}
 
 	}
+	public int getSize() {
+		return size;
+	}
 }
