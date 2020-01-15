@@ -1,6 +1,5 @@
 package entity.mobs.enemy;
 
-import entity.mobs.Enemy;
 import graphics.Animation;
 import graphics.Assets;
 

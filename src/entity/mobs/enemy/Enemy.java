@@ -1,11 +1,13 @@
 //@author Kevin
 
-package entity.mobs;
+package entity.mobs.enemy;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import Main.Main;
+import entity.mobs.Bullet;
+import entity.mobs.Mobs;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;

@@ -2,9 +2,12 @@ package entity;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import Main.Main;
 import entity.mobs.Player;
 import entity.mobs.enemy.BlueEnemy;
-import entity.mobs.enemy.DefaultEnemy;
+import entity.mobs.enemy.EnemyWave;
+import entity.mobs.enemy.RedEnemy;
 import entity.mobs.enemy.GreenEnemy;
 import entity.mobs.enemy.YellowEnemy;
 import graphics.Camera;
@@ -28,16 +31,11 @@ public class EntityManager {
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
 		player=new Player(1747,1440);	
-		entities.add(new DefaultEnemy(1750,1300,'d'));
-		entities.add(new GreenEnemy(1750,1200,'d'));
-		entities.add(new BlueEnemy(1750,1100,'d'));
-		entities.add(new YellowEnemy(1750,900,'d'));
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 
 	// this method updates all the entitys in the entities arrayList and removes the dead ones
 	public void update() {
-
 		System.out.println("");
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
@@ -57,8 +55,14 @@ public class EntityManager {
 					System.out.println("Player has died");
 				}else{
 					entities.remove(i); //If an other entity besides the player gets hit remove that entity
-				}
+				}	
 			}
+		}
+		if(EnemyWave.waveComplete()) {
+			int roomX=(player.getX()/Main.getFloor().TILESIZE)/Main.getFloor().ROOMSIZE;
+			int roomY=(player.getY()/Main.getFloor().TILESIZE)/Main.getFloor().ROOMSIZE;
+			new EnemyWave(roomX,roomY);
+			
 		}
 	}
 

@@ -22,7 +22,7 @@ public class Floor {
 	private int size;// how many rooms big the floor is
 
 	// constants
-	private final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
+	public final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private final Room BLANKROOM = new Room("res/blank.txt", 2);
