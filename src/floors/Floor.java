@@ -46,7 +46,6 @@ public class Floor {
 
 	// this method draws everything to the screen
 	public void render(Graphics g, Camera camera) {
-
 		for (int y = 0; y < size * ROOMSIZE; y++) {// looping though all the tiles
 			for (int x = 0; x < size * ROOMSIZE * 2; x++) {
 				// these will be whatever place the tile is being rendered at

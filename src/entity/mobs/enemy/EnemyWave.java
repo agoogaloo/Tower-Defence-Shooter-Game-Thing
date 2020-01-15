@@ -32,7 +32,7 @@ public class EnemyWave {
 			spawnY+=(room.ROOMSIZE*room.TILESIZE)/2;
 			break;
 		}
-		Entity.getEntityManager().addEntity(new RedEnemy(spawnX, spawnY,direction));
+		Entity.getEntityManager().addEntity(randomEnemy(spawnX, spawnY,direction));
 	}
 	public static boolean waveComplete() {
 		for(Entity e:Entity.getEntityManager().getEntities()) {
@@ -43,7 +43,7 @@ public class EnemyWave {
 		return true;
 	}
 	private Enemy randomEnemy(int x, int y, char direction) {
-		switch(ThreadLocalRandom.current().nextInt(1,4)) {
+		switch(ThreadLocalRandom.current().nextInt(0,4)) {
 		case 0:
 			return new RedEnemy(x, y, direction);
 		case 1:
@@ -51,7 +51,7 @@ public class EnemyWave {
 		case 2:
 			return new GreenEnemy(x, y, direction);
 		case 3:
-			return new BlueEnemy(x, y, direction);
+			return new YellowEnemy(x, y, direction);
 		default:
 			System.out.println("random enemy number out of range so a normal one was made");
 			return new RedEnemy(x, y, direction);		
