@@ -17,6 +17,7 @@ public class Room {
 	 * by commas and spaces
 	 */
 	// declaring instance variables
+	public final int TILESIZE = 16, ROOMSIZE = 20;
 	private int[][] tiles;
 	private char entrance, exit;
 	

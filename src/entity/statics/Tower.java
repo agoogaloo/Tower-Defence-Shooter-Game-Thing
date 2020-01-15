@@ -3,8 +3,8 @@ package entity.statics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import entity.Entity;
-import entity.mobs.Enemy;
 import entity.mobs.Bullet;
+import entity.mobs.enemy.Enemy;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -31,7 +31,6 @@ public class Tower extends Statics { //extends from statics as towers don't move
 		attack=false; //Attack is normally false
 		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
 			if(e.getBounds().intersects(towerRange)&&e instanceof Enemy) { //If an enemy entity is detected within tower range it gets its x and y values and sets it to the appropriate variables
-				System.out.println(e);
 				target=e; //sets the target to the specific enemy enetity that intersected the tower's range
 				attack= true; //An entity has been detected so the tower will start shooting	
 			}

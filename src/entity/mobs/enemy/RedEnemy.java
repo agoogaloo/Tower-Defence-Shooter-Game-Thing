@@ -1,10 +1,8 @@
 package entity.mobs.enemy;
 
-import entity.mobs.Enemy;
+public class RedEnemy extends Enemy{
 
-public class DefaultEnemy extends Enemy{
-
-	public DefaultEnemy(int x, int y, char direction) {
+	public RedEnemy(int x, int y, char direction) {
 		super(x, y, direction);
 		width=21; //The width of the enemy
 		height=25; //The height of the enemy

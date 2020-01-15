@@ -1,5 +1,6 @@
 package Main;
 import entity.Entity;
+import floors.Floor;
 import window.Window;
 
 /*
@@ -48,5 +49,8 @@ public class Main {
 	//lets other classes get the window so they can know things like window size 
 	public static Window getWindow() {
 		return window;
+	}
+	public static Floor getFloor() {
+		return window.getDisplay().getFloor();
 	}
 }
