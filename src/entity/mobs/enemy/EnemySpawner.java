@@ -1,13 +1,39 @@
 package entity.mobs.enemy;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import Main.Main;
 import entity.Entity;
 import floors.Room;
 
-public class EnemyWave {
-	public EnemyWave(int roomX,int roomY) {
+public class EnemySpawner {
+	private final int WAVEDELAY=300;
+	private int waveDelay=0;
+	private int enemyDelay=0;
+	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
+	public void update() {
+		if(waveComplete()&&waveDelay>=WAVEDELAY) {
+			waveDelay=0;
+			int roomX=(Entity.getEntityManager().getPlayer().getX()/Main.getFloor().
+					TILESIZE)/Main.getFloor().ROOMSIZE;
+			int roomY=(Entity.getEntityManager().getPlayer().getY()/Main.getFloor().
+					TILESIZE)/Main.getFloor().ROOMSIZE;
+			newWave(roomX,roomY,5);
+		}
+		if(enemyDelay>30) {
+			enemyDelay=0;
+			Entity.getEntityManager().addEntity(enemiesToAdd.get(0));
+			enemiesToAdd.remove(0);
+		}
+		if(enemiesToAdd.size()>0) {
+			enemyDelay++;
+		}
+		if(waveComplete()){
+		waveDelay++;
+		}
+	}
+	public void newWave(int roomX,int roomY, int enemies) {
 		Room room=Main.getFloor().getRoom(roomX, roomY);
 		int spawnX=roomX*room.ROOMSIZE*room.TILESIZE;
 		int spawnY=roomY*room.ROOMSIZE*room.TILESIZE;
@@ -32,7 +58,9 @@ public class EnemyWave {
 			spawnY+=(room.ROOMSIZE*room.TILESIZE)/2;
 			break;
 		}
-		Entity.getEntityManager().addEntity(randomEnemy(spawnX, spawnY,direction));
+		for (int i=0;i<enemies;i++) {
+			enemiesToAdd.add(randomEnemy(spawnX, spawnY,direction));
+		}
 	}
 	public static boolean waveComplete() {
 		for(Entity e:Entity.getEntityManager().getEntities()) {

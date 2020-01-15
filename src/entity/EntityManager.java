@@ -3,13 +3,8 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import Main.Main;
 import entity.mobs.Player;
-import entity.mobs.enemy.BlueEnemy;
-import entity.mobs.enemy.EnemyWave;
-import entity.mobs.enemy.RedEnemy;
-import entity.mobs.enemy.GreenEnemy;
-import entity.mobs.enemy.YellowEnemy;
+import entity.mobs.enemy.EnemySpawner;
 import graphics.Camera;
 
 //@author Matthew (Did most of the logic and everything in this class)
@@ -23,6 +18,7 @@ public class EntityManager {
   
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
+	EnemySpawner spawner=new EnemySpawner();
 
 	public void init() {
 
@@ -36,7 +32,7 @@ public class EntityManager {
 
 	// this method updates all the entitys in the entities arrayList and removes the dead ones
 	public void update() {
-		System.out.println("");
+		spawner.update();
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
 			// methods
@@ -58,12 +54,7 @@ public class EntityManager {
 				}	
 			}
 		}
-		if(EnemyWave.waveComplete()) {
-			int roomX=(player.getX()/Main.getFloor().TILESIZE)/Main.getFloor().ROOMSIZE;
-			int roomY=(player.getY()/Main.getFloor().TILESIZE)/Main.getFloor().ROOMSIZE;
-			new EnemyWave(roomX,roomY);
-			
-		}
+		
 	}
 
 	// same as update but rendering things instead
