@@ -50,14 +50,15 @@ public class EntityManager {
 		for (int i = 0; i < entities.size(); i++) {
 			if(entities.get(i).isKilled()){ 
 				if(entities.get(i) instanceof Player){ //If player gets hit reset level
-					System.out.println("Player has died");
+					System.out.println("Player has been deadified");
 				}else{
 					entities.remove(i); //If an other entity besides the player gets hit remove that entity
 				}	
 			}
 		}
-		
 	}
+		
+	
 
 	// same as update but rendering things instead
 	public void render(Graphics g, Camera camera) {

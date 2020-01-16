@@ -11,7 +11,7 @@ public class BlueEnemy extends Enemy{
 		height=25; //The height of the enemy
 		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
 		damage=1; //The amount of damage the enemy will do if it collides with the player
-		health = 75;
+		health = 40;
 		reloadTime = 120;
 		
 		//using the blue enemy animations so it looks different

@@ -32,6 +32,7 @@ public class Bullet extends Mobs{
 		damage=1; //How much points of damage a bullet will do
 		width=6; //Specific width of a bullet
 		height=6; //Specific height of a bullet
+		health=1;
 		bulletPath = Math.atan2(targetY-y, targetX-x); //calculates the angle of the bullet needs to travel to reach the target coordinates
 		velocityX = speed*Math.cos(bulletPath); //Using the bullet path angle calculates the direction and speed needed to move along the x axis
 		velocityY = speed*Math.sin(bulletPath); //Using the bullet path angle calculates the direction and speed needed to move along the Y axis

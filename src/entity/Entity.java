@@ -21,7 +21,7 @@ public abstract class Entity {
 	protected int x, y;
 	protected int health = 10, damage;//its health and how much damage it can deal
 	protected int width, height;
-	protected int invincibility, reloadTime;
+	protected int reloadTime;
 	protected boolean killed=false, friendly;
   protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 	
@@ -42,21 +42,23 @@ public abstract class Entity {
 
 	public void damage() {
 		//everything calls this so they can be hurt whenever something that is against them touches them
-		if(invincibility<0) {
-			for (Entity e : entityCollide()) {//checking what is colliding with itself
-				//checking which side the thing that touched it is on 
-				//(making sure enemies only attack the player, player cant attack the core, etc.)
-				if (e.isFriendly() != friendly) {
-					health -= e.getDamage();//dealing however much damage that entity does
-					invincibility=15;
-				}
-			}
-			if (health <= 0) {//if it has no more health left that it should be dead
-				killed = true;
+		for (Entity e : entityCollide()) {//checking what is colliding with itself
+			//checking which side the thing that touched it is on 
+			//(making sure enemies only attack the player, player cant attack the core, etc.)
+			if (e.isFriendly() != friendly) {
+				health -= e.getDamage();//dealing however much damage that entity does		
 			}
 		}
+		if (health <= 0) {//if it has no more health left that it should be dead
+			killed = true;
+		}
 	}
-
+	protected void updateBounds(){
+		this.bounds.x=x;//setting the bounds to match the entities state this needs to 
+		this.bounds.y=y;//be called every frame for mobs so other things know where they actually are 
+		this.bounds.width=width;//now but it can be called by statics once when it is initialized because 
+		this.bounds.height=height;//it will never change
+	}
 	// abstract methods
 	public abstract void update();//used to change the state of all the enemies and is called every frame
 

@@ -17,6 +17,7 @@ public class Assets {
 	 * so other classes can access them easily
 	 */
 	//spliting all the spritesheets int the right pictuures and holding them in arrays
+	public static final BufferedImage[] coin=splitSpriteSheet(load("res/coin.png"), 11, 11, 2, 2);
 	public static final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
 	public static final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
 	public static final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
