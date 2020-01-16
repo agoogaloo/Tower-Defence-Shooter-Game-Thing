@@ -117,7 +117,6 @@ public abstract class Enemy extends Mobs {
 		animationUp.update();
 		animationRight.update();
 		shotDelay+=1; //Increase shotDelay by one every frame
-		invincibility--;
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 

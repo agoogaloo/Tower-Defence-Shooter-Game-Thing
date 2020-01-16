@@ -13,6 +13,7 @@ public class Money extends Statics{
 		this.y=y;
 		width=17;
 		height=28;
+		health=999999999;
 		updateBounds();
 	}
 

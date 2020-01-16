@@ -3,6 +3,7 @@ package entity.mobs;
 import java.awt.Graphics;
 
 import Main.Main;
+import entity.Entity;
 import entity.statics.Core;
 import entity.statics.Tower;
 import graphics.Animation;
@@ -16,7 +17,7 @@ public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
 	
-	private int money=1; //The amount of towers player can build
+	private int money=1,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	private PlayerInput input=new PlayerInput(); //Letting player get all the inputs in PlayerInput
@@ -97,6 +98,22 @@ public class Player extends Mobs {
 		}
 	}
 	
+	@Override
+	public void damage() {
+		if(invincibility<=0) {
+			for (Entity e : entityCollide()) {//checking what is colliding with itself
+				//checking which side the thing that touched it is on 
+				//(making sure enemies only attack the player, player cant attack the core, etc.)
+				if (e.isFriendly() != friendly) {
+					health -= e.getDamage();//dealing however much damage that entity does
+					invincibility=15;
+				}
+			}
+			if (health <= 0) {//if it has no more health left that it should be dead
+				killed = true;
+			}
+		}
+	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		if (input.getDirection() == 'd') {
