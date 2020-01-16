@@ -23,7 +23,7 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 	
 	//declaring variables
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
-	private boolean up, down, left, right, control, shoot; //Keys and actions that are game needs
+	private boolean up, down, left, right, place, shoot; //Keys and actions that are game needs
 	private char direction='d'; //Sets player's direction to down by default at the start
 	private int mouseX, mouseY;
 	
@@ -39,7 +39,7 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		down = keys[KeyEvent.VK_DOWN]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
 		left = keys[KeyEvent.VK_LEFT]; 
 		right = keys[KeyEvent.VK_RIGHT];
-		control = keys[KeyEvent.VK_CONTROL];
+		place = keys[KeyEvent.VK_SHIFT];
 
 		//setting the diection the player is facing so it is easy to tell which animation should be playing
 		if(up) {
@@ -109,8 +109,8 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 	public boolean isShoot() {
 		return shoot;
 	}
-	public boolean isControl() {
-		return control;
+	public boolean isPlace() {
+		return place;
 	}
 	public char getDirection(){
 		return direction;

@@ -56,7 +56,12 @@ public abstract class Entity {
 			}
 		}
 	}
-
+	protected void updateBounds(){
+		this.bounds.x=x;//setting the bounds to match the entities state this needs to 
+		this.bounds.y=y;//be called every frame for mobs so other things know where they actually are 
+		this.bounds.width=width;//now but it can be called by statics once when it is initialized because 
+		this.bounds.height=height;//it will never change
+	}
 	// abstract methods
 	public abstract void update();//used to change the state of all the enemies and is called every frame
 

@@ -16,7 +16,7 @@ public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
 	
-	private int numberOfTowers = 1; //The amount of towers player can build
+	private int money=1; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	private PlayerInput input=new PlayerInput(); //Letting player get all the inputs in PlayerInput
@@ -57,7 +57,7 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
-		System.out.println(health);
+		System.out.println(health+", "+money);
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animationLeft.update(); //Animation and sprites change depending on the direction
 		animationUp.update();
@@ -81,7 +81,7 @@ public class Player extends Mobs {
 		if (input.isRight()) {
 			changeX += speed;
 		}
-		if(input.isControl()) { //If control is pressed call the twoer method
+		if(input.isPlace()) { //If control is pressed call the twoer method
 			tower();
 		}
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
@@ -90,10 +90,10 @@ public class Player extends Mobs {
 	}
 	
 	public void tower() { //Tower method to create a tower
-		if(numberOfTowers>=1) { //As long as the player has at least one tower they can create a tower
+		if(money>=1) { //As long as the player has at least one tower they can create a tower
 			Tower tower = new Tower(x,y); //Creates a tower at the player's current location
 			entityManager.addEntity(tower); //Adds that tower to the entityManager
-			numberOfTowers-=1; //Decreases the amount of towers the player holds by 1 
+			money-=1;
 		}
 	}
 	
@@ -109,5 +109,8 @@ public class Player extends Mobs {
 		} else if (input.getDirection() == 'r') {
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
+	}
+	public void giveMoney(int amount) {
+		money+=amount;
 	}
 }

@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import Main.Main;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
+import entity.statics.Money;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -88,7 +89,14 @@ public abstract class Enemy extends Mobs {
 		targetY = entityManager.getPlayer().getY(); //Sets the players y location as the targetY
 		entityManager.addEntity(new Bullet (x,y, targetX, targetY,2, 3, false)); //Creates red bullets that shoot towards the player
 	}
-	
+	@Override
+	public void damage() {
+		super.damage();
+		if(killed) {
+			entityManager.addEntity(new Money(x, y));
+		}
+		
+	}
 	@Override
 	public void update() {
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight); //The range which the enemy looks for targets
