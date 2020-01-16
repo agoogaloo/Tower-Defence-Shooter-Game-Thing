@@ -1,9 +1,11 @@
-package entity.mobs;
+package entity.mobs.player;
 
 import java.awt.Graphics;
 
 import Main.Main;
 import entity.Entity;
+import entity.mobs.Bullet;
+import entity.mobs.Mobs;
 import entity.statics.Core;
 import entity.statics.Tower;
 import graphics.Animation;
@@ -20,6 +22,8 @@ public class Player extends Mobs {
 	private int money=1,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
+	
+	private PlayerUI ui=new PlayerUI();
 	private PlayerInput input=new PlayerInput(); //Letting player get all the inputs in PlayerInput
 	
 	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
@@ -32,6 +36,7 @@ public class Player extends Mobs {
 		 * this class is the player that you control 
 		 */
 		// initializing variables
+		
 		this.x = x;
 		this.y = y;
 		reloadTime=10;
@@ -66,7 +71,7 @@ public class Player extends Mobs {
 		input.update(); //Updating input so that it can get the current inputs
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
-
+		ui.update(health, money);
 		if (input.isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
 			shoot();
 		}
@@ -116,6 +121,7 @@ public class Player extends Mobs {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
+		ui.render(g);
 		if (input.getDirection() == 'd') {
 
 			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);

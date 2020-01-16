@@ -3,7 +3,7 @@ package entity.statics;
 import java.awt.Graphics;
 
 import entity.Entity;
-import entity.mobs.Player;
+import entity.mobs.player.Player;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;

@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import Main.Main;
-import entity.mobs.Player;
 import entity.mobs.enemy.EnemySpawner;
+import entity.mobs.player.Player;
 import graphics.Camera;
 
 //@author Matthew (Did most of the logic and everything in this class)
