@@ -32,15 +32,17 @@ public class Core extends Statics{
 	}
 	
 	@Override
-	public void update() {
+	public void damage() {
 		for(Entity e:entityCollide()) {//checking if anything is touching it
 			if(e instanceof Enemy) {//making sure the entity is an enemy
 				damageTaken+=10;//an enemy has reached the core so it should deal 10 damage to the player 
 			}
 		}
+	}
+	@Override
+	public void update() {
 		anim.update();//updating its animation
 	}
-	
 	@Override
 	public void render(Graphics g, Camera camera) {
 		//just drawing itself to the screen
