@@ -17,9 +17,8 @@ public class GreenEnemy extends Enemy {
 		width=21; //The width of the enemy
 		height=25; //The height of the enemy
 		speed=2; //The speed which the enemy travels, higher nubmer resuts in higher speeds
-		friendly=false; //The status of the bullet, bullets from this class can hurt player
 		damage=1; //The amount of damage the enemy will do if it collides with the player
 		health=5;
-		shotDelayAmount = 40;
+		reloadTime = 40;
 	}
 }

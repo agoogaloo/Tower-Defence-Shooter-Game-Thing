@@ -15,6 +15,7 @@ import graphics.Camera;
 public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
+	
 	private int numberOfTowers = 1; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
@@ -32,6 +33,7 @@ public class Player extends Mobs {
 		// initializing variables
 		this.x = x;
 		this.y = y;
+		reloadTime=10;
 		width = 16; //The specific width of the player
 		height = 29; //The specific height of the player
 		speed = 3; //The speed which the player moves at, higher the value the faster the speed
@@ -44,7 +46,7 @@ public class Player extends Mobs {
 	}
 
 	public void shoot() {
-		if (shotDelay >= 10) { //Allows the player to shoot every 10 frames
+		if (shotDelay >= reloadTime) { //Allows the player to shoot every 10 frames
 			double targetX, targetY;
 			targetX = (input.getMouseX()); //Sets the mousesX position to targetX
 			targetY = (input.getMouseY()); //Sets the mousesY position to targetY
@@ -55,6 +57,7 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
+		System.out.println(health);
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animationLeft.update(); //Animation and sprites change depending on the direction
 		animationUp.update();
@@ -83,6 +86,7 @@ public class Player extends Mobs {
 		}
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
 		shotDelay += 1; //Increase shotDelay by one every frame
+		invincibility--;
 	}
 	
 	public void tower() { //Tower method to create a tower

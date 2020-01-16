@@ -20,10 +20,10 @@ import graphics.Camera;
 	 */
 public abstract class Enemy extends Mobs {
 	protected char direction; //Depending on the direction the enemy will face different ways
-	protected int shotDelayAmount;
 	private int shotDelay; //Shot delay to make sure enemies can not shoot rapidly
 	private int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
 	private boolean attack = false; //If true enemy will shoot
+	
 	//setting default animations
 	protected Animation animationDown = new Animation(Assets.enemyRedD,4); //Different animations depending on the direction the enemy is facing
 	protected Animation animationLeft = new Animation(Assets.enemyRedL,4);
@@ -34,6 +34,7 @@ public abstract class Enemy extends Mobs {
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
+		friendly=false;
 	}
 
 	public void updateDirection() {
@@ -97,7 +98,7 @@ public abstract class Enemy extends Mobs {
 		}else{ //If the enemy can't detect the player's box it will not attack
 			attack = false; 
 		}
-		if (shotDelay >= shotDelayAmount && attack == true) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
+		if (shotDelay >= reloadTime && attack == true) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
 			shoot();
 			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
@@ -108,6 +109,7 @@ public abstract class Enemy extends Mobs {
 		animationUp.update();
 		animationRight.update();
 		shotDelay+=1; //Increase shotDelay by one every frame
+		invincibility--;
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 

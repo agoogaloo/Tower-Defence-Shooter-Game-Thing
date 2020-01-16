@@ -28,7 +28,7 @@ public class Core extends Statics{
 		this.bounds.y=y;
 		bounds.width=40;
 		bounds.height=35;
-		damage=5;//enemies that touch it will take 5 damage
+		damage=1000;//enemies that touch it will take 5 damage
 	}
 	
 	@Override
