@@ -35,7 +35,7 @@ public class Core extends Statics{
 	public void damage() {
 		for(Entity e:entityCollide()) {//checking if anything is touching it
 			if(e instanceof Enemy) {//making sure the entity is an enemy
-				damageTaken+=10;//an enemy has reached the core so it should deal 10 damage to the player 
+				damageTaken+=1;//an enemy has reached the core so it should deal 10 damage to the player 
 			}
 		}
 	}
