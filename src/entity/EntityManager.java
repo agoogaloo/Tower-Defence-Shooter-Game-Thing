@@ -49,13 +49,14 @@ public class EntityManager {
 		//each other on the same frame they will both take damage
 		for (int i = 0; i < entities.size(); i++) {
 			if(entities.get(i).isKilled()){ 
-				/*if(entities.get(i) instanceof Player){ //If player gets hit reset level
+				if(entities.get(i) instanceof Player){ //If player gets hit reset level
 					System.out.println("Player has been deadified");
-				}else{*/
+				}else{
 					entities.remove(i); //If an other entity besides the player gets hit remove that entity
 				}	
 			}
 		}
+	}
 		
 	
 

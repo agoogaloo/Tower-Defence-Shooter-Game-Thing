@@ -4,16 +4,19 @@ import java.awt.Graphics;
 
 import entity.Entity;
 import entity.mobs.Player;
+import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 
 public class Money extends Statics{
+	Animation anim;
 	public Money(int x, int y) {
 		this.x=x;
 		this.y=y;
-		width=17;
-		height=28;
+		width=11;
+		height=11;
 		health=999999999;
+		anim=new Animation(Assets.coin,7);
 		updateBounds();
 	}
 
@@ -25,11 +28,12 @@ public class Money extends Statics{
 				killed=true;
 			}
 		}
+		anim.update();
 	}
 
 	@Override
 	public void render(Graphics g, Camera camera) {
-		g.drawImage(Assets.$, x-camera.getxOffset(), y-camera.getyOffset(), null);
+		g.drawImage(anim.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
 	}
 	
 
