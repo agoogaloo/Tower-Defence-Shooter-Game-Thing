@@ -19,9 +19,7 @@ public class Money extends Statics{
 	@Override
 	public void update() {
 		for(Entity e:entityCollide()) {
-			System.out.println("touching a"+e);
 			if(e instanceof Player) {
-				System.out.print("its a person");
 				Entity.getEntityManager().getPlayer().giveMoney(1);
 				killed=true;
 			}
