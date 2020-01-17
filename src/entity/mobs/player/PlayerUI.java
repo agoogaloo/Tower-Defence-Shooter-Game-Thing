@@ -21,7 +21,7 @@ public class PlayerUI {
 		coinAnim.update();
 		healthAnim.update();//updating the animations
 	}
-	public void render(Graphics g) {
+	public void render(Graphics g) {//the ui is never offset so it doesn't need the camera
 		for(int i=0;i<health;i++) {//drawing a heart for every health the player has
 			g.drawImage(healthAnim.getCurrentFrame(), 5+(15*i), 5, null);
 			//offsetting each heart by 15 pixels by multiplying by i

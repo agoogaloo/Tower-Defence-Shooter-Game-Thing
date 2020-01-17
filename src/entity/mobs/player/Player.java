@@ -19,7 +19,7 @@ public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
 	
-	private int money=1,invincibility=0; //The amount of towers player can build
+	private int money=10,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	
@@ -96,10 +96,10 @@ public class Player extends Mobs {
 	}
 	
 	public void tower() { //Tower method to create a tower
-		if(money>=1) { //As long as the player has at least one tower they can create a tower
+		if(money>=1) { //if the player has enough money then they can place the tower
 			Tower tower = new Tower(x,y); //Creates a tower at the player's current location
 			entityManager.addEntity(tower); //Adds that tower to the entityManager
-			money-=1;
+			money-=1;//subtracting the money they have spent
 		}
 	}
 	
@@ -111,7 +111,7 @@ public class Player extends Mobs {
 				//(making sure enemies only attack the player, player cant attack the core, etc.)
 				if (e.isFriendly() != friendly) {
 					health -= e.getDamage();//dealing however much damage that entity does
-					invincibility=15;
+					invincibility=30;
 				}
 			}
 			if (health <= 0) {//if it has no more health left that it should be dead
@@ -121,7 +121,7 @@ public class Player extends Mobs {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
-		ui.render(g);
+		ui.render(g);//drawing the players ui
 		if (input.getDirection() == 'd') {
 
 			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
