@@ -2,8 +2,16 @@ package floors;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import graphics.Camera;
 
@@ -26,7 +34,7 @@ public class Floor {
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private final Room BLANKROOM = new Room("res/blank.txt", 2);
-	private final Room STARTROOM = new Room("res/startRoom.txt", 20);
+	private  Room STARTROOM;
 	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 
 	// it holds its own tileset so that it is easy if we want to have different
@@ -38,10 +46,16 @@ public class Floor {
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
 		rooms = new Room[size * 2][size];
-
+		try {
+			loadJson();
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		rooms = generateFloor();// generating a random floor layout
+		
 	}
 
 	// this method draws everything to the screen
@@ -108,6 +122,15 @@ public class Floor {
 			rooms.add(new Room(path + (i + 1) + ".txt", ROOMSIZE));// adding the room to the arraylist
 		}
 		return rooms.toArray(new Room[0]);// returning the rooms
+	}
+	private void loadJson() throws FileNotFoundException, IOException, ParseException {
+		JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader("res/test.json")));
+		JSONArray layers=(JSONArray)(file.get("layers"));
+		JSONObject map1=(JSONObject)(layers.get(0));
+		JSONArray map1Data=(JSONArray)(map1.get("data"));
+		//System.out.print(map1.toString());
+		STARTROOM= new Room(map1);
+		
 	}
 
 	// this lets you get what tile is at a specific x y (in tiles) so you can tell

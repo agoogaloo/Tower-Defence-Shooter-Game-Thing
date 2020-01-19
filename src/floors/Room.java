@@ -3,6 +3,9 @@ package floors;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 /*
  * by: Matthew Milum
  */
@@ -58,7 +61,25 @@ public class Room {
 			e.printStackTrace();//saying the error so if you need to you can still tell what it is
 		}
 	}
-
+	public Room(JSONObject object) {
+		int width=(int)((long)object.get("width"));
+		tiles = new int[width][width];
+		JSONArray data=(JSONArray)object.get("data");
+		System.out.print("width="+width+"size="+data.size()+"map:\n");
+		for(int y=0;y<width;y++) {
+			for(int x=0;x<width;x++) {
+				tiles[x][y] =(int)((long) data.get((y * width) + x ));	
+				System.out.print(tiles[x][y]+" ");
+			}
+			System.out.print("\n");
+		}
+		
+		JSONArray properties=(JSONArray)object.get("properties");
+		JSONObject entranceObject=(JSONObject)properties.get(0);
+		JSONObject exitObject=(JSONObject)properties.get(1);
+		entrance=((String)entranceObject.get("value")).charAt(0);
+		exit=((String)exitObject.get("value")).charAt(0);
+	}
 	public int getTile(int x, int y) {
 		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles.length) {
 			return 27;

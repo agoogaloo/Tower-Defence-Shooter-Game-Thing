@@ -58,7 +58,7 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
-		System.out.println(health+", "+money);
+		//System.out.println(health+", "+money);
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animationLeft.update(); //Animation and sprites change depending on the direction
 		animationUp.update();
