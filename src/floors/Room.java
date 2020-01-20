@@ -68,12 +68,10 @@ public class Room {
 		System.out.print("width="+width+"size="+data.size()+"map:\n");
 		for(int y=0;y<width;y++) {
 			for(int x=0;x<width;x++) {
-				tiles[x][y] =(int)((long) data.get((y * width) + x ));	
-				System.out.print(tiles[x][y]+" ");
+				tiles[x][y] =(int)((long) data.get((y * width) + x ));			
 			}
-			System.out.print("\n");
 		}
-		
+
 		JSONArray properties=(JSONArray)object.get("properties");
 		JSONObject entranceObject=(JSONObject)properties.get(0);
 		JSONObject exitObject=(JSONObject)properties.get(1);

@@ -30,11 +30,11 @@ public class Floor {
 	private int size;// how many rooms big the floor is
 
 	// constants
-	public final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
-	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);// loads all the possible rooms
+	public final int TILESIZE = 16, ROOMSIZE = 30, SCREENWIDTH, SCREENHEIGHT;
+	private final Room[] POSSIBLEROOMS = loadAllRoomsJSON("res/rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private final Room BLANKROOM = new Room("res/blank.txt", 2);
-	private  Room STARTROOM;
+	private  Room STARTROOM=loadRoomJson("res/start room.json", 0);
 	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 
 	// it holds its own tileset so that it is easy if we want to have different
@@ -46,12 +46,6 @@ public class Floor {
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
 		rooms = new Room[size * 2][size];
-		try {
-			loadJson();
-		} catch (IOException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		rooms = generateFloor();// generating a random floor layout
@@ -123,14 +117,38 @@ public class Floor {
 		}
 		return rooms.toArray(new Room[0]);// returning the rooms
 	}
-	private void loadJson() throws FileNotFoundException, IOException, ParseException {
-		JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader("res/test.json")));
-		JSONArray layers=(JSONArray)(file.get("layers"));
-		JSONObject map1=(JSONObject)(layers.get(0));
-		JSONArray map1Data=(JSONArray)(map1.get("data"));
-		//System.out.print(map1.toString());
-		STARTROOM= new Room(map1);
+	private Room[] loadAllRoomsJSON(String path) {
+		ArrayList<Room> rooms = new ArrayList<Room>();// an arraylist to hold all the rooms
+		try {
+			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
+			JSONArray layers=(JSONArray)(file.get("layers"));
+			for(int i=0;i<layers.size();i++) {
+				JSONObject data=(JSONObject)(layers.get(i));
+				rooms.add(new Room(data));
+			}
+		} catch (IOException | ParseException e) {
+			System.out.print("there was a problem loading JSON file at "+path );
+			e.printStackTrace();
+			
+		}
 		
+		return rooms.toArray(new Room[0]);// returning the rooms
+	}
+	private Room loadRoomJson(String path,int index){
+		Room room=null;// the room it will return
+		try {
+			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
+			JSONArray layers=(JSONArray)(file.get("layers"));
+			JSONObject data=(JSONObject)(layers.get(index));
+			room=new Room(data);
+			
+		} catch (IOException | ParseException e) {
+			System.out.print("there was a problem loading JSON file at "+path );
+			e.printStackTrace();
+			
+		}
+		
+		return room;// returning the rooms
 	}
 
 	// this lets you get what tile is at a specific x y (in tiles) so you can tell
