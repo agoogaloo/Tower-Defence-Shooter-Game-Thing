@@ -31,10 +31,9 @@ public class Floor {
 
 	// constants
 	public final int TILESIZE = 16, ROOMSIZE = 30, SCREENWIDTH, SCREENHEIGHT;
-	private final Room[] POSSIBLEROOMS = loadAllRoomsJSON("res/rooms.json");// loads all the possible rooms
+	private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
-	private final Room BLANKROOM = new Room("res/blank.txt", 2);
-	private  Room STARTROOM=loadRoomJson("res/start room.json", 0);
+	private  Room STARTROOM=loadRoom("res/start room.json", 0);
 	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 
 	// it holds its own tileset so that it is easy if we want to have different
@@ -108,16 +107,7 @@ public class Floor {
 		return floor;// returning the array
 	}
 
-	// loads all the .txt files that hold the different possible rooms
-	private Room[] loadAllRooms(String path, int amount) {
-		ArrayList<Room> rooms = new ArrayList<Room>();// an araylist to hold all the rooms
-
-		for (int i = 0; i < amount; i++) {// looping though however many rooms there are supposed to be
-			rooms.add(new Room(path + (i + 1) + ".txt", ROOMSIZE));// adding the room to the arraylist
-		}
-		return rooms.toArray(new Room[0]);// returning the rooms
-	}
-	private Room[] loadAllRoomsJSON(String path) {
+	private Room[] loadAllRooms(String path) {
 		ArrayList<Room> rooms = new ArrayList<Room>();// an arraylist to hold all the rooms
 		try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
@@ -134,7 +124,8 @@ public class Floor {
 		
 		return rooms.toArray(new Room[0]);// returning the rooms
 	}
-	private Room loadRoomJson(String path,int index){
+	
+	private Room loadRoom(String path,int index){
 		Room room=null;// the room it will return
 		try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
@@ -186,7 +177,7 @@ public class Floor {
 		try {
 			return rooms[x][y];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			return BLANKROOM;
+			return null;
 		}
 
 	}

@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import Main.Main;
 import entity.Entity;
 import floors.Room;
+import sun.net.www.content.text.plain;
 
 public class EnemySpawner {
 	private final int WAVEDELAY=300;
@@ -34,6 +35,7 @@ public class EnemySpawner {
 		}
 	}
 	public void newWave(int roomX,int roomY, int enemies) {
+		System.out.print("its a new wave");
 		Room room=Main.getFloor().getRoom(roomX, roomY);
 		int spawnX=roomX*room.ROOMSIZE*room.TILESIZE;
 		int spawnY=roomY*room.ROOMSIZE*room.TILESIZE;
