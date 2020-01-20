@@ -1,5 +1,6 @@
 package entity.mobs.player;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import graphics.Animation;
@@ -27,7 +28,9 @@ public class PlayerUI {
 			//offsetting each heart by 15 pixels by multiplying by i
 		}
 		g.drawImage(coinAnim.getCurrentFrame(), 5, 20, null);//drawing the coin icon
-		g.drawString(String.valueOf(money), 21, 30);//printing how much money the player has
+		g.setColor(new Color(250,250,250));
+		g.setFont(Assets.MozartNbp);
+		g.drawString(String.valueOf(money), 18, 31);//printing how much money the player has
 	}
 
 }

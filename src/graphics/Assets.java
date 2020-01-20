@@ -1,5 +1,7 @@
 package graphics;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,18 +20,18 @@ public class Assets {
 	 */
 	//spliting all the spritesheets int the right pictuures and holding them in arrays
 	public static final BufferedImage[] healthIcon=Arrays.copyOfRange(
-			splitSpriteSheet(load("res/heart icon.png"), 13, 13, 3, 3),0,8);
-	public static final BufferedImage[] coin=splitSpriteSheet(load("res/coin.png"), 11, 11, 2, 2);
-	public static final BufferedImage[] bullet = splitSpriteSheet(load("res/bullets.png"), 7, 7, 2, 2);
-	public static final BufferedImage[] tiles=splitSpriteSheet(load("res/tileset.png"), 16, 16, 6, 10);
-	public static final BufferedImage[] player = splitSpriteSheet(load("res/player idle.png"), 16, 27, 7, 4);
-	public static final BufferedImage[] enemyRed = splitSpriteSheet(load("res/robot red.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] enemyGreen = splitSpriteSheet(load("res/robot green.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] enemyBlue = splitSpriteSheet(load("res/robot blue.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] enemyYellow = splitSpriteSheet(load("res/robot yellow.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] core = splitSpriteSheet(load("res/core.png"), 40, 35, 3, 3);
-	public static final BufferedImage[] wizardTower = splitSpriteSheet(load("res/wizard tower.png"), 26, 33, 3, 3);
-	
+			splitSpriteSheet(loadImage("res/heart icon.png"), 13, 13, 3, 3),0,8);
+	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/coin.png"), 11, 11, 2, 2);
+	public static final BufferedImage[] bullet = splitSpriteSheet(loadImage("res/bullets.png"), 7, 7, 2, 2);
+	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/tileset.png"), 16, 16, 6, 10);
+	public static final BufferedImage[] player = splitSpriteSheet(loadImage("res/player idle.png"), 16, 27, 7, 4);
+	public static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/robot red.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/robot green.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/robot blue.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] enemyYellow = splitSpriteSheet(loadImage("res/robot yellow.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/core.png"), 40, 35, 3, 3);
+	public static final BufferedImage[] wizardTower = splitSpriteSheet(loadImage("res/wizard tower.png"), 26, 33, 3, 3);
+	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");	
 	//splitting players spritesheet into all its animations
 
 	public static  final BufferedImage[] playerD=Arrays.copyOfRange(player, 0, 7);
@@ -71,7 +73,7 @@ public class Assets {
 		}
 		return pics;//returning the array
 	}
-	private static BufferedImage load(String path) {
+	private static BufferedImage loadImage(String path) {
 		/*
 		 * this method loads a image from a String so you don't need to put 
 		 * it in a try catch every time
@@ -83,5 +85,18 @@ public class Assets {
 			System.out.println("picture "+path+" not found");//showing what the problem is
 		}
 		return image;
+	}
+	private static Font loadFont(String path) {
+		Font font=null;
+		try {
+			font =Font.createFont(Font.TRUETYPE_FONT, new File(path)).deriveFont(16f);
+		} catch (FontFormatException | IOException e) {
+			System.out.println("font at path "+path+" not found");
+			e.printStackTrace();
+		}
+		if(font!=null) {
+			System.out.println("font loaded");
+		}
+		return font;
 	}
 }
