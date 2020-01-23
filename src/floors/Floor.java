@@ -22,7 +22,7 @@ import graphics.Camera;
 public class Floor {
 	/*
 	 * this class is the randomly generated floor made out of several rooms that
-	 * have been created in the res folder
+	 * have been created in the json files in the res folder
 	 */
 	
 	// declaring variables
