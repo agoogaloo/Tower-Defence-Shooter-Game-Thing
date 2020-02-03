@@ -19,12 +19,13 @@ public class Assets {
 	 * so other classes can access them easily
 	 */
 	//spliting all the spritesheets int the right pictuures and holding them in arrays
+
 	public static final BufferedImage[] healthIcon=Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/heart icon.png"), 13, 13, 3, 3),0,8);
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/coin.png"), 11, 11, 2, 2);
 	public static final BufferedImage[] bullet = splitSpriteSheet(loadImage("res/bullets.png"), 7, 7, 2, 2);
 	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/tileset.png"), 16, 16, 6, 10);
-	public static final BufferedImage[] player = splitSpriteSheet(loadImage("res/player idle.png"), 16, 27, 7, 4);
+	public static final BufferedImage[] player = splitSpriteSheet(loadImage("res/player idle.png"), 14, 25, 7, 4);
 	public static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/robot red.png"), 21, 25, 4, 4);
 	public static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/robot green.png"), 21, 25, 4, 4);
 	public static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/robot blue.png"), 21, 25, 4, 4);
@@ -32,6 +33,9 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/core.png"), 40, 35, 3, 3);
 	public static final BufferedImage[] wizardTower = splitSpriteSheet(loadImage("res/wizard tower.png"), 26, 33, 3, 3);
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");	
+
+	
+	
 	//splitting players spritesheet into all its animations
 
 	public static  final BufferedImage[] playerD=Arrays.copyOfRange(player, 0, 7);
