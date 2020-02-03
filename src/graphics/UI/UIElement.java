@@ -9,7 +9,7 @@ public abstract class UIElement {
 	//this is the one UIManager that holds and renders all UI elements
 	public static UIManager UIManager=new UIManager();
 	protected int x, y;//where it is on the screen
-	public boolean visible=true;
+	public boolean visible=true, remove=false;//whether it is visible and if it should be deleted
 	public UIElement(int x, int y) {
 		this.x = x;
 		this.y = y;

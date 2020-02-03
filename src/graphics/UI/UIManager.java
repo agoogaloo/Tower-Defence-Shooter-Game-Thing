@@ -17,6 +17,9 @@ public class UIManager {
 		//rendering all the parts of the UI
 		
 		for (int i = elements.size()-1; i >= 0; i--) {//looping backwards so we dont skip things when elements are removed
+			if(elements.get(i).remove) {
+				elements.remove(i);
+			}
 			if(elements.get(i).visible){
 				elements.get(i).render(g);
 			}
