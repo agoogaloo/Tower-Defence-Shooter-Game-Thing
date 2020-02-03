@@ -11,6 +11,14 @@ public class Animation {
 	private int totalFrames; //The amount of frames in the animation
 	private BufferedImage[] pics; //The list that contains all the frames, is different depending on the parameter
 	
+	//if you dont specify the framerate it wil default to 10
+	public Animation(BufferedImage[] pics) {
+		this.frameDelay = 6;	
+		this.totalFrames = pics.length; //Sets the total frames of animation to how many frames there are in the arraylist
+		this.pics=pics;
+		
+	}
+	//a constructor that lets you speify framerate
 	public Animation(BufferedImage[] pics, int frameDelay) {
 		this.frameDelay = frameDelay;	
 		this.totalFrames = pics.length; //Sets the total frames of animation to how many frames there are in the arraylist

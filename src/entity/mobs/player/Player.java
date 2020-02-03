@@ -121,7 +121,6 @@ public class Player extends Mobs {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
-		ui.render(g);//drawing the players ui
 		if (input.getDirection() == 'd') {
 
 			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
