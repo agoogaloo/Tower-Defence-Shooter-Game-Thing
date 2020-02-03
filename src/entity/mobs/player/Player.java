@@ -1,9 +1,11 @@
-package entity.mobs;
+package entity.mobs.player;
 
 import java.awt.Graphics;
 
 import Main.Main;
 import entity.Entity;
+import entity.mobs.Bullet;
+import entity.mobs.Mobs;
 import entity.statics.Core;
 import entity.statics.Tower;
 import graphics.Animation;
@@ -17,9 +19,11 @@ public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
 	
-	private int money=1,invincibility=0; //The amount of towers player can build
+	private int money=10,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
+	
+	private PlayerUI ui=new PlayerUI();
 	private PlayerInput input=new PlayerInput(); //Letting player get all the inputs in PlayerInput
 	
 	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
@@ -32,13 +36,14 @@ public class Player extends Mobs {
 		 * this class is the player that you control 
 		 */
 		// initializing variables
+		
 		this.x = x;
 		this.y = y;
 		reloadTime=10;
-		width = 16; //The specific width of the player
-		height = 29; //The specific height of the player
+		width = 14; //The specific width of the player
+		height = 25; //The specific height of the player
 		speed = 3; //The speed which the player moves at, higher the value the faster the speed
-		health = 3;  //The amount of health the player has, when health hits 0 the player dies
+		health = 100;  //The amount of health the player has, when health hits 0 the player dies
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //The status of the bullets shot by this class, can hurt enemies but it's own bullets won't damage itself
 		core=new Core(x,y); //Calls the core class, spawning it where the player spawns, AKA spawns the core at the start
@@ -66,7 +71,7 @@ public class Player extends Mobs {
 		input.update(); //Updating input so that it can get the current inputs
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
-
+		ui.update(health, money);
 		if (input.isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
 			shoot();
 		}
@@ -91,10 +96,10 @@ public class Player extends Mobs {
 	}
 	
 	public void tower() { //Tower method to create a tower
-		if(money>=1) { //As long as the player has at least one tower they can create a tower
+		if(money>=1) { //if the player has enough money then they can place the tower
 			Tower tower = new Tower(x,y); //Creates a tower at the player's current location
 			entityManager.addEntity(tower); //Adds that tower to the entityManager
-			money-=1;
+			money-=1;//subtracting the money they have spent
 		}
 	}
 	
@@ -106,7 +111,7 @@ public class Player extends Mobs {
 				//(making sure enemies only attack the player, player cant attack the core, etc.)
 				if (e.isFriendly() != friendly) {
 					health -= e.getDamage();//dealing however much damage that entity does
-					invincibility=15;
+					invincibility=30;
 				}
 			}
 			if (health <= 0) {//if it has no more health left that it should be dead

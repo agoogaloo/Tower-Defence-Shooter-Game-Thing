@@ -10,6 +10,7 @@ import entity.Entity;
 import floors.Floor;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.UI.UIElement;
 
 /*
  * by: Matthew Milum
@@ -53,6 +54,7 @@ public class Display extends JPanel {
 		g2d.clearRect(0, 0, width, height);// clearing the previous frame
 		floor.render(g2d, camera);// rendering the floor
 		Entity.getEntityManager().render(g2d, camera);// rendering the entities
+		UIElement.UIManager.render(g2d);
 	}
 
 	public void update() {
