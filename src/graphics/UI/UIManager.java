@@ -18,10 +18,10 @@ public class UIManager {
 		
 		for (int i = elements.size()-1; i >= 0; i--) {//looping backwards so we dont skip things when elements are removed
 			if(elements.get(i).remove) {
-				elements.remove(i);
+				elements.remove(i);//removing the element if remove is true
 			}
 			if(elements.get(i).visible){
-				elements.get(i).render(g);
+				elements.get(i).render(g);//if it is visible then it should be drawn
 			}
 			
 		}

@@ -43,7 +43,7 @@ public class Player extends Mobs {
 		width = 14; //The specific width of the player
 		height = 25; //The specific height of the player
 		speed = 3; //The speed which the player moves at, higher the value the faster the speed
-		health = 3;  //The amount of health the player has, when health hits 0 the player dies
+		health = 100;  //The amount of health the player has, when health hits 0 the player dies
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //The status of the bullets shot by this class, can hurt enemies but it's own bullets won't damage itself
 		core=new Core(x,y); //Calls the core class, spawning it where the player spawns, AKA spawns the core at the start

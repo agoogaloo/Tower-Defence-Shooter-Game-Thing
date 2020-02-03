@@ -32,7 +32,7 @@ public class TextElement extends UIElement{
 	public void render(Graphics g) {
 		g.setColor(new Color(250,250,250));//we could have a variable to change font colours later but its fine for now
 		g.setFont(font);//setting the font to the right font
-		g.drawString(text, x, y);//drawing the text to the screen
+		g.drawString(text, x, y);//drawing the text to the screen at its x,y cordinate
 	}
 
 }

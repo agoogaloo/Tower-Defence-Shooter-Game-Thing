@@ -23,7 +23,7 @@ public class AnimElement extends UIElement{
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(anim.getCurrentFrame(),x,y, null);
+		g.drawImage(anim.getCurrentFrame(),x,y, null);//drawing the animation at its x and y
 	}
 
 }
