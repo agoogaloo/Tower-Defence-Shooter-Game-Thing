@@ -2,8 +2,16 @@ package floors;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import graphics.Camera;
 
@@ -14,7 +22,7 @@ import graphics.Camera;
 public class Floor {
 	/*
 	 * this class is the randomly generated floor made out of several rooms that
-	 * have been created in the res folder
+	 * have been created in the json files in the res folder
 	 */
 	
 	// declaring variables
@@ -22,11 +30,10 @@ public class Floor {
 	private int size;// how many rooms big the floor is
 
 	// constants
-	public final int TILESIZE = 16, ROOMSIZE = 20, SCREENWIDTH, SCREENHEIGHT;
-	private final Room[] POSSIBLEROOMS = loadAllRooms("res/room", 7);// loads all the possible rooms
+	public final int TILESIZE = 16, ROOMSIZE = 30, SCREENWIDTH, SCREENHEIGHT;
+	private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
-	private final Room BLANKROOM = new Room("res/blank.txt", 2);
-	private final Room STARTROOM = new Room("res/startRoom.txt", 20);
+	private  Room STARTROOM=loadRoom("res/start room.json", 0);
 	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 
 	// it holds its own tileset so that it is easy if we want to have different
@@ -38,10 +45,10 @@ public class Floor {
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
 		rooms = new Room[size * 2][size];
-
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		rooms = generateFloor();// generating a random floor layout
+		
 	}
 
 	// this method draws everything to the screen
@@ -100,14 +107,39 @@ public class Floor {
 		return floor;// returning the array
 	}
 
-	// loads all the .txt files that hold the different possible rooms
-	private Room[] loadAllRooms(String path, int amount) {
-		ArrayList<Room> rooms = new ArrayList<Room>();// an araylist to hold all the rooms
-
-		for (int i = 0; i < amount; i++) {// looping though however many rooms there are supposed to be
-			rooms.add(new Room(path + (i + 1) + ".txt", ROOMSIZE));// adding the room to the arraylist
+	private Room[] loadAllRooms(String path) {
+		ArrayList<Room> rooms = new ArrayList<Room>();// an arraylist to hold all the rooms
+		try {
+			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
+			JSONArray layers=(JSONArray)(file.get("layers"));
+			for(int i=0;i<layers.size();i++) {
+				JSONObject data=(JSONObject)(layers.get(i));
+				rooms.add(new Room(data));
+			}
+		} catch (IOException | ParseException e) {
+			System.out.print("there was a problem loading JSON file at "+path );
+			e.printStackTrace();
+			
 		}
+		
 		return rooms.toArray(new Room[0]);// returning the rooms
+	}
+	
+	private Room loadRoom(String path,int index){
+		Room room=null;// the room it will return
+		try {
+			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
+			JSONArray layers=(JSONArray)(file.get("layers"));
+			JSONObject data=(JSONObject)(layers.get(index));
+			room=new Room(data);
+			
+		} catch (IOException | ParseException e) {
+			System.out.print("there was a problem loading JSON file at "+path );
+			e.printStackTrace();
+			
+		}
+		
+		return room;// returning the rooms
 	}
 
 	// this lets you get what tile is at a specific x y (in tiles) so you can tell
@@ -145,7 +177,7 @@ public class Floor {
 		try {
 			return rooms[x][y];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			return BLANKROOM;
+			return null;
 		}
 
 	}

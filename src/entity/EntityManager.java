@@ -27,14 +27,15 @@ public class EntityManager {
 		// add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
-		player=new Player(Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()+148,
-				Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()-180);	
+		player=new Player(Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()+240,
+				Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()-240);	
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 
 	// this method updates all the entitys in the entities arrayList and removes the dead ones
 	public void update() {
 		spawner.update();
+		System.out.print("\n");
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
 			// methods
