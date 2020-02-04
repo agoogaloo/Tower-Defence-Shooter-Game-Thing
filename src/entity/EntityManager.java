@@ -35,7 +35,6 @@ public class EntityManager {
 	// this method updates all the entitys in the entities arrayList and removes the dead ones
 	public void update() {
 		spawner.update();
-		System.out.print("\n");
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
 			// methods
@@ -48,7 +47,8 @@ public class EntityManager {
 		}
 		//removing all the corpses from the game this is done after damage is dealt so if things touch
 		//each other on the same frame they will both take damage
-		for (int i = 0; i < entities.size(); i++) {
+		for (int i = entities.size()-1; i >=0 ; i--) {
+			//looping backwards so things arent skipped when other entities are deleted 
 			if(entities.get(i).isKilled()){ 
 				if(entities.get(i) instanceof Player){ //If player gets hit reset level
 					System.out.println("Player has been deadified");
