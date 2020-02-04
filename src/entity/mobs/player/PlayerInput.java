@@ -1,4 +1,4 @@
-package entity.mobs;
+package entity.mobs.player;
 /*
  * by: Matthew Milum
  */
