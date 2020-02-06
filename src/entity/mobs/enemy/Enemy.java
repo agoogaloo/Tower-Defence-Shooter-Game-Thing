@@ -94,20 +94,15 @@ public abstract class Enemy extends Mobs {
 	@Override
 	public void damage() {
 		super.damage();
-		if(killed&&ThreadLocalRandom.current().nextInt(0,10)>3) {
-			switch (ThreadLocalRandom.current().nextInt(0,2)) {
-			case 0:
+		if(killed) {
+			int randnum=ThreadLocalRandom.current().nextInt(0,4);//generating a random number to determine what should drop
+			if(randnum==1) {
 				entityManager.addEntity(new Money(x, y));
-				break;
-			case 1:
+			}else if (randnum>=2) {
 				entityManager.addEntity(new Health(x, y));
-				break;
-			case 2:
-				System.out.println("oops");
+				System.out.println(randnum);
 			}
-			
 		}
-		
 	}
 	@Override
 	public void update() {
