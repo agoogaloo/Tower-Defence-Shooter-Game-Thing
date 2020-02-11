@@ -133,6 +133,11 @@ public class Player extends Mobs {
 		}
 	}
 	public void giveMoney(int amount) {
+		//lets us give the player money
 		money+=amount;
+	}
+	public void heal(int amount) {
+		//lets other things heal the player
+		health+=amount;
 	}
 }

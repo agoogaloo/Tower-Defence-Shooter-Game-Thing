@@ -4,10 +4,12 @@ package entity.mobs.enemy;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.concurrent.ThreadLocalRandom;
 
 import Main.Main;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
+import entity.statics.Health;
 import entity.statics.Money;
 import graphics.Animation;
 import graphics.Assets;
@@ -93,9 +95,14 @@ public abstract class Enemy extends Mobs {
 	public void damage() {
 		super.damage();
 		if(killed) {
-			entityManager.addEntity(new Money(x, y));
+			int randnum=ThreadLocalRandom.current().nextInt(0,4);//generating a random number to determine what should drop
+			if(randnum==1) {
+				entityManager.addEntity(new Money(x, y));
+			}else if (randnum>=2) {
+				entityManager.addEntity(new Health(x, y));
+				System.out.println(randnum);
+			}
 		}
-		
 	}
 	@Override
 	public void update() {
