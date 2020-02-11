@@ -1,5 +1,6 @@
 package window;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -51,7 +52,8 @@ public class Display extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.scale(scale, scale);// scaling the graphics so the pixel art looks the right size
-		g2d.clearRect(0, 0, width, height);// clearing the previous frame
+		//g2d.setColor(new Color(38,12,38));
+		//g2d.fillRect(0, 0, width, height);// clearing the previous frame
 		floor.render(g2d, camera);// rendering the floor
 		Entity.getEntityManager().render(g2d, camera);// rendering the entities
 		UIElement.UIManager.render(g2d);
