@@ -5,9 +5,9 @@ package entity.mobs;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import Main.Main;
 import graphics.Assets;
 import graphics.Camera;
+import states.GameState;
 
 public class Bullet extends Mobs{
 
@@ -53,16 +53,16 @@ public class Bullet extends Mobs{
 		move();
 		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;//When this is set to true the bullet will be removed from entityManager, thus disappearing		//	Wall collisions using the checkwall method in floors 
 		}																								 					//
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;																									//
 		}																													//
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;																									//
 		}																													//
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;																									//
 		}																													//
 	}																														//

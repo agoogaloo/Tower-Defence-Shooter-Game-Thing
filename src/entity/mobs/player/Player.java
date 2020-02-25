@@ -2,7 +2,6 @@ package entity.mobs.player;
 
 import java.awt.Graphics;
 
-import Main.Main;
 import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
@@ -11,6 +10,7 @@ import entity.statics.Tower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import states.GameState;
 
 //@author Matthew (did all of player movement, the player class, anything related to core)
 //@author Kevin (did animation, shoot method, shot delay, anything related to tower, rendering)
@@ -47,8 +47,8 @@ public class Player extends Mobs {
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //The status of the bullets shot by this class, can hurt enemies but it's own bullets won't damage itself
 		core=new Core(x,y); //Calls the core class, spawning it where the player spawns, AKA spawns the core at the start
-		entityManager.addEntity(core); //Adds the core to the entityManager allowing it to detect collisions
-		camera=Main.getWindow().getDisplay().getCamera(); //The camera will follow the player
+		camera=GameState.getCamera(); //The camera will follow the player
+		entityManager.addEntity(core); //Adds the core to the entityManager allowing it to detect collisions0
 	}
 
 	public void shoot() {

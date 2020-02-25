@@ -11,7 +11,7 @@ public class Window {
 	 * swing not javaFX
 	 */
 	private JFrame frame;
-	private Display display;
+	private static Display display;
 
 	public Window(int width, int height) {
 		// initializing variables
@@ -42,7 +42,7 @@ public class Window {
 	}
 
 	// getters/setters
-	public Display getDisplay() {
+	public static Display getDisplay() {
 		return display;
 	}
 
