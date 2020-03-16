@@ -11,9 +11,9 @@ import window.Window;
 
 public class GameState extends State{
 	/*
-	 * this represents the game when it is actualy being played and not in a menu or cutcene or whatever
+	 * this represents the game when it is actualy being played and not in a menu or cutscene or whatever
 	 */
-	//constants that are neded for differnt things in the gamestate 
+	//constants that are needed for different things in the gamestate 
 	private static Floor floor;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
@@ -27,6 +27,10 @@ public class GameState extends State{
 	
 	@Override
 	public void update() {
+		getInputs().update();
+		if(getInputs().isPause()) {
+			currentState=new PauseState(this);
+		}
 		Entity.getEntityManager().update();
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
 		// updating the camera position to center on the player

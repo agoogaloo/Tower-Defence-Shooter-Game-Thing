@@ -1,5 +1,4 @@
 package Main;
-import states.GameState;
 import states.State;
 import window.Window;
 

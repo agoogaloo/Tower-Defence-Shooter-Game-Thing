@@ -11,6 +11,7 @@ import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 import states.GameState;
+import states.State;
 
 //@author Matthew (did all of player movement, the player class, anything related to core)
 //@author Kevin (did animation, shoot method, shot delay, anything related to tower, rendering)
@@ -24,12 +25,13 @@ public class Player extends Mobs {
 	private Core core; //Core is related to player, as core effects player health
 	
 	private PlayerUI ui=new PlayerUI();
-	private PlayerInput input=new PlayerInput(); //Letting player get all the inputs in PlayerInput
 	
 	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation animationLeft = new Animation(Assets.playerL,6);
 	private Animation animationUp = new Animation(Assets.playerU,6);
 	private Animation animationRight = new Animation(Assets.playerR,6);
+	
+	private char direction='d'; //Sets player's direction to down by default at the start
 	
 	public Player(int x, int y) {
 		/*
@@ -54,9 +56,9 @@ public class Player extends Mobs {
 	public void shoot() {
 		if (shotDelay >= reloadTime) { //Allows the player to shoot every 10 frames
 			double targetX, targetY;
-			targetX = (input.getMouseX()); //Sets the mousesX position to targetX
-			targetY = (input.getMouseY()); //Sets the mousesY position to targetY
-			entityManager.addEntity(new Bullet(x, y, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
+			targetX = (State.getInputs().getMouseX()); //Sets the mousesX position to targetX
+			targetY = (State.getInputs().getMouseY()); //Sets the mousesY position to targetY
+			entityManager.addEntity(new Bullet(x+7, y+12, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 		}
 	}
@@ -68,26 +70,29 @@ public class Player extends Mobs {
 		animationLeft.update(); //Animation and sprites change depending on the direction
 		animationUp.update();
 		animationRight.update();
-		input.update(); //Updating input so that it can get the current inputs
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
 		ui.update(health, money);
-		if (input.isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
+		if (State.getInputs().isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
 			shoot();
 		}
-		if (input.isUp()) {// if the up input is triggered than it will move the player up
+		if (State.getInputs().isUp()) {// if the up input is triggered than it will move the player up
 			changeY -= speed;
+			direction='u';
 		}
-		if (input.isDown()) {// moving other directions
+		if (State.getInputs().isDown()) {// moving other directions
 			changeY += speed;
+			direction='d';
 		}
-		if (input.isLeft()) {
+		if (State.getInputs().isLeft()) {
 			changeX -= speed;
+			direction='l';
 		}
-		if (input.isRight()) {
+		if (State.getInputs().isRight()) {
 			changeX += speed;
+			direction='r';
 		}
-		if(input.isPlace()) { //If control is pressed call the twoer method
+		if(State.getInputs().isPlace()) { //If control is pressed call the twoer method
 			tower();
 		}
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
@@ -121,14 +126,17 @@ public class Player extends Mobs {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
-		if (input.getDirection() == 'd') {
-
+		switch(direction) {
+		case 'd':
 			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
-		}else if (input.getDirection() == 'l') {
+			break;
+		case 'l':
 			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
-		}else if (input.getDirection() == 'u') {
+			break;
+		case'u':
 			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
-		} else if (input.getDirection() == 'r') {
+			break;
+		case'r':
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
 	}
