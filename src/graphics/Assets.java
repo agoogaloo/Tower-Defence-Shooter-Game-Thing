@@ -18,12 +18,13 @@ public class Assets {
 	 * this class holds and loads all the images, sounds or other assets 
 	 * so other classes can access them easily
 	 */
+	public static final BufferedImage towerMenu=loadImage("res/tower menu.png");
 	//spliting all the spritesheets int the right pictuures and holding them in arrays
 
 	public static final BufferedImage[] healthIcon=Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/heart icon.png"), 13, 13, 3, 3),0,8);
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/coin.png"), 11, 11, 2, 2);
-	public static final BufferedImage[] bullet = splitSpriteSheet(loadImage("res/bullets.png"), 7, 7, 2, 2);
+	public static final BufferedImage[] bullet = splitSpriteSheet(loadImage("res/bullets.png"), 7, 7, 2, 3);
 	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/tileset.png"), 16, 16, 6, 10);
 	public static final BufferedImage[] player = splitSpriteSheet(loadImage("res/player idle.png"), 14, 25, 7, 4);
 	public static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/robot red.png"), 21, 25, 4, 4);
@@ -31,8 +32,11 @@ public class Assets {
 	public static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/robot blue.png"), 21, 25, 4, 4);
 	public static final BufferedImage[] enemyYellow = splitSpriteSheet(loadImage("res/robot yellow.png"), 21, 25, 4, 4);
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/core.png"), 40, 35, 3, 3);
-	public static final BufferedImage[] wizardTower = splitSpriteSheet(loadImage("res/wizard tower.png"), 26, 33, 3, 3);
+	public static final BufferedImage[] wizardTower =  Arrays.copyOfRange(
+			splitSpriteSheet(loadImage("res/wizard tower.png"), 26, 33, 3, 3),0,8);
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");	
+	public static final BufferedImage[] laserTower =splitSpriteSheet(loadImage("res/laza beam lv.1.png"), 28, 14, 2, 3);
+	
 
 	
 	
@@ -62,8 +66,6 @@ public class Assets {
 	public static final BufferedImage[] enemyYellowL = Arrays.copyOfRange(enemyYellow, 4, 8);
 	public static final BufferedImage[] enemyYellowU = Arrays.copyOfRange(enemyYellow, 8, 12);
 	public static final BufferedImage[] enemyYellowR = Arrays.copyOfRange(enemyYellow, 12, 16);
-
-	public static final BufferedImage[] wizardTowerFix = Arrays.copyOfRange(wizardTower, 0, 8);
 
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		//this takes on image and splits it into an array of several smaller photos so we 

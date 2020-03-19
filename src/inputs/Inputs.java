@@ -23,8 +23,8 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	
 	//declaring variables
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
-	private boolean up, down, left, right, shoot; //Keys and actions that are game needs
-	private PushButton pause=new PushButton(), place=new PushButton();
+	private boolean up, down, left, right, shoot,place; //Keys and actions that are game needs
+	private PushButton pause=new PushButton();
 	
 	private int mouseX, mouseY;
 	
@@ -40,7 +40,6 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		down = keys[KeyEvent.VK_DOWN]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
 		left = keys[KeyEvent.VK_LEFT]; 
 		right = keys[KeyEvent.VK_RIGHT];
-		place.update(keys[KeyEvent.VK_SHIFT]);
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
 	}
 	//mouse position methods
@@ -64,11 +63,19 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	@Override
 
 	public void mousePressed(MouseEvent e) {
-		shoot=true;//the shoot command will be activated when the mouse is clicked
+		if(e.getButton()==1) {
+			shoot=true;//the shoot command will be activated when the mouse is clicked
+		}else if(e.getButton()==3) {
+			place=true;
+		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		shoot=false;//it has been released so the command can stop now
+		if(e.getButton()==1) {
+			shoot=false;//it has been released so the command can stop now
+		}else if(e.getButton()==3) {
+			place=false;
+		};
 	}
 	//keyboard input methods
 	@Override
@@ -101,7 +108,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		return shoot;
 	}
 	public boolean isPlace() { 
-		return place.getPushed();	
+		return place;	
 	}
 	public boolean isPause() { 
 		return pause.getPushed();	

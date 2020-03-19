@@ -1,7 +1,5 @@
 package entity.mobs.player;
 
-import java.util.ArrayList;
-
 import graphics.Animation;
 import graphics.Assets;
 import graphics.UI.AnimElement;

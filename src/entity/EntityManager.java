@@ -70,7 +70,9 @@ public class EntityManager {
 
 	//getters/setters
 	public void addEntity(Entity e) { // allows us to add to the entity manager
-		entities.add(e);
+		if(e!=null) {
+			entities.add(e);
+		}
 	}
 
 	public ArrayList<Entity> getEntities() { //lets us check what entities exist and thier state

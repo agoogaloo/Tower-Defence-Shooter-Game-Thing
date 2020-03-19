@@ -19,13 +19,13 @@ public class Bullet extends Mobs{
 	int intVelocityX, intVelocityY; //Needed to parse velocityX and velocityY into ints
 	BufferedImage [] bulletPics = Assets.bullet; //Sets this bullet picture to a variable
 
-	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
+	public Bullet(int startX,int startY,double targetX,double targetY, int pic, int speed, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
 																											   //0 is an enemy bullet 1 is a friendly bullet
 		this.speed = speed;
 		this.friendly=friendly;
 		x = startX; //Set x and y to the startX and startY given
 		y = startY;	
-		bulletType = pics; //Sets this variable to the pics specified, allowing different bullet pictures to be used depending on the parameter
+		bulletType = pic; //Sets this variable to the pics specified, allowing different bullet pictures to be used depending on the parameter
 						   //0 is for small yellow bullets, 1 is for large yellow bullets, 2 is for small red bullets, 3 is for larger red bullets
 		trueX=x; //Sets x and y to trueX and trueY, the actual location of x and y as they move
 		trueY=y;

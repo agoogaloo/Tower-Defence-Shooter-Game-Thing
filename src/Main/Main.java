@@ -22,7 +22,7 @@ public class Main {
 
 		while (run) {// running the game while run is true
 			frameStart = System.nanoTime();// getting the time the frame started
-			// this is where everything in the game actualy happens
+			// this is where everything in the game actually happens
 			window.update();// updates the window
 			window.render();// draws everything on the window
 			frames++;// adding one to the number of frames that passed

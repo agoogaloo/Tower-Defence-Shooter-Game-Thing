@@ -6,7 +6,9 @@ import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.statics.Core;
-import entity.statics.Tower;
+import entity.statics.towers.LaserTower;
+import entity.statics.towers.Tower;
+import entity.statics.towers.WizardTower;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -25,6 +27,7 @@ public class Player extends Mobs {
 	private Core core; //Core is related to player, as core effects player health
 	
 	private PlayerUI ui=new PlayerUI();
+	private TowerPlacer towerPlacer=new TowerPlacer();
 	
 	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation animationLeft = new Animation(Assets.playerL,6);
@@ -92,19 +95,20 @@ public class Player extends Mobs {
 			changeX += speed;
 			direction='r';
 		}
-		if(State.getInputs().isPlace()) { //If control is pressed call the twoer method
-			tower();
-		}
+		tower();
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
 		shotDelay += 1; //Increase shotDelay by one every frame
 		invincibility--;
 	}
 	
 	public void tower() { //Tower method to create a tower
-		if(money>=1) { //if the player has enough money then they can place the tower
-			Tower tower = new Tower(x,y); //Creates a tower at the player's current location
-			entityManager.addEntity(tower); //Adds that tower to the entityManager
-			money-=1;//subtracting the money they have spent
+		Tower tower=towerPlacer.update(camera);
+		if(tower instanceof LaserTower&&money>=5) {
+			money-=5;
+			entityManager.addEntity(tower);
+		}else if(tower instanceof WizardTower&&money>=2) {
+			money-=2;
+			entityManager.addEntity(tower);
 		}
 	}
 	
@@ -126,6 +130,7 @@ public class Player extends Mobs {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
+		towerPlacer.render(g);
 		switch(direction) {
 		case 'd':
 			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
