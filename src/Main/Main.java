@@ -1,6 +1,5 @@
 package Main;
-import entity.Entity;
-import floors.Floor;
+import states.State;
 import window.Window;
 
 /*
@@ -13,7 +12,7 @@ public class Main {
 	 */
 	private static final Window window= new Window(1000, 600);//creating a window so we can see things
 	public static void main(String[] args) {
-		Entity.init();//initializing the enities
+		State.init();
 		boolean run = true;
 
 		// variables for limiting frame rate
@@ -49,8 +48,5 @@ public class Main {
 	//lets other classes get the window so they can know things like window size 
 	public static Window getWindow() {
 		return window;
-	}
-	public static Floor getFloor() {
-		return window.getDisplay().getFloor();
 	}
 }

@@ -1,7 +1,7 @@
 package entity.mobs;
 
-import Main.Main;
 import entity.Entity;
+import states.GameState;
 
 //@author Matthew (updateBounds)
 //@author Sahib (move() also known as wall collision)
@@ -14,10 +14,10 @@ public abstract class Mobs extends Entity{
 	@Override
 	public void move() {
 		//not moving if the players corners will be inside of a wall
-		if (Main.getWindow().getDisplay().getFloor().checkwall((x + changeX) / 16, (y + changeY) / 16)
-				|| Main.getWindow().getDisplay().getFloor().checkwall((x + 16 + changeX) / 16, (y + changeY) / 16)
-				|| Main.getWindow().getDisplay().getFloor().checkwall((x + changeX) / 16, (y + 29 + changeY) / 16)
-				|| Main.getWindow().getDisplay().getFloor().checkwall((x + 16 + changeX) / 16, (y + 29 + changeY) / 16)) {
+		if (GameState.getFloor().checkwall((x + changeX) / 16, (y + changeY) / 16)
+				|| GameState.getFloor().checkwall((x + 16 + changeX) / 16, (y + changeY) / 16)
+				|| GameState.getFloor().checkwall((x + changeX) / 16, (y + 29 + changeY) / 16)
+				|| GameState.getFloor().checkwall((x + 16 + changeX) / 16, (y + 29 + changeY) / 16)) {
 			changeX = 0;
 			changeY = 0;
 		}

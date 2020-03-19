@@ -5,9 +5,9 @@ package entity.mobs;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import Main.Main;
 import graphics.Assets;
 import graphics.Camera;
+import states.GameState;
 
 public class Bullet extends Mobs{
 
@@ -16,7 +16,7 @@ public class Bullet extends Mobs{
 	int startX, startY; //The bullets starting coordinates, can be changed with a parameter
 	int speed; //How fast bullets move, can be changed with a parameter
 	int bulletType; //Depending on value a different bullet picture will be used, can be changed with a parameter 
-	int intVelocityX, intVelocityY; //Neded to parse velocityX and velocityY into ints
+	int intVelocityX, intVelocityY; //Needed to parse velocityX and velocityY into ints
 	BufferedImage [] bulletPics = Assets.bullet; //Sets this bullet picture to a variable
 
 	public Bullet(int startX,int startY,double targetX,double targetY, int pics, int speed, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
@@ -42,8 +42,8 @@ public class Bullet extends Mobs{
 	@Override
 	public void update(){
 		updateBounds();
-		int offsetX = bulletPics[bulletType].getWidth()/2 - 10; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
-		int offsetY = bulletPics[bulletType].getHeight()/2 - 10;
+		int offsetX = bulletPics[bulletType].getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
+		int offsetY = bulletPics[bulletType].getHeight()/2;
 		trueX+=velocityX; //Applies the velocity the the true variable, allowing the bullet to move in a specific direction and speed depending on the value of velocity
 		trueY+=velocityY;
 		x=((int)(trueX) - offsetX); //Sets x to the trueX (including the offset) this updates x moving the bullet
@@ -53,16 +53,16 @@ public class Bullet extends Mobs{
 		move();
 		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;//When this is set to true the bullet will be removed from entityManager, thus disappearing		//	Wall collisions using the checkwall method in floors 
 		}																								 					//
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;																									//
 		}																													//
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;																									//
 		}																													//
-		if(Main.getWindow().getDisplay().getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
+		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;																									//
 		}																													//
 	}																														//

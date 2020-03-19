@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Main.Main;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.statics.Health;
@@ -14,6 +13,7 @@ import entity.statics.Money;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import states.GameState;
 
 //@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
 //@author Matthew (did update direction, and all damage/collision related code, width, height, damage, friendly)
@@ -43,7 +43,7 @@ public abstract class Enemy extends Mobs {
 	public void updateDirection() {
 		Assets.enemyRedD[0].getWidth(); //Enemy will always start travelling down
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
-		switch (Main.getWindow().getDisplay().getFloor().getTile((x+Assets.enemyRedD[0].getWidth()/2)/16,
+		switch (GameState.getFloor().getTile((x+Assets.enemyRedD[0].getWidth()/2)/16,
 				(y+Assets.enemyRedD[0].getHeight()/2)/16)){ //getting its current tile
 		case 5: //the 5 tile is the path that goes from up to right so the robot should turn right
 			direction='r';
@@ -95,11 +95,11 @@ public abstract class Enemy extends Mobs {
 	public void damage() {
 		super.damage();
 		if(killed) {
-			int randnum=ThreadLocalRandom.current().nextInt(0,4);//generating a random number to determine what should drop
+			int randnum=ThreadLocalRandom.current().nextInt(0,10);//generating a random number to determine what should drop
 			if(randnum==1) {
-				entityManager.addEntity(new Money(x, y));
-			}else if (randnum>=2) {
 				entityManager.addEntity(new Health(x, y));
+			}else if (randnum>=2) {
+				entityManager.addEntity(new Money(x, y));
 				System.out.println(randnum);
 			}
 		}

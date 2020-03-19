@@ -6,11 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import entity.Entity;
-import floors.Floor;
-import graphics.Assets;
-import graphics.Camera;
-import graphics.UI.UIElement;
+import states.State;
 
 /*
  * by: Matthew Milum
@@ -24,9 +20,6 @@ public class Display extends JPanel {
 	 * because you aren't supposed to draw directly onto it
 	 */
 	private int width, height, scale;
-	private Floor floor;// the floor that the game it played on
-	private Camera camera;
-		
 	public Display(int width, int height, int scale) {
 		// setting the proper size so that the window will pack properly
 		// the display is scaled up to look 8-bit so the
@@ -35,12 +28,8 @@ public class Display extends JPanel {
 		this.height = height / scale;
 		this.scale = scale;
 		this.setPreferredSize(new Dimension(width, height));
-		// setting the preferred size to the inputed one so that the pack method will
-		floor = new Floor(10, this.width, this.height, Assets.tiles);
-		// creating a floor for the game and giving it the tileset
-		camera = new Camera(this.width, this.height);
-		// in the future we would probably want to put things like the level in a
-		// gameState class or something similar but I it is fine this way for now
+		// setting the preferred size to the inputed one so that the pack method will work
+	
 	}
 
 	@Override
@@ -51,24 +40,19 @@ public class Display extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.scale(scale, scale);// scaling the graphics so the pixel art looks the right size
-		g2d.clearRect(0, 0, width, height);// clearing the previous frame
-		floor.render(g2d, camera);// rendering the floor
-		Entity.getEntityManager().render(g2d, camera);// rendering the entities
-		UIElement.UIManager.render(g2d);
+		//g2d.setColor(new Color(38,12,38));
+		//g2d.fillRect(0, 0, width, height);// clearing the previous frame
+		if(State.getState()!=null) {
+			State.getState().render(g2d);
+		}
 	}
 
 	public void update() {
-		Entity.getEntityManager().update();// updating the entities
-		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
-		// updating the camera position to center on the player
+		State.getState().update();
 	}
 	
 	//getters
-	public Camera getCamera(){
-		return camera;
-	}
-
-	public Floor getFloor() {
-		return floor;
+	public int getScale() {
+		return scale;
 	}
 }

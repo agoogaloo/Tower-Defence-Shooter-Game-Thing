@@ -3,10 +3,9 @@ package entity.mobs.enemy;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Main.Main;
 import entity.Entity;
 import floors.Room;
-import sun.net.www.content.text.plain;
+import states.GameState;
 
 public class EnemySpawner {
 	private final int WAVEDELAY=300;
@@ -16,10 +15,10 @@ public class EnemySpawner {
 	public void update() {
 		if(waveComplete()&&waveDelay>=WAVEDELAY) {
 			waveDelay=0;
-			int roomX=(Entity.getEntityManager().getPlayer().getX()/Main.getFloor().
-					TILESIZE)/Main.getFloor().ROOMSIZE;
-			int roomY=(Entity.getEntityManager().getPlayer().getY()/Main.getFloor().
-					TILESIZE)/Main.getFloor().ROOMSIZE;
+			int roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
+					TILESIZE)/GameState.getFloor().ROOMSIZE;
+			int roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
+					TILESIZE)/GameState.getFloor().ROOMSIZE;
 			newWave(roomX,roomY,5);
 		}
 		if(enemyDelay>30) {
@@ -36,7 +35,7 @@ public class EnemySpawner {
 	}
 	public void newWave(int roomX,int roomY, int enemies) {
 		System.out.print("its a new wave");
-		Room room=Main.getFloor().getRoom(roomX, roomY);
+		Room room=GameState.getFloor().getRoom(roomX, roomY);
 		int spawnX=roomX*room.ROOMSIZE*room.TILESIZE;
 		int spawnY=roomY*room.ROOMSIZE*room.TILESIZE;
 		char direction='d';

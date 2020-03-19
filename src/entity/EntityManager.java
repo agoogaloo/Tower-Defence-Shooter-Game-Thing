@@ -3,10 +3,10 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import Main.Main;
 import entity.mobs.enemy.EnemySpawner;
 import entity.mobs.player.Player;
 import graphics.Camera;
+import states.GameState;
 
 //@author Matthew (Did most of the logic and everything in this class)
 //@author Kevin (did the remove entity and getKilled, along with player getKilled )
@@ -27,8 +27,8 @@ public class EntityManager {
 		// add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
-		player=new Player(Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()+240,
-				Main.getFloor().ROOMSIZE*Main.getFloor().TILESIZE*Main.getFloor().getSize()-240);	
+		player=new Player(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()+240,
+				GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-240);	
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 

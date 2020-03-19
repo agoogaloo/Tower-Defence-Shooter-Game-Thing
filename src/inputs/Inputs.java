@@ -1,4 +1,4 @@
-package entity.mobs.player;
+package inputs;
 /*
  * by: Matthew Milum
  */
@@ -13,7 +13,7 @@ import Main.Main;
 //@author Matthew (Organized all player inputs into it's own class, did basically all of this class)
 //@author Kevin (Only control key, mouse, and direction in updates)
 
-public class PlayerInput implements MouseListener, MouseMotionListener, KeyListener{  //Implements different interfaces to allow for mouse presses, mouse motion, and key presses 
+public class Inputs implements MouseListener, MouseMotionListener, KeyListener{  //Implements different interfaces to allow for mouse presses, mouse motion, and key presses 
 	/*
 	 *this class separates all the keyboard and mouse inputs from the player class
 	 *so that it is smaller and easier to manage. it has a variable for each input 
@@ -23,11 +23,12 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 	
 	//declaring variables
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
-	private boolean up, down, left, right, place,placeHeld, shoot; //Keys and actions that are game needs
-	private char direction='d'; //Sets player's direction to down by default at the start
+	private boolean up, down, left, right, shoot; //Keys and actions that are game needs
+	private PushButton pause=new PushButton(), place=new PushButton();
+	
 	private int mouseX, mouseY;
 	
-	public PlayerInput() {
+	public Inputs() {
 		//adding itself to the Jframe so that the inputs will actually work when the window is open
 
 		Main.getWindow().getFrame().addKeyListener(this);
@@ -39,23 +40,8 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		down = keys[KeyEvent.VK_DOWN]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
 		left = keys[KeyEvent.VK_LEFT]; 
 		right = keys[KeyEvent.VK_RIGHT];
-		place=false;
-		if(!placeHeld) {
-			place = keys[KeyEvent.VK_SHIFT];
-		}
-		placeHeld=keys[KeyEvent.VK_SHIFT];
-		
-
-		//setting the diection the player is facing so it is easy to tell which animation should be playing
-		if(up) {
-			direction = 'u';
-		}else if(down) { //Same but for the other directions
-			direction = 'd';
-		}else if(left) {
-			direction = 'l';
-		}else if(right) {
-			direction = 'r';
-		}
+		place.update(keys[KeyEvent.VK_SHIFT]);
+		pause.update(keys[KeyEvent.VK_ESCAPE]);
 	}
 	//mouse position methods
 	@Override
@@ -115,11 +101,10 @@ public class PlayerInput implements MouseListener, MouseMotionListener, KeyListe
 		return shoot;
 	}
 	public boolean isPlace() { 
-		return place;
-		
+		return place.getPushed();	
 	}
-	public char getDirection(){
-		return direction;
+	public boolean isPause() { 
+		return pause.getPushed();	
 	}
 	public int getMouseX() {
 		return mouseX/3;//the window is scaled so the location for the mouse needs to match it
