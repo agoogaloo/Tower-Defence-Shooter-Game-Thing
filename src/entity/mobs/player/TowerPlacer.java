@@ -15,45 +15,44 @@ import states.State;
 
 public class TowerPlacer {
 	// an enum that will be used to tell store whether the player is placing or upgrading a tower or just doing nothing
-	enum Mode{PLACING,UPGRADING,WAITING}
-	enum MouseAngle{UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT, NEUTRAL}
-	Tower selectedTower;
-	BufferedImage currentImage;
-	boolean destroyTower;
+	private enum Mode{PLACING,UPGRADING,WAITING}
+	private Tower selectedTower;
+	private BufferedImage currentImage;
+	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
+	
 		
 	int startX,startY, moneySpent;
 	Mode mode=Mode.WAITING;
-	private MouseAngle GetMouseAngle() {
+	private void updateMouseAngle() {
 		if(State.getInputs().getMouseY()-startY>7) {
 			//this means the mouse is in the bottom half
-			if(State.getInputs().getMouseX()-startX>7) {
-				//this means it is to the right
-				return  MouseAngle.DOWNRIGHT;
-			}else if(State.getInputs().getMouseX()-startX>-7) {
-				//this means it is to the left
-				return  MouseAngle.DOWNLEFT;
-			}
+			mouseUpDown='d';
 		}else if(State.getInputs().getMouseY()-startY<-7) {
 			//this means it is on the top of the circle
-			if(State.getInputs().getMouseX()-startX>7) {
-				//this means it is to the right
-				return  MouseAngle.UPRIGHT;
-			}else if(State.getInputs().getMouseX()-startX>-7) {
-				//this means it is to the left
-				return  MouseAngle.UPLEFT;
-			}
+			mouseUpDown='u';
+		}else{
+			//otherwise it is in the middle
+			mouseUpDown='n';
 		}
-		return MouseAngle.NEUTRAL;
+		if(State.getInputs().getMouseX()-startX>7) {
+			//this means it is to the right
+			mouseLeftRight='r';
+		}else if(State.getInputs().getMouseX()-startX<-7) {
+			//this means it is to the left
+			mouseLeftRight='l';
+		}else {
+			mouseLeftRight='n';
+		}	
 	}
 	private Tower place(int money,Camera camera) {
 		if(!State.getInputs().isPlace()) {
-			if(State.getInputs().getMouseY()-startY>7) {
+			if(mouseUpDown=='d') {
 				//returns a laser tower if it is selected
 				if(money>=5) {
 					moneySpent+=5;
 					return new LaserTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset()); 
 				}
-			}else if(State.getInputs().getMouseY()-startY<-7) {
+			}else if(mouseUpDown=='u') {
 				//returns a wizard tower if it is selected
 				if(money>=2) {
 					moneySpent+=2;
@@ -64,27 +63,21 @@ public class TowerPlacer {
 		return null;
 	}
 	private Tower upgrade(int money,Camera camera) {
-		MouseAngle angle=GetMouseAngle();
-		System.out.println("mouse at "+angle.toString());
-			if(selectedTower instanceof WizardTowerlvl1) {
-			currentImage=Assets.towerMenu[2];
-			if(!State.getInputs().isPlace()) {
-				if(angle==MouseAngle.UPLEFT||angle==MouseAngle.UPRIGHT) {
-					if(money>=1) {
-						moneySpent=1;
-						selectedTower.destroy();
-						return new WizardTowerlvl2(selectedTower.getX(), selectedTower.getY());
-					}
-				}else if(angle==MouseAngle.DOWNLEFT||angle==MouseAngle.DOWNRIGHT) {
-					moneySpent=-1;//giving some money back when the tower is sold
-					selectedTower.destroy();//destroying the selected tower
-				}
+		currentImage=selectedTower.getUpgradeIcon();
+		if(!State.getInputs().isPlace()) {
+			if(mouseUpDown=='u') {
+				moneySpent+=selectedTower.upgrade(mouseLeftRight, money);
+			}else if(mouseUpDown=='d') {
+				moneySpent=-selectedTower.getSellValue();//giving some money back when the tower is sold
+				selectedTower.destroy();//destroying the selected tower
 			}
 		}
 		return null;
 	}
 	public Tower update(int money,Camera camera, ArrayList<Entity> entities) {
+		System.out.println(mouseLeftRight+", "+mouseUpDown+"=direction");
 		Tower tower=null;//the tower that will be returned at the end of the method
+		//determining if the player is waiting, placing, or upgrading a tower
 		if(State.getInputs().isPlace()) {//checking if the right click is pressed
 			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
 				startX=State.getInputs().getMouseX();//setting the location of the menu 
@@ -98,14 +91,14 @@ public class TowerPlacer {
 				}
 			}
 		}
+		updateMouseAngle();
 		if(mode==Mode.PLACING) {
 			tower = place(money,camera);
 		}else if(mode==Mode.UPGRADING) {
 			tower=upgrade(money,camera);
 		}
 		if(!State.getInputs().isPlace()) {
-			mode=Mode.WAITING;//if the buttong is not being pushed the mode can be set back to waiting
-			destroyTower=false;
+			mode=Mode.WAITING;//if the button is not being pushed the mode can be set back to waiting
 		}
 		return tower;
 	}

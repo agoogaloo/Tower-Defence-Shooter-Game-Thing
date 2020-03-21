@@ -35,11 +35,14 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/core.png"), 40, 35, 3, 3);
 	public static final BufferedImage[] wizardTowerLvl1 =  Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/wizard lvl.1.png"), 26, 33, 3, 3),0,8);
+	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/fire wizard.png"), 18, 37, 4, 2);
+	public static final BufferedImage[] elecricWizardTower =  Arrays.copyOfRange(
+			splitSpriteSheet(loadImage("res/electric wizard.png"),35, 29, 3, 3),0,8);
 	public static final BufferedImage[] wizardTowerLvl2 =  Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/wizard lvl.2.png"), 26, 33, 3, 3),0,8);
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");	
-	public static final BufferedImage[] laserTower =splitSpriteSheet(loadImage("res/laza beam lv.1.png"), 28, 14, 2, 3);
-	
+	public static final BufferedImage[] laserTowerLvl1 =splitSpriteSheet(loadImage("res/laza beam lv.1.png"), 28, 14, 2, 3);
+	public static final BufferedImage[] laserTowerLvl2 =splitSpriteSheet(loadImage("res/laza beam lv.2.png"), 30, 15, 2, 3);
 
 	
 	

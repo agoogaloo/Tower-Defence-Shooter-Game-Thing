@@ -2,12 +2,13 @@ package entity.statics.towers;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
 import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.Enemy;
 import entity.statics.Statics;
 import graphics.Animation;
-import graphics.Assets;
 import graphics.Camera;
 
 // @author Kevin (did all of tower except for a few parts)
@@ -21,6 +22,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected Entity target; //The specific target the tower gets the x and y of
 	protected Rectangle towerRange; //A rectangle of range where the tower can shoot at
 	protected Animation animation;
+	
+	protected BufferedImage upgradeIcon;
+	protected int price, sellValue;
 	protected Tower() {
 		
 	}
@@ -34,7 +38,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		towerRange=new Rectangle(x-rangeWidth/2,y-rangeHeight/2,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
 		updateBounds();
 	}
-	
+	public abstract int upgrade(char leftRight, int money);
 	public void search() {
 		attack=false; //Attack is normally false
 		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
@@ -65,9 +69,20 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	@Override
 	public void damage() {
-		
+		//left blank so that the towers wont take damage
 	}
 	public void destroy() {
 		killed=true;
+	}	
+	public BufferedImage getUpgradeIcon() {
+		return upgradeIcon;
 	}
+	public int getPrice() {
+		return price;
+	}
+	
+	public int getSellValue() {
+		return sellValue;
+	}
+	
 }
