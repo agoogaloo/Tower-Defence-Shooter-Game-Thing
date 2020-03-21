@@ -24,12 +24,15 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected Tower() {
 		
 	}
-	public Tower(int x, int y, int rangeWidth, int rangeHeight,Animation anim, int reloadTime) { //Tower class, can only be called when player presses the control key, and spawns on the player's location
-		this.x = x;
-		this.y = y;
+	public Tower(int x, int y, int rangeWidth, int rangeHeight,Animation anim, int reloadTime) {
+		width=anim.getCurrentFrame().getWidth();
+		height=anim.getCurrentFrame().getHeight();//setting the size of the tower to the size of the animation
+		this.x = x-width/2;
+		this.y = y-height/2;
 		animation=anim;
 		this.reloadTime=reloadTime;
 		towerRange=new Rectangle(x-rangeWidth/2,y-rangeHeight/2,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
+		updateBounds();
 	}
 	
 	public void search() {
@@ -42,7 +45,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		}
 	}
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x,y,target.getX(),target.getY(),1,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),1,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	}			
 
 	@Override
@@ -51,16 +54,20 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		search(); //Every frame check to see if an entity is within towers range, if so start attacking
 		if (attack && shotDelay>= reloadTime) { //If attack is true and it's been 60 frames since last shot, shoot again
 			shoot(); //Calls shoot method
-			shotDelay = 0; //Ensures the tower can't rapdily shoot
+			shotDelay = 0; //Ensures the tower can't rapidly shoot
 		}
 		shotDelay+=1; //Counts up for every frame, towers can only shoot every 60 frames
 	}
 	
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower, along with it's range
-		g.drawRect(towerRange.x-camera.getxOffset(),towerRange.y-camera.getyOffset(),
-				towerRange.width,towerRange.height);
-		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset()-animation.getCurrentFrame().getWidth()/2
-				, y-camera.getyOffset()-animation.getCurrentFrame().getHeight()/2, null);
+		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
+	}
+	@Override
+	public void damage() {
+		
+	}
+	public void destroy() {
+		killed=true;
 	}
 }

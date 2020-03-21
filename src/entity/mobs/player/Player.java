@@ -6,9 +6,9 @@ import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.statics.Core;
-import entity.statics.towers.LaserTower;
+import entity.statics.towers.LaserTowerlvl1;
 import entity.statics.towers.Tower;
-import entity.statics.towers.WizardTower;
+import entity.statics.towers.WizardTowerlvl2;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -102,14 +102,10 @@ public class Player extends Mobs {
 	}
 	
 	public void tower() { //Tower method to create a tower
-		Tower tower=towerPlacer.update(camera);
-		if(tower instanceof LaserTower&&money>=5) {
-			money-=5;
-			entityManager.addEntity(tower);
-		}else if(tower instanceof WizardTower&&money>=2) {
-			money-=2;
-			entityManager.addEntity(tower);
-		}
+		Tower tower=towerPlacer.update(money,camera, entityManager.getEntities());
+		int moneySpent=towerPlacer.getSpentMoney();
+		entityManager.addEntity(tower);
+		money-=moneySpent;
 	}
 	
 	@Override
@@ -130,7 +126,6 @@ public class Player extends Mobs {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
-		towerPlacer.render(g);
 		switch(direction) {
 		case 'd':
 			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
@@ -144,6 +139,7 @@ public class Player extends Mobs {
 		case'r':
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
+		towerPlacer.render(g);
 	}
 	public void giveMoney(int amount) {
 		//lets us give the player money
