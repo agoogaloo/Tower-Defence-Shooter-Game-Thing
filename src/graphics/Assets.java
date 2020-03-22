@@ -9,6 +9,8 @@ import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
+import entity.mobs.Bullet;
+
 /*
  * by: Matthew Milum and Kevin Tea
  * a class that contains all the pictures, sounds, etc. for the game
@@ -19,13 +21,16 @@ public class Assets {
 	 * so other classes can access them easily
 	 */
 	
-	//spliting all the spritesheets int the right pictuures and holding them in arrays
+	//spliting all the spritesheets int the right pictures and holding them in arrays
+	private static final BufferedImage bulletSheet=loadImage("res/bullets.png");//bullets need to be loaded like this becasue they are all different sizes and its horrible
 	public static final BufferedImage[] towerMenu=splitSpriteSheet(loadImage("res/tower menu.png"),
 			50, 50, 2, 3);
 	public static final BufferedImage[] healthIcon=Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/heart icon.png"), 13, 13, 3, 3),0,8);
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/coin.png"), 11, 11, 2, 2);
-	public static final BufferedImage[] bullet = splitSpriteSheet(loadImage("res/bullets.png"), 7, 7, 2, 3);
+	public static final BufferedImage[] bullet = {bulletSheet.getSubimage(0,0,7,7),bulletSheet.getSubimage(10,0,6,6),
+			bulletSheet.getSubimage(0, 7, 7,7),bulletSheet.getSubimage(10, 7, 6,6),bulletSheet.getSubimage(0, 14, 10,7),
+			bulletSheet.getSubimage(10, 14, 7,5),bulletSheet.getSubimage(0, 21, 10,4)};//aaaaaaaaaaaaaaaaaaaaaaaaaah
 	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/tileset.png"), 16, 16, 6, 10);
 	public static final BufferedImage[] player = splitSpriteSheet(loadImage("res/player idle.png"), 14, 25, 7, 4);
 	public static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/robot red.png"), 21, 25, 4, 4);
@@ -43,8 +48,8 @@ public class Assets {
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");	
 	public static final BufferedImage[] laserTowerLvl1 =splitSpriteSheet(loadImage("res/laza beam lv.1.png"), 28, 14, 2, 3);
 	public static final BufferedImage[] laserTowerLvl2 =splitSpriteSheet(loadImage("res/laza beam lv.2.png"), 30, 15, 2, 3);
-
-	
+	public static final BufferedImage[]  machineGunTower=splitSpriteSheet(loadImage("res/machine gun tower.png"), 34, 14, 1, 3);
+	public static final BufferedImage[] bigLaserTower =splitSpriteSheet(loadImage("res/big laser tower.png"), 37, 21, 2, 4);
 	
 	//splitting players spritesheet into all its animations
 

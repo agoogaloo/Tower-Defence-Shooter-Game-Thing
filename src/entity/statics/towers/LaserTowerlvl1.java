@@ -15,7 +15,7 @@ public class LaserTowerlvl1 extends Tower{
 		this.x = x-width/2;
 		this.y = y-2;
 		updateBounds();
-		reloadTime=20;
+		reloadTime=30;
 		sellValue=3;
 		upgradeIcon=Assets.towerMenu[4];
 		towerRange=new Rectangle(this.x,this.y-10,300,20); //Creates a rectangle for the towers range 
@@ -23,12 +23,12 @@ public class LaserTowerlvl1 extends Tower{
 	}
 	@Override
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x,y,x,y,4,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width,y+5,x+width+1,y+5,4,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
-		if(money>=1) {
+		if(money>=2) {
 			entityManager.addEntity(new LaserTowerlvl2(x+width/2, y+2));
 			destroy();
 			return 2;

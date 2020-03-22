@@ -14,18 +14,29 @@ public class LaserTowerlvl2 extends Tower{
 		this.x = x-width/2;
 		this.y = y-2;
 		updateBounds();
-		reloadTime=15;
+		reloadTime=20;
 		sellValue=4;
-		towerRange=new Rectangle(this.x,this.y-10,700,20); //Creates a rectangle for the towers range 
+		upgradeIcon=Assets.towerMenu[5];
+		towerRange=new Rectangle(this.x,this.y-10,350,20); //Creates a rectangle for the towers range 
 
 	}
 	@Override
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x,y,x+2,y,4,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width,y+5,x+2+width,y+5,4,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
+		if(leftRight=='l'&&money>=7) {
+			entityManager.addEntity(new MachineGunTower(x+width/2, y+2));
+			destroy();
+			return 7;
+		}else if(leftRight=='r'&&money>=7) {
+			entityManager.addEntity(new BigLaserTower(x+width/2, y+2));
+			destroy();
+			return 7;
+		}
 		return 0;
+		
 	}
 }
