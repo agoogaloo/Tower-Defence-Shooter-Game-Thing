@@ -16,7 +16,7 @@ public MachineGunTower(int x,int y) {
 		this.y = y-2;
 		updateBounds();
 		reloadTime=6;
-		sellValue=7;
+		sellValue=10;
 		towerRange=new Rectangle(this.x,this.y-10,600,20); //Creates a rectangle for the towers range 
 
 	}

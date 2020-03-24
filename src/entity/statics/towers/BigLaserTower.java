@@ -16,7 +16,7 @@ public BigLaserTower(int x,int y) {
 		this.y = y-2;
 		updateBounds();
 		reloadTime=420;
-		sellValue=7;
+		sellValue=6;
 		towerRange=new Rectangle(this.x,this.y,600,11); //Creates a rectangle for the towers range 
 
 	}

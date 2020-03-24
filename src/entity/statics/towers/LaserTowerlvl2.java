@@ -27,14 +27,14 @@ public class LaserTowerlvl2 extends Tower{
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
-		if(leftRight=='l'&&money>=7) {
+		if(leftRight=='l'&&money>=13) {
 			entityManager.addEntity(new MachineGunTower(x+width/2, y+2));
 			destroy();
-			return 7;
-		}else if(leftRight=='r'&&money>=7) {
+			return 13;
+		}else if(leftRight=='r'&&money>=5) {
 			entityManager.addEntity(new BigLaserTower(x+width/2, y+2));
 			destroy();
-			return 7;
+			return 5;
 		}
 		return 0;
 		

@@ -97,7 +97,7 @@ public class Assets {
 		 */
 		BufferedImage image = null;
 		try { //this can throw an error so it needs to be in a try catch to run
-			image =ImageIO.read(new File (path));//loading the image
+			image =ImageIO.read(new File(path));//loading the image
 		} catch (IOException e) {
 			System.out.println("picture "+path+" not found");//showing what the problem is
 		}
