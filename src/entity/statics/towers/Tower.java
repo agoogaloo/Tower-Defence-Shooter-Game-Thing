@@ -57,16 +57,17 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	public void update(){ 
 		animation.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		search(); //Every frame check to see if an entity is within towers range, if so start attacking
-		if (attack && shotDelay>= reloadTime) { //If attack is true and it's been 60 frames since last shot, shoot again
+		if (attack && shotDelay<=0) { //If attack is true and it's been 60 frames since last shot, shoot again
 			shoot(); //Calls shoot method
-			shotDelay = 0; //Ensures the tower can't rapidly shoot
+			shotDelay = reloadTime; //Ensures the tower can't rapidly shoot
 		}
-		shotDelay+=1; //Counts up for every frame, towers can only shoot every 60 frames
+		shotDelay-=1; //Counts up for every frame, towers can only shoot every 60 frames
 	}
 	
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower, along with it's range
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
+		g.drawRect(towerRange.x-camera.getxOffset(), towerRange.y-camera.getyOffset(),(int) towerRange.getWidth(),(int) towerRange.getHeight());
 	}
 	@Override
 	public void damage() {

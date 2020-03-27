@@ -44,13 +44,13 @@ public class TowerPlacer {
 			mouseLeftRight='n';
 		}	
 	}
-	private Tower place(int money,Camera camera) {
+	private Tower place(int money,Camera camera, char direction) {
 		if(!State.getInputs().isPlace()) {
 			if(mouseUpDown=='d') {
 				//returns a laser tower if it is selected
 				if(money>=5) {
 					moneySpent+=5;
-					return new LaserTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset()); 
+					return new LaserTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset(), direction); 
 				}
 			}else if(mouseUpDown=='u') {
 				//returns a wizard tower if it is selected
@@ -74,8 +74,7 @@ public class TowerPlacer {
 		}
 		return null;
 	}
-	public Tower update(int money,Camera camera, ArrayList<Entity> entities) {
-		System.out.println(mouseLeftRight+", "+mouseUpDown+"=direction");
+	public Tower update(int money,Camera camera, ArrayList<Entity> entities, char direction) {
 		Tower tower=null;//the tower that will be returned at the end of the method
 		//determining if the player is waiting, placing, or upgrading a tower
 		if(State.getInputs().isPlace()) {//checking if the right click is pressed
@@ -93,7 +92,7 @@ public class TowerPlacer {
 		}
 		updateMouseAngle();
 		if(mode==Mode.PLACING) {
-			tower = place(money,camera);
+			tower = place(money,camera, direction);
 		}else if(mode==Mode.UPGRADING) {
 			tower=upgrade(money,camera);
 		}
