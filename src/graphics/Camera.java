@@ -45,4 +45,10 @@ public class Camera {
 	public int getyOffset() {
 		return yOffset;
 	}
+	public int getScreenWidth() {
+		return screenWidth;
+	}
+	public int getScreenHeight() {
+		return screenHeight;
+	}
 }

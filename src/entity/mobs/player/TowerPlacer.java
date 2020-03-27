@@ -11,7 +11,9 @@ import entity.statics.towers.WizardTowerlvl1;
 import entity.statics.towers.WizardTowerlvl2;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.UI.TextElement;
 import states.State;
+import window.Window;
 
 public class TowerPlacer {
 	// an enum that will be used to tell store whether the player is placing or upgrading a tower or just doing nothing
@@ -19,6 +21,7 @@ public class TowerPlacer {
 	private Tower selectedTower;
 	private BufferedImage currentImage;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
+	private TextElement infoText=new TextElement(0, 0,72 ,10,"i am testing multiline text and stuff and hope this works");
 	
 		
 	int startX,startY, moneySpent;
@@ -101,12 +104,19 @@ public class TowerPlacer {
 		}
 		return tower;
 	}
-	public void render(Graphics g) {
+	public void render(Graphics g, Camera camera) {
 		if(mode==Mode.PLACING) {
 			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
+			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,0,null);
+			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,100,null);
+			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,200,null);
+			g.drawString("testing text", camera.getScreenWidth()-72, 10);
 		}else if(mode==Mode.UPGRADING) {
 			g.drawImage(Assets.towerMenu[1], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			g.drawImage(currentImage, startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
+			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,0,null);
+			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,100,null);
+			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,200,null);
 		}
 	}
 	public int getSpentMoney() {

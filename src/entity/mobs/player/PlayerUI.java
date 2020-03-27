@@ -10,7 +10,7 @@ public class PlayerUI {
 	 * this is all the ui such as health and money that the player will draw to the screen
 	 */
 	
-	private TextElement money=new TextElement(18, 31, "");//the number saying how much money you have
+	private TextElement money=new TextElement(18, 20, "");//the number saying how much money you have
 	private AnimElement moneyIcon=new AnimElement(5, 20, new Animation(Assets.coin));//the spinning coin in the corner
 	private AnimElement[] healthIcons=new AnimElement[22];//the hearts the show how much health you have left 
 	//after 22 hearts it just goes off screen so the array doesnt need to go much higher

@@ -67,7 +67,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower, along with it's range
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		g.drawRect(towerRange.x-camera.getxOffset(), towerRange.y-camera.getyOffset(),(int) towerRange.getWidth(),(int) towerRange.getHeight());
+		//g.drawRect(towerRange.x-camera.getxOffset(), towerRange.y-camera.getyOffset(),(int) towerRange.getWidth(),(int) towerRange.getHeight());
 	}
 	@Override
 	public void damage() {

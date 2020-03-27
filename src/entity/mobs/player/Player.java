@@ -139,7 +139,7 @@ public class Player extends Mobs {
 		case'r':
 			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
 		}
-		towerPlacer.render(g);
+		towerPlacer.render(g, camera);
 	}
 	public void giveMoney(int amount) {
 		//lets us give the player money

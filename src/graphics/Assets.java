@@ -22,6 +22,8 @@ public class Assets {
 	 */
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");
 	//spliting all the spritesheets int the right pictures and holding them in arrays
+	//some random images
+	public static final BufferedImage heartTexture=loadImage("res/textures/heart texture.png");
 	//loading bullets
 	public static final BufferedImage enemyBullet=loadImage("res/textures/bullets/red bullet.png");
 	public static final BufferedImage yellowBullet=loadImage("res/textures/bullets/yellow bullet.png");
