@@ -23,7 +23,7 @@ public BigLaserTower(int x,int y) {
 	@Override
 	protected void shoot() {
 		for(int i=0;i<=75;i++) {
-			entityManager.addEntity(new Bullet(x+width,y+i/5-5,x+1+width,y+i/5-5,4,5, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+			entityManager.addEntity(new Bullet(x+width,y+i/5-5,x+1+width,y+i/5-5,Assets.blueLaser[1],5, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	
 		}
 	}

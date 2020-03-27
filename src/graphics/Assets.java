@@ -22,36 +22,46 @@ public class Assets {
 	 */
 	
 	//spliting all the spritesheets int the right pictures and holding them in arrays
-	private static final BufferedImage bulletSheet=loadImage("res/bullets.png");//bullets need to be loaded like this becasue they are all different sizes and its horrible
-	public static final BufferedImage[] towerMenu=splitSpriteSheet(loadImage("res/tower menu.png"),
+	//loading bullets
+	public static final BufferedImage enemyBullet=loadImage("res/textures/bullets/red bullet.png");
+	public static final BufferedImage yellowBullet=loadImage("res/textures/bullets/yellow bullet.png");
+	//these have different sizes depending on their direction so they are loaded weirdly
+	private static final BufferedImage laserB=loadImage("res/textures/bullets/blue laser.png");
+	private static final BufferedImage laserY=loadImage("res/textures/bullets/laser beam.png");
+	public static final BufferedImage[] blueLaser = {laserB.getSubimage(0,0,5,7),laserB.getSubimage(7,0,5,7),
+			laserB.getSubimage(0,7,5,7),laserB.getSubimage(7,7,5,7)};//aaaaaaaaaaaaaaaaaaaaaaaaaah
+	public static final BufferedImage[] YellowLaser = {laserY.getSubimage(0, 0, 10, 4),laserY.getSubimage(0, 10, 4, 10)};//aaaaaaaaaaaaaaaaaaaaaaaaaah
+	
+	
+	public static final BufferedImage[] towerMenu=splitSpriteSheet(loadImage("res/textures/towers/tower menu.png"),
 			50, 50, 2, 3);
 	public static final BufferedImage[] healthIcon=Arrays.copyOfRange(
-			splitSpriteSheet(loadImage("res/heart icon.png"), 13, 13, 3, 3),0,8);
-	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/coin.png"), 11, 11, 2, 2);
-	public static final BufferedImage[] bullet = {bulletSheet.getSubimage(0,0,7,7),bulletSheet.getSubimage(10,0,6,6),
-			bulletSheet.getSubimage(0, 7, 7,7),bulletSheet.getSubimage(10, 7, 6,6),bulletSheet.getSubimage(0, 14, 10,7),
-			bulletSheet.getSubimage(10, 14, 7,5),bulletSheet.getSubimage(0, 21, 10,4)};//aaaaaaaaaaaaaaaaaaaaaaaaaah
-	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/tileset.png"), 16, 16, 6, 10);
-	public static final BufferedImage[] player = splitSpriteSheet(loadImage("res/player idle.png"), 14, 25, 7, 4);
-	public static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/robot red.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/robot green.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/robot blue.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] enemyYellow = splitSpriteSheet(loadImage("res/robot yellow.png"), 21, 25, 4, 4);
-	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/core.png"), 40, 35, 3, 3);
-	public static final BufferedImage[] wizardTowerLvl1 =  Arrays.copyOfRange(
-			splitSpriteSheet(loadImage("res/wizard lvl.1.png"), 26, 33, 3, 3),0,8);
-	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/fire wizard.png"), 18, 37, 4, 2);
-	public static final BufferedImage[] elecricWizardTower =  Arrays.copyOfRange(
-			splitSpriteSheet(loadImage("res/electric wizard.png"),35, 29, 3, 3),0,8);
-	public static final BufferedImage[] wizardTowerLvl2 =  Arrays.copyOfRange(
-			splitSpriteSheet(loadImage("res/wizard lvl.2.png"), 26, 33, 3, 3),0,8);
-	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");	
-	public static final BufferedImage[] laserTowerLvl1 =splitSpriteSheet(loadImage("res/laza beam lv.1.png"), 28, 14, 2, 3);
-	public static final BufferedImage[] laserTowerLvl2 =splitSpriteSheet(loadImage("res/laza beam lv.2.png"), 30, 15, 2, 3);
-	public static final BufferedImage[]  machineGunTower=splitSpriteSheet(loadImage("res/machine gun tower.png"), 34, 14, 1, 3);
-	public static final BufferedImage[] bigLaserTower =splitSpriteSheet(loadImage("res/big laser tower.png"), 37, 21, 2, 4);
+			splitSpriteSheet(loadImage("res/textures/heart icon.png"), 13, 13, 3, 3),0,8);
+	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/textures/coin.png"), 11, 11, 2, 2);
+	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/textures/tileset.png"), 16, 16, 6, 10);
+	private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 25, 7, 4);
+	public static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/textures/enemies/robot red.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/textures/enemies/robot green.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/textures/enemies/robot blue.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] enemyYellow = splitSpriteSheet(loadImage("res/textures/enemies/robot yellow.png"), 21, 25, 4, 4);
+	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
-	//splitting players spritesheet into all its animations
+	//loading towers
+	
+	public static final BufferedImage[] wizardTowerLvl1 =  Arrays.copyOfRange(
+			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 3, 3),0,8);
+	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/textures/towers/fire wizard.png"), 18, 37, 4, 2);
+	public static final BufferedImage[] elecricWizardTower =  Arrays.copyOfRange(
+			splitSpriteSheet(loadImage("res/textures/towers/electric wizard.png"),35, 29, 3, 3),0,8);
+	public static final BufferedImage[] wizardTowerLvl2 =  Arrays.copyOfRange(
+			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.2.png"), 26, 33, 3, 3),0,8);
+	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");	
+	public static final BufferedImage[] laserTowerLvl1 =splitSpriteSheet(loadImage("res/textures/towers/laza beam lv.1.png"), 28, 14, 2, 3);
+	public static final BufferedImage[] laserTowerLvl2 =splitSpriteSheet(loadImage("res/textures/towers/laza beam lv.2.png"), 30, 15, 2, 3);
+	public static final BufferedImage[]  machineGunTower=splitSpriteSheet(loadImage("res/textures/towers/machine gun tower.png"), 34, 14, 1, 3);
+	public static final BufferedImage[] bigLaserTower =splitSpriteSheet(loadImage("res/textures/towers/big laser tower.png"), 37, 21, 2, 4);
+	
+	//splitting  spritesheets into all its animations for combined spritesheets
 
 	public static  final BufferedImage[] playerD=Arrays.copyOfRange(player, 0, 7);
 	public static  final BufferedImage[] playerL = Arrays.copyOfRange(player, 7, 14);

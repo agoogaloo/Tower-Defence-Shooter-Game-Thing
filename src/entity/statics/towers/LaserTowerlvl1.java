@@ -23,7 +23,7 @@ public class LaserTowerlvl1 extends Tower{
 	}
 	@Override
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x+width,y+5,x+width+1,y+5,4,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width,y+5,x+width+1,y+5,Assets.blueLaser[1],8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	
 	}
 	@Override

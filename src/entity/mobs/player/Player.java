@@ -61,7 +61,7 @@ public class Player extends Mobs {
 			double targetX, targetY;
 			targetX = (State.getInputs().getMouseX()); //Sets the mousesX position to targetX
 			targetY = (State.getInputs().getMouseY()); //Sets the mousesY position to targetY
-			entityManager.addEntity(new Bullet(x+7, y+12, targetX+camera.getxOffset(), targetY+camera.getyOffset(), 0, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
+			entityManager.addEntity(new Bullet(x+7, y+12, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.yellowBullet, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 		}
 	}

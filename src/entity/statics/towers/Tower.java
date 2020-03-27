@@ -9,6 +9,7 @@ import entity.mobs.Bullet;
 import entity.mobs.enemy.Enemy;
 import entity.statics.Statics;
 import graphics.Animation;
+import graphics.Assets;
 import graphics.Camera;
 
 // @author Kevin (did all of tower except for a few parts)
@@ -49,7 +50,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		}
 	}
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),1,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.yellowBullet,8, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	}			
 
 	@Override

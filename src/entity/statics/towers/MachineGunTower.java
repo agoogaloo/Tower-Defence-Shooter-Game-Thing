@@ -23,7 +23,7 @@ public MachineGunTower(int x,int y) {
 	@Override
 	protected void shoot() {
 		int offset=ThreadLocalRandom.current().nextInt(1, 9);//making the bullets go slightly above and bellow its other bullets so it looks cooler
-		entityManager.addEntity(new Bullet(x+width,y+offset,x+width+1,y+offset,6,10, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width,y+offset,x+width+1,y+offset,Assets.YellowLaser[0],10, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
