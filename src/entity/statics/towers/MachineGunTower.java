@@ -9,7 +9,7 @@ import graphics.Assets;
 
 public class MachineGunTower extends Tower{
 public MachineGunTower(int x,int y) {
-		animation=new Animation(Assets.machineGunTower,6);
+		animation=new Animation(Assets.machineGunTowerR,6);
 		width=animation.getCurrentFrame().getWidth();
 		height=animation.getCurrentFrame().getHeight();//setting the size of the tower to the size of the animation
 		this.x = x-width/2;

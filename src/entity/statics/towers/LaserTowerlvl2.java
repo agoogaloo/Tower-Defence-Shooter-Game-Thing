@@ -8,7 +8,7 @@ import graphics.Assets;
 
 public class LaserTowerlvl2 extends Tower{
 	public LaserTowerlvl2(int x,int y) {
-		animation=new Animation(Assets.laserTowerLvl2,6);
+		animation=new Animation(Assets.laserTowerLvl2R,6);
 		width=animation.getCurrentFrame().getWidth();
 		height=animation.getCurrentFrame().getHeight();//setting the size of the tower to the size of the animation
 		this.x = x-width/2;
