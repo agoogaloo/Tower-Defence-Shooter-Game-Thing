@@ -25,8 +25,7 @@ public class Assets {
 	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
 	//spliting all the spritesheets int the right pictures and holding them in arrays
 	//some random images
-	public static final BufferedImage infobackground=loadImage("res/textures/heart texture.png").
-			getSubimage(0,0,110,60);
+	public static final BufferedImage infobackground=loadImage("res/textures/heart texture.png");
 	//loading bullets
 	public static final BufferedImage enemyBullet=loadImage("res/textures/bullets/red bullet.png");
 	public static final BufferedImage yellowBullet=loadImage("res/textures/bullets/yellow bullet.png");

@@ -90,7 +90,7 @@ public class TowerPlacer {
 			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
 				startX=State.getInputs().getMouseX();//setting the location of the menu 
 				startY=State.getInputs().getMouseY();//and where the tower will be placed
-				infoText.move(startX-50, startY-75);
+				infoText.move(startX-53, startY+29);
 				mode=Mode.PLACING;
 				for(Entity e:entities) {
 					if(e instanceof Tower&&e.getBounds().contains(startX+camera.getxOffset(), startY+camera.getyOffset())){
@@ -113,10 +113,10 @@ public class TowerPlacer {
 	}
 	public void render(Graphics g, Camera camera) {
 		if(mode==Mode.PLACING) {
-			g.drawImage(Assets.infobackground, startX-55, startY-80,null);	
+			g.drawImage(Assets.infobackground.getSubimage(0, 0, infoText.getWidth()+4, infoText.getHeight()+4), startX-55, startY+27,null);		
 			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);				
 		}else if(mode==Mode.UPGRADING) {
-			g.drawImage(Assets.infobackground, startX-55, startY-80,null);	
+			g.drawImage(Assets.infobackground.getSubimage(0, 0, infoText.getWidth()+4, infoText.getHeight()+4), startX-55, startY+27,null);	
 			g.drawImage(Assets.towerMenu[1], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			g.drawImage(currentImage, startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			
