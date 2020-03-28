@@ -13,7 +13,7 @@ public class TextElement extends UIElement{
 	 * this class is for parts of ui that will have text such as how much money you have
 	 */
 	private String text;
-	private Font font=Assets.MozartNbp;
+	private Font font=Assets.myfont;
 	private int width=9999, lineHeight=10;
 	ArrayList <String> lines;
 	//this constructor takes the location and value of the text and uses the default font
@@ -25,6 +25,7 @@ public class TextElement extends UIElement{
 		super(x, y);
 		this.text=text;
 		this.width=width;
+		this.lineHeight=lineHeight;
 	}
 	//this constructor lets you specify which font you want to use
 	public TextElement(int x, int y, String text, Font font) {
@@ -46,7 +47,7 @@ public class TextElement extends UIElement{
 			setTextRows(g);
 		}
 		for(int i=0;i<lines.size();i++) {
-			g.drawString(lines.get(i), x,y+(lineHeight*(i+1)));
+			g.drawString(lines.get(i).toUpperCase(), x,y+(lineHeight*(i+1)));
 			System.out.println(y+(lineHeight*(i+1)));
 			
 		}
@@ -59,7 +60,7 @@ public class TextElement extends UIElement{
 		lines.add("");
 		
 		for(String i:words) {
-			if(g.getFontMetrics().stringWidth(lines.get(line))/3+g.getFontMetrics().stringWidth(i)/3<width) {
+			if(g.getFontMetrics().stringWidth(lines.get(line))+g.getFontMetrics().stringWidth(i)<width) {
 				lines.set(line, lines.get(line)+i+" ");
 			}
 			else {

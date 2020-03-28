@@ -20,4 +20,11 @@ public abstract class UIElement {
 	public abstract void render(Graphics g);
 	//some types of UI will need a parameter in their update 
 	//methods but others wont so it doesnt have an update method
+	public void destroy() {
+		remove=true;
+	}
+	public void move(int x, int y) {
+		this.x=x;
+		this.y=y;
+	}
 }

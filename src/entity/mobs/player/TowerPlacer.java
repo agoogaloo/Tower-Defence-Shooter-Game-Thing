@@ -21,7 +21,7 @@ public class TowerPlacer {
 	private Tower selectedTower;
 	private BufferedImage currentImage;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
-	private TextElement infoText=new TextElement(0, 0,72 ,10,"i am testing multiline text and stuff and hope this works");
+	private TextElement infoText=new TextElement(100, 0,100 ,7,"");
 	
 		
 	int startX,startY, moneySpent;
@@ -84,6 +84,7 @@ public class TowerPlacer {
 			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
 				startX=State.getInputs().getMouseX();//setting the location of the menu 
 				startY=State.getInputs().getMouseY();//and where the tower will be placed
+				infoText.move(startX-50, startY-75);
 				mode=Mode.PLACING;
 				for(Entity e:entities) {
 					if(e instanceof Tower&&e.getBounds().contains(startX+camera.getxOffset(), startY+camera.getyOffset())){
@@ -106,17 +107,17 @@ public class TowerPlacer {
 	}
 	public void render(Graphics g, Camera camera) {
 		if(mode==Mode.PLACING) {
+			g.drawImage(Assets.infobackground, startX-55, startY-80,null);	
 			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
-			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,0,null);
-			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,100,null);
-			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,200,null);
-			g.drawString("testing text", camera.getScreenWidth()-72, 10);
+			infoText.update("here is some example text and tuff that would tell you about this towers "
+					+ "stats and price and stuff. hoefully it works");
+			
 		}else if(mode==Mode.UPGRADING) {
 			g.drawImage(Assets.towerMenu[1], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			g.drawImage(currentImage, startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
-			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,0,null);
-			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,100,null);
-			g.drawImage(Assets.heartTexture, camera.getScreenWidth()-72,200,null);
+			
+		}else {
+			infoText.update("");
 		}
 	}
 	public int getSpentMoney() {

@@ -21,9 +21,12 @@ public class Assets {
 	 * so other classes can access them easily
 	 */
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");
+	public static final Font myfont=loadFont("res/8bitfont.ttf");
+	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
 	//spliting all the spritesheets int the right pictures and holding them in arrays
 	//some random images
-	public static final BufferedImage heartTexture=loadImage("res/textures/heart texture.png");
+	public static final BufferedImage infobackground=loadImage("res/textures/heart texture.png").
+			getSubimage(0,0,110,60);
 	//loading bullets
 	public static final BufferedImage enemyBullet=loadImage("res/textures/bullets/red bullet.png");
 	public static final BufferedImage yellowBullet=loadImage("res/textures/bullets/yellow bullet.png");
