@@ -11,6 +11,8 @@ public class BigLaserTower extends Tower{
 	char direction;
 public BigLaserTower(int x,int y, char direction) {
 	this.direction=direction;
+	infoText="can now shoot a big laser (actually just 75 normal ones stacked on top of each other but close enough)"
+			+ " after a long chrarging time";
 	switch (direction) {
 	case 'u':
 		animation=new Animation(Assets.bigLaserTowerU,6);
@@ -77,6 +79,10 @@ public BigLaserTower(int x,int y, char direction) {
 	@Override
 	public int upgrade(char leftRight, int money) {
 		return 0;
+	}
+	@Override
+	public String hover(char leftRight) {
+		return "this tower is in its strongest form";
 	}
 
 }

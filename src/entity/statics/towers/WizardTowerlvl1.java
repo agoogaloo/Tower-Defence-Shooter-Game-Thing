@@ -8,6 +8,7 @@ public class WizardTowerlvl1 extends Tower{
 		super(x, y, 100, 100, new Animation(Assets.wizardTowerLvl1,6), 40);
 		upgradeIcon=Assets.towerMenu[2];
 		sellValue=1;
+		infoText="a basic tower that shoots in a 100X100 square around itself at a slowish rate";
 	}
 	
 	@Override
@@ -19,5 +20,10 @@ public class WizardTowerlvl1 extends Tower{
 		}else {
 			return 0;
 		}
+	}
+
+	@Override
+	public String hover(char leftRight) {
+		return new WizardTowerlvl2(0,0).getInfoText();
 	}
 }

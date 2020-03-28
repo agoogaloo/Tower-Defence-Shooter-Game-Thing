@@ -23,6 +23,7 @@ public class TowerPlacer {
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
 	private TextElement infoText=new TextElement(100, 0,100 ,7,"");
 	
+	
 		
 	int startX,startY, moneySpent;
 	Mode mode=Mode.WAITING;
@@ -48,29 +49,34 @@ public class TowerPlacer {
 		}	
 	}
 	private Tower place(int money,Camera camera, char direction) {
-		if(!State.getInputs().isPlace()) {
-			if(mouseUpDown=='d') {
-				//returns a laser tower if it is selected
-				if(money>=5) {
-					moneySpent+=5;
-					return new LaserTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset(), direction); 
-				}
-			}else if(mouseUpDown=='u') {
-				//returns a wizard tower if it is selected
-				if(money>=2) {
-					moneySpent+=2;
-					return new WizardTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset());
-				}
+		if(mouseUpDown=='d') {
+			infoText.update(new LaserTowerlvl1(0,0,'r').getInfoText());
+			//returns a laser tower if it is selected
+			if(money>=5&&!State.getInputs().isPlace()) {
+				moneySpent+=5;
+				return new LaserTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset(), direction); 
+			}
+		}else if(mouseUpDown=='u') {
+			infoText.update(new WizardTowerlvl1(0,0).getInfoText());
+			//returns a wizard tower if it is selected
+			if(money>=2&&!State.getInputs().isPlace()) {
+				moneySpent+=2;
+				return new WizardTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset());
 			}
 		}
 		return null;
 	}
 	private Tower upgrade(int money,Camera camera) {
 		currentImage=selectedTower.getUpgradeIcon();
-		if(!State.getInputs().isPlace()) {
-			if(mouseUpDown=='u') {
+		
+		if(mouseUpDown=='u') {
+			infoText.update(selectedTower.hover(mouseLeftRight));
+			if(!State.getInputs().isPlace()) {
 				moneySpent+=selectedTower.upgrade(mouseLeftRight, money);
-			}else if(mouseUpDown=='d') {
+			}
+		}else if(mouseUpDown=='d') {
+			infoText.update("sell this tower for "+selectedTower.getSellValue()+" money");
+			if(!State.getInputs().isPlace()) {
 				moneySpent=-selectedTower.getSellValue();//giving some money back when the tower is sold
 				selectedTower.destroy();//destroying the selected tower
 			}
@@ -108,11 +114,9 @@ public class TowerPlacer {
 	public void render(Graphics g, Camera camera) {
 		if(mode==Mode.PLACING) {
 			g.drawImage(Assets.infobackground, startX-55, startY-80,null);	
-			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
-			infoText.update("here is some example text and tuff that would tell you about this towers "
-					+ "stats and price and stuff. hoefully it works");
-			
+			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);				
 		}else if(mode==Mode.UPGRADING) {
+			g.drawImage(Assets.infobackground, startX-55, startY-80,null);	
 			g.drawImage(Assets.towerMenu[1], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			g.drawImage(currentImage, startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			

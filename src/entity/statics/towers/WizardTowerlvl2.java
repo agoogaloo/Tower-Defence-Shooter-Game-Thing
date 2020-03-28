@@ -7,6 +7,7 @@ public class WizardTowerlvl2 extends Tower{
 	public WizardTowerlvl2(int x, int y) {
 		super(x, y, 150, 150, new Animation(Assets.wizardTowerLvl2,6), 30);
 		sellValue=2;
+		infoText="makes the wizard tower stronger so it can shoot a bit faster and have a bit more range";
 		upgradeIcon=Assets.towerMenu[3];
 	}
 
@@ -27,5 +28,16 @@ public class WizardTowerlvl2 extends Tower{
 			}
 		}
 		return 0;
+	}
+
+	@Override
+	public String hover(char leftRight) {
+		if(leftRight=='l') {
+			return new FireWizardTower(0,0).getInfoText();
+		}else if(leftRight=='r') {
+			return new ElectroWizardTower(0,0).getInfoText();
+		}else {
+			return "";
+		}
 	}
 }

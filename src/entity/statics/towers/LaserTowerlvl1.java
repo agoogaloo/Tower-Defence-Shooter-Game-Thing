@@ -10,6 +10,8 @@ public class LaserTowerlvl1 extends Tower{
 	char direction;
 	public LaserTowerlvl1(int x,int y,char direction) {
 		this.direction=direction;
+		infoText="A tower that can only shoot directly forward but very far at an average rate. It "
+				+ "will be facing the same direction you are when you place it";
 		
 		switch (direction) {
 		case 'u':
@@ -86,6 +88,10 @@ public class LaserTowerlvl1 extends Tower{
 			return 0;
 		}
 		
+	}
+	@Override
+	public String hover(char leftRight) {
+		return new LaserTowerlvl2(0, 0, 'r').getInfoText();
 	}
 	
 }

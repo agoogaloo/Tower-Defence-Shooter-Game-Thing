@@ -11,6 +11,7 @@ public class MachineGunTower extends Tower{
 	char direction;
 public MachineGunTower(int x,int y, char direction) {
 	this.direction=direction;
+	infoText="can shoot super duper fast";
 	switch (direction) {
 	case 'u':
 		animation=new Animation(Assets.machineGunTowerU,6);
@@ -77,5 +78,8 @@ public MachineGunTower(int x,int y, char direction) {
 	public int upgrade(char leftRight, int money) {
 		return 0;
 	}
-
+	@Override
+	public String hover(char leftRight) {
+		return "this tower is in its strongest form";
+	}
 }
