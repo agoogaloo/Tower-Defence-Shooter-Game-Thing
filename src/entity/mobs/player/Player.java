@@ -22,7 +22,7 @@ public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
 	
-	private int money=10,invincibility=0; //The amount of towers player can build
+	private int money=100,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	

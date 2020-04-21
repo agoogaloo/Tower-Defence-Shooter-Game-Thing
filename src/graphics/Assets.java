@@ -21,7 +21,7 @@ public class Assets {
 	 * so other classes can access them easily
 	 */
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");
-	public static final Font myfont=loadFont("res/smallfont.ttf");
+	public static final Font myfont=loadFont("res/8bitfont.ttf");
 	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
 	//spliting all the spritesheets int the right pictures and holding them in arrays
 	//some random images
