@@ -11,22 +11,22 @@ import entity.statics.towers.WizardTowerlvl1;
 import entity.statics.towers.WizardTowerlvl2;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.UI.PicElement;
 import graphics.UI.TextElement;
 import states.State;
 import window.Window;
 
 public class TowerPlacer {
-	// an enum that will be used to tell store whether the player is placing or upgrading a tower or just doing nothing
+	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing
 	private enum Mode{PLACING,UPGRADING,WAITING}
 	private Tower selectedTower;
-	private BufferedImage currentImage;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
+	private PicElement topPic=new PicElement(100, 0, Assets.blank),bottomPic=new PicElement(100, 0, Assets.blank);
 	private TextElement infoText=new TextElement(100, 0,7,"");
+	private PicElement background=new PicElement(100, 0, Assets.blank);//created 1st so it will be at the back
+	private int startX,startY, moneySpent;
+	private Mode mode=Mode.WAITING;
 	
-	
-		
-	int startX,startY, moneySpent;
-	Mode mode=Mode.WAITING;
 	private void updateMouseAngle() {
 		if(State.getInputs().getMouseY()-startY>7) {
 			//this means the mouse is in the bottom half
@@ -70,7 +70,7 @@ public class TowerPlacer {
 		return null;
 	}
 	private Tower upgrade(int money,Camera camera) {
-		currentImage=selectedTower.getUpgradeIcon();
+		topPic.update(selectedTower.getUpgradeIcon());
 		
 		if(mouseUpDown=='u') {
 			infoText.update(selectedTower.hover(mouseLeftRight));
@@ -119,16 +119,24 @@ public class TowerPlacer {
 	public void render(Graphics g, Camera camera) {
 		//drawing the text background if there is upgrade/placing tower text
 		if(infoText.getText()!="") {
-			g.drawImage(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4), startX-55, startY+27,null);		
+			background.update(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4));
+			background.move(startX-55, startY+27);
+		}else {
+			background.update(Assets.blank);
 		}
+		
 		if(mode==Mode.PLACING) {
-			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);				
+			topPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);
+			topPic.update(Assets.towerMenu[0]);			
 		}else if(mode==Mode.UPGRADING) {
-			g.drawImage(Assets.towerMenu[1], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
-			g.drawImage(currentImage, startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
+			bottomPic.update(Assets.towerMenu[1]);
+			bottomPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);	
+			topPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);
 			
 		}else {
 			infoText.update("");
+			topPic.update(Assets.blank);
+			bottomPic.update(Assets.blank);
 		}
 	}
 	public int getSpentMoney() {

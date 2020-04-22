@@ -26,12 +26,15 @@ public class Assets {
 	//spliting all the spritesheets int the right pictures and holding them in arrays
 	//some random images
 	public static final BufferedImage infobackground=loadImage("res/textures/heart texture.png");
+	public static final BufferedImage blank=loadImage("res/textures/blank.png");
 	//loading bullets
 	public static final BufferedImage enemyBullet=loadImage("res/textures/bullets/red bullet.png");
 	public static final BufferedImage yellowBullet=loadImage("res/textures/bullets/yellow bullet.png");
 	//these have different sizes depending on their direction so they are loaded weirdly
 	private static final BufferedImage laserB=loadImage("res/textures/bullets/blue laser.png");
 	private static final BufferedImage laserY=loadImage("res/textures/bullets/laser beam.png");
+	
+	
 	public static final BufferedImage[] blueLaser = {laserB.getSubimage(0,0,5,7),laserB.getSubimage(7,0,7,5),
 			laserB.getSubimage(0,7,5,7),laserB.getSubimage(7,7,7,5)};//aaaaaaaaaaaaaaaaaaaaaaaaaah
 	public static final BufferedImage[] YellowLaser = {laserY.getSubimage(0, 0, 10, 4),laserY.getSubimage(0, 10, 4, 10)};//aaaaaaaaaaaaaaaaaaaaaaaaaah

@@ -50,8 +50,9 @@ public class EntityManager {
 		for (int i = entities.size()-1; i >=0 ; i--) {
 			//looping backwards so things arent skipped when other entities are deleted 
 			if(entities.get(i).isKilled()){ 
-				if(entities.get(i) instanceof Player){ //If player gets hit reset level
-					System.out.println("Player has been deadified");
+				if(entities.get(i) instanceof Player){ //If player gets killed do stuff
+					//TODO kill the player
+					//System.out.println("Player has been deadified");
 				}else{
 					entities.remove(i); //If an other entity besides the player gets hit remove that entity
 				}	
