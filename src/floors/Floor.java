@@ -32,8 +32,9 @@ public class Floor {
 	// constants
 	public final int TILESIZE = 16, ROOMSIZE = 30, SCREENWIDTH, SCREENHEIGHT;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
+	private final Room[] STARTROOMS = loadAllRooms("res/start rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
-	private  Room STARTROOM=loadRoom("res/start room.json", 0);
+	private  Room STARTROOM=STARTROOMS[ThreadLocalRandom.current().nextInt(0, STARTROOMS.length)];
 	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
 
 	// it holds its own tileset so that it is easy if we want to have different
