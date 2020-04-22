@@ -11,6 +11,7 @@ public class EnemySpawner {
 	private final int WAVEDELAY=300;
 	private int waveDelay=0;
 	private int enemyDelay=0;
+	private int difficulty=3;
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
 	public void update() {
 		if(waveComplete()&&waveDelay>=WAVEDELAY) {
@@ -19,9 +20,10 @@ public class EnemySpawner {
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
 			int roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
-			newWave(roomX,roomY,5);
+			newWave(roomX,roomY,difficulty);
+			difficulty++;
 		}
-		if(enemyDelay>30) {
+		if(enemyDelay>120-difficulty*4) {
 			enemyDelay=0;
 			Entity.getEntityManager().addEntity(enemiesToAdd.get(0));
 			enemiesToAdd.remove(0);
@@ -34,7 +36,7 @@ public class EnemySpawner {
 		}
 	}
 	public void newWave(int roomX,int roomY, int enemies) {
-		System.out.print("its a new wave");
+		System.out.println("\n\nSTRATING WAVE "+String.valueOf(difficulty-2)+"\n\n");
 		Room room=GameState.getFloor().getRoom(roomX, roomY);
 		int spawnX=roomX*room.ROOMSIZE*room.TILESIZE;
 		int spawnY=roomY*room.ROOMSIZE*room.TILESIZE;
@@ -72,7 +74,7 @@ public class EnemySpawner {
 		return true;
 	}
 	private Enemy randomEnemy(int x, int y, char direction) {
-		switch(ThreadLocalRandom.current().nextInt(0,4)) {
+		switch(ThreadLocalRandom.current().nextInt(0,5)) {
 		case 0:
 			return new RedEnemy(x, y, direction);
 		case 1:
@@ -81,6 +83,8 @@ public class EnemySpawner {
 			return new GreenEnemy(x, y, direction);
 		case 3:
 			return new YellowEnemy(x, y, direction);
+		case 4:
+			return new HamburgerBot(x,y,direction);
 		default:
 			System.out.println("random enemy number out of range so a normal one was made");
 			return new RedEnemy(x, y, direction);		

@@ -35,7 +35,7 @@ public class Main {
 			// increased
 			if (frameStart - fpsTimer >= 1000000000) {
 				// outputting the number of frames that happened that second
-				System.out.println(frames + "fps");
+				//System.out.println(frames + "fps");
 				fpsTimer = frameStart;// reseting the timer
 				frames = 0;// reseting the number of frames
 			}

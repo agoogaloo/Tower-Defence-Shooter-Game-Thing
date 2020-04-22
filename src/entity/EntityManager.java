@@ -27,8 +27,8 @@ public class EntityManager {
 		// add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
-		player=new Player(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()+240,
-				GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-240);	
+		player=new Player(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()+230,
+				GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);	
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 	}
 

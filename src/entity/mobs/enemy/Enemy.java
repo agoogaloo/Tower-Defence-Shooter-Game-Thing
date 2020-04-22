@@ -24,14 +24,14 @@ import states.GameState;
 public abstract class Enemy extends Mobs {
 	protected char direction; //Depending on the direction the enemy will face different ways
 	private int shotDelay; //Shot delay to make sure enemies can not shoot rapidly
-	private int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
+	protected int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
 	private boolean attack = false; //If true enemy will shoot
 	
 	//setting default animations
-	protected Animation animationDown = new Animation(Assets.enemyRedD,4); //Different animations depending on the direction the enemy is facing
-	protected Animation animationLeft = new Animation(Assets.enemyRedL,4);
-	protected Animation animationUp = new Animation(Assets.enemyRedU,4);
-	protected Animation animationRight = new Animation(Assets.enemyRedR,4);
+	protected Animation animationDown = new Animation(Assets.enemyRedD,5); //Different animations depending on the direction the enemy is facing
+	protected Animation animationLeft = new Animation(Assets.enemyRedL,5);
+	protected Animation animationUp = new Animation(Assets.enemyRedU,5);
+	protected Animation animationRight = new Animation(Assets.enemyRedR,5);
 
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
 		this.x=x;
@@ -85,7 +85,7 @@ public abstract class Enemy extends Mobs {
 			break;
 		}
 	}
-	private void shoot() {
+	protected void shoot() {
 		double targetX, targetY; 
 		targetX = entityManager.getPlayer().getX(); //Sets the players x location as the targetX
 		targetY = entityManager.getPlayer().getY(); //Sets the players y location as the targetY

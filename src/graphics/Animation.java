@@ -13,10 +13,7 @@ public class Animation {
 	
 	//if you dont specify the framerate it wil default to 10
 	public Animation(BufferedImage[] pics) {
-		this.frameDelay = 6;	
-		this.totalFrames = pics.length; //Sets the total frames of animation to how many frames there are in the arraylist
-		this.pics=pics;
-		
+		this(pics,6);
 	}
 	//a constructor that lets you speify framerate
 	public Animation(BufferedImage[] pics, int frameDelay) {
@@ -28,6 +25,10 @@ public class Animation {
 	//@author Matthew
 	public BufferedImage getCurrentFrame() { //This is what classes call when they need to know what frame to draw
 		return pics[currentFrame]; //First draw the 1st  frame, when frame count surpasses the specified frame delay increase this currentFrame by 1, which will return the next frame, thus rendering the next frame
+	}
+	
+	public int getFrameIndex() {
+		return currentFrame;
 	}
 	
 	public void update() {

@@ -9,8 +9,6 @@ import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
-import entity.mobs.Bullet;
-
 /*
  * by: Matthew Milum and Kevin Tea
  * a class that contains all the pictures, sounds, etc. for the game
@@ -52,6 +50,7 @@ public class Assets {
 	private static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/textures/enemies/robot green.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/textures/enemies/robot blue.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyYellow = splitSpriteSheet(loadImage("res/textures/enemies/robot yellow.png"), 21, 25, 4, 4);
+	private static final BufferedImage[] hamburgerBot = splitSpriteSheet(loadImage("res/textures/enemies/hamburger bot.png"), 33, 25, 4, 4);
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
 	//loading towers
@@ -112,6 +111,11 @@ public class Assets {
 	public static final BufferedImage[] enemyYellowL = Arrays.copyOfRange(enemyYellow, 4, 8);
 	public static final BufferedImage[] enemyYellowU = Arrays.copyOfRange(enemyYellow, 8, 12);
 	public static final BufferedImage[] enemyYellowR = Arrays.copyOfRange(enemyYellow, 12, 16);
+	
+	public static final BufferedImage[] hamburgerBotD = Arrays.copyOfRange(hamburgerBot, 0, 4);
+	public static final BufferedImage[] hamburgerBotL = Arrays.copyOfRange(hamburgerBot, 4, 8);
+	public static final BufferedImage[] hamburgerBotU = Arrays.copyOfRange(hamburgerBot, 8, 12);
+	public static final BufferedImage[] hamburgerBotR = Arrays.copyOfRange(hamburgerBot, 12, 16);
 
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		//this takes on image and splits it into an array of several smaller photos so we 
