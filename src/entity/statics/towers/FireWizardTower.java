@@ -7,7 +7,7 @@ public class FireWizardTower extends Tower{
 	public FireWizardTower(int x, int y) {
 		super(x, y, 222, 222, new Animation(Assets.fireWizardTower,6), 20);
 		sellValue=5;
-		infoText="gives the wizard fire powers letting him shoot faster and have more range";
+		infoText="gives the wizard fire \npowers letting him shoot \nfaster and have more range";
 	}
 	
 	@Override

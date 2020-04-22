@@ -11,8 +11,8 @@ public class BigLaserTower extends Tower{
 	char direction;
 public BigLaserTower(int x,int y, char direction) {
 	this.direction=direction;
-	infoText="can now shoot a big laser (actually just 75 normal ones stacked on top of each other but close enough)"
-			+ " after a long chrarging time";
+	infoText="can now shoot a big laser \n(actually just 75 normal \nones stacked on top of each \nother but close enough)"
+			+ " \nafter a long chrarging \ntime";
 	switch (direction) {
 	case 'u':
 		animation=new Animation(Assets.bigLaserTowerU,6);

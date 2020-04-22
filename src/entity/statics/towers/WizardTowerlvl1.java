@@ -8,7 +8,7 @@ public class WizardTowerlvl1 extends Tower{
 		super(x, y, 100, 100, new Animation(Assets.wizardTowerLvl1,6), 40);
 		upgradeIcon=Assets.towerMenu[2];
 		sellValue=1;
-		infoText="a basic tower that \nshoots in a 100X100 \nsquare around itself at \na slowish rate";
+		infoText="a basic tower that shoots \nin a 100X100 square around \nitself at a slowish rate";
 	}
 	
 	@Override

@@ -7,7 +7,7 @@ public class WizardTowerlvl2 extends Tower{
 	public WizardTowerlvl2(int x, int y) {
 		super(x, y, 150, 150, new Animation(Assets.wizardTowerLvl2,6), 30);
 		sellValue=2;
-		infoText="makes the wizard tower stronger so it can shoot a bit faster and have a bit more range";
+		infoText="makes the wizard tower \nstronger so it can shoot a \nbit faster and have a bit \nmore range";
 		upgradeIcon=Assets.towerMenu[3];
 	}
 

@@ -11,7 +11,7 @@ public class LaserTowerlvl2 extends Tower{
 	public LaserTowerlvl2(int x,int y, char direction) {
 		//assigning the animation based off if its direction
 		this.direction=direction;
-		infoText="gives the tower a bit more range forward and an increased rate of fire.";
+		infoText="gives the tower a bit more \nrange forward and an \nincreased rate of fire.";
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.laserTowerLvl2U,6);
