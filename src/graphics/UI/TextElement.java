@@ -14,9 +14,11 @@ public class TextElement extends UIElement{
 	private Font font=Assets.myfont;
 	private int height, lineHeight=10;
 	String[] lines= new String[1];
+	String text;//only really used to return the text back if it is needed
 	//this constructor takes the location and value of the text and uses the default font
 	public TextElement(int x, int y, String text) {
 		super(x, y);
+		this.text=text;
 		splitTextRows(text);//adding line breaks if there is a new line in the text
 	}
 	public TextElement(int x, int y, int lineHeight,String text) {
@@ -32,6 +34,7 @@ public class TextElement extends UIElement{
 	//if you need to update the text you can but if it stays the same you dont need to call the update method
 	public void update(String text) {
 		splitTextRows(text);
+		this.text=text;
 	}
 	
 	@Override
@@ -48,7 +51,13 @@ public class TextElement extends UIElement{
 		height=lines.length*lineHeight;
 		return lines;
 	}
+	
+	//getters/setters
 	public int getHeight() {
 		return height;
+	}
+	
+	public String getText() {
+		return text;
 	}
 }

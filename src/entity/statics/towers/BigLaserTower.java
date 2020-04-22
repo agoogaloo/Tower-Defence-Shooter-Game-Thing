@@ -82,7 +82,7 @@ public BigLaserTower(int x,int y, char direction) {
 	}
 	@Override
 	public String hover(char leftRight) {
-		return "this tower is in its strongest form";
+		return "already at full power";//saying that you cant upgrade it anymore when you try to upgrade it
 	}
 
 }

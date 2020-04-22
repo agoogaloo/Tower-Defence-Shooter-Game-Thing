@@ -63,7 +63,10 @@ public class TowerPlacer {
 				moneySpent+=2;
 				return new WizardTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset());
 			}
+		}else {
+			infoText.update("");
 		}
+		
 		return null;
 	}
 	private Tower upgrade(int money,Camera camera) {
@@ -75,11 +78,13 @@ public class TowerPlacer {
 				moneySpent+=selectedTower.upgrade(mouseLeftRight, money);
 			}
 		}else if(mouseUpDown=='d') {
-			infoText.update("sell this tower for "+selectedTower.getSellValue()+" money");
+			infoText.update("sell for "+selectedTower.getSellValue()+" money");
 			if(!State.getInputs().isPlace()) {
 				moneySpent=-selectedTower.getSellValue();//giving some money back when the tower is sold
 				selectedTower.destroy();//destroying the selected tower
 			}
+		}else {
+			infoText.update("");
 		}
 		return null;
 	}
@@ -112,12 +117,13 @@ public class TowerPlacer {
 		return tower;
 	}
 	public void render(Graphics g, Camera camera) {
-		
-		if(mode==Mode.PLACING) {
+		//drawing the text background if there is upgrade/placing tower text
+		if(infoText.getText()!="") {
 			g.drawImage(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4), startX-55, startY+27,null);		
+		}
+		if(mode==Mode.PLACING) {
 			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);				
 		}else if(mode==Mode.UPGRADING) {
-			g.drawImage(Assets.infobackground.getSubimage(0, 0, 110,infoText.getHeight()+4), startX-55, startY+27,null);	
 			g.drawImage(Assets.towerMenu[1], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			g.drawImage(currentImage, startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			
