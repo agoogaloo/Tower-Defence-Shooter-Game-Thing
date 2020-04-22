@@ -10,8 +10,8 @@ public class LaserTowerlvl1 extends Tower{
 	char direction;
 	public LaserTowerlvl1(int x,int y,char direction) {
 		this.direction=direction;
-		infoText="A tower that can only shoot directly forward but very far at an average rate. It "
-				+ "will be facing the same direction you are when you place it";
+		infoText="A tower that can only \nshoot directly forward \nbut very far at an \naverage rate. It "
+				+ "will be \nfacing the same direction you are when you place it";
 		
 		switch (direction) {
 		case 'u':

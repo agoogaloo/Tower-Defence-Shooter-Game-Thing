@@ -21,7 +21,7 @@ public class TowerPlacer {
 	private Tower selectedTower;
 	private BufferedImage currentImage;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
-	private TextElement infoText=new TextElement(100, 0,100 ,7,"");
+	private TextElement infoText=new TextElement(100, 0,7,"");
 	
 	
 		
@@ -112,11 +112,12 @@ public class TowerPlacer {
 		return tower;
 	}
 	public void render(Graphics g, Camera camera) {
+		
 		if(mode==Mode.PLACING) {
-			g.drawImage(Assets.infobackground.getSubimage(0, 0, infoText.getWidth()+4, infoText.getHeight()+4), startX-55, startY+27,null);		
+			g.drawImage(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4), startX-55, startY+27,null);		
 			g.drawImage(Assets.towerMenu[0], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);				
 		}else if(mode==Mode.UPGRADING) {
-			g.drawImage(Assets.infobackground.getSubimage(0, 0, infoText.getWidth()+4, infoText.getHeight()+4), startX-55, startY+27,null);	
+			g.drawImage(Assets.infobackground.getSubimage(0, 0, 110,infoText.getHeight()+4), startX-55, startY+27,null);	
 			g.drawImage(Assets.towerMenu[1], startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			g.drawImage(currentImage, startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2,null);	
 			
