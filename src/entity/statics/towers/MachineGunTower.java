@@ -11,7 +11,8 @@ public class MachineGunTower extends Tower{
 	char direction;
 public MachineGunTower(int x,int y, char direction) {
 	this.direction=direction;
-	infoText="can shoot super duper fast";
+	price=13;
+	infoText="upgrade cost $"+price+"\n\ncan shoot super duper fast";
 	switch (direction) {
 	case 'u':
 		animation=new Animation(Assets.machineGunTowerU,6);

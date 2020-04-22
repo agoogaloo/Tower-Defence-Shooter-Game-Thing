@@ -78,7 +78,7 @@ public class TowerPlacer {
 				moneySpent+=selectedTower.upgrade(mouseLeftRight, money);
 			}
 		}else if(mouseUpDown=='d') {
-			infoText.update("sell for "+selectedTower.getSellValue()+" money");
+			infoText.update("sell for $"+selectedTower.getSellValue());
 			if(!State.getInputs().isPlace()) {
 				moneySpent=-selectedTower.getSellValue();//giving some money back when the tower is sold
 				selectedTower.destroy();//destroying the selected tower

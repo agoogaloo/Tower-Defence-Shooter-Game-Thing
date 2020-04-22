@@ -7,19 +7,20 @@ public class WizardTowerlvl1 extends Tower{
 	public WizardTowerlvl1(int x, int y) {
 		super(x, y, 100, 100, new Animation(Assets.wizardTowerLvl1,6), 40);
 		upgradeIcon=Assets.towerMenu[2];
+		price=2;
 		sellValue=1;
-		infoText="a basic tower that shoots \nin a 100X100 square around \nitself at a slowish rate";
+		infoText="buying cost $"+price+"\n\na basic tower that shoots \nin a 100X100 square around \nitself at a slowish rate";
 	}
 	
 	@Override
 	public int upgrade(char leftRight, int money) {
-		if(money>=1) {
-			entityManager.addEntity(new WizardTowerlvl2(x+width/2, y+height/2));
+		Tower newTower=new WizardTowerlvl2(x+width/2, y+height/2);
+		if(money>=newTower.getPrice()) {
+			entityManager.addEntity(newTower);
 			destroy();
-			return 1;
-		}else {
-			return 0;
+			return newTower.getPrice();
 		}
+		return 0;
 	}
 
 	@Override

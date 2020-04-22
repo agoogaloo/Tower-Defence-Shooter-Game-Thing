@@ -10,7 +10,8 @@ public class LaserTowerlvl1 extends Tower{
 	char direction;
 	public LaserTowerlvl1(int x,int y,char direction) {
 		this.direction=direction;
-		infoText="A tower that can only \nshoot directly forward \nbut very far at an average \nrate. It "
+		price=5;
+		infoText="buying cost $"+price+"\n\nA tower that can only \nshoot directly forward \nbut very far at an average \nrate. It "
 				+ "will be facing the \nsame direction you are \nwhen you place it";
 		
 		switch (direction) {
@@ -80,14 +81,13 @@ public class LaserTowerlvl1 extends Tower{
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
-		if(money>=2) {
-			entityManager.addEntity(new LaserTowerlvl2(x+width/2, y+2,direction));
+		Tower newTower=new LaserTowerlvl2(x+width/2, y+2,direction);
+		if(money>=newTower.getPrice()) {
+			entityManager.addEntity(newTower);
 			destroy();
-			return 2;
-		}else {
-			return 0;
+			return newTower.getPrice();
 		}
-		
+		return 0;		
 	}
 	@Override
 	public String hover(char leftRight) {
