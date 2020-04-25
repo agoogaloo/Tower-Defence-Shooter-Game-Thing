@@ -43,16 +43,10 @@ public abstract class Enemy extends Mobs {
 	public void updateDirection() {
 		Assets.enemyRedD[0].getWidth(); //Enemy will always start travelling down
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
-		switch (GameState.getFloor().getTile((x+Assets.enemyRedD[0].getWidth()/2)/16,
-				(y+Assets.enemyRedD[0].getHeight()/2)/16)){ //getting its current tile
-		case 5: //the 5 tile is the path that goes from up to right so the robot should turn right
-			direction='r';
-			break;
-		case 6:
-			direction='u';//cases for all the other corner tiles
-			break;
+		switch (GameState.getFloor().getTile((x+width/2)/16,
+				(y+height/2)/16)){ //getting its current tile
 		case 7:
-			direction='u';
+			direction='r';
 			break;
 		case 8:
 			direction='r';
@@ -68,6 +62,13 @@ public abstract class Enemy extends Mobs {
 			break;
 		case 12:
 			direction='l';
+			break;
+		case 13:
+			direction='u';
+			break;
+		case 14:
+			direction='u';
+			break;
 		}
 		
 		switch(direction) {//moving a different direction depending on which way it is facing

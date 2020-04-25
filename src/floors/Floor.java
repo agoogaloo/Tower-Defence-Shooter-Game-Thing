@@ -34,7 +34,7 @@ public class Floor {
 	private final Room[] STARTROOMS = loadAllRooms("res/start rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private  Room STARTROOM=STARTROOMS[ThreadLocalRandom.current().nextInt(0, STARTROOMS.length)];
-	private final int[] WALLS = new int[] { 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 34, 35, 36 };
+	private final int[] WALLS = new int[] {26, 27, 28, 29,30,32,33, 34, 35,36,40,41,42};
 
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
@@ -155,7 +155,7 @@ public class Floor {
 			// returning the proper tile from the proper room
 
 		} catch (NullPointerException e) {// if the floor isnt there then it returns the background tile
-			result = 29;// 29 is the tile id for the empty background tile
+			result = 35;// 35 is the tile id for the empty background tile
 
 		}
 		return result;// Returning the tile
