@@ -20,7 +20,7 @@ public class GameState extends State{
 	
 	public GameState() {
 		//creating the floor
-		floor = new Floor(7, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+		floor = new Floor(8, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
 		Entity.init();
 	}

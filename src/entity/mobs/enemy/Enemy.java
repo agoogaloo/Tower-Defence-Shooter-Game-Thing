@@ -97,7 +97,7 @@ public abstract class Enemy extends Mobs {
 	public void damage() {
 		super.damage();
 		if(killed) {
-			int randnum=ThreadLocalRandom.current().nextInt(0,10);//generating a random number to determine what should drop
+			int randnum=ThreadLocalRandom.current().nextInt(0,20);//generating a random number to determine what should drop
 			if(randnum==1) {
 				entityManager.addEntity(new Health(x, y));
 			}else if (randnum>=2) {

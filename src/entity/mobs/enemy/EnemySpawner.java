@@ -1,5 +1,6 @@
 package entity.mobs.enemy;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -13,21 +14,21 @@ public class EnemySpawner {
 	private int enemyDelay=0;
 	private int difficulty=3;
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
-	private ArrayList<Integer> openedRoomsX=new ArrayList<Integer>();
-	private ArrayList<Integer> openedRoomsY=new ArrayList<Integer>();
+	private ArrayList<Point> openedRooms=new ArrayList<Point>();
 	public void update() {
+		int roomX,roomY;
+		Point currentRoom;
 		if(waveComplete()&&waveDelay>=WAVEDELAY) {
 			waveDelay=0;
-			int roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
+			roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
-			int roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
+			roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
-			
-			if(!openedRoomsX.contains(roomX)||!openedRoomsY.contains(roomY)) {//checking if the player is in a new room
+			currentRoom=new Point(roomX, roomY);
+			if(!openedRooms.contains(currentRoom)){//checking if the player is in a new room
 				newWave(roomX,roomY,difficulty);
 				difficulty++;
-				openedRoomsX.add(roomX);
-				openedRoomsY.add(roomY);
+				openedRooms.add(currentRoom);
 			}
 			
 		}
