@@ -36,7 +36,7 @@ public class EnemySpawner {
 		}
 	}
 	public void newWave(int roomX,int roomY, int enemies) {
-		System.out.println("\n\nSTRATING WAVE "+String.valueOf(difficulty-2)+"\n\n");
+		System.out.println("\n\nSTARTING WAVE "+String.valueOf(difficulty-2)+"\n\n");
 		Room room=GameState.getFloor().getRoom(roomX, roomY);
 		int spawnX=roomX*room.ROOMSIZE*room.TILESIZE;
 		int spawnY=roomY*room.ROOMSIZE*room.TILESIZE;
@@ -45,19 +45,21 @@ public class EnemySpawner {
 		case 'u':
 			direction='d';
 			spawnX+=(room.ROOMSIZE*room.TILESIZE)/2;
+			spawnY-=30;
 			break;
 		case 'd':
 			direction='u';
 			spawnX+=(room.ROOMSIZE*room.TILESIZE)/2;
-			spawnY+=(room.ROOMSIZE*room.TILESIZE);
+			spawnY+=(room.ROOMSIZE*room.TILESIZE)+30;
 			break;
 		case 'l':
 			direction='r';
 			spawnY+=(room.ROOMSIZE*room.TILESIZE)/2;
+			spawnX-=30;
 			break;
 		case 'r':
 			direction='l';
-			spawnX+=(room.ROOMSIZE*room.TILESIZE);
+			spawnX+=(room.ROOMSIZE*room.TILESIZE)+30;
 			spawnY+=(room.ROOMSIZE*room.TILESIZE)/2;
 			break;
 		}

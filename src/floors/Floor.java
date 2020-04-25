@@ -35,6 +35,7 @@ public class Floor {
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private  Room STARTROOM=STARTROOMS[ThreadLocalRandom.current().nextInt(0, STARTROOMS.length)];
 	private final int[] WALLS = new int[] {26, 27, 28, 29,30,32,33, 34, 35,36,40,41,42};
+	public static final int[] DOORTILES= {43,44,45,47,49,50,51,54,55,57,60,66};
 
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
@@ -47,7 +48,6 @@ public class Floor {
 		rooms = new Room[size * 2][size];
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
-		STARTROOM.unlock();//unlocking the 1st room so you arent stuck 
 		rooms = generateFloor();// generating a random floor layout
 		
 		
@@ -168,6 +168,11 @@ public class Floor {
 		int tile = getTile(x, y);
 		for (int i = 0; i < WALLS.length; i++) {
 			if (WALLS[i] == tile) {
+				return true;
+			}
+		}
+		for(int i:DOORTILES) {
+			if(i==tile) {//also returning true if they are running into a door
 				return true;
 			}
 		}

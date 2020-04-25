@@ -10,6 +10,7 @@ import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.statics.Health;
 import entity.statics.Money;
+import floors.Floor;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -107,6 +108,7 @@ public abstract class Enemy extends Mobs {
 	}
 	@Override
 	public void update() {
+		int tile=GameState.getFloor().getTile(x/16, y/16);
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight); //The range which the enemy looks for targets
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight); //The player's own box
 		if(playerBox.intersects(attackRange)) {  //If the playerBox is intersects the attackRange attack will be set to true, and the enemy will attack the player 
@@ -120,6 +122,15 @@ public abstract class Enemy extends Mobs {
 		}
 		updateDirection();//setting its direction and moving based on it
 		move();//moving the enemy so its bounds can be updated 
+		
+		for(int i:Floor.DOORTILES) {
+			if(i==tile) {
+				GameState.getFloor().getRoom((x/GameState.getFloor().
+					TILESIZE)/GameState.getFloor().ROOMSIZE,(y/GameState.getFloor().
+					TILESIZE)/GameState.getFloor().ROOMSIZE).unlock();
+			}
+		}
+		
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animationLeft.update(); //Animation and spites change depending on the direction
 		animationUp.update();
