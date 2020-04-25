@@ -47,7 +47,9 @@ public class Floor {
 		rooms = new Room[size * 2][size];
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
+		STARTROOM.unlock();//unlocking the 1st room so you arent stuck 
 		rooms = generateFloor();// generating a random floor layout
+		
 		
 	}
 
