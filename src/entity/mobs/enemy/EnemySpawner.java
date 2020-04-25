@@ -13,6 +13,8 @@ public class EnemySpawner {
 	private int enemyDelay=0;
 	private int difficulty=3;
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
+	private ArrayList<Integer> openedRoomsX=new ArrayList<Integer>();
+	private ArrayList<Integer> openedRoomsY=new ArrayList<Integer>();
 	public void update() {
 		if(waveComplete()&&waveDelay>=WAVEDELAY) {
 			waveDelay=0;
@@ -20,8 +22,14 @@ public class EnemySpawner {
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
 			int roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
-			newWave(roomX,roomY,difficulty);
-			difficulty++;
+			
+			if(!openedRoomsX.contains(roomX)||!openedRoomsY.contains(roomY)) {//checking if the player is in a new room
+				newWave(roomX,roomY,difficulty);
+				difficulty++;
+				openedRoomsX.add(roomX);
+				openedRoomsY.add(roomY);
+			}
+			
 		}
 		if(enemyDelay>120-difficulty*4) {
 			enemyDelay=0;
