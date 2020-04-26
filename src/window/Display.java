@@ -28,6 +28,7 @@ public class Display extends JPanel {
 		this.height = height / scale;
 		this.scale = scale;
 		this.setPreferredSize(new Dimension(width, height));
+		
 		// setting the preferred size to the inputed one so that the pack method will work
 	
 	}

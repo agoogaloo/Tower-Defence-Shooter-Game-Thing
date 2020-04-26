@@ -1,5 +1,8 @@
 package window;
 
+import java.awt.Point;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 /* 
@@ -15,6 +18,8 @@ public class Window {
 
 	public Window(int width, int height) {
 		// initializing variables
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		
 		frame = new JFrame("a title");
 		display = new Display(width, height, 3);
 
@@ -26,6 +31,7 @@ public class Window {
 
 		frame.setLocationRelativeTo(null);// centers the window
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// makes the program stop when you close the window
+		frame.setCursor(toolkit.createCustomCursor(toolkit.getImage("res//textures//cursor.png"),new Point(7,9), "cursor"));
 		frame.setVisible(true);// making the window visible
 
 	}
