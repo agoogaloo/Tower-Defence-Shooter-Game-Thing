@@ -8,12 +8,8 @@ import org.json.simple.JSONObject;
 
 public class Room {
 	/*
-	 * this class represents rooms the individual rooms in a floor the files they
-	 * are loaded from should have each entry split by a comma then 1 or more spaces and can have
-	 * line breaks but there still needs to be a space at the end. the 1st entry is
-	 * the direction the player would be when they enter would enter and the 2nd is
-	 * the players exit after that there should be the numbers of each tile separated
-	 * by commas and spaces
+	 * this class represents rooms the individual rooms in a floor each layer in one of the 
+	 * json files from tiled represents one room.
 	 */
 	// declaring instance variables
 	public final int TILESIZE = 16, ROOMSIZE = 30;

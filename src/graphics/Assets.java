@@ -116,6 +116,9 @@ public class Assets {
 	public static final BufferedImage[] hamburgerBotL = Arrays.copyOfRange(hamburgerBot, 4, 8);
 	public static final BufferedImage[] hamburgerBotU = Arrays.copyOfRange(hamburgerBot, 8, 12);
 	public static final BufferedImage[] hamburgerBotR = Arrays.copyOfRange(hamburgerBot, 12, 16);
+	
+	public static final BufferedImage[] robotFactory =  Arrays.copyOfRange(
+			splitSpriteSheet(loadImage("res/textures/enemies/robot factory.png"),66, 56, 3, 5),0,13);
 
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		//this takes on image and splits it into an array of several smaller photos so we 

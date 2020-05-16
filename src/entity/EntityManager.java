@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entity.mobs.enemy.EnemySpawner;
 import entity.mobs.player.Player;
+import entity.statics.Factory;
 import graphics.Camera;
 import states.GameState;
 
@@ -19,6 +20,7 @@ public class EntityManager {
   
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
+	Factory factory;//the robot factory at the end of the level
 	EnemySpawner spawner=new EnemySpawner();
 
 	public void init() {
@@ -28,8 +30,12 @@ public class EntityManager {
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
 		player=new Player(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()+230,
-				GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);	
+				GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);
+		factory=new Factory(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
+				GameState.getFloor().getEndRoomX()+215,GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
+				GameState.getFloor().getEndRoomY()+220);
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
+		entities.add(factory);
 	}
 
 	// this method updates all the entitys in the entities arrayList and removes the dead ones

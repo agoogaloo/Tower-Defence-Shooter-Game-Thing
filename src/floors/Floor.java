@@ -27,11 +27,13 @@ public class Floor {
 	// declaring variables
 	private Room[][] rooms;
 	private int size;// how many rooms big the floor is
+	private int endRoomX, endRoomY;
 
 	// constants
 	public final int TILESIZE = 16, ROOMSIZE = 30, SCREENWIDTH, SCREENHEIGHT;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
 	private final Room[] STARTROOMS = loadAllRooms("res/start rooms.json");// loads all the possible rooms
+	private final Room[] ENDROOMS = loadAllRooms("res/end rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private  Room STARTROOM=STARTROOMS[ThreadLocalRandom.current().nextInt(0, STARTROOMS.length)];
 	private final int[] WALLS = new int[] {26, 27, 28, 29,30,32,33, 34, 35,36,40,41,42};
@@ -79,7 +81,10 @@ public class Floor {
 		int x = size, y = size - 1;// making the starting room the bottom middle room
 
 		for (int i = 0; i < size; i++) {// looping until it has created a floor with the proper size
+			validRoom.unlock();
 			floor[x][y] = validRoom;// adding the rooms to the floor in the right place
+			endRoomX=x;
+			endRoomY=y;
 			switch (validRoom.getExit()) {
 			// changing where the next room will be placed based on the previous rooms exit
 			case 'u':
@@ -94,7 +99,12 @@ public class Floor {
 			}
 
 			do {
-				checkRoom = POSSIBLEROOMS[ThreadLocalRandom.current().nextInt(0, POSSIBLEROOMS.length)];
+				if(i==size-2) {
+					checkRoom = ENDROOMS[ThreadLocalRandom.current().nextInt(0, ENDROOMS.length)];
+					System.out.println("making the last room");
+				}else {
+					checkRoom = POSSIBLEROOMS[ThreadLocalRandom.current().nextInt(0, POSSIBLEROOMS.length)];
+				}
 				// setting check room to a random room
 				System.out.println(
 						"checkRoom entrance=" + checkRoom.getEntrance() + " previous room exit=" + validRoom.getExit());
@@ -191,4 +201,13 @@ public class Floor {
 	public int getSize() {
 		return size;
 	}
+
+	public int getEndRoomX() {
+		return endRoomX;
+	}
+
+	public int getEndRoomY() {
+		return endRoomY;
+	}
+	
 }
