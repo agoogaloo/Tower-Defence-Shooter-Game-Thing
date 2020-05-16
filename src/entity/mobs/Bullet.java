@@ -4,8 +4,9 @@ package entity.mobs;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-import graphics.Assets;
+import entity.Entity;
 import graphics.Camera;
 import states.GameState;
 
@@ -41,6 +42,7 @@ public class Bullet extends Mobs{
 	@Override
 	public void update(){
 		updateBounds();
+		ArrayList<Entity> collisions;
 		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
 		int offsetY = pic.getHeight()/2;
 		trueX+=velocityX; //Applies the velocity the the true variable, allowing the bullet to move in a specific direction and speed depending on the value of velocity
@@ -64,9 +66,20 @@ public class Bullet extends Mobs{
 		if(GameState.getFloor().checkwall((x+intVelocityX)/16,(y+intVelocityY)/16)){ 					//
 			killed = true;																									//
 		}																													//
+	//destroying the bullet if it hits an enemy
+		if(friendly) {//only bullets made by the player and towers will break once they hit things
+			collisions=entityCollide();
+			for(Entity e:collisions) {
+				if(e.isFriendly()==false) {//if it is touching an enemy...
+					killed=true;//destroy the bullet next frame
+					break;//and quit the loop
+				}
+			}
+		}
+		
 	}																														//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
+		
 	@Override
 	public void render(Graphics g, Camera camera){ //Renders bullets, depending on the value of bulletType the bullet sprite will be different, the x and y will also grow or shrink depending on the bullet picture, as x and y subtract the bullet pictures width and height respectively
 		g.drawImage(pic, x-pic.getWidth()/2-camera.getxOffset(),y-pic.getHeight()/2- camera.getyOffset(), null);

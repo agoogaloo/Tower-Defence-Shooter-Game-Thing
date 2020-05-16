@@ -44,7 +44,7 @@ public class Player extends Mobs {
 		
 		this.x = x;
 		this.y = y;
-		reloadTime=10;
+		reloadTime=15;
 		width = 14; //The specific width of the player
 		height = 25; //The specific height of the player
 		speed = 3; //The speed which the player moves at, higher the value the faster the speed

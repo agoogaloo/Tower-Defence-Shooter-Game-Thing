@@ -28,9 +28,10 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected int price, sellValue;
 	protected String infoText;
 	protected Tower() {
-		
+		friendly=true;
 	}
 	public Tower(int x, int y, int rangeWidth, int rangeHeight,Animation anim, int reloadTime) {
+		friendly=true;
 		width=anim.getCurrentFrame().getWidth();
 		height=anim.getCurrentFrame().getHeight();//setting the size of the tower to the size of the animation
 		this.x = x-width/2;
