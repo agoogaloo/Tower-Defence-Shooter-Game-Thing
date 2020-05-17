@@ -41,6 +41,7 @@ public class Display extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.scale(scale, scale);// scaling the graphics so the pixel art looks the right size
+		//g2d.clearRect(0, 0, width, height);//we dont really need to clear the screen each frame but we cna here if we need to
 		//g2d.setColor(new Color(38,12,38));
 		//g2d.fillRect(0, 0, width, height);// clearing the previous frame
 		if(State.getState()!=null) {

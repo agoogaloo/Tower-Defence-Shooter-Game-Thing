@@ -29,11 +29,13 @@ public class EntityManager {
 		// add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
+		entities.clear();//removing any entities that still exist
 		player=new Player(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()+230,
 				GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);
 		factory=new Factory(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
 				GameState.getFloor().getEndRoomX()+215,GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
 				GameState.getFloor().getEndRoomY()+220);
+		
 		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
 		entities.add(factory);
 	}

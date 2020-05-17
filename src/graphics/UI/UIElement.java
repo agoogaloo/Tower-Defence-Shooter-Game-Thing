@@ -7,7 +7,7 @@ public abstract class UIElement {
 	 * this is an abstract class representing a part of the UI on the screen such as an icon or a health bar
 	 */
 	//this is the one UIManager that holds and renders all UI elements
-	public static UIManager UIManager=new UIManager();
+	protected static UIManager UIManager=new UIManager();
 	protected int x, y;//where it is on the screen
 	public boolean visible=true, remove=false;//whether it is visible and if it should be deleted
 	public UIElement(int x, int y) {
@@ -27,4 +27,8 @@ public abstract class UIElement {
 		this.x=x;
 		this.y=y;
 	}
+	public static UIManager getUIManager() {
+		return UIManager;
+	}
+	
 }

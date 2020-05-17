@@ -20,9 +20,7 @@ public class GameState extends State{
 	
 	public GameState() {
 		//creating the floor
-		floor = new Floor(8, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
-				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
-		Entity.init();
+		newFloor();
 	}
 	
 	@Override
@@ -40,9 +38,17 @@ public class GameState extends State{
 	public void render(Graphics g) {
 		floor.render(g, camera);
 		Entity.getEntityManager().render(g, camera);// rendering the entities
-		UIElement.UIManager.render(g);//rendering all the ui ontop of everything
+		UIElement.getUIManager().render(g);//rendering all the ui ontop of everything
 	}
 	
+	public static void newFloor() {
+		//creating the floor
+		UIElement.getUIManager().clear();
+		floor = new Floor(8, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
+		Entity.init();
+		
+	}
 	public static Floor getFloor() {
 		return floor;
 	}

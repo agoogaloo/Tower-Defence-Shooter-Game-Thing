@@ -102,7 +102,6 @@ public abstract class Enemy extends Mobs {
 				entityManager.addEntity(new Health(x, y));
 			}else if (randnum>=2) {
 				entityManager.addEntity(new Money(x, y));
-				System.out.println(randnum);
 			}
 		}
 	}

@@ -26,4 +26,7 @@ public class UIManager {
 			
 		}
 	}
+	public void clear() {
+		elements.clear();
+	}
 }
