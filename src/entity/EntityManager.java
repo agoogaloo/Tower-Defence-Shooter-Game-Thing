@@ -21,22 +21,29 @@ public class EntityManager {
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
 	Factory factory;//the robot factory at the end of the level
-	EnemySpawner spawner=new EnemySpawner();
+	EnemySpawner spawner=new EnemySpawner();//the thing that controls when/where enemies spawn
 
-	public void init() {
+	public void reset() {
 
-  	// this init method needs to be seperate from the constructor so that player can
-		// add the core to the array if it was added in the constructor the
+  	// this initializes/resets the entity manager and is seperate from the constructor so
+		// the player can add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
+				
 		entities.clear();//removing any entities that still exist
-		player=new Player(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()+230,
-				GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);
+		if(player==null) {
+			//if the player doesnt exist yet then it will make a new player
+			player=new Player(0,0);
+		}
+		//moving the player to the right place and letting it reset stuff
+		player.reset(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()
+					+230,GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);
+		player.createCore();//making the core
 		factory=new Factory(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
 				GameState.getFloor().getEndRoomX()+215,GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
 				GameState.getFloor().getEndRoomY()+220);
 		
-		entities.add(player);// adding the player to the arraylist so it will be updated and rendered
+		entities.add(player);// adding the player and factory to the arraylist so it will be updated and rendered
 		entities.add(factory);
 	}
 

@@ -1,20 +1,17 @@
 package entity.mobs.player;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entity.Entity;
 import entity.statics.towers.LaserTowerlvl1;
 import entity.statics.towers.Tower;
 import entity.statics.towers.WizardTowerlvl1;
-import entity.statics.towers.WizardTowerlvl2;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
 import states.State;
-import window.Window;
 
 public class TowerPlacer {
 	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing

@@ -81,7 +81,7 @@ public class Floor {
 		int x = size, y = size - 1;// making the starting room the bottom middle room
 
 		for (int i = 0; i < size; i++) {// looping until it has created a floor with the proper size
-			validRoom.unlock();
+			//validRoom.unlock();//this can be uncommented to unlock all the rooms in a floor to test stuff easily
 			floor[x][y] = validRoom;// adding the rooms to the floor in the right place
 			endRoomX=x;
 			endRoomY=y;

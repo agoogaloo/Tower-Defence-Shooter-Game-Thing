@@ -24,8 +24,8 @@ public class Player extends Mobs {
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	
-	private PlayerUI ui=new PlayerUI();
-	private TowerPlacer towerPlacer=new TowerPlacer();
+	private PlayerUI ui;
+	private TowerPlacer towerPlacer;
 	
 	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation animationLeft = new Animation(Assets.playerL,6);
@@ -49,17 +49,25 @@ public class Player extends Mobs {
 		health = 5;  //The amount of health the player has, when health hits 0 the player "dies"
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
-		core=new Core(x,y); //Calls the core class, spawning it where the player spawns, AKA spawns the core at the start
 		camera=GameState.getCamera(); //The camera will follow the player
-		entityManager.addEntity(core); //Adds the core to the entityManager allowing it to detect collisions0
+		
 	}
 
+	public void reset(int x, int y) {
+		//this is called at the start of each floor so it can reset/set its ui/location
+		this.x=x;
+		this.y=y;
+		ui=new PlayerUI();
+		towerPlacer=new TowerPlacer();
+	}
+	
 	public void shoot() {
 		if (shotDelay >= reloadTime) { //Allows the player to shoot every 10 frames
 			double targetX, targetY;
 			targetX = (State.getInputs().getMouseX()); //Sets the mousesX position to targetX
 			targetY = (State.getInputs().getMouseY()); //Sets the mousesY position to targetY
 			entityManager.addEntity(new Bullet(x+7, y+12, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.yellowBullet, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
+	
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 		}
 	}
@@ -99,7 +107,7 @@ public class Player extends Mobs {
 		invincibility--;
 	}
 	
-	public void tower() { //Tower method to create a tower
+	private void tower() { //Tower method to create a tower
 		Tower tower=towerPlacer.update(money,camera, entityManager.getEntities(), direction);
 		int moneySpent=towerPlacer.getSpentMoney();
 		entityManager.addEntity(tower);
@@ -139,6 +147,18 @@ public class Player extends Mobs {
 		}
 		towerPlacer.render(g, camera);
 	}
+	public void createCore() {
+		createCore(x,y);
+	}
+	
+	public void createCore(int x, int y) {
+		if(core!=null) {//making sure ther is a core to destroy so it wont throw an error
+			core.destroy();//removing the old core
+		}
+		core=new Core(x,y); //makes the core where the paramiters tell it to
+		entityManager.addEntity(core); //Adds the core to the entityManager so it can exist
+	}
+	
 	public void giveMoney(int amount) {
 		//lets us give the player money
 		money+=amount;

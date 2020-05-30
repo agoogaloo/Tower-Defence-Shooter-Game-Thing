@@ -26,7 +26,7 @@ public abstract class Entity {
   protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 	
 	public static void init(){
-		entityManager.init();
+		entityManager.reset();
 	}
 
 	protected ArrayList<Entity> entityCollide() {

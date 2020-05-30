@@ -21,14 +21,14 @@ public class Core extends Statics{
 	
 	public Core(int x, int y){
 		friendly=true;
-		health=999999999;//the core should never die so it has a lot of health
+		health=1;//the core wont take damage because the damage method is modified
 		this.x=x;
 		this.y=y;
 		this.bounds.x=x;//setting the bounds to be the right size/location
 		this.bounds.y=y;
 		bounds.width=40;
 		bounds.height=35;
-		damage=1000;//enemies that touch it will take 5 damage
+		damage=1000;//enemies that touch it will take a bunch of damage so they wont repeatedly hit the core
 	}
 	
 	@Override
@@ -50,10 +50,14 @@ public class Core extends Statics{
 	
 	}
 	public int giveDamage(){
-		//thi is called by the player every frame so it knows how much health to subtract
+		//this is called by the player every frame so it knows how much health to subtract
 		int num=damageTaken;//needs to be its own variable so that when damage is reset it wont return 0
 		damageTaken=0;//reseting damage so it doesnt stack
 		return num;//Outputting the damage
 		
+	}
+	public void destroy() {
+		//this lets us destroy the core because without this method it could never go away once it is spawned
+		killed=true;
 	}
 }
