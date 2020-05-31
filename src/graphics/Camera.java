@@ -30,7 +30,6 @@ public class Camera {
 		xOffset += xMove;
 		yOffset += yMove;
 	}
-
 	public void centerOnEntity(Entity e) {
 		//positioning the camera so that the inputed entity is in the middle
 		xOffset = e.getX() - screenWidth / 2 + e.getWidth() / 2;

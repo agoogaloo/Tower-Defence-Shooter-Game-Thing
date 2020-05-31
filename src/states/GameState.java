@@ -1,6 +1,7 @@
 package states;
 
 import java.awt.Graphics;
+import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
 import floors.Floor;
@@ -17,7 +18,8 @@ public class GameState extends State{
 	private static Floor floor;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
-	
+	private static int maxScreenShake=10;//the maximum amount in pixels that the screen can move from screen shake
+	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
 	public GameState() {
 		//creating the floor
 		newFloor();
@@ -25,6 +27,7 @@ public class GameState extends State{
 	
 	@Override
 	public void update() {
+		double xshake=0,yshake=0;
 		getInputs().update();
 		if(getInputs().isPause()) {
 			currentState=new PauseState(this);
@@ -32,6 +35,15 @@ public class GameState extends State{
 		Entity.getEntityManager().update();
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
 		// updating the camera position to center on the player
+		
+		//moving the screen in a random direction by the current screen shake amount
+		xshake=ThreadLocalRandom.current().nextDouble(-screenShake*maxScreenShake,screenShake*maxScreenShake);
+		yshake=screenShake*maxScreenShake-xshake;
+		//moving the camera the right amount
+		camera.move((int)(Math.round(xshake)),(int)(Math.round(yshake)));
+		//the random direction part breaks if screen shake is 0 so it resets to 0.01 which will round 
+		//to 0 when it is applied
+		screenShake=0.01;
 	}
 
 	@Override
@@ -48,6 +60,12 @@ public class GameState extends State{
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
 		Entity.init();
 		
+	}
+	public static void screenShake(double amount) {
+		screenShake+=amount;
+		if(screenShake>1) {
+			screenShake=1;
+		}
 	}
 	public static Floor getFloor() {
 		return floor;

@@ -69,6 +69,8 @@ public class Player extends Mobs {
 			entityManager.addEntity(new Bullet(x+7, y+12, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.yellowBullet, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
 	
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
+			//adding a bit of screenshake so things feel better
+			GameState.screenShake(0.07);
 		}
 	}
 
@@ -122,6 +124,10 @@ public class Player extends Mobs {
 				//(making sure enemies only attack the player, player cant attack the core, etc.)
 				if (e.isFriendly() != friendly) {
 					health -= e.getDamage();//dealing however much damage that entity does
+					if(e.getDamage()>0) {//making sure you actually take damage from the entity
+						//shaking the screen so it feels like you actually got hit
+						GameState.screenShake(0.75);
+					}
 					invincibility=30;
 				}
 			}
