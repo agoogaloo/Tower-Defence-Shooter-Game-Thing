@@ -46,7 +46,6 @@ public class Bullet extends Mobs{
 
 	@Override
 	public void update(){
-		System.out.println("x:"+x+", y"+y+", tx:"+trueX+", ty:"+trueY);
 		ArrayList<Entity> collisions;
 		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
 		int offsetY = pic.getHeight()/2;
