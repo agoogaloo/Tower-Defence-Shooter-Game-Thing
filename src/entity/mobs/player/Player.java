@@ -108,8 +108,8 @@ public class Player extends Mobs {
 			moveKeys++;
 		}
 		if(moveKeys>=2) {
-			changeX/=1.414;
-			changeY/=1.414;
+			changeX/=1.25;
+			changeY/=1.25;
 		}
 		
 		tower();
