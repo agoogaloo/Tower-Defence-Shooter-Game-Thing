@@ -35,17 +35,16 @@ public class Player extends Mobs {
 	private char direction='d'; //Sets player's direction to down by default at the start
 	
 	public Player(int x, int y) {
+		
 		/*
 		 * this class is the player that you control 
 		 */
+		setLocation(x, y);
 		// initializing variables
-		
-		this.x = x;
-		this.y = y;
 		reloadTime=15;
 		width = 14; //The specific width of the player
 		height = 25; //The specific height of the player
-		speed = 3; //The speed which the player moves at, higher the value the faster the speed
+		speed = 3.4; //The speed which the player moves at, higher the value the faster the speed
 		health = 5;  //The amount of health the player has, when health hits 0 the player "dies"
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
@@ -55,8 +54,7 @@ public class Player extends Mobs {
 
 	public void reset(int x, int y) {
 		//this is called at the start of each floor so it can reset/set its ui/location
-		this.x=x;
-		this.y=y;
+		setLocation(x, y);
 		ui=new PlayerUI();
 		towerPlacer=new TowerPlacer();
 	}
@@ -76,6 +74,7 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
+		int moveKeys=0;
 		//System.out.println(health+", "+money);
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animationLeft.update(); //Animation and sprites change depending on the direction
@@ -83,26 +82,36 @@ public class Player extends Mobs {
 		animationRight.update();
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
-		ui.update(health, money);
+		ui.update(health, money);//updating ui with current health and money
+		
 		if (State.getInputs().isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
 			shoot();
 		}
 		if (State.getInputs().isUp()) {// if the up input is triggered than it will move the player up
 			changeY -= speed;
 			direction='u';
+			moveKeys++;
 		}
 		if (State.getInputs().isDown()) {// moving other directions
 			changeY += speed;
 			direction='d';
+			moveKeys++;
 		}
 		if (State.getInputs().isLeft()) {
 			changeX -= speed;
 			direction='l';
+			moveKeys++;
 		}
 		if (State.getInputs().isRight()) {
 			changeX += speed;
 			direction='r';
+			moveKeys++;
 		}
+		if(moveKeys>=2) {
+			changeX/=1.414;
+			changeY/=1.414;
+		}
+		
 		tower();
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
 		shotDelay += 1; //Increase shotDelay by one every frame
@@ -158,7 +167,7 @@ public class Player extends Mobs {
 	}
 	
 	public void createCore(int x, int y) {
-		if(core!=null) {//making sure ther is a core to destroy so it wont throw an error
+		if(core!=null) {//making sure there is a core to destroy so it wont throw an error
 			core.destroy();//removing the old core
 		}
 		core=new Core(x,y); //makes the core where the paramiters tell it to

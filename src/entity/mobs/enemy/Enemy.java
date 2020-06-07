@@ -33,12 +33,14 @@ public abstract class Enemy extends Mobs {
 	protected Animation animationLeft = new Animation(Assets.enemyRedL,5);
 	protected Animation animationUp = new Animation(Assets.enemyRedU,5);
 	protected Animation animationRight = new Animation(Assets.enemyRedR,5);
+	
 
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
-		this.x=x;
-		this.y=y;
+		setLocation(x, y);
 		this.direction=direction;
 		friendly=false;
+		width=0;
+		height=0;
 	}
 
 	public void updateDirection() {
@@ -74,18 +76,20 @@ public abstract class Enemy extends Mobs {
 		
 		switch(direction) {//moving a different direction depending on which way it is facing
 		case 'u'://if it is facing up 
-			y-=speed;//it should move up
+			trueY-=speed;//it should move up
 			break;
 		case 'd'://move cases for the other directions
-			y+=speed;
+			trueY+=speed;
 			break;
 		case 'l':
-			x-=speed;
+			trueX-=speed;
 			break;
 		case 'r':
-			x+=speed;
+			trueX+=speed;
 			break;
 		}
+		x=(int)(trueX);
+		y=(int)(trueY);
 	}
 	protected void shoot() {
 		double targetX, targetY; 
@@ -107,7 +111,7 @@ public abstract class Enemy extends Mobs {
 	}
 	@Override
 	public void update() {
-		int tile=GameState.getFloor().getTile(x/16, y/16);
+		int tile=GameState.getFloor().getTile(x/16, y/16);//geting the tile the enemy is currently on
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight); //The range which the enemy looks for targets
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight); //The player's own box
 		if(playerBox.intersects(attackRange)) {  //If the playerBox is intersects the attackRange attack will be set to true, and the enemy will attack the player 
@@ -120,8 +124,9 @@ public abstract class Enemy extends Mobs {
 			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
 		updateDirection();//setting its direction and moving based on it
-		move();//moving the enemy so its bounds can be updated 
+		updateBounds(); 
 		
+		//opening the door if the enemy runs into it
 		for(int i:Floor.DOORTILES) {
 			if(i==tile) {
 				GameState.getFloor().getRoom((x/GameState.getFloor().

@@ -9,22 +9,34 @@ public abstract class Mobs extends Entity{
 	/*
 	 * this is all the entities that move(so most of them)unlike static entities
 	 */
-	protected int speed=1, changeX, changeY;
+	protected double speed=1, changeX, changeY, trueX, trueY;
+	
 	
 	@Override
 	public void move() {
-		//not moving if the players corners will be inside of a wall
-		if (GameState.getFloor().checkwall((x + changeX) / 16, (y + changeY) / 16)
-				|| GameState.getFloor().checkwall((x + 16 + changeX) / 16, (y + changeY) / 16)
-				|| GameState.getFloor().checkwall((x + changeX) / 16, (y + 29 + changeY) / 16)
-				|| GameState.getFloor().checkwall((x + 16 + changeX) / 16, (y + 29 + changeY) / 16)) {
-			changeX = 0;
-			changeY = 0;
+		//not moving if the entities corners will be inside of a wall
+		double checkX=trueX+changeX;
+		double checkY=trueY+changeY;
+		
+		//checking if they would move into a wall
+		if (!(GameState.getFloor().checkwall((int)(checkX)/ 16,(int)(checkY) / 16)
+				|| GameState.getFloor().checkwall((width+(int)(checkX)) / 16, (int)(checkY)/ 16)
+				|| GameState.getFloor().checkwall((int)(checkX) / 16, (height+(int)(checkY)) / 16)
+				|| GameState.getFloor().checkwall((width+(int)(checkX)) / 16, (height+(int)(checkY)) / 16))) {
+			trueX=checkX;//moving the if they are going into a free area
+			trueY=checkY;
+			x=(int)(trueX);
+			y=(int)(trueY);
 		}
-		x += changeX;// actually moving the player
-		y += changeY;
+		
 		changeX = 0;// resting change x and y
 		changeY = 0;
 		updateBounds();
+	}
+	protected void setLocation(int x, int y) {
+		this.x=x;
+		this.y=y;
+		trueX=x;
+		trueY=y;
 	}
 }
