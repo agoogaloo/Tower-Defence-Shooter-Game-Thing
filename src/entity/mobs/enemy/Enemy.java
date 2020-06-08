@@ -4,6 +4,7 @@ package entity.mobs.enemy;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.Bullet;
@@ -33,7 +34,7 @@ public abstract class Enemy extends Mobs {
 	protected Animation animationLeft = new Animation(Assets.enemyRedL,5);
 	protected Animation animationUp = new Animation(Assets.enemyRedU,5);
 	protected Animation animationRight = new Animation(Assets.enemyRedR,5);
-	
+	protected BufferedImage currentPic;//the current sprite being drawn onto the screen
 
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
 		setLocation(x, y);
@@ -44,7 +45,6 @@ public abstract class Enemy extends Mobs {
 	}
 
 	public void updateDirection() {
-		Assets.enemyRedD[0].getWidth(); //Enemy will always start travelling down
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
 		switch (GameState.getFloor().getTile((x+width/2)/16,
 				(y+height/2)/16)){ //getting its current tile
@@ -99,7 +99,12 @@ public abstract class Enemy extends Mobs {
 	}
 	@Override
 	public void damage() {
+		int initialHealth=health;
 		super.damage();
+		if(health!=initialHealth) {
+			//making the enemy flash white when it gets hit
+			currentPic=damageFlash(currentPic);
+		}
 		if(killed) {
 			int randnum=ThreadLocalRandom.current().nextInt(0,20);//generating a random number to determine what should drop
 			if(randnum==1) {
@@ -136,22 +141,29 @@ public abstract class Enemy extends Mobs {
 		}
 		
 		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
-		animationLeft.update(); //Animation and spites change depending on the direction
+		animationLeft.update(); //Animation and sprites change depending on the direction
 		animationUp.update();
 		animationRight.update();
+		//setting the current picture to the right animation depending on its direction
+		switch(direction) {
+		case 'd':
+			currentPic=animationDown.getCurrentFrame();
+			break;
+		case 'u':
+			currentPic=animationUp.getCurrentFrame();
+			break;
+		case 'l':
+			currentPic=animationLeft.getCurrentFrame();
+			break;
+		case 'r':
+			currentPic=animationRight.getCurrentFrame();
+		}
 		shotDelay+=1; //Increase shotDelay by one every frame
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		if (direction == 'd'){
-			g.drawImage(animationDown.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'l') {
-			g.drawImage(animationLeft.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'u') {
-			g.drawImage(animationUp.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}else if (direction == 'r') {
-			g.drawImage(animationRight.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		}
+		g.drawImage(currentPic, x-camera.getxOffset(), y-camera.getyOffset(), null);
+		
 	}
 }
 

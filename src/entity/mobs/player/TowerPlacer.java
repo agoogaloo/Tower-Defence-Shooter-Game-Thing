@@ -136,6 +136,7 @@ public class TowerPlacer {
 			bottomPic.update(Assets.blank);
 		}
 	}
+	
 	public int getSpentMoney() {
 		int money=moneySpent;
 		moneySpent=0;

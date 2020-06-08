@@ -1,6 +1,7 @@
 package entity.mobs.player;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import entity.Entity;
 import entity.mobs.Bullet;
@@ -31,6 +32,7 @@ public class Player extends Mobs {
 	private Animation animationLeft = new Animation(Assets.playerL,6);
 	private Animation animationUp = new Animation(Assets.playerU,6);
 	private Animation animationRight = new Animation(Assets.playerR,6);
+	private BufferedImage currentPic;//the current image of the player
 	
 	private char direction='d'; //Sets player's direction to down by default at the start
 	
@@ -116,6 +118,7 @@ public class Player extends Mobs {
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
 		shotDelay += 1; //Increase shotDelay by one every frame
 		invincibility--;
+		setCurrentPic();
 	}
 	
 	private void tower() { //Tower method to create a tower
@@ -136,6 +139,7 @@ public class Player extends Mobs {
 					if(e.getDamage()>0) {//making sure you actually take damage from the entity
 						//shaking the screen so it feels like you actually got hit
 						GameState.screenShake(0.75);
+						currentPic=damageFlash(currentPic);
 					}
 					invincibility=30;
 				}
@@ -147,20 +151,23 @@ public class Player extends Mobs {
 	}
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
+		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
+		towerPlacer.render(g, camera);
+	}
+	private void setCurrentPic() {
 		switch(direction) {
 		case 'd':
-			g.drawImage(animationDown.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
+			currentPic=animationDown.getCurrentFrame();
 			break;
 		case 'l':
-			g.drawImage(animationLeft.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
+			currentPic=animationLeft.getCurrentFrame();
 			break;
 		case'u':
-			g.drawImage(animationUp.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
+			currentPic=animationUp.getCurrentFrame();
 			break;
 		case'r':
-			g.drawImage(animationRight.getCurrentFrame(), x - camera.getxOffset(), y - camera.getyOffset(), null);
+			currentPic=animationRight.getCurrentFrame();
 		}
-		towerPlacer.render(g, camera);
 	}
 	public void createCore() {
 		createCore(x,y);
