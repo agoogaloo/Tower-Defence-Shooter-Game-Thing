@@ -1,7 +1,6 @@
 package entity.statics.towers;
 
 import java.awt.Rectangle;
-import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.Bullet;
 import graphics.Animation;
@@ -9,6 +8,8 @@ import graphics.Assets;
 
 public class BigLaserTower extends Tower{
 	char direction;
+	int beamlength=10, shootTime=11;//how long the mega laser will and has been shooting for
+	
 public BigLaserTower(int x,int y, char direction) {
 	this.direction=direction;
 	price=5;
@@ -33,7 +34,7 @@ public BigLaserTower(int x,int y, char direction) {
 		this.x = x-width/2;
 		this.y = y-2;
 		updateBounds();
-		reloadTime=420;
+		reloadTime=360;
 		sellValue=6;
 		switch (direction) {
 		case 'u':
@@ -56,26 +57,35 @@ public BigLaserTower(int x,int y, char direction) {
 	}
 	@Override
 	protected void shoot() {
-		for(int i=0;i<=75;i++) {
-			switch(direction) {
-			case 'u':
-				//shoots straight up
-				entityManager.addEntity(new Bullet(x+width/2+i/5-5,y,x+width/2+i/5-5,y-2,Assets.blueLaser[0],8, true));
-				break;
-			case 'l':
-				//shoots straight left
-				entityManager.addEntity(new Bullet(x,y+i/5-5,x-2,y+i/5-5,Assets.blueLaser[3],8, true));
-				break;
-			case 'r':
-				//shoots straight right
-				entityManager.addEntity(new Bullet(x+width,y+i/5-5,x+2+width,y+i/5-5,Assets.blueLaser[1],8, true));
-				break;
-			case 'd':
-				//shoots straight up
-				entityManager.addEntity(new Bullet(x+width/2+i/5-5,y+height,x+width/2+i/5-5,y+height+2,Assets.blueLaser[2],8, true));
-				break;
+		//setting shootTime to 0 so that the beam will start
+		shootTime=0;
+	}
+	@Override
+	public void update() {
+		super.update();
+		if(shootTime<=beamlength) {
+			for(int i=0;i<=20;i++) {
+				switch(direction) {
+				case 'u':
+					//shoots straight up
+					entityManager.addEntity(new Bullet(x+width/2+i/2-5,y+10,x+width/2+i/2-5,y,Assets.blueLaser[0],8, true));
+					break;
+				case 'l':
+					//shoots straight left
+					entityManager.addEntity(new Bullet(x+10,y+i/2,x,y+i/2,Assets.blueLaser[3],8, true));
+					break;
+				case 'r':
+					//shoots straight right
+					entityManager.addEntity(new Bullet(x+width-5,y+i/2,x+width,y+i/2,Assets.blueLaser[1],8, true));
+					break;
+				case 'd':
+					//shoots straight down
+					entityManager.addEntity(new Bullet(x+width/2+i/2-5,y+height-5,x+width/2+i/2-5,y+height,Assets.blueLaser[2],8, true));
+					break;
+				}
 			}
 		}
+		shootTime++;
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
