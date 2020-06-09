@@ -11,6 +11,7 @@ import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
+import settings.Settings;
 import states.State;
 
 public class TowerPlacer {
@@ -114,6 +115,9 @@ public class TowerPlacer {
 		return tower;
 	}
 	public void render(Graphics g, Camera camera) {
+		if(!Settings.isTowerInfo()) {
+			infoText.update("");//removing the info text if it is turned off in settings
+		}
 		//drawing the text background if there is upgrade/placing tower text
 		if(infoText.getText()!="") {
 			background.update(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4));

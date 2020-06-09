@@ -10,11 +10,15 @@ public abstract class UIElement {
 	protected static UIManager UIManager=new UIManager();
 	protected int x, y;//where it is on the screen
 	public boolean visible=true, remove=false;//whether it is visible and if it should be deleted
-	public UIElement(int x, int y) {
+	//this lets you add it to a different UIManager if you want
+	public UIElement(int x, int y, UIManager manager) {
 		this.x = x;
 		this.y = y;
 		//adding itself to the UIManager
-		UIManager.addElement(this);
+		manager.addElement(this);
+	}
+	public UIElement(int x, int y) {
+		this(x,y,UIManager);//making the ui element and adding it to its UIManager
 	}
 	
 	public abstract void render(Graphics g);

@@ -24,6 +24,7 @@ public class Assets {
 	//spliting all the spritesheets int the right pictures and holding them in arrays
 	//some random images
 	public static final BufferedImage infobackground=loadImage("res/textures/heart texture.png");
+	public static final BufferedImage MenuPic=loadImage("res/textures/menu.png");
 	public static final BufferedImage blank=loadImage("res/textures/blank.png");
 	//loading bullets
 	public static final BufferedImage enemyBullet=loadImage("res/textures/bullets/red bullet.png");

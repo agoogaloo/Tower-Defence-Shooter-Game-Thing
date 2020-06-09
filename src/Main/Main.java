@@ -1,4 +1,6 @@
 package Main;
+import settings.Settings;
+
 import states.State;
 import window.Window;
 
@@ -10,8 +12,9 @@ public class Main {
 	 * the main class that will create the window then updates and renders it
 	 * (basically holds the main game loop)
 	 */
-	private static final Window window= new Window(1000, 600);//creating a window so we can see things
+	private static final Window window= new Window(999, 600);//creating a window so we can see things
 	public static void main(String[] args) {
+		Settings.reload();
 		State.init();
 		boolean run = true;
 

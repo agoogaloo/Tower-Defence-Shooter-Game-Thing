@@ -8,6 +8,7 @@ import floors.Floor;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.UIElement;
+import settings.Settings;
 import window.Window;
 
 public class GameState extends State{
@@ -18,7 +19,6 @@ public class GameState extends State{
 	private static Floor floor;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
-	private static int maxScreenShake=10;//the maximum amount in pixels that the screen can move from screen shake
 	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
 	public GameState() {
 		//creating the floor
@@ -28,6 +28,8 @@ public class GameState extends State{
 	@Override
 	public void update() {
 		double xshake=0,yshake=0;
+		int maxScreenShake=Settings.getScreenShake();
+		
 		getInputs().update();
 		if(getInputs().isPause()) {
 			currentState=new PauseState(this);
@@ -41,9 +43,9 @@ public class GameState extends State{
 		yshake=screenShake*maxScreenShake-xshake;
 		//moving the camera the right amount
 		camera.move((int)(Math.round(xshake)),(int)(Math.round(yshake)));
-		//the random direction part breaks if screen shake is 0 so it resets to 0.01 which will round 
-		//to 0 when it is applied
-		screenShake=0.01;
+		//the random direction part breaks if screen shake is 0 so it resets to a super small number so it will round 
+		// down to 0 when it is applied
+		screenShake=0.000000001;
 	}
 
 	@Override

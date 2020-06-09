@@ -15,6 +15,7 @@ public class MainMenu extends State{
 
 	@Override
 	public void render(Graphics g) {
+		
 		g.drawString("menu thingy click to start",50, 50);
 		
 	}
