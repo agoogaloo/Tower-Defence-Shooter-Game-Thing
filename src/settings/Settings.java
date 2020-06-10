@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Settings {
 	private static int screenShake;
-	private static boolean towerInfo;
+	private static String towerInfo;
 	private static Properties propertiesFile=new Properties();
 	private static String settingsPath="res/settings/settings.properties";
 	public Settings() {
@@ -42,7 +42,7 @@ public class Settings {
 		
 		//setting all the variables from the properties file
 		screenShake=Integer.parseInt(propertiesFile.getProperty("screenShake"));
-		towerInfo=Boolean.parseBoolean(propertiesFile.getProperty("towerInfo"));
+		towerInfo=propertiesFile.getProperty("towerInfo");
 	}
 	
 	
@@ -50,8 +50,7 @@ public class Settings {
 	public static int getScreenShake() {
 		return screenShake;
 	}
-
-	public static boolean isTowerInfo() {
+	public static String getTowerInfo() {
 		return towerInfo;
 	}
 	public static Properties getProperties() {

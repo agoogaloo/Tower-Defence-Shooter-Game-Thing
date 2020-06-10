@@ -39,8 +39,13 @@ public class GameState extends State{
 		// updating the camera position to center on the player
 		
 		//moving the screen in a random direction by the current screen shake amount
-		xshake=ThreadLocalRandom.current().nextDouble(-screenShake*maxScreenShake,screenShake*maxScreenShake);
-		yshake=screenShake*maxScreenShake-xshake;
+		if(maxScreenShake>0) {//makes shure that screen shake is enabled so it doesnt break everytihng
+			xshake=ThreadLocalRandom.current().nextDouble(-screenShake*maxScreenShake,screenShake*maxScreenShake);
+			yshake=screenShake*maxScreenShake-xshake;
+		}else {
+			xshake=0;
+			yshake=0;
+		}
 		//moving the camera the right amount
 		camera.move((int)(Math.round(xshake)),(int)(Math.round(yshake)));
 		//the random direction part breaks if screen shake is 0 so it resets to a super small number so it will round 

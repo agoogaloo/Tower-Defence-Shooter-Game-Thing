@@ -112,18 +112,24 @@ public class TowerPlacer {
 		if(!State.getInputs().isPlace()) {
 			mode=Mode.WAITING;//if the button is not being pushed the mode can be set back to waiting
 		}
+		
+		//modifying the text based on what tower info settings are chosen
+		if(Settings.getTowerInfo().equals("off")) {
+			infoText.update("");//removing the info text if it is turned off in settings
+		}else if(Settings.getTowerInfo().equals("price")) {
+			//only showing the price by updting the text to only show the 1st line
+			infoText.update(infoText.getText().split("\n")[0]);
+		}
 		return tower;
 	}
 	public void render(Graphics g, Camera camera) {
-		if(!Settings.isTowerInfo()) {
-			infoText.update("");//removing the info text if it is turned off in settings
-		}
 		//drawing the text background if there is upgrade/placing tower text
 		if(infoText.getText()!="") {
+			//making the image the right size
 			background.update(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4));
-			background.move(startX-55, startY+27);
+			background.move(startX-55, startY+27);//putting it into the right place
 		}else {
-			background.update(Assets.blank);
+			background.update(Assets.blank);//making the background disapear if there s no text
 		}
 		
 		if(mode==Mode.PLACING) {

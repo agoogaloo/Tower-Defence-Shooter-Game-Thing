@@ -24,7 +24,8 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	//declaring variables
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
 	private boolean up, down, left, right, shoot,place; //Keys and actions that are game needs
-	private PushButton pause=new PushButton();
+	private PushButton pause=new PushButton(), upPushed=new PushButton(),downPushed=new PushButton(),
+			leftPushed=new PushButton(),rightPushed=new PushButton();
 	
 	private int mouseX, mouseY;
 	
@@ -41,6 +42,10 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		left = keys[KeyEvent.VK_LEFT]; 
 		right = keys[KeyEvent.VK_RIGHT];
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
+		upPushed.update(up);
+		downPushed.update(down);
+		leftPushed.update(left);
+		rightPushed.update(right);
 	}
 	//mouse position methods
 	@Override
@@ -91,6 +96,18 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	public void keyTyped(KeyEvent key) {
 		// needed because it implements KeyListener
 	}
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	//accessor methods for the keys and mouse so that other classes can tell what keys are being pressed
 	public boolean isUp() {
 		return up;
@@ -113,24 +130,23 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	public boolean isPause() { 
 		return pause.getPushed();	
 	}
+	public boolean isUpPushed() {
+		return upPushed.getPushed();
+	}
+	public boolean isDownPushed() {
+		return downPushed.getPushed();
+	}
+	public boolean isLeftPushed() {
+		return leftPushed.getPushed();
+	}
+	public boolean isRightPushed() {
+		return rightPushed.getPushed();
+	}
 	public int getMouseX() {
 		return mouseX/3;//the window is scaled so the location for the mouse needs to match it
 	}
 	public int getMouseY() {
 		//the position needs to be a bit offset because if the bar at the top of the window
 		return (mouseY-24)/3;//the window is scaled so the location for the mouse needs to match it
-	}
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
-	
+	}	
 }
