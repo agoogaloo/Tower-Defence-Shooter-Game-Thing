@@ -117,7 +117,7 @@ public class TowerPlacer {
 		if(Settings.getTowerInfo().equals("off")) {
 			infoText.update("");//removing the info text if it is turned off in settings
 		}else if(Settings.getTowerInfo().equals("price")) {
-			//only showing the price by updting the text to only show the 1st line
+			//only showing the price by updating the text to only show the 1st line
 			infoText.update(infoText.getText().split("\n")[0]);
 		}
 		return tower;

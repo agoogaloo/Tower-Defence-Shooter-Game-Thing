@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import settings.Settings;
 import states.State;
 
 /*
@@ -20,13 +21,14 @@ public class Display extends JPanel {
 	 * because you aren't supposed to draw directly onto it
 	 */
 	private int width, height, scale;
-	public Display(int width, int height, int scale) {
+	public Display(int width, int height) {
 		// setting the proper size so that the window will pack properly
 		// the display is scaled up to look 8-bit so the
 		// resolution is actually 1/3 of the screen width
+		scale=Settings.getScale();
 		this.width = width / scale;
 		this.height = height / scale;
-		this.scale = scale;
+		
 		this.setPreferredSize(new Dimension(width, height));
 		
 		// setting the preferred size to the inputed one so that the pack method will work

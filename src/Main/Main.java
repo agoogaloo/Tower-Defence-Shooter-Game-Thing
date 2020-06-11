@@ -12,9 +12,10 @@ public class Main {
 	 * the main class that will create the window then updates and renders it
 	 * (basically holds the main game loop)
 	 */
-	private static final Window window= new Window(999, 600);//creating a window so we can see things
+	private static Window window;//creating a window so we can see things
 	public static void main(String[] args) {
 		Settings.reload();
+		window= new Window(333*Settings.getScale(), 200*Settings.getScale());
 		State.init();
 		boolean run = true;
 
@@ -51,5 +52,8 @@ public class Main {
 	//lets other classes get the window so they can know things like window size 
 	public static Window getWindow() {
 		return window;
+	}
+	public static void resetWindow() {//this letts us reset the window to apply things like window scaling
+		window.resize(333*Settings.getScale(), 200*Settings.getScale());
 	}
 }

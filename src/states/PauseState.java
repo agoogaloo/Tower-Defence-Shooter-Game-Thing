@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Properties;
 
+import Main.Main;
 import graphics.Assets;
 import settings.Settings;
 import window.Window;
@@ -14,7 +15,7 @@ public class PauseState extends State{
 	private Mode currentMenu=Mode.MAIN;
 	private int selection=0;//where they are in the menu
 	private Menu main=new Menu(new String[]{"continue", "options", "quit"}), //creating all the menus/sub menus
-			options=new Menu(new String[]{"screenshake", "tower info", "back"});
+			options=new Menu(new String[]{"screenshake", "tower info", "pixel scale", "back"});
 	
 	public PauseState(GameState game) {
 		this.game=game;
@@ -46,9 +47,11 @@ public class PauseState extends State{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(new Color(1,1,26));//setting the background colour
-		g.fillRect(0, 0, Window.getDisplay().getWidth()/3, Window.getDisplay().getHeight()/3);//filling the background
+		g.fillRect(0, 0, Window.getDisplay().getWidth()/Settings.getScale(), 
+				Window.getDisplay().getHeight()/Settings.getScale());//filling the background
 		//drawing the rombus for the menu in the middle
-		g.drawImage(Assets.MenuPic,Window.getDisplay().getWidth()/6-100,Window.getDisplay().getHeight()/6-80,null);
+		g.drawImage(Assets.MenuPic,Window.getDisplay().getWidth()/(Settings.getScale()*2)-100,
+				Window.getDisplay().getHeight()/(Settings.getScale()*2)-80,null);
 		g.setColor(Color.WHITE);//setting the colour for the menu text
 		g.setFont(Assets.bigpixelfont);//setting the font
 		
@@ -68,24 +71,30 @@ public class PauseState extends State{
 			if(i==menu.getSelected()) {
 				g.setColor(new Color(1,1,26));//setting the background shadow colour
 				//drawing the shadow of the option
-				g.drawString(menu.getOptions()[i].toUpperCase(), Window.getDisplay().getWidth()/6-84+i*7,
-						Window.getDisplay().getHeight()/6-59+i*14);
-				g.drawString(menu.getOptions()[i].toUpperCase(), Window.getDisplay().getWidth()/6-85+i*7,
-						Window.getDisplay().getHeight()/6-59+i*14);
+				g.drawString(menu.getOptions()[i].toUpperCase(), 
+						Window.getDisplay().getWidth()/(Settings.getScale()*2)-84+i*7,
+						Window.getDisplay().getHeight()/(Settings.getScale()*2)-59+i*14);
+				g.drawString(menu.getOptions()[i].toUpperCase(),
+						Window.getDisplay().getWidth()/(Settings.getScale()*2)-85+i*7,
+						Window.getDisplay().getHeight()/(Settings.getScale()*2)-59+i*14);
 				//drawing the shadow of the value
-				g.drawString(menu.getValue(i).toUpperCase(), Window.getDisplay().getWidth()/6-3+i*7,
-						Window.getDisplay().getHeight()/6-59+i*14);
-				g.drawString(menu.getValue(i).toUpperCase(), Window.getDisplay().getWidth()/6-2+i*7,
-						Window.getDisplay().getHeight()/6-59+i*14);
+				g.drawString(menu.getValue(i).toUpperCase(), 
+						Window.getDisplay().getWidth()/(Settings.getScale()*2)-3+i*7,
+						Window.getDisplay().getHeight()/(Settings.getScale()*2)-59+i*14);
+				g.drawString(menu.getValue(i).toUpperCase(), 
+						Window.getDisplay().getWidth()/(Settings.getScale()*2)-2+i*7,
+						Window.getDisplay().getHeight()/(Settings.getScale()*2)-59+i*14);
 				
 				g.setColor(Color.WHITE);//reseting the colour
 			}
 			//drawing the option
-			g.drawString(menu.getOptions()[i].toUpperCase(), Window.getDisplay().getWidth()/6-85+i*7,
-					Window.getDisplay().getHeight()/6-60+i*14);
+			g.drawString(menu.getOptions()[i].toUpperCase(),
+					Window.getDisplay().getWidth()/(Settings.getScale()*2)-85+i*7,
+					Window.getDisplay().getHeight()/(Settings.getScale()*2)-60+i*14);
 			//drawing the value of the setting if it exists
-			g.drawString(menu.getValue(i).toUpperCase(), Window.getDisplay().getWidth()/6-2+i*7,
-					Window.getDisplay().getHeight()/6-60+i*14);
+			g.drawString(menu.getValue(i).toUpperCase(),
+					Window.getDisplay().getWidth()/(Settings.getScale()*2)-2+i*7,
+					Window.getDisplay().getHeight()/(Settings.getScale()*2)-60+i*14);
 		}
 	}
 	
@@ -109,6 +118,7 @@ public class PauseState extends State{
 	}
 	
 	private void options() {
+		boolean resetNeeded=false;
 		options.setSelected(selection);//letting the menu know which option is selected
 		selection=options.getSelected();//setting selection back in case it has looped
 		
@@ -118,6 +128,7 @@ public class PauseState extends State{
 		//showing the various options current values
 		options.setValue(0,String.valueOf(Settings.getScreenShake()));//letting you know the amount of screen shake
 		options.setValue(1, Settings.getTowerInfo());
+		options.setValue(2, String.valueOf(Settings.getScale()));
 		
 		if(getInputs().isPause()||getInputs().isLeftPushed()) {
 			currentMenu=Mode.MAIN;//going back if they go back(press escape or left)
@@ -125,13 +136,14 @@ public class PauseState extends State{
 			switch(options.getSelected()) {//doing different things depending on the selected option
 			
 			case 0://screenshake settings
-				if(Settings.getScreenShake()==15) {
+				if(Settings.getScreenShake()==15) {//if they try to make the screenshake more than 5 it will loop back to 0
 					newProperties.setProperty("screenShake","0");
 				}else if(Settings.getScreenShake()==0) {
 					newProperties.setProperty("screenShake","5");
 				}else {
 					newProperties.setProperty("screenShake",String.valueOf(Settings.getScreenShake()+1));
-				}	
+				}
+				resetNeeded=true;
 				break;
 				
 			case 1://tower info settings
@@ -142,13 +154,24 @@ public class PauseState extends State{
 				}else if(Settings.getTowerInfo().equals("off")) {
 					newProperties.setProperty("towerInfo", "on");
 				}
+				resetNeeded=true;
 				break;
-				
-			case 2://back button
+			case 2:
+				if(Settings.getScale()==5) {//not leting scale be more than 5
+					newProperties.setProperty("scale","1");
+				}else {
+					newProperties.setProperty("scale",String.valueOf(Settings.getScale()+1));
+				}
+				Settings.writeproperties(newProperties);
+				Main.resetWindow();
+				break;
+			case 3://back button
 				currentMenu=Mode.MAIN;//going back for the back option menu
 				break;
 			}
-			Settings.writeproperties(newProperties);
+			if(resetNeeded) {
+				Settings.writeproperties(newProperties);
+			}
 		}
 	}
 }

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Settings {
-	private static int screenShake;
+	private static int screenShake, scale;
 	private static String towerInfo;
 	private static Properties propertiesFile=new Properties();
 	private static String settingsPath="res/settings/settings.properties";
@@ -28,13 +28,14 @@ public class Settings {
 		return file;
 	}
 	public static void writeproperties(Properties newProperties) {
-		//this method rewrites the settings file to a new one that is geven to it
+		//this method rewrites the settings file to a new one that is given to it
 		try {
 			newProperties.store(new FileWriter(settingsPath), "this file holds all the settings like screen shake");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//updates everything to all the new settings
 		reload();
 	}
 	public static void reload() {
@@ -43,12 +44,16 @@ public class Settings {
 		//setting all the variables from the properties file
 		screenShake=Integer.parseInt(propertiesFile.getProperty("screenShake"));
 		towerInfo=propertiesFile.getProperty("towerInfo");
+		scale=Integer.parseInt(propertiesFile.getProperty("scale"));
 	}
 	
 	
 	//getters for all the settings
 	public static int getScreenShake() {
 		return screenShake;
+	}
+	public static int getScale() {
+		return scale;
 	}
 	public static String getTowerInfo() {
 		return towerInfo;

@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import Main.Main;
+import settings.Settings;
 
 //@author Matthew (Organized all player inputs into it's own class, did basically all of this class)
 //@author Kevin (Only control key, mouse, and direction in updates)
@@ -143,10 +144,10 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		return rightPushed.getPushed();
 	}
 	public int getMouseX() {
-		return mouseX/3;//the window is scaled so the location for the mouse needs to match it
+		return mouseX/Settings.getScale();//the window is scaled so the location for the mouse needs to match it
 	}
 	public int getMouseY() {
 		//the position needs to be a bit offset because if the bar at the top of the window
-		return (mouseY-24)/3;//the window is scaled so the location for the mouse needs to match it
+		return (mouseY-24)/Settings.getScale();//the window is scaled so the location for the mouse needs to match it
 	}	
 }

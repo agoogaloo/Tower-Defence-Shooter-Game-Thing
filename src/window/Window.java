@@ -21,9 +21,8 @@ public class Window {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		
 		frame = new JFrame("a title");
-		display = new Display(width, height, 3);
-
-		frame.add(display);// adding the display to the window so it can actually show it
+		resize(width, height);
+		
 		frame.setResizable(false);// not letting you resize the window so it doesn't mess things up when rendering
 		// pack needs to come after setResizable because it changes the window size, so
 		// the window will be the wrong size
@@ -45,6 +44,12 @@ public class Window {
 	public void update() {
 		display.update();//updating the display which then updates everyother part of the game
 
+	}
+	public void resize(int width, int height) {
+		display = new Display(width, height);
+		
+		frame.add(display);// adding the display to the window so it can actually show it
+		frame.pack();
 	}
 
 	// getters/setters
