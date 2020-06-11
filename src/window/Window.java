@@ -21,13 +21,10 @@ public class Window {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		
 		frame = new JFrame("a title");
-		resize(width, height);
 		
 		frame.setResizable(false);// not letting you resize the window so it doesn't mess things up when rendering
-		// pack needs to come after setResizable because it changes the window size, so
-		// the window will be the wrong size
-		frame.pack();// making the window fit the panel perfectly
-
+		resize(width, height);
+		
 		frame.setLocationRelativeTo(null);// centers the window
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// makes the program stop when you close the window
 		frame.setCursor(toolkit.createCustomCursor(toolkit.getImage("res//textures//cursor.png"),new Point(7,9), "cursor"));
@@ -38,7 +35,6 @@ public class Window {
 	public void render() {
 		display.repaint();
 		// this tells the JFrame to repaint the window, which calls paintComponent, drawing everything
-
 	}
 
 	public void update() {
@@ -46,10 +42,11 @@ public class Window {
 
 	}
 	public void resize(int width, int height) {
-		display = new Display(width, height);
-		
+		display = new Display(width, height);//making the display
 		frame.add(display);// adding the display to the window so it can actually show it
-		frame.pack();
+		// pack needs to come after setResizable because it changes the window size, so
+		// the window will be the wrong size
+		frame.pack();// making the window fit the panel perfectly
 	}
 
 	// getters/setters
