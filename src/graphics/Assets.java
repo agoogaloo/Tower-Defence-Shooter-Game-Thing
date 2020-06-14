@@ -33,10 +33,18 @@ public class Assets {
 	private static final BufferedImage laserB=loadImage("res/textures/bullets/blue laser.png");
 	private static final BufferedImage laserY=loadImage("res/textures/bullets/laser beam.png");
 	
-	
+	//all the bullet types
 	public static final BufferedImage[] blueLaser = {laserB.getSubimage(0,0,5,7),laserB.getSubimage(7,0,7,5),
 			laserB.getSubimage(0,7,5,7),laserB.getSubimage(7,7,7,5)};//aaaaaaaaaaaaaaaaaaaaaaaaaah
 	public static final BufferedImage[] YellowLaser = {laserY.getSubimage(0, 0, 10, 4),laserY.getSubimage(0, 10, 4, 10)};//aaaaaaaaaaaaaaaaaaaaaaaaaah
+	public static final BufferedImage[] megaLaserU=splitSpriteSheet(loadImage("res/textures/bullets/mega laser u.png"), 
+			13, 18, 9, 2);
+	public static final BufferedImage[] megaLaserD=splitSpriteSheet(loadImage("res/textures/bullets/mega laser d.png"), 
+			13, 18, 9, 2);
+	public static final BufferedImage[] megaLaserR=splitSpriteSheet(loadImage("res/textures/bullets/mega laser r.png"), 
+			18, 13, 9, 2);
+	public static final BufferedImage[] megaLaserL=splitSpriteSheet(loadImage("res/textures/bullets/mega laser l.png"), 
+			18, 13, 9, 2);
 	
 	
 	public static final BufferedImage[] towerMenu=splitSpriteSheet(loadImage("res/textures/towers/tower menu.png"),
@@ -46,7 +54,7 @@ public class Assets {
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/textures/coin.png"), 11, 11, 2, 2);
 	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/textures/tileset.png"), 16, 16, 6, 12);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes
-	private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 25, 7, 4);
+	private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 7, 4);
 	private static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/textures/enemies/robot red.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/textures/enemies/robot green.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/textures/enemies/robot blue.png"), 21, 25, 4, 4);

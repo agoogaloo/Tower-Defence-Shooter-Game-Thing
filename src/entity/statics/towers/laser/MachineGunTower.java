@@ -1,9 +1,10 @@
-package entity.statics.towers;
+package entity.statics.towers.laser;
 
 import java.awt.Rectangle;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.Bullet;
+import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
 

@@ -13,7 +13,7 @@ import window.Window;
 
 public class GameState extends State{
 	/*
-	 * this represents the game when it is actualy being played and not in a menu or cutscene or whatever
+	 * this represents the game when it is actually being played and not in a menu or cutscene or whatever
 	 */
 	//constants that are needed for different things in the gamestate 
 	private static Floor floor;

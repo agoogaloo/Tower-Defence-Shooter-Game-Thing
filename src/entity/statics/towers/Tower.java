@@ -43,6 +43,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	public abstract int upgrade(char leftRight, int money);
 	public abstract String hover(char leftRight);//this if used when the tower is hovered over but not actually bought yet
+	
 	public void search() {
 		attack=false; //Attack is normally false
 		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range

@@ -1,8 +1,9 @@
-package entity.statics.towers;
+package entity.statics.towers.laser;
 
 import java.awt.Rectangle;
 
 import entity.mobs.Bullet;
+import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -57,36 +58,9 @@ public BigLaserTower(int x,int y, char direction) {
 	}
 	@Override
 	protected void shoot() {
-		//setting shootTime to 0 so that the beam will start
-		shootTime=0;
+		entityManager.addEntity(new MegaLaser(x, y, 40, direction));
 	}
-	@Override
-	public void update() {
-		super.update();
-		if(shootTime<=beamlength) {
-			for(int i=0;i<=20;i++) {
-				switch(direction) {
-				case 'u':
-					//shoots straight up
-					entityManager.addEntity(new Bullet(x+width/2+i/2-5,y+10,x+width/2+i/2-5,y,Assets.blueLaser[0],8, true));
-					break;
-				case 'l':
-					//shoots straight left
-					entityManager.addEntity(new Bullet(x+10,y+i/2,x,y+i/2,Assets.blueLaser[3],8, true));
-					break;
-				case 'r':
-					//shoots straight right
-					entityManager.addEntity(new Bullet(x+width-5,y+i/2,x+width,y+i/2,Assets.blueLaser[1],8, true));
-					break;
-				case 'd':
-					//shoots straight down
-					entityManager.addEntity(new Bullet(x+width/2+i/2-5,y+height-5,x+width/2+i/2-5,y+height,Assets.blueLaser[2],8, true));
-					break;
-				}
-			}
-		}
-		shootTime++;
-	}
+	
 	@Override
 	public int upgrade(char leftRight, int money) {
 		return 0;

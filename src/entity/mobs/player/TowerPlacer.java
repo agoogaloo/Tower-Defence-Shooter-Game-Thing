@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import entity.Entity;
-import entity.statics.towers.LaserTowerlvl1;
 import entity.statics.towers.Tower;
-import entity.statics.towers.WizardTowerlvl1;
+import entity.statics.towers.laser.LaserTowerlvl1;
+import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.PicElement;

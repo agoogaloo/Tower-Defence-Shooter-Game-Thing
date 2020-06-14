@@ -1,5 +1,6 @@
-package entity.statics.towers;
+package entity.statics.towers.wizard;
 
+import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
 
