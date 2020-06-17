@@ -1,5 +1,7 @@
 package floors;
 
+import java.util.Arrays;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 /*
@@ -19,6 +21,20 @@ public class Room {
 	
 	// the  constructor takes the location and width of the file that should be
 	// loaded all and rooms are squares so the width will be the same as the height
+	public Room(Room original) {
+		//this constructor lets us copy rooms so we dont change things we dont want to change
+	
+		tiles=new int[original.tiles.length][];
+		entrance=original.entrance;
+		exit=original.exit;
+		doorX=original.doorX;
+		doorY=original.doorY;
+		
+		for(int i = 0; i < original.tiles.length; i++) {
+			tiles[i] = Arrays.copyOf(original.tiles[i], original.tiles[i].length);
+		}
+	}
+	
 	public Room(JSONObject object) {
 		int width=(int)((long)object.get("width"));
 		tiles = new int[width][width];

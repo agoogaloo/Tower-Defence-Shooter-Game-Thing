@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.simple.JSONArray;
@@ -32,6 +35,7 @@ public class Floor {
 	// constants
 	public final int TILESIZE = 16, ROOMSIZE = 30, SCREENWIDTH, SCREENHEIGHT;
 	private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
+	//private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
 	private final Room[] STARTROOMS = loadAllRooms("res/start rooms.json");// loads all the possible rooms
 	private final Room[] ENDROOMS = loadAllRooms("res/end rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
@@ -82,7 +86,7 @@ public class Floor {
 
 		for (int i = 0; i < size; i++) {// looping until it has created a floor with the proper size
 			//validRoom.unlock();//this can be uncommented to unlock all the rooms in a floor to test stuff easily
-			floor[x][y] = validRoom;// adding the rooms to the floor in the right place
+			floor[x][y] = new Room(validRoom);// adding the rooms to the floor in the right place
 			endRoomX=x;
 			endRoomY=y;
 			switch (validRoom.getExit()) {
