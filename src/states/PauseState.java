@@ -136,9 +136,10 @@ public class PauseState extends State{
 			switch(options.getSelected()) {//doing different things depending on the selected option
 			
 			case 0://screenshake settings
-				if(Settings.getScreenShake()==15) {//if they try to make the screenshake more than 5 it will loop back to 0
+				if(Settings.getScreenShake()==20) {//if they try to make the screenshake more than 20 it will loop back to 0
 					newProperties.setProperty("screenShake","0");
-				}else if(Settings.getScreenShake()==0) {
+				}else if(Settings.getScreenShake()==0) {//not allowing ther to be 1-4 screen shake because it would be too
+					//small for it to look good
 					newProperties.setProperty("screenShake","5");
 				}else {
 					newProperties.setProperty("screenShake",String.valueOf(Settings.getScreenShake()+1));
