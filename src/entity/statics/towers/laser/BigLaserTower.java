@@ -35,7 +35,7 @@ public BigLaserTower(int x,int y, char direction) {
 	this.x = x-width/2;
 	this.y = y-2;
 	updateBounds();
-	reloadTime=360;
+	reloadTime=450;
 	sellValue=6;
 	switch (direction) {
 	case 'u':

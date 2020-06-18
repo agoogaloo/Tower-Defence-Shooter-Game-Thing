@@ -23,7 +23,7 @@ public class MegaLaser extends Statics{
 		
 		
 		friendly=true;//making it so it wont hurt you
-		damage=10;//making it do a ton of damage
+		damage=5;//this hits enemies every frame so it will do alot of damage
 		this.x=x;
 		this.y=y;//setting x an y to paramiters so the length will be determind by the middle of the beam
 		findLength();
