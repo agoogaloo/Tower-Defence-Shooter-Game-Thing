@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
+import entity.mobs.player.UI.MiniMap;
+import entity.mobs.player.UI.PlayerUI;
+import entity.mobs.player.UI.TowerPlacer;
 import entity.statics.Core;
 import entity.statics.towers.Tower;
 import graphics.Animation;
@@ -27,6 +30,7 @@ public class Player extends Mobs {
 	
 	private PlayerUI ui;
 	private TowerPlacer towerPlacer;
+	private MiniMap miniMap=new MiniMap();
 	
 	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation animationLeft = new Animation(Assets.playerL,6);
@@ -85,6 +89,7 @@ public class Player extends Mobs {
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
 		ui.update(health, money);//updating ui with current health and money
+		miniMap.update(entityManager.getEntities(), x, y);
 		
 		if (State.getInputs().isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
 			shoot();
@@ -153,6 +158,7 @@ public class Player extends Mobs {
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
 		towerPlacer.render(g, camera);
+		miniMap.render(g);
 	}
 	private void setCurrentPic() {
 		switch(direction) {

@@ -1,4 +1,4 @@
-package entity.mobs.player;
+package entity.mobs.player.UI;
 
 import graphics.Animation;
 import graphics.Assets;
