@@ -48,7 +48,8 @@ public abstract class Enemy extends Mobs {
 	public void updateDirection() {
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
 		int tile=GameState.getFloor().getTile((x+width/2)/16,(y+height-15)/16);
-		if(bufferedDirection==direction) {
+		if(bufferedDirection==direction) {//doing things if the enemy doesnt need to turn soon
+			//setting turn delay to the right amount so that they will end up centered
 			if(direction=='l'||direction=='r') {
 				turnDelay=(int)(8/speed);
 			}else if(direction=='u') {
@@ -56,7 +57,7 @@ public abstract class Enemy extends Mobs {
 			}else {
 				turnDelay=0;
 			}
-			
+			//getting ready to turn of they see a turning tile
 			if(tile==7||tile==8) {
 				bufferedDirection='r';
 				
@@ -77,8 +78,6 @@ public abstract class Enemy extends Mobs {
 			}
 		}
 		
-		
-		
 		switch(direction) {//moving a different direction depending on which way it is facing
 		case 'u'://if it is facing up 
 			trueY-=speed;//it should move up
@@ -96,6 +95,7 @@ public abstract class Enemy extends Mobs {
 		x=(int)(trueX);
 		y=(int)(trueY);
 	}
+	
 	protected void shoot() {
 		double targetX, targetY; 
 		targetX = entityManager.getPlayer().getX(); //Sets the players x location as the targetX
