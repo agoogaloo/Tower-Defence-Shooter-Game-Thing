@@ -1,7 +1,7 @@
 package entity.statics.towers;
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
@@ -76,13 +76,15 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		showRange(g, camera);
+		//showRange(g, camera);
 	}
 	
 	public void showRange(Graphics g, Camera camera ) {
 		//this is used to show the towers range
-		g.drawOval((int)towerRange.x-camera.getxOffset(),(int) towerRange.y-camera.getyOffset(),
-				(int)towerRange.width, (int)towerRange.height);
+		
+		g.setColor(new Color(0,0,0,75));//setting the colour to a translucent dark colour
+		g.fillOval((int)towerRange.x-camera.getxOffset(),(int) towerRange.y-camera.getyOffset(),
+				(int)towerRange.width, (int)towerRange.height);//making everything in its range darker
 	}
 	
 	@Override

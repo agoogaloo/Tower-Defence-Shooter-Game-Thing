@@ -14,7 +14,7 @@ import states.GameState;
 
 public class MiniMap {
 	//the image that will be drawn onto the screen holding all the data
-	final int scale=4, updateDelay=20;
+	final int scale=3, updateDelay=20;
 	int curentDelay=0;
 	BufferedImage map= new BufferedImage(GameState.getFloor().ROOMSIZE*GameState.getFloor().getSize()/scale*2,
 			GameState.getFloor().ROOMSIZE*GameState.getFloor().getSize()/scale,BufferedImage.TYPE_4BYTE_ABGR);
@@ -59,12 +59,15 @@ public class MiniMap {
 	private void updateMap() {
 		for(int x=0;x<map.getWidth();x++) {//looping throught the width of the minimap
 			for(int y=0;y<map.getHeight();y++) {//looping throught the height of the map
+				if(!GameState.getFloor().checkwall(x*scale, y*scale)) {
+					map.setRGB(x, y,new Color(1,1,26).getRGB());//colouring the pixel if it is a part of the room
+				}
 				int roomX=(x*scale)/GameState.getFloor().ROOMSIZE;
 				int roomY=(y*scale)/GameState.getFloor().ROOMSIZE;
 				
-				if(openedRooms.contains(new Point(roomX,roomY))) {
-					map.setRGB(x, y,new Color(1,1,26).getRGB());//colouring the pixel if it is a part of the room
-				}
+				//if(openedRooms.contains(new Point(roomX,roomY))) {
+				//	map.setRGB(x, y,new Color(1,1,26).getRGB());//colouring the pixel if it is a part of the room
+			//	}
 			}
 		}
 	}

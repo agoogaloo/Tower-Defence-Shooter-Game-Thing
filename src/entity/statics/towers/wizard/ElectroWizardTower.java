@@ -6,7 +6,7 @@ import graphics.Assets;
 
 public class ElectroWizardTower extends Tower{
 	public ElectroWizardTower(int x, int y) {
-		super(x, y, 250, 250, new Animation(Assets.elecricWizardTower,6), 15);
+		super(x, y, 150, 150, new Animation(Assets.elecricWizardTower,6), 15);
 		sellValue=7;
 		price=10;
 		infoText="upgrade cost $"+price+"\n\ngives the wizard the \npower of electricity \nletting it shoot very fast \nand have even more range";

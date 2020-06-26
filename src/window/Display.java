@@ -40,23 +40,16 @@ public class Display extends JPanel {
 	public void paintComponent(Graphics g) {// where everything is actually drawn
 		// all rendering code goes here
 		
+		//the image the everything is drawn onto
 		BufferedImage image=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		
+		//drawing everything onto the image 
 		if(State.getState()!=null) {
 			State.getState().render(image.getGraphics());
 		}
+		//putting the image onto the display and scaling it
 		g.drawImage(image,0,0,width*scale, height*scale, null);
-		/*
-		// a normal graphics object cannot scale so I cast it to a graphics2D which can
-		Graphics2D g2d = (Graphics2D) g;
-
-		g2d.scale(scale, scale);// scaling the graphics so the pixel art looks the right size
-		//g2d.clearRect(0, 0, width, height);//we dont really need to clear the screen each frame but we cna here if we need to
-		//g2d.setColor(new Color(38,12,38));
-		//g2d.fillRect(0, 0, width, height);// clearing the previous frame
-		if(State.getState()!=null) {
-			State.getState().render(g2d);
-		}
-		*/
+		
 	}
 
 	public void update() {

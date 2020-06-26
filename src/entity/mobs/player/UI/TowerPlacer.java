@@ -129,7 +129,7 @@ public class TowerPlacer {
 			background.update(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4));
 			background.move(startX-55, startY+27);//putting it into the right place
 		}else {
-			background.update(Assets.blank);//making the background disapear if there s no text
+			background.update(Assets.blank);//making the background disappear if there is no text
 		}
 		
 		if(mode==Mode.PLACING) {
@@ -139,6 +139,7 @@ public class TowerPlacer {
 			bottomPic.update(Assets.towerMenu[1]);
 			bottomPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);	
 			topPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);
+			selectedTower.showRange(g, camera);
 			
 		}else {
 			infoText.update("");

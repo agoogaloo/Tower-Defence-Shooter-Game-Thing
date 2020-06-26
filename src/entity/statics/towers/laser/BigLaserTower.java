@@ -40,16 +40,16 @@ public BigLaserTower(int x,int y, char direction) {
 	sellValue=6;
 	switch (direction) {
 	case 'u':
-		towerRange=new Ellipse2D.Float(this.x-5+width/2,this.y-600,10,600); //Creates a rectangle for the towers range 
+		towerRange=new Ellipse2D.Float(this.x-5+width/2,this.y-595,10,600); //Creates a rectangle for the towers range 
 		break;
 	case 'l':
-		towerRange=new Ellipse2D.Float(this.x-600,this.y,600,10); //Creates a rectangle for the towers range 
+		towerRange=new Ellipse2D.Float(this.x-595,this.y,600,10); //Creates a rectangle for the towers range 
 		break;
 	case 'd':
-		towerRange=new Ellipse2D.Float(this.x-5+width/2,this.y+height,10,600); //Creates a rectangle for the towers range 
+		towerRange=new Ellipse2D.Float(this.x-5+width/2,this.y-5+height,10,600); //Creates a rectangle for the towers range 
 		break;
 	case 'r':
-		towerRange=new Ellipse2D.Float(this.x+width,this.y,600,10); //Creates a rectangle for the towers range 
+		towerRange=new Ellipse2D.Float(this.x-5+width,this.y,600,10); //Creates a rectangle for the towers range 
 		break;
 	default:
 		towerRange=new Ellipse2D.Float(this.x,this.y-5,600,10); //Creates a rectangle for the towers range 

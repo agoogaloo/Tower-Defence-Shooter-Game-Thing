@@ -45,13 +45,13 @@ public class LaserTowerlvl1 extends Tower{
 			towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y+height-300,20,300); //Creates a rectangle for the towers range 
 			break;
 		case 'l':
-			towerRange=new Ellipse2D.Float(this.x-300+width,this.y-13+height/2,300,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x-300+width,this.y-14+height/2,300,20); //Creates a rectangle for the towers range 
 			break;
 		case 'd':
 			towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y,20,300); //Creates a rectangle for the towers range 
 			break;
 		case 'r':
-			towerRange=new Ellipse2D.Float(this.x,this.y-12+height/2,300,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x,this.y-14+height/2,300,20); //Creates a rectangle for the towers range 
 			break;
 		default:
 			towerRange=new Ellipse2D.Float(this.x,this.y-10,300,20); //Creates a rectangle for the towers range 
