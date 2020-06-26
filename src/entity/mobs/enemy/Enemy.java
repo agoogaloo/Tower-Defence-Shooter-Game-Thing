@@ -47,12 +47,12 @@ public abstract class Enemy extends Mobs {
 
 	public void updateDirection() {
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
-		int tile=GameState.getFloor().getTile((x+width/2)/16,(y+height-8)/16);
+		int tile=GameState.getFloor().getTile((x+width/2)/16,(y+height-15)/16);
 		if(bufferedDirection==direction) {
 			if(direction=='l'||direction=='r') {
-				turnDelay=(int)((width/2)/speed);
+				turnDelay=(int)(8/speed);
 			}else if(direction=='u') {
-				turnDelay=0;//(int)((1)/speed);
+				turnDelay=(int)(14/speed);//(int)((1)/speed);
 			}else {
 				turnDelay=0;
 			}
