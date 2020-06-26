@@ -35,22 +35,14 @@ public class MiniMap {
 		}
 		curentDelay++;
 	}
+	
 	private void drawMap(ArrayList<Entity> entities) {
-		
 		//clearing the map
 		map= new BufferedImage(GameState.getFloor().ROOMSIZE*GameState.getFloor().getSize()/scale*2,
 				GameState.getFloor().ROOMSIZE*GameState.getFloor().getSize()/scale,BufferedImage.TYPE_4BYTE_ABGR);
 		
 		//drawing the rooms
-		for(int x=0;x<map.getWidth();x++) {
-			for(int y=0;y<map.getHeight();y++) {
-				int roomX=(x*scale)/GameState.getFloor().ROOMSIZE;
-				int roomY=(y*scale)/GameState.getFloor().ROOMSIZE;
-				if(openedRooms.contains(new Point(roomX,roomY))) {
-					map.setRGB(x, y,new Color(1,1,26).getRGB());
-				}
-			}
-		}
+		updateMap();
 		
 		//drawing the enemies
 		for (Entity e: entities) {
@@ -62,6 +54,19 @@ public class MiniMap {
 				map.setRGB(e.getX()/(16*scale), e.getY()/(16*scale), new Color(57,51,204).getRGB());
 			}
 		}		
+	}
+	
+	private void updateMap() {
+		for(int x=0;x<map.getWidth();x++) {//looping throught the width of the minimap
+			for(int y=0;y<map.getHeight();y++) {//looping throught the height of the map
+				int roomX=(x*scale)/GameState.getFloor().ROOMSIZE;
+				int roomY=(y*scale)/GameState.getFloor().ROOMSIZE;
+				
+				if(openedRooms.contains(new Point(roomX,roomY))) {
+					map.setRGB(x, y,new Color(1,1,26).getRGB());//colouring the pixel if it is a part of the room
+				}
+			}
+		}
 	}
 	
 	public void render(Graphics g) {

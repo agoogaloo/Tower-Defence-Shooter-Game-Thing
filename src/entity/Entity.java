@@ -79,6 +79,9 @@ public abstract class Entity {
 	public abstract void update();//used to change the state of all the enemies and is called every frame
 
 	public abstract void render(Graphics g, Camera camera);//drawing the entity to the screen
+	public void drawHitBox(Graphics g, Camera camera) {
+		g.drawRect(bounds.x-camera.getxOffset(), bounds.y-camera.getyOffset(), bounds.width, bounds.height);
+	}
 
 	public abstract void move();//move and check for walls
 

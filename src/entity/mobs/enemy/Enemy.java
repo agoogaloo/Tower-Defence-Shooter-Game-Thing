@@ -24,8 +24,8 @@ import states.GameState;
 	 * this is the robot enemy guy that will go around the path to the core and try to shoot you
 	 */
 public abstract class Enemy extends Mobs {
-	protected char direction; //Depending on the direction the enemy will face different ways
-	private int shotDelay; //Shot delay to make sure enemies can not shoot rapidly
+	protected char direction, bufferedDirection; //Depending on the direction the enemy will face different ways
+	private int shotDelay, turnDelay; //Shot delay to make sure enemies can not shoot rapidly
 	protected int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
 	private boolean attack = false; //If true enemy will shoot
 	
@@ -37,8 +37,9 @@ public abstract class Enemy extends Mobs {
 	protected BufferedImage currentPic;//the current sprite being drawn onto the screen
 
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
-		setLocation(x, y);
+		setLocation(x+width/2, y+height-8);
 		this.direction=direction;
+		bufferedDirection=direction;
 		friendly=false;
 		width=0;
 		height=0;
@@ -46,33 +47,37 @@ public abstract class Enemy extends Mobs {
 
 	public void updateDirection() {
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
-		switch (GameState.getFloor().getTile((x+width/2)/16,
-				(y+height/2)/16)){ //getting its current tile
-		case 7:
-			direction='r';
-			break;
-		case 8:
-			direction='r';
-			break;
-		case 9:
-			direction='d';
-			break;
-		case 10:
-			direction='d';
-			break;
-		case 11:
-			direction='l';
-			break;
-		case 12:
-			direction='l';
-			break;
-		case 13:
-			direction='u';
-			break;
-		case 14:
-			direction='u';
-			break;
+		int tile=GameState.getFloor().getTile((x+width/2)/16,(y+height-8)/16);
+		if(bufferedDirection==direction) {
+			if(direction=='l'||direction=='r') {
+				turnDelay=(int)((width/2)/speed);
+			}else if(direction=='u') {
+				turnDelay=0;//(int)((1)/speed);
+			}else {
+				turnDelay=0;
+			}
+			
+			if(tile==7||tile==8) {
+				bufferedDirection='r';
+				
+			}else if(tile==9||tile==10) {
+				bufferedDirection='d';
+				
+			}else if(tile==11||tile==12) {
+				bufferedDirection='l';
+				
+			}else if(tile==13||tile==14) {
+				bufferedDirection='u';
+			}
+		}else {
+			turnDelay--;
+			if(turnDelay<=0) {
+				direction=bufferedDirection;
+				
+			}
 		}
+		
+		
 		
 		switch(direction) {//moving a different direction depending on which way it is facing
 		case 'u'://if it is facing up 
@@ -163,6 +168,7 @@ public abstract class Enemy extends Mobs {
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
 		g.drawImage(currentPic, x-camera.getxOffset(), y-camera.getyOffset(), null);
+		drawHitBox(g, camera);
 		
 	}
 }

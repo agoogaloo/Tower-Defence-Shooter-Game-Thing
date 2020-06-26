@@ -3,6 +3,7 @@ package window;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
@@ -38,7 +39,13 @@ public class Display extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {// where everything is actually drawn
 		// all rendering code goes here
-
+		
+		BufferedImage image=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		if(State.getState()!=null) {
+			State.getState().render(image.getGraphics());
+		}
+		g.drawImage(image,0,0,width*scale, height*scale, null);
+		/*
 		// a normal graphics object cannot scale so I cast it to a graphics2D which can
 		Graphics2D g2d = (Graphics2D) g;
 
@@ -49,6 +56,7 @@ public class Display extends JPanel {
 		if(State.getState()!=null) {
 			State.getState().render(g2d);
 		}
+		*/
 	}
 
 	public void update() {

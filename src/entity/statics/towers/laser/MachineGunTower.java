@@ -1,6 +1,7 @@
 package entity.statics.towers.laser;
 
 import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.Bullet;
@@ -37,19 +38,19 @@ public MachineGunTower(int x,int y, char direction) {
 		sellValue=10;
 		switch (direction) {
 		case 'u':
-			towerRange=new Rectangle(this.x-10+width/2,this.y+height-600,20,600); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y+height-600,20,600); //Creates a rectangle for the towers range 
 			break;
 		case 'l':
-			towerRange=new Rectangle(this.x-600+width,this.y-10+height/2,600,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x-600+width,this.y-10+height/2,600,20); //Creates a rectangle for the towers range 
 			break;
 		case 'd':
-			towerRange=new Rectangle(this.x-10+width/2,this.y,20,600); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y,20,600); //Creates a rectangle for the towers range 
 			break;
 		case 'r':
-			towerRange=new Rectangle(this.x,this.y-10+height/2,600,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x,this.y-10+height/2,600,20); //Creates a rectangle for the towers range 
 			break;
 		default:
-			towerRange=new Rectangle(this.x,this.y-10,600,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x,this.y-10,600,20); //Creates a rectangle for the towers range 
 				
 		}
 

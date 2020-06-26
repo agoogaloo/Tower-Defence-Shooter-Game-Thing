@@ -1,8 +1,11 @@
 package entity.mobs.enemy;
 
+import java.awt.Graphics;
+
 import entity.mobs.Bullet;
 import graphics.Animation;
 import graphics.Assets;
+import graphics.Camera;
 
 public class HamburgerBot extends Enemy{
 	
@@ -11,7 +14,7 @@ public class HamburgerBot extends Enemy{
 		width=33; //The width of the enemy
 		height=24; //The height of the enemy
 		health=10;
-		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
+		speed=0; //The speed which the enemy travels, higher nubmer resuts in higher speeds
 		damage=1; //The amount of damage the enemy will do if it collides with the player
 		reloadTime = 14;
 		rangeWidth=300;

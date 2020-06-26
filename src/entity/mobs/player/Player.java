@@ -24,7 +24,7 @@ public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
 	
-	private int money=15,invincibility=0; //The amount of towers player can build
+	private int money=50,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	
@@ -49,7 +49,7 @@ public class Player extends Mobs {
 		// initializing variables
 		reloadTime=15;
 		width = 14; //The specific width of the player
-		height = 25; //The specific height of the player
+		height = 23; //The specific height of the player
 		speed = 3.4; //The speed which the player moves at, higher the value the faster the speed
 		health = 5;  //The amount of health the player has, when health hits 0 the player "dies"
 		damage=0; // The amount of damage the player will do when it runs into an enemy
@@ -159,6 +159,7 @@ public class Player extends Mobs {
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
+		drawHitBox(g, camera);
 	}
 	private void setCurrentPic() {
 		switch(direction) {

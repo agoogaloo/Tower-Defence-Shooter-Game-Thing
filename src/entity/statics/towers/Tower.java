@@ -1,7 +1,8 @@
 package entity.statics.towers;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 import entity.Entity;
@@ -21,8 +22,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected int shotDelay = 0, reloadTime; //Shot delay making towers shoot once a second, rather than rapidly shooting 
 	
 	protected Entity target; //The specific target the tower gets the x and y of
-	protected Rectangle towerRange; //A rectangle of range where the tower can shoot at
+	protected Ellipse2D.Float towerRange; //A rectangle of range where the tower can shoot at
 	protected Animation animation;
+	
 	
 	protected BufferedImage upgradeIcon;
 	protected int price, sellValue;
@@ -38,7 +40,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		this.y = y-height/2;
 		animation=anim;
 		this.reloadTime=reloadTime;
-		towerRange=new Rectangle(x-rangeWidth/2,y-rangeHeight/2,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
+		towerRange=new Ellipse2D.Float(x-rangeWidth/2,y-rangeHeight/2, rangeWidth, rangeHeight);
+	
+		//towerRange=new Rectangle(x-rangeWidth/2,y-rangeHeight/2,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
 		updateBounds();
 	}
 	public abstract int upgrade(char leftRight, int money);
@@ -47,7 +51,8 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	public void search() {
 		attack=false; //Attack is normally false
 		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
-			if(e.getBounds().intersects(towerRange)&&e instanceof Enemy) { //If an enemy entity is detected within tower range it gets its x and y values and sets it to the appropriate variables
+			if(towerRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
+					e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy) { //If an enemy entity is detected within tower range it gets its x and y values and sets it to the appropriate variables
 				target=e; //sets the target to the specific enemy enetity that intersected the tower's range
 				attack= true; //An entity has been detected so the tower will start shooting	
 			}
@@ -69,16 +74,24 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	
 	@Override
-	public void render(Graphics g, Camera camera) { //Renders the tower, along with it's range
+	public void render(Graphics g, Camera camera) { //Renders the tower
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		//g.drawRect(towerRange.x-camera.getxOffset(), towerRange.y-camera.getyOffset(),(int) towerRange.getWidth(),(int) towerRange.getHeight());
+		showRange(g, camera);
 	}
+	
+	public void showRange(Graphics g, Camera camera ) {
+		//this is used to show the towers range
+		g.drawOval((int)towerRange.x-camera.getxOffset(),(int) towerRange.y-camera.getyOffset(),
+				(int)towerRange.width, (int)towerRange.height);
+	}
+	
 	@Override
 	public void damage() {
 		//left blank so that the towers wont take damage
 	}
 	public void destroy() {
 		killed=true;
+		
 	}	
 	public BufferedImage getUpgradeIcon() {
 		return upgradeIcon;

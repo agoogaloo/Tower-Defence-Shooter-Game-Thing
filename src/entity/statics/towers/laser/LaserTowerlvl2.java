@@ -1,6 +1,7 @@
 package entity.statics.towers.laser;
 
 import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 
 import entity.mobs.Bullet;
 import entity.statics.towers.Tower;
@@ -43,19 +44,19 @@ public class LaserTowerlvl2 extends Tower{
 		//this is done seperatedly from animations so that it can use the right x,y,width,and height variables
 		switch (direction) {
 		case 'u':
-			towerRange=new Rectangle(this.x-10+width/2,this.y+height-350,20,350); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y+height-350,20,350); //Creates a rectangle for the towers range 
 			break;
 		case 'l':
-			towerRange=new Rectangle(this.x-350+width,this.y-10+height/2,350,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x-350+width,this.y-10+height/2,350,20); //Creates a rectangle for the towers range 
 			break;
 		case 'd':
-			towerRange=new Rectangle(this.x-10+width/2,this.y,20,350); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y,20,350); //Creates a rectangle for the towers range 
 			break;
 		case 'r':
-			towerRange=new Rectangle(this.x,this.y-10+height/2,350,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x,this.y-10+height/2,350,20); //Creates a rectangle for the towers range 
 			break;
 		default:
-			towerRange=new Rectangle(this.x,this.y-10,350,20); //Creates a rectangle for the towers range 
+			towerRange=new Ellipse2D.Float(this.x,this.y-10,350,20); //Creates a rectangle for the towers range 
 				
 		}
 		
