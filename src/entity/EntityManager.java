@@ -45,6 +45,8 @@ public class EntityManager {
 		
 		entities.add(player);// adding the player and factory to the arraylist so it will be updated and rendered
 		entities.add(factory);
+		
+		spawner=new EnemySpawner();
 	}
 
 	// this method updates all the entitys in the entities arrayList and removes the dead ones

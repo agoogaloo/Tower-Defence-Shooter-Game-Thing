@@ -1,6 +1,7 @@
 package entity.statics;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import graphics.Animation;
 import graphics.Assets;
@@ -9,6 +10,7 @@ import states.GameState;
 
 public class Factory extends Statics{
 	private Animation anim= new Animation(Assets.robotFactory);
+	private BufferedImage currentPic;
 	
 	public Factory (int x, int y) {
 		this.x=x;
@@ -20,10 +22,20 @@ public class Factory extends Statics{
 		updateBounds();
 	}
 	
-
+	@Override
+	public void damage() {
+		int initialHealth=health;
+		super.damage();
+		if(health!=initialHealth) {
+			//making the enemy flash white when it gets hit
+			currentPic=damageFlash(currentPic);
+		}
+	}
+	
 	@Override
 	public void update() {
 		anim.update();
+		currentPic=anim.getCurrentFrame();
 		if(health==1) {
 			GameState.newFloor();
 		}
@@ -32,7 +44,7 @@ public class Factory extends Statics{
 
 	@Override
 	public void render(Graphics g, Camera camera) {
-		g.drawImage(anim.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
+		g.drawImage(currentPic, x-camera.getxOffset(), y-camera.getyOffset(), null);
 		
 	}
 

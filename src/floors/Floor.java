@@ -187,7 +187,7 @@ public class Floor {
 		}
 		for(int i:DOORTILES) {
 			if(i==tile) {//also returning true if they are running into a door
-				return true;
+				//return true;
 			}
 		}
 		return false;

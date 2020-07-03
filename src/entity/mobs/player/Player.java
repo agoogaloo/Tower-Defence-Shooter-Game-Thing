@@ -24,13 +24,13 @@ public class Player extends Mobs {
 	//declaring variables
 	private int shotDelay = 0; //Prevents player from shooting too fast
 	
-	private int money=50,invincibility=0; //The amount of towers player can build
+	private int money=10,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	
 	private PlayerUI ui;
 	private TowerPlacer towerPlacer;
-	private MiniMap miniMap=new MiniMap();
+	private MiniMap miniMap;
 	
 	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation animationLeft = new Animation(Assets.playerL,6);
@@ -63,6 +63,7 @@ public class Player extends Mobs {
 		setLocation(x, y);
 		ui=new PlayerUI();
 		towerPlacer=new TowerPlacer();
+		miniMap=new MiniMap();
 	}
 	
 	public void shoot() {

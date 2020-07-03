@@ -14,9 +14,9 @@ import states.GameState;
 
 public class MiniMap {
 	//the image that will be drawn onto the screen holding all the data
-	final int scale=3, updateDelay=30;
-	int curentDelay=0;
-	BufferedImage map= new BufferedImage(GameState.getFloor().ROOMSIZE*GameState.getFloor().getSize()/scale*2,
+	private final int scale=3, updateDelay=30;
+	private int curentDelay=0;
+	private BufferedImage map= new BufferedImage(GameState.getFloor().ROOMSIZE*GameState.getFloor().getSize()/scale*2,
 			GameState.getFloor().ROOMSIZE*GameState.getFloor().getSize()/scale,BufferedImage.TYPE_4BYTE_ABGR);
 	
 	private ArrayList<Point> openedRooms = new ArrayList<Point>();

@@ -17,6 +17,7 @@ public class GameState extends State{
 	 */
 	//constants that are needed for different things in the gamestate 
 	private static Floor floor;
+	private static int level=1;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
 	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
@@ -66,7 +67,7 @@ public class GameState extends State{
 		floor = new Floor(8, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
 		Entity.init();
-		
+		level++;
 	}
 	public static void screenShake(double amount) {
 		screenShake+=amount;
@@ -76,6 +77,9 @@ public class GameState extends State{
 	}
 	public static Floor getFloor() {
 		return floor;
+	}
+	public static int getLevel() {
+		return level;
 	}
 	public static Camera getCamera() {
 		return camera;
