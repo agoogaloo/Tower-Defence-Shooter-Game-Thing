@@ -31,12 +31,11 @@ public class Player extends Mobs {
 	private PlayerUI ui;
 	private TowerPlacer towerPlacer;
 	private MiniMap miniMap;
+	private Animator animator=new Animator();
 	
-	private Animation animationDown = new Animation(Assets.playerD,6); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
-	private Animation animationLeft = new Animation(Assets.playerL,6);
-	private Animation animationUp = new Animation(Assets.playerU,6);
-	private Animation animationRight = new Animation(Assets.playerR,6);
+	
 	private BufferedImage currentPic;//the current image of the player
+	private PlayerAnimations currentAnim=PlayerAnimations.IDLEDOWN;
 	
 	private char direction='d'; //Sets player's direction to down by default at the start
 	
@@ -82,11 +81,6 @@ public class Player extends Mobs {
 	@Override
 	public void update() {
 		int moveKeys=0;
-		//System.out.println(health+", "+money);
-		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
-		animationLeft.update(); //Animation and sprites change depending on the direction
-		animationUp.update();
-		animationRight.update();
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
 		ui.update(health, money);//updating ui with current health and money
@@ -121,10 +115,18 @@ public class Player extends Mobs {
 		}
 		
 		tower();
+		
+		if(changeX==0&&changeY==0) {
+			currentPic=animator.update(direction, false);
+		}else {
+			currentPic=animator.update(direction, true);
+		}
+		
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
 		shotDelay += 1; //Increase shotDelay by one every frame
 		invincibility--;
-		setCurrentPic();
+		
+		
 	}
 	
 	private void tower() { //Tower method to create a tower
@@ -160,23 +162,9 @@ public class Player extends Mobs {
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
-		drawHitBox(g, camera);
+		//drawHitBox(g, camera);
 	}
-	private void setCurrentPic() {
-		switch(direction) {
-		case 'd':
-			currentPic=animationDown.getCurrentFrame();
-			break;
-		case 'l':
-			currentPic=animationLeft.getCurrentFrame();
-			break;
-		case'u':
-			currentPic=animationUp.getCurrentFrame();
-			break;
-		case'r':
-			currentPic=animationRight.getCurrentFrame();
-		}
-	}
+	
 	public void createCore() {
 		createCore(x,y);
 	}

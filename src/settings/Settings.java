@@ -32,7 +32,7 @@ public class Settings {
 		try {
 			newProperties.store(new FileWriter(settingsPath), "this file holds all the settings like screen shake");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("couldnt updtate proprties file");
 			e.printStackTrace();
 		}
 		//updates everything to all the new settings

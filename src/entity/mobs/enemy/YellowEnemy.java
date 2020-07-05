@@ -16,8 +16,8 @@ public class YellowEnemy extends Enemy{
 		height=25; //The height of the enemy
 		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
 		friendly=false; //The status of the bullet, bullets from this class can hurt player
-		damage=999; //The amount of damage the enemy will do if it collides with the player
-		reloadTime = 1000000;
-		health = 1;
+		damage=1; //The amount of damage the enemy will do if it collides with the player
+		reloadTime = 30;
+		health = 3;
 	}
 }

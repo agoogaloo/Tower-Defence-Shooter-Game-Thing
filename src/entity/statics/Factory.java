@@ -27,7 +27,7 @@ public class Factory extends Statics{
 		int initialHealth=health;
 		super.damage();
 		if(health!=initialHealth) {
-			//making the enemy flash white when it gets hit
+			//making the factory flash white when it gets hit
 			currentPic=damageFlash(currentPic);
 		}
 	}

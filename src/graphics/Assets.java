@@ -54,7 +54,7 @@ public class Assets {
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/textures/coin.png"), 11, 11, 2, 2);
 	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/textures/tileset.png"), 16, 16, 6, 12);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes
-	private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 7, 4);
+	private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 23, 2);
 	private static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/textures/enemies/robot red.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/textures/enemies/robot green.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/textures/enemies/robot blue.png"), 21, 25, 4, 4);
@@ -96,10 +96,16 @@ public class Assets {
 	public static  final BufferedImage[] bigLaserTowerL=splitSpriteSheet(loadImage("res/textures/towers/big laser tower L.png"),37,21,2,4);	
 	
 	//player animations
-	public static  final BufferedImage[] playerD=Arrays.copyOfRange(player, 0, 7);
-	public static  final BufferedImage[] playerL = Arrays.copyOfRange(player, 7, 14);
-	public static  final BufferedImage[] playerU =Arrays.copyOfRange(player, 14, 21);
-	public static  final BufferedImage[] playerR =Arrays.copyOfRange(player,21, 28);
+	public static  final BufferedImage[] playerIdleD=Arrays.copyOfRange(player, 0, 7);
+	public static  final BufferedImage[] playerIdleL = Arrays.copyOfRange(player, 7, 14);
+	public static  final BufferedImage[] playerIdleU =Arrays.copyOfRange(player, 14, 21);
+	public static  final BufferedImage[] playerIdleR =Arrays.copyOfRange(player,21, 28);
+	//running animations
+	public static  final BufferedImage[] playerRunD =Arrays.copyOfRange(player,28, 34);
+	public static  final BufferedImage[] playerRunL =Arrays.copyOfRange(player,34, 37);
+	public static  final BufferedImage[] playerRunU =Arrays.copyOfRange(player,37, 43);
+	public static  final BufferedImage[] playerRunR =Arrays.copyOfRange(player,43, 46);
+	
 	//enemy animations
 	public static final BufferedImage[] enemyRedD = Arrays.copyOfRange(enemyRed, 0, 4);
 	public static final BufferedImage[] enemyRedL = Arrays.copyOfRange(enemyRed, 4, 8);

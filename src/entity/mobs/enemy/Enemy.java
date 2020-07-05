@@ -121,7 +121,7 @@ public abstract class Enemy extends Mobs {
 	}
 	@Override
 	public void update() {
-		int tile=GameState.getFloor().getTile(x/16, y/16);//geting the tile the enemy is currently on
+		int tile=GameState.getFloor().getTile(x/16, y/16);//getting the tile the enemy is currently on
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight); //The range which the enemy looks for targets
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight); //The player's own box
 		if(playerBox.intersects(attackRange)) {  //If the playerBox is intersects the attackRange attack will be set to true, and the enemy will attack the player 
