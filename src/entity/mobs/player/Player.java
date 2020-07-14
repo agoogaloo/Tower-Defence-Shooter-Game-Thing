@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
+import entity.mobs.enemy.HeliBot;
 import entity.mobs.player.UI.MiniMap;
 import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
@@ -63,6 +64,7 @@ public class Player extends Mobs {
 		ui=new PlayerUI();
 		towerPlacer=new TowerPlacer();
 		miniMap=new MiniMap();
+		entityManager.addEntity(new HeliBot(x+40, y-50, 'r'));
 	}
 	
 	public void shoot() {
@@ -148,8 +150,8 @@ public class Player extends Mobs {
 						//shaking the screen so it feels like you actually got hit
 						GameState.screenShake(0.75);
 						currentPic=damageFlash(currentPic);
+						invincibility=30;
 					}
-					invincibility=30;
 				}
 			}
 			if (health <= 0) {//if it has no more health left that it should be dead

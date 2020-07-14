@@ -25,15 +25,15 @@ import states.GameState;
 	 */
 public abstract class Enemy extends Mobs {
 	protected char direction, bufferedDirection; //Depending on the direction the enemy will face different ways
-	private int shotDelay, turnDelay; //Shot delay to make sure enemies can not shoot rapidly
+	protected int shotDelay, turnDelay; //Shot delay to make sure enemies can not shoot rapidly
 	protected int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
 	private boolean attack = false; //If true enemy will shoot
 	
 	//setting default animations
-	protected Animation animationDown = new Animation(Assets.enemyRedD,5); //Different animations depending on the direction the enemy is facing
-	protected Animation animationLeft = new Animation(Assets.enemyRedL,5);
-	protected Animation animationUp = new Animation(Assets.enemyRedU,5);
-	protected Animation animationRight = new Animation(Assets.enemyRedR,5);
+	protected Animation animDown = new Animation(Assets.enemyRedD,5); //Different animations depending on the direction the enemy is facing
+	protected Animation animLeft = new Animation(Assets.enemyRedL,5);
+	protected Animation animUp = new Animation(Assets.enemyRedU,5);
+	protected Animation animRight = new Animation(Assets.enemyRedR,5);
 	protected BufferedImage currentPic;//the current sprite being drawn onto the screen
 
 	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
@@ -145,25 +145,25 @@ public abstract class Enemy extends Mobs {
 			}
 		}
 		
-		animationDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
-		animationLeft.update(); //Animation and sprites change depending on the direction
-		animationUp.update();
-		animationRight.update();
+		animDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
+		animLeft.update(); //Animation and sprites change depending on the direction
+		animUp.update();
+		animRight.update();
 		//setting the current picture to the right animation depending on its direction
 		switch(direction) {
 		case 'd':
-			currentPic=animationDown.getCurrentFrame();
+			currentPic=animDown.getCurrentFrame();
 			break;
 		case 'u':
-			currentPic=animationUp.getCurrentFrame();
+			currentPic=animUp.getCurrentFrame();
 			break;
 		case 'l':
-			currentPic=animationLeft.getCurrentFrame();
+			currentPic=animLeft.getCurrentFrame();
 			break;
 		case 'r':
-			currentPic=animationRight.getCurrentFrame();
+			currentPic=animRight.getCurrentFrame();
 		}
-		shotDelay+=1; //Increase shotDelay by one every frame
+		shotDelay++; //Increase shotDelay by one every frame
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 

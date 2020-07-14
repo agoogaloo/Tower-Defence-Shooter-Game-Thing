@@ -15,9 +15,9 @@ public class BlueEnemy extends Enemy{
 		reloadTime = 130;
 		
 		//using the blue enemy animations so it looks different
-		animationDown = new Animation(Assets.enemyBlueD,4); //Different animations depending on the direction the enemy is facing
-		animationLeft = new Animation(Assets.enemyBlueL,4);
-		animationUp = new Animation(Assets.enemyBlueU,4);
-		animationRight = new Animation(Assets.enemyBlueR,4);
+		animDown = new Animation(Assets.enemyBlueD,4); //Different animations depending on the direction the enemy is facing
+		animLeft = new Animation(Assets.enemyBlueL,4);
+		animUp = new Animation(Assets.enemyBlueU,4);
+		animRight = new Animation(Assets.enemyBlueR,4);
 	}
 }

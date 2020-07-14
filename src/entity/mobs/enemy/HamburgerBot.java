@@ -17,15 +17,15 @@ public class HamburgerBot extends Enemy{
 		rangeWidth=300;
 		rangeHeight=300;
 		
-		animationDown=new Animation(Assets.hamburgerBotD);
-		animationUp=new Animation(Assets.hamburgerBotU);
-		animationLeft=new Animation(Assets.hamburgerBotL);
-		animationRight=new Animation(Assets.hamburgerBotR);
+		animDown=new Animation(Assets.hamburgerBotD);
+		animUp=new Animation(Assets.hamburgerBotU);
+		animLeft=new Animation(Assets.hamburgerBotL);
+		animRight=new Animation(Assets.hamburgerBotR);
 	}
 	@Override
 	protected void shoot() {
 		double targetX=1, targetY=0; 
-		switch (animationUp.getFrameIndex()) {
+		switch (animUp.getFrameIndex()) {
 		//switch(0) {
 		case 0:
 			targetX=1;

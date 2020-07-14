@@ -25,7 +25,7 @@ public abstract class Entity {
 	protected int width, height;
 	protected int reloadTime;
 	protected boolean killed=false, friendly;
-  protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
+    protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 	
 	public static void init(){
 		entityManager.reset();
