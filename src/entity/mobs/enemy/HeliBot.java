@@ -98,7 +98,7 @@ public class HeliBot extends Enemy  {
 		double offset=Math.sqrt(Math.pow(Math.abs(targetX-x),2)+
 				Math.pow(Math.abs(targetY-y),2));
 		
-		//moving towards the point if it is more than 5 pixels away from it
+		//moving towards the point if it is more than 7.5 pixels away from it (its a circular range so it can be a not integer)
 		if(offset>7.5){
 			x+=xMove;
 			y+=yMove;

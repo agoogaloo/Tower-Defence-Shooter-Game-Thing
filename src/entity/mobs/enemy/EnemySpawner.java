@@ -24,7 +24,8 @@ public class EnemySpawner {
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
 			roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
-			currentRoom=new Point(roomX, roomY);
+			currentRoom=new Point(
+					roomX, roomY);
 			if(!openedRooms.contains(currentRoom)){//checking if the player is in a new room
 				newWave(roomX,roomY,difficulty);
 				difficulty++;
@@ -78,7 +79,7 @@ public class EnemySpawner {
 	}
 	public static boolean waveComplete() {
 		for(Entity e:Entity.getEntityManager().getEntities()) {
-			if(e instanceof Enemy) {
+			if(e instanceof Enemy&&!(e instanceof HeliBot)) {
 				return false;
 			}
 		}
