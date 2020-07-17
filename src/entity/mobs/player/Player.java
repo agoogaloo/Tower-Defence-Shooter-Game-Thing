@@ -64,7 +64,7 @@ public class Player extends Mobs {
 		ui=new PlayerUI();
 		towerPlacer=new TowerPlacer();
 		miniMap=new MiniMap();
-		entityManager.addEntity(new HeliBot(x+40, y-50, 'r'));
+		entityManager.addEntity(new HeliBot(x, y-60, 'r'));
 	}
 	
 	public void shoot() {
