@@ -10,6 +10,7 @@ import states.GameState;
 
 public class HeliBot extends Enemy  {
 	private final int TARGETDISTANCE=70;
+	private int changedDistance=TARGETDISTANCE;
 	private int timeAlive=0;
 	
 	
@@ -22,6 +23,7 @@ public class HeliBot extends Enemy  {
 		bounds.y=y;
 		bounds.width=0;
 		bounds.height=0;
+		//creating its animations
 		animUp=new Animation(Assets.heliBotU);
 		animDown=new Animation(Assets.heliBotD);
 		animLeft=new Animation(Assets.heliBotL);
@@ -31,31 +33,22 @@ public class HeliBot extends Enemy  {
 	
 	@Override
 	public void update() {
+		//updating the animations
 		animDown.update();
 		animLeft.update();
 		animRight.update();
 		animUp.update();
 		timeAlive++;
-		if(timeAlive%35==0) {
+		//making it shoot 1 frame faster every 35 frames
+		if(timeAlive%35==0 &&reloadTime>=7) {
 			reloadTime--;
 		}
+		//setting/moving towards its target
 		target();
+		//making it face the right way
 		updateDirection();
-		switch(direction) {
-		case 'd':
-			currentPic=animDown.getCurrentFrame();
-			break;
-		case 'u':
-			currentPic=animUp.getCurrentFrame();
-			break;
-		case 'l':
-			currentPic=animLeft.getCurrentFrame();
-			break;
-		case 'r':
-			currentPic=animRight.getCurrentFrame();
-		}
 		
-		if (shotDelay >= reloadTime&&timeAlive>=180) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
+		if (shotDelay >= reloadTime&&timeAlive>=180) { //shooting when it has waited long enough
 			shoot();
 			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
@@ -64,6 +57,7 @@ public class HeliBot extends Enemy  {
 	
 	@Override
 	public void updateDirection() {
+		//setting its direction based on where the player is relative to heliBot
 		int xDiff=entityManager.getPlayer().getX()-x;
 		int yDiff=entityManager.getPlayer().getY()-y;
 		if(Math.abs(xDiff)>Math.abs(yDiff)) {
@@ -79,6 +73,21 @@ public class HeliBot extends Enemy  {
 				direction='u';
 			}
 		}
+		//using the right animation base on its direction
+		switch(direction) {
+		case 'd':
+			currentPic=animDown.getCurrentFrame();
+			break;
+		case 'u':
+			currentPic=animUp.getCurrentFrame();
+			break;
+		case 'l':
+			currentPic=animLeft.getCurrentFrame();
+			break;
+		case 'r':
+			currentPic=animRight.getCurrentFrame();
+		}
+		
 	}
 	
 	//this is would be called move but i cant because it is used for something else
@@ -106,8 +115,8 @@ public class HeliBot extends Enemy  {
 		
 		//the point that the enemy is trying to get to. it will be TargetDistance away from the player at the 
 		//angle of wave angle.
-		int targetX= entityManager.getPlayer().getX()+(int)(TARGETDISTANCE*Math.cos(waveAngle));
-		int targetY=entityManager.getPlayer().getY()+(int)(TARGETDISTANCE*Math.sin(waveAngle));
+		int targetX= entityManager.getPlayer().getX()+(int)(changedDistance*Math.cos(waveAngle));
+		int targetY=entityManager.getPlayer().getY()+(int)(changedDistance*Math.sin(waveAngle));
 		
 		//getting the angle that it needs to move to reach target x/y
 		double moveAngle = Math.atan2(targetY-y, targetX-x);
@@ -118,11 +127,16 @@ public class HeliBot extends Enemy  {
 		double offset=Math.sqrt(Math.pow(Math.abs(targetX-x),2)+
 				Math.pow(Math.abs(targetY-y),2));
 		
-		//moving towards the point if it is more than 7.5 pixels away from it (its a circular range so it can be a not integer)
+		//moving towards the point if it is more than 10 pixels away from it (its a circular range so it can be a not integer)
 		if(offset>10){
 			x+=xMove;
 			y+=yMove;
 			
+		}
+		if (GameState.getFloor().checkwall((int)x/16,(int)y/16)){
+			changedDistance-=3;
+		}else {
+			changedDistance=TARGETDISTANCE;	
 		}
 	}
 	
