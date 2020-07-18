@@ -2,6 +2,7 @@ package entity.mobs.enemy;
 
 import java.awt.Graphics;
 
+import entity.Entity;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -9,13 +10,14 @@ import states.GameState;
 
 public class HeliBot extends Enemy  {
 	private final int TARGETDISTANCE=70;
+	private int timeAlive=0;
 	
 	
-	public HeliBot(int x, int y, char direction) {
-		super(x, y, direction);
+	public HeliBot(int x, int y) {
+		super(x, y,'d');		
 		speed=2.5;
 		health=1;
-		reloadTime=15;
+		reloadTime=25;
 		bounds.x=x;
 		bounds.y=y;
 		bounds.width=0;
@@ -33,7 +35,10 @@ public class HeliBot extends Enemy  {
 		animLeft.update();
 		animRight.update();
 		animUp.update();
-		
+		timeAlive++;
+		if(timeAlive%35==0) {
+			reloadTime--;
+		}
 		target();
 		updateDirection();
 		switch(direction) {
@@ -50,7 +55,7 @@ public class HeliBot extends Enemy  {
 			currentPic=animRight.getCurrentFrame();
 		}
 		
-		if (shotDelay >= reloadTime) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
+		if (shotDelay >= reloadTime&&timeAlive>=180) { //If the enemy hasn't attacked in the last 30 frames and it detects the player's box it will shoot
 			shoot();
 			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
@@ -79,8 +84,23 @@ public class HeliBot extends Enemy  {
 	//this is would be called move but i cant because it is used for something else
 	private void target() {
 		//the location of the enemy wave that it is trying to send the player to
-		int waveX= GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()+230,
-				waveY=GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248;
+		int waveX= 0,waveY=0;
+		int enemies=0;
+		//making wavex and y the average x and y of all the enemies
+		for(Entity e:entityManager.getEntities()) {//looping through all the entities
+			if(e instanceof Enemy&&!e.equals(this)) {//checking if it is an enemy
+				enemies++;//adding one to the enemies counter so we know how much to divide by
+				waveX+=e.getX();//adding the x/y of the entity
+				waveY+=e.getY();
+			}
+		}
+		//setting making sure there are enemies so there isnt a divide by 0 error 
+		if(enemies!=0) {	
+			//dividing by number of enemies to take the average location
+			waveX/=enemies;
+			waveY/=enemies;
+		}
+		
 		//the angle of the wave to the player 
 		double waveAngle=Math.atan2(entityManager.getPlayer().getY()-waveY, entityManager.getPlayer().getX()-waveX);
 		
@@ -99,9 +119,10 @@ public class HeliBot extends Enemy  {
 				Math.pow(Math.abs(targetY-y),2));
 		
 		//moving towards the point if it is more than 7.5 pixels away from it (its a circular range so it can be a not integer)
-		if(offset>7.5){
+		if(offset>10){
 			x+=xMove;
 			y+=yMove;
+			
 		}
 	}
 	
@@ -111,8 +132,11 @@ public class HeliBot extends Enemy  {
 		g.drawImage(currentPic, x-camera.getxOffset()-15, y-camera.getyOffset()-13, null);
 	}
 	
+	@Override
+	public void damage() {
+	}
 	
-
-	
-
+	public void destroy() {
+		killed=true;
+	}
 }

@@ -81,6 +81,7 @@ public class EntityManager {
 
 	// same as update but rendering things instead
 	public void render(Graphics g, Camera camera) {
+		
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).render(g, camera);// rendering all the entities
 		}
