@@ -1,6 +1,8 @@
 package graphics.UI;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public abstract class UIElement {
 	/*
@@ -31,8 +33,28 @@ public abstract class UIElement {
 		this.x=x;
 		this.y=y;
 	}
+	
+	protected static BufferedImage changeColour(BufferedImage startPic, Color colour) {
+		//this method returns an image with the shadow of the original in the selected colour
+		BufferedImage newPic=new BufferedImage(startPic.getWidth(), startPic.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		for(int x=0;x<startPic.getWidth();x++) {
+			for(int y=0;y<startPic.getHeight();y++) {
+				if(new Color(startPic.getRGB(x, y), true).getAlpha()!=0) {
+					newPic.setRGB(x, y, colour.getRGB());
+					
+				}
+			}
+		}
+		return newPic;
+	}
 	public static UIManager getUIManager() {
 		return UIManager;
 	}
 	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}	
 }

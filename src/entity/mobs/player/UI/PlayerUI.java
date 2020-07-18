@@ -9,7 +9,8 @@ public class PlayerUI {
 	/*
 	 * this is all the ui such as health and money that the player will draw to the screen
 	 */
-	
+	//used to tell if you have healed/taken damage
+	private int oldHealth;
 	private TextElement money=new TextElement(18, 20, "", Assets.MozartNbp);//the number saying how much money you have
 	private AnimElement moneyIcon=new AnimElement(5, 20, new Animation(Assets.coin));//the spinning coin in the corner
 	private AnimElement[] healthIcons=new AnimElement[22];//the hearts the show how much health you have left 
@@ -26,8 +27,20 @@ public class PlayerUI {
 			healthIcons[i].update();//updating the animation
 			if(i<health) {//making the icon visible if you have more health than its place
 				healthIcons[i].visible=true;
-			}else {//otherwise this icon is after the amount of health you hae so it should be invisible
+			}else {//otherwise this icon is after the amount of health you have so it should be invisible
 				healthIcons[i].visible=false;
+			}
+		}
+		if(health!=oldHealth) {
+			oldHealth=health;
+			for(AnimElement i: healthIcons) {
+				i.move(i.getX(), i.getY()-2);
+			}
+			
+		}else if(healthIcons[0].getY()!=5) {
+			for(AnimElement i: healthIcons) {
+				i.move(i.getX(),5);
+				i.flash();
 			}
 		}
 		moneyIcon.update();//updating the coin icon
