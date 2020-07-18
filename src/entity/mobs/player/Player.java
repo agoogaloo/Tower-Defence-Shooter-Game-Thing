@@ -6,15 +6,14 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
-import entity.mobs.enemy.HeliBot;
 import entity.mobs.player.UI.MiniMap;
 import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
 import entity.statics.Core;
 import entity.statics.towers.Tower;
-import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.particles.ParticleEffect;
 import states.GameState;
 import states.State;
 
@@ -37,6 +36,8 @@ public class Player extends Mobs {
 	
 	private BufferedImage currentPic;//the current image of the player
 	private PlayerAnimations currentAnim=PlayerAnimations.IDLEDOWN;
+	
+	private ParticleEffect particles=new ParticleEffect(x, y, 0, 0, 1);
 	
 	private char direction='d'; //Sets player's direction to down by default at the start
 	
@@ -77,13 +78,15 @@ public class Player extends Mobs {
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 			//adding a bit of screenshake so things feel better
 			GameState.screenShake(0.07);
+			particles=new ParticleEffect(x, y, 4, 15, 10);
+			
 		}
 	}
 
 	@Override
 	public void update() {
 		int moveKeys=0;
-		
+		particles.update();
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
 		ui.update(health, money);//updating ui with current health and money
 		miniMap.update(entityManager.getEntities(), x, y);
@@ -164,6 +167,7 @@ public class Player extends Mobs {
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
+		particles.render(g, camera);
 		//drawHitBox(g, camera);
 	}
 	

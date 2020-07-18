@@ -14,7 +14,7 @@ public class PlayerUI {
 	private TextElement money=new TextElement(18, 20, "", Assets.MozartNbp);//the number saying how much money you have
 	private AnimElement moneyIcon=new AnimElement(5, 20, new Animation(Assets.coin));//the spinning coin in the corner
 	private AnimElement[] healthIcons=new AnimElement[22];//the hearts the show how much health you have left 
-	//after 22 hearts it just goes off screen so the array doesnt need to go much higher
+	//after 22 hearts it just goes off screen so the array doesnt need to go higher
 	public PlayerUI() {
 		for(int i=0;i<healthIcons.length;i++) {
 			healthIcons[i]=new AnimElement(5+(15*i), 5, new Animation(Assets.healthIcon));
