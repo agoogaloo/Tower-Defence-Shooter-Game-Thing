@@ -50,7 +50,6 @@ public class EnemySpawner {
 		heliDelay=0;
 		}
 		spawnHeli();
-		System.out.println(heliDelay);
 	}
 	public void newWave(int roomX,int roomY, int enemies) {
 		System.out.println("\n\nSTARTING WAVE "+String.valueOf(difficulty-2)+"\n\n");

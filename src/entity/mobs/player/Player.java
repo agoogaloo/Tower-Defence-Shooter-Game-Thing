@@ -22,7 +22,7 @@ import states.State;
 
 public class Player extends Mobs {
 	//declaring variables
-	private int shotDelay = 0; //Prevents player from shooting too fast
+	private int shotDelay = 0,dustDelay=0; //Prevents player from shooting too fast
 	
 	private int money=10,invincibility=0; //The amount of towers player can build
 	private Camera camera; //Camera needed so it can follow player
@@ -37,8 +37,6 @@ public class Player extends Mobs {
 	private BufferedImage currentPic;//the current image of the player
 	private PlayerAnimations currentAnim=PlayerAnimations.IDLEDOWN;
 	
-	private ParticleEffect particles=new ParticleEffect(x, y, 0, 0, 1);
-	
 	private char direction='d'; //Sets player's direction to down by default at the start
 	
 	public Player(int x, int y) {
@@ -52,7 +50,7 @@ public class Player extends Mobs {
 		width = 14; //The specific width of the player
 		height = 23; //The specific height of the player
 		speed = 3.4; //The speed which the player moves at, higher the value the faster the speed
-		health = 5;  //The amount of health the player has, when health hits 0 the player "dies"
+		health = 6;  //The amount of health the player has, when health hits 0 the player "dies"
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
 		camera=GameState.getCamera(); //The camera will follow the player
@@ -78,7 +76,7 @@ public class Player extends Mobs {
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 			//adding a bit of screenshake so things feel better
 			GameState.screenShake(0.07);
-			particles=new ParticleEffect(x, y, 4, 15, 10);
+			new ParticleEffect(x, y,true);
 			
 		}
 	}
@@ -86,7 +84,7 @@ public class Player extends Mobs {
 	@Override
 	public void update() {
 		int moveKeys=0;
-		particles.update();
+		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
 		ui.update(health, money);//updating ui with current health and money
 		miniMap.update(entityManager.getEntities(), x, y);
@@ -123,12 +121,20 @@ public class Player extends Mobs {
 		
 		if(changeX==0&&changeY==0) {
 			currentPic=animator.update(direction, false);
+			dustDelay=20;
 		}else {
 			currentPic=animator.update(direction, true);
+			if(dustDelay>=15) {
+				
+				new ParticleEffect(x+7, y+12, 3, 5, 0.25, 6, false);
+				//new ParticleEffect(x+7, y+9, 3, 4, 0.25, 6, false);
+				dustDelay=0;
+			}
 		}
 		
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
-		shotDelay += 1; //Increase shotDelay by one every frame
+		shotDelay ++; //Increase shotDelay by one every frame
+		dustDelay ++;
 		invincibility--;
 		
 		
@@ -167,7 +173,6 @@ public class Player extends Mobs {
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
-		particles.render(g, camera);
 		//drawHitBox(g, camera);
 	}
 	

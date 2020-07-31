@@ -8,6 +8,8 @@ import floors.Floor;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.UIElement;
+import graphics.particles.Particle;
+import graphics.particles.ParticleManager;
 import settings.Settings;
 import window.Window;
 
@@ -35,6 +37,7 @@ public class GameState extends State{
 		if(getInputs().isPause()) {
 			currentState=new PauseState(this);
 		}
+		Particle.getParticleManager().update();
 		Entity.getEntityManager().update();
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
 		// updating the camera position to center on the player
@@ -57,7 +60,9 @@ public class GameState extends State{
 	@Override
 	public void render(Graphics g) {
 		floor.render(g, camera);
+		Particle.getParticleManager().renderBottom(g, camera);
 		Entity.getEntityManager().render(g, camera);// rendering the entities
+		Particle.getParticleManager().renderTop(g, camera);
 		UIElement.getUIManager().render(g);//rendering all the ui ontop of everything
 	}
 	
