@@ -2,6 +2,7 @@
 
 package entity.mobs.enemy;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -15,6 +16,9 @@ import floors.Floor;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.particles.colourers.Timed;
+import graphics.particles.effects.CloudEffect;
+import graphics.particles.effects.RingEffect;
 import states.GameState;
 
 //@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
@@ -111,6 +115,8 @@ public abstract class Enemy extends Mobs {
 			currentPic=damageFlash(currentPic);
 		}
 		if(killed) {
+			new CloudEffect(x+width/2, y+height/2, 10, 10, 0.25, new Timed(new Color(220,220,220),20,10), true);
+			new RingEffect(x+width/2, y+height/2, 5, 15, 0.5, new Timed(new Color(150,150,150),30,15), false);
 			int randnum=ThreadLocalRandom.current().nextInt(0,20);//generating a random number to determine what should drop
 			if(randnum==1) {
 				entityManager.addEntity(new Health(x, y));
