@@ -3,6 +3,7 @@ package window;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -45,7 +46,9 @@ public class Display extends JPanel {
 		
 		//drawing everything onto the image 
 		if(State.getState()!=null) {
-			State.getState().render(image.getGraphics());
+			Graphics2D g2d=(Graphics2D)image.getGraphics();
+			g2d.setRenderingHint( RenderingHints.KEY_STROKE_CONTROL,RenderingHints.VALUE_STROKE_PURE);
+			State.getState().render(g2d);
 		}
 		//putting the image onto the display and scaling it
 		g.drawImage(image,0,0,width*scale, height*scale, null);

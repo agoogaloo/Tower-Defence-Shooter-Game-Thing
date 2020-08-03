@@ -13,7 +13,9 @@ import entity.statics.Core;
 import entity.statics.towers.Tower;
 import graphics.Assets;
 import graphics.Camera;
-import graphics.particles.ParticleEffect;
+import graphics.particles.colourers.Timed;
+import graphics.particles.effects.CloudEffect;
+import graphics.particles.effects.RingEffect;
 import states.GameState;
 import states.State;
 
@@ -76,7 +78,8 @@ public class Player extends Mobs {
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 			//adding a bit of screenshake so things feel better
 			GameState.screenShake(0.07);
-			new ParticleEffect(x, y,true);
+			
+			new CloudEffect(x, y, false);
 			
 		}
 	}
@@ -125,9 +128,7 @@ public class Player extends Mobs {
 		}else {
 			currentPic=animator.update(direction, true);
 			if(dustDelay>=15) {
-				
-				new ParticleEffect(x+7, y+12, 3, 5, 0.25, 6, false);
-				//new ParticleEffect(x+7, y+9, 3, 4, 0.25, 6, false);
+				new RingEffect(x+7, y+12, 2, 5, 0.25,new Timed(20), false);
 				dustDelay=0;
 			}
 		}
