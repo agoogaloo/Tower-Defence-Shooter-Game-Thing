@@ -75,7 +75,6 @@ public class Bullet extends Mobs{
 	@Override
 	public void render(Graphics g, Camera camera){ //Renders bullets, depending on the value of bulletType the bullet sprite will be different, the x and y will also grow or shrink depending on the bullet picture, as x and y subtract the bullet pictures width and height respectively
 		g.drawImage(pic, x-camera.getxOffset(),y- camera.getyOffset(), null);
-		drawHitBox(g, camera);
 	}
 	
 	private void checkWalls(int xVelocity, int yVelocity) {
