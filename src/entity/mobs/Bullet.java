@@ -24,20 +24,17 @@ public class Bullet extends Mobs{
 		y=startY;
 		trueX=x;
 		trueY=y;
-		
-		
 		this.speed = speed;
 		this.friendly=friendly;
-			
 		this.pic=pic; //Sets this variable to the pics specified, allowing different bullet pictures to be used depending on the parameter
-						   //0 is for small yellow bullets, 1 is for large yellow bullets, 2 is for small red bullets, 3 is for larger red bullets
-		
 		damage=1; //How much points of damage a bullet will do
 		width=pic.getWidth(); //making the dimentions the right size
 		height=pic.getHeight(); 
 		bounds.width=width;
 		bounds.height=height;
 		health=1;
+		
+		//calculating bullets path
 		bulletPath = Math.atan2(targetY-y, targetX-x); //calculates the angle of the bullet needs to travel to reach the target coordinates
 		velocityX = speed*Math.cos(bulletPath); //Using the bullet path angle calculates the direction and speed needed to move along the x axis
 		velocityY = speed*Math.sin(bulletPath); //Using the bullet path angle calculates the direction and speed needed to move along the Y axis
@@ -51,8 +48,8 @@ public class Bullet extends Mobs{
 		int offsetY = pic.getHeight()/2;
 		trueX+=velocityX; //Applies the velocity the the true variable, allowing the bullet to move in a specific direction and speed depending on the value of velocity
 		trueY+=velocityY;
-		x=((int)(trueX) - offsetX); //Sets x to the trueX (including the offset) this updates x moving the bullet
-		y=((int)(trueY) - offsetY); //Sets y to the trueY (including the offset) this updates y moving the bullet
+		x=((int)(trueX)); //Sets x to the trueX (including the offset) this updates x moving the bullet
+		y=((int)(trueY)); //Sets y to the trueY (including the offset) this updates y moving the bullet
 		//intVelocityX = ((int)(velocityX)); //VelocityX and Y are parsed into these int values, allowing us to use the checkwall method. As checkwall only uses ints when these values are normally doubles
 		//intVelocityY = ((int)(velocityY));
 		
@@ -77,7 +74,8 @@ public class Bullet extends Mobs{
 		
 	@Override
 	public void render(Graphics g, Camera camera){ //Renders bullets, depending on the value of bulletType the bullet sprite will be different, the x and y will also grow or shrink depending on the bullet picture, as x and y subtract the bullet pictures width and height respectively
-		g.drawImage(pic, x-pic.getWidth()/2-camera.getxOffset(),y-pic.getHeight()/2- camera.getyOffset(), null);
+		g.drawImage(pic, x-camera.getxOffset(),y- camera.getyOffset(), null);
+		drawHitBox(g, camera);
 	}
 	
 	private void checkWalls(int xVelocity, int yVelocity) {

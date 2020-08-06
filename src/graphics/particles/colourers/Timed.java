@@ -37,7 +37,7 @@ public class Timed extends ParticleColourer{
 	public void update() {
 		time--;
 		if(time<=0) {
-			visible=false;
+			remove=true;
 		}
 	}
 

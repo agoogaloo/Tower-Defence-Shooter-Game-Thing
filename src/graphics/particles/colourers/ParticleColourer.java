@@ -8,7 +8,7 @@ import java.awt.Color;
 public abstract class ParticleColourer {
 	
 	//if the particle has turned invisible and wont turn visible again so it can be removed safely
-	protected boolean visible=true;
+	protected boolean remove=false;
 	protected Color colour=Color.WHITE;
 	
 	public ParticleColourer(Color colour) {
@@ -23,8 +23,8 @@ public abstract class ParticleColourer {
 	public Color getColour() {
 		return colour;
 	}
-	public boolean isVisible() {
-		return visible;
+	public boolean isRemove() {
+		return remove;
 	}
 	
 	

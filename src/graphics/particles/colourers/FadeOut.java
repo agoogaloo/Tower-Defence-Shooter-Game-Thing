@@ -9,8 +9,7 @@ public class FadeOut extends ParticleColourer{
 	public FadeOut(Color colour, double fadeSpeed, int startAlhpa) {
 		super(colour);
 		this.fadeSpeed=fadeSpeed;
-		alpha=startAlhpa;
-		
+		alpha=startAlhpa;	
 	}
 	
 	public FadeOut(Color colour, double fadeSpeed) {
@@ -25,7 +24,7 @@ public class FadeOut extends ParticleColourer{
 	public void update() {
 		alpha-=fadeSpeed;
 		if(alpha<=0) {
-			visible=false;
+			remove=true;
 			alpha=0;
 		}
 		//setting the colour to a new colour with the updateded transparancy

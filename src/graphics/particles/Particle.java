@@ -1,51 +1,36 @@
 package graphics.particles;
 
 import java.awt.Graphics;
-import java.util.concurrent.ThreadLocalRandom;
 
 import graphics.Camera;
-import graphics.particles.colourers.ParticleColourer;
+import graphics.particles.movers.ParticleMover;
+import graphics.particles.shapes.ParticleShape;
 
 public class Particle {
 	
 	private static ParticleManager particleManager=new ParticleManager();
-	private ParticleColourer colourer;
-	private int x, y, size;
-	private double trueX,trueY,xMove,yMove;
+	private ParticleMover mover;
+	private ParticleShape shape;
 	private boolean remove=false;
 	
-	public Particle(int x, int y, int size, double speed, ParticleColourer colourer, boolean isOnTop) {
+	public Particle(ParticleMover mover, ParticleShape shape, boolean isOnTop) {
 		particleManager.addParticle(this,isOnTop);
-		this.colourer=colourer;
-		this.x=x;
-		this.y=y;
-		trueX=x;
-		trueY=y;
-		this.size=size;
-		
-		xMove=ThreadLocalRandom.current().nextDouble(-speed,speed);
-		yMove=speed-Math.abs(xMove);
-		if(ThreadLocalRandom.current().nextBoolean()) {
-			yMove*=-1;//making it move down instead of up 1/2 of the time 
-		}
+		this.mover=mover;
+		this.shape=shape;
 	}
 	
 	public void update() {
-		trueX+=xMove;
-		trueY+=yMove;
-		x=(int) Math.round(trueX);
-		y=(int) Math.round(trueY);
-		
-		colourer.update();
-		if(!colourer.isVisible()) {
+		mover.update();
+		shape.update();
+		if(mover.isRemove()||shape.isRemove()) {
 			remove=true;
+			
 		}
 	}
 	
 	public void render(Graphics g, Camera camera) {
-		g.setColor(colourer.getColour());//setting the colour to white
-		g.fillOval(x-camera.getxOffset()-size/2,y-camera.getyOffset()-size/2,size, size);//drawign the circle
-	}
+		shape.render(g, camera, mover.getX(), mover.getY());
+	} 
 	
 	public static ParticleManager getParticleManager() {
 		return particleManager;

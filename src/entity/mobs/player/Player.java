@@ -1,5 +1,6 @@
 package entity.mobs.player;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -13,9 +14,10 @@ import entity.statics.Core;
 import entity.statics.towers.Tower;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.particles.ParticleEffect;
 import graphics.particles.colourers.Timed;
-import graphics.particles.effects.CloudEffect;
-import graphics.particles.effects.RingEffect;
+import graphics.particles.movers.Straight;
+import graphics.particles.shapes.OvalParticle;
 import states.GameState;
 import states.State;
 
@@ -71,16 +73,18 @@ public class Player extends Mobs {
 	public void shoot() {
 		if (shotDelay >= reloadTime) { //Allows the player to shoot every 10 frames
 			double targetX, targetY;
+			int angle=180;
 			targetX = (State.getInputs().getMouseX()); //Sets the mousesX position to targetX
 			targetY = (State.getInputs().getMouseY()); //Sets the mousesY position to targetY
 			entityManager.addEntity(new Bullet(x+7, y+12, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.yellowBullet, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
 	
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 			//adding a bit of screenshake so things feel better
-			GameState.screenShake(0.07);
-			
-			new CloudEffect(x, y, false);
-			
+			GameState.screenShake(0.07);	
+			angle =(int)Math.round(Math.toDegrees(Math.atan2(targetY+camera.getyOffset()-y, 
+					targetX+camera.getxOffset()-x)));
+			new ParticleEffect(3, new Straight(x+7, y+12,angle, 15, 1), new OvalParticle(2, 
+					new Timed(new Color(250,230,150),10)), true);
 		}
 	}
 
@@ -128,7 +132,8 @@ public class Player extends Mobs {
 		}else {
 			currentPic=animator.update(direction, true);
 			if(dustDelay>=15) {
-				new RingEffect(x+7, y+12, 2, 5, 0.25,new Timed(20), false);
+				new ParticleEffect(3, new Straight(x+7, y+20,0.5), 
+						new OvalParticle(2, new Timed(45)), false);
 				dustDelay=0;
 			}
 		}
