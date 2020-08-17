@@ -1,4 +1,4 @@
-package graphics.particles.colourers;
+package graphics.particles.shapes.colourers;
 
 import java.awt.Color;
 

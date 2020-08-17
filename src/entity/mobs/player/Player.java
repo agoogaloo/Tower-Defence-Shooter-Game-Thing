@@ -15,9 +15,11 @@ import entity.statics.towers.Tower;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.particles.ParticleEffect;
-import graphics.particles.colourers.Timed;
 import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.Point;
+import graphics.particles.movers.spawnPattern.Rectangle;
 import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
 import states.State;
 
@@ -83,8 +85,8 @@ public class Player extends Mobs {
 			GameState.screenShake(0.07);	
 			angle =(int)Math.round(Math.toDegrees(Math.atan2(targetY+camera.getyOffset()-y, 
 					targetX+camera.getxOffset()-x)));
-			new ParticleEffect(3, new Straight(x+7, y+12,angle, 15, 1), new OvalParticle(2, 
-					new Timed(new Color(250,230,150),10)), true);
+			new ParticleEffect(3, new Straight(new Point(x+7,y+12),angle,15,1), new OvalParticle(2, 
+					new Timed(new Color(250,230,150),30)), true);
 		}
 	}
 
@@ -132,7 +134,7 @@ public class Player extends Mobs {
 		}else {
 			currentPic=animator.update(direction, true);
 			if(dustDelay>=15) {
-				new ParticleEffect(3, new Straight(x+7, y+20,0.5), 
+				new ParticleEffect(3, new Straight(new Point(x+7,y+12),0.5), 
 						new OvalParticle(2, new Timed(45)), false);
 				dustDelay=0;
 			}

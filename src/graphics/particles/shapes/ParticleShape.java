@@ -3,7 +3,7 @@ package graphics.particles.shapes;
 import java.awt.Graphics;
 
 import graphics.Camera;
-import graphics.particles.colourers.ParticleColourer;
+import graphics.particles.shapes.colourers.ParticleColourer;
 
 
 /**
