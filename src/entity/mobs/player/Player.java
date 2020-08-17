@@ -17,7 +17,6 @@ import graphics.Camera;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
-import graphics.particles.movers.spawnPattern.Rectangle;
 import graphics.particles.shapes.OvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;

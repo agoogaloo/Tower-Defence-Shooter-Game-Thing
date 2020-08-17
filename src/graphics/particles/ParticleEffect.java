@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import graphics.particles.movers.ParticleMover;
 import graphics.particles.shapes.ParticleShape;
 
+
 /**
- * this particle effect makes a particles that move outwards in a circle shape
+ * creates a group of particles that will share the same movement, spawning, shapes, and colouring systems 
+ * allowing them to all folow the same rules but still be separate from each other with randomizations
  * @author The Computer Man
  */
 public class ParticleEffect {
