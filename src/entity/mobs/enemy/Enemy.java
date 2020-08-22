@@ -168,8 +168,6 @@ public abstract class Enemy extends Mobs {
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
 		g.drawImage(currentPic, x-camera.getxOffset(), y-camera.getyOffset(), null);
-		drawHitBox(g, camera);
-		
 	}
 }
 

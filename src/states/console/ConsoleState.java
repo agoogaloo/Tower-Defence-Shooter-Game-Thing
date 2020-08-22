@@ -18,7 +18,7 @@ public class ConsoleState extends State{
 	private String currentLine="";
 	private ArrayList<String> allText=new ArrayList<String>();
 	boolean copyBackGround=true;
-	static boolean showHitBoxen=false;
+	static boolean showHitBoxen=false, gameFrozen=false, nextFrame=false;
 	
 	public ConsoleState(GameState game) {
 		this.game=game;
@@ -78,6 +78,21 @@ public class ConsoleState extends State{
 		for(int i=0;i<allText.size();i++) {
 			g.drawString(allText.get(i), 7, 185-allText.size()*7+i*7);
 		}
+	}
+
+	public static boolean isShowHitBoxen() {
+		return showHitBoxen;
+	}
+	public static boolean isGameFrozen() {
+		return gameFrozen;
+	}
+	
+	public static boolean isNextFrame() {
+		if(nextFrame) {
+			nextFrame=false;
+			return true;
+		}
+		return false;
 	}
 	
 

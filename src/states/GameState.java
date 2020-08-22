@@ -40,6 +40,11 @@ public class GameState extends State{
 		}else if(getInputs().isConsole()) {
 			currentState=new ConsoleState(this);
 		}
+		if(ConsoleState.isGameFrozen()&&!ConsoleState.isNextFrame()) {
+			return;
+		}
+		
+		
 		Particle.getParticleManager().update();
 		Entity.getEntityManager().update();
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());

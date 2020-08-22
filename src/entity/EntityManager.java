@@ -8,6 +8,7 @@ import entity.mobs.player.Player;
 import entity.statics.Factory;
 import graphics.Camera;
 import states.GameState;
+import states.console.ConsoleState;
 
 //@author Matthew (Did most of the logic and everything in this class)
 //@author Kevin (did the remove entity and getKilled, along with player getKilled )
@@ -84,6 +85,9 @@ public class EntityManager {
 		
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).render(g, camera);// rendering all the entities
+			if(ConsoleState.isShowHitBoxen()) {
+				entities.get(i).drawHitBox(g, camera);
+			}
 		}
 	}
 
