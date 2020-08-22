@@ -9,8 +9,8 @@ import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.UIElement;
 import graphics.particles.Particle;
-import graphics.particles.ParticleManager;
 import settings.Settings;
+import states.console.ConsoleState;
 import window.Window;
 
 public class GameState extends State{
@@ -23,6 +23,7 @@ public class GameState extends State{
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
 	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
+	
 	public GameState() {
 		//creating the floor
 		newFloor();
@@ -36,6 +37,8 @@ public class GameState extends State{
 		getInputs().update();
 		if(getInputs().isPause()) {
 			currentState=new PauseState(this);
+		}else if(getInputs().isConsole()) {
+			currentState=new ConsoleState(this);
 		}
 		Particle.getParticleManager().update();
 		Entity.getEntityManager().update();
@@ -43,7 +46,7 @@ public class GameState extends State{
 		// updating the camera position to center on the player
 		
 		//moving the screen in a random direction by the current screen shake amount
-		if(maxScreenShake>0) {//makes shure that screen shake is enabled so it doesnt break everytihng
+		if(maxScreenShake>0) {//makes sure that screen shake is enabled so it doesnt break everytihng
 			xshake=ThreadLocalRandom.current().nextDouble(-screenShake*maxScreenShake,screenShake*maxScreenShake);
 			yshake=screenShake*maxScreenShake-xshake;
 		}else {
