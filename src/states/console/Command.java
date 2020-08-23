@@ -2,11 +2,11 @@ package states.console;
 
 public abstract class Command {
 	
-	public abstract String[] execute(String params);
-	String[] helpText=new String[] {"no description"};
+	public abstract String execute(String params);
+	String helpText="no description";
 			
 	private String[] splitParams(String param) {
-		return new String[]{param};
+		return param.split(",");
 		
 	}
 }

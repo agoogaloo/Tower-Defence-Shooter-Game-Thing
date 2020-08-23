@@ -1,76 +1,127 @@
 package states.console;
 
-import java.util.ArrayList;
+import entity.Entity;
+import states.GameState;
 
 public class CommandSelector {
-	//paralel arrays to tell which commands match up with which classes
-	private final String[] commandStrings = new String[] {"help","showHitBox", "freeze", "nf"};
+	//the instance of the consolestate that holds this selector is needed for a few commands
+	private ConsoleState console;
+	//Parallel arrays to tell which commands match up with which classes
+	private final String[] commandStrings = new String[] {"Help","ShowHitBox", "Freeze", "Nf", "EnemyWave"};
+	private final Command[] commands = new Command[] {new Help(), new ShowHitBox(), new Freeze(), 
+			new NextFrame(), new EnemyWave()};
 	
-	private final Command[] commands = new Command[] {new Help(), new ShowHitBox(), new Freeze(), new NextFrame()};
+	public CommandSelector(ConsoleState console) {
+		this.console = console;
+	}
 	
-	public String[] executeCommand(String command) {
+	/**
+	 * this will execute the right command with the right paramiters when it is called
+	 * 
+	 * @param command - the entire line that has been typed into the console to give the command including the paramiters 
+	 * @return the text the the command wants to display on the console or to let you know it didnt recognize a command
+	 */
+	public String executeCommand(String command) {
+		String[] splitCommand=getParams(command);
 		for(int i=0;i<commandStrings.length;i++) {
-			if(commandStrings[i].equalsIgnoreCase(command)) {
-				return commands[i].execute("");
+			if(commandStrings[i].equalsIgnoreCase(splitCommand[0])) {
+				return commands[i].execute(splitCommand[1]);
 			}
 		}
-		return new String[] {"'"+command+"' is not a valid command"};
+		return "'"+command+"' is not a valid command";
 	}
-
+	
+	/**
+	 * this splits the line into the command part and the paramiter part
+	 * @param command - the entire line
+	 * @return returns a string array where the 1st object is the command and the 2nd is the string of paramiters 
+	 */
+	private String[] getParams(String command) {
+		if(!command.contains("(")) {
+			return new String[] {command,""};
+		}
+		
+		String[] returnValue=command.split("\\(", 2);
+		if(returnValue[1].charAt(returnValue[1].length()-1)==')') {
+			returnValue[1]=returnValue[1].substring(0, returnValue[1].length()-1);
+		}
+		
+		return returnValue;
+		
+		
+	}
+	//all the different commands that can be executed
+	
 	private class Help extends Command{
 		private Help() {
-			helpText=new String[]{"gives info about all the commands"};
+			helpText="gives info about all the commands";
 		}
-		public String[] execute(String params) {
-			ArrayList<String> text=new ArrayList<String>();
-			String[] returnValue;
-			text.add("");
-			text.add("COMMAND LIST:");
-			for(int i=0;i<commands.length;i++) {
-				String commandName=commandStrings[i]+" -- ";
-				for(String helpLine:commands[i].helpText) {
-					text.add(commandName+helpLine);
-					commandName="";
-				}
-				text.add("");
-			}
+		
+		public String execute(String params) {
+			String text="\nCOMMANDLIST:\n\n";
 			
-			returnValue=text.toArray(new String[0]);
-			return returnValue;
+			for(int i=0;i<commands.length;i++) {
+				text+=commandStrings[i]+" -- "+commands[i].helpText+"\n";	
+			}
+			return text;
 		}
 	}
 	
 	private class ShowHitBox extends Command{
 		private ShowHitBox(){
-			helpText= new String[]{"toggles if the hitboxen of all entities is shown or not"};
+			helpText= "toggles if the hitboxen of all entities is shown or not";
 		}
-		public String[] execute(String params) {
-			ConsoleState.showHitBoxen=!ConsoleState.showHitBoxen;
+		public String execute(String params) {
+			console.showHitBoxen=!ConsoleState.showHitBoxen;
 			
-			return new String[] {"showing hotboxen: "+ConsoleState.showHitBoxen,""};
+			return "showing hotboxen: "+ConsoleState.showHitBoxen+"\n";
 		}
 	}
 	
 	private class Freeze extends Command{
 		private Freeze(){
-			helpText= new String[] {"freeze/unfreeze the gameState to see whats happening better",
-					"(only freezes the game states update method)"};
+			helpText= "freeze/unfreeze the gameState to see whats happening better\n"+
+					"  (only freezes the game states update method)";
 		}
-		public String[] execute(String params) {
-			ConsoleState.gameFrozen=!ConsoleState.gameFrozen;
+		public String execute(String params) {
+			console.gameFrozen=!ConsoleState.gameFrozen;
 			
-			return new String[] {"game frozen: "+ConsoleState.gameFrozen,""};
+			return "game frozen: "+ConsoleState.gameFrozen+"\n";
 		}
 	}
 	
 	private class NextFrame extends Command{
 		private NextFrame(){
-			helpText= new String[] {"progresses the game by 1 frame (only really works after freeze)"};
+			helpText= "progresses the game by 1 frame and freezes it\n"+
+					"  (can be unfrozen with the freeze command)";
 		}
-		public String[] execute(String params) {
-			ConsoleState.nextFrame=!ConsoleState.nextFrame;
+		public String execute(String params) {
+			console.gameFrozen=false;
+			console.game.update();
+			console.gameFrozen=true;
+			return "game state frozen on next frame"+"\n";
+		}
+	}
+	
+	private class EnemyWave extends Command{
+		private EnemyWave(){
+			helpText= "params: (int amount)\n"+
+					"  spawns amount enemies at the end of the players current room";
+		}
+		public String execute(String params) {
+			int amount;
+			int spawnRoomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
+					TILESIZE)/GameState.getFloor().ROOMSIZE;
+			int spawnRoomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
+					TILESIZE)/GameState.getFloor().ROOMSIZE;
+			try {
+				amount=Integer.parseInt(params);
+			} catch (NumberFormatException e) {
+				return "'"+params+"' is not an integer, no enemies spawned"; 
+			}
 			
-			return new String[] {"game state sent to next frame"};
+			Entity.getEntityManager().getSpawner().newWave(spawnRoomX, spawnRoomY, amount);
+			return "wave with "+amount+" enemies added to queue\n";
 		}
 	}
 }

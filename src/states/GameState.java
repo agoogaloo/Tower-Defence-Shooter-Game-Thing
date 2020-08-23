@@ -40,7 +40,7 @@ public class GameState extends State{
 		}else if(getInputs().isConsole()) {
 			currentState=new ConsoleState(this);
 		}
-		if(ConsoleState.isGameFrozen()&&!ConsoleState.isNextFrame()) {
+		if(ConsoleState.isGameFrozen()) {
 			return;
 		}
 		

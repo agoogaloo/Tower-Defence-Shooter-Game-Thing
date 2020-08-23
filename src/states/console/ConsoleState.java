@@ -14,11 +14,10 @@ import window.Window;
 public class ConsoleState extends State{
 	GameState game;
 	Graphics backGround;
-	CommandSelector commandSelector=new CommandSelector();
-	private String currentLine="";
-	private ArrayList<String> allText=new ArrayList<String>();
+	CommandSelector commandSelector=new CommandSelector(this);
+	private String currentLine="", allText="";
 	boolean copyBackGround=true;
-	static boolean showHitBoxen=false, gameFrozen=false, nextFrame=false;
+	static boolean showHitBoxen=false, gameFrozen=false;
 	
 	public ConsoleState(GameState game) {
 		this.game=game;
@@ -46,8 +45,8 @@ public class ConsoleState extends State{
 		switch(key.getKeyCode()) {
 		
 		case KeyEvent.VK_ENTER:
-			allText.add(currentLine);
-			allText.addAll(Arrays.asList(commandSelector.executeCommand(currentLine)));
+			allText+="\n"+currentLine;
+			allText+="\n"+ commandSelector.executeCommand(currentLine);
 			currentLine="";
 			break;
 			
@@ -64,6 +63,7 @@ public class ConsoleState extends State{
 	
 	@Override
 	public void render(Graphics g) {
+		String[] allTextArray=allText.split("\n");
 		if(copyBackGround) {
 			backGround=g;
 			copyBackGround=false;
@@ -75,25 +75,18 @@ public class ConsoleState extends State{
 		g.setColor(new Color(255,255,255));
 		g.setFont(Assets.myfont);
 		g.drawString(currentLine, 7, 190);
-		for(int i=0;i<allText.size();i++) {
-			g.drawString(allText.get(i), 7, 185-allText.size()*7+i*7);
+		for(int i=0;i<allTextArray.length;i++) {
+			g.drawString(allTextArray[i], 5, 185-allTextArray
+					.length*7+i*7);
 		}
 	}
-
+	
+	
 	public static boolean isShowHitBoxen() {
 		return showHitBoxen;
 	}
 	public static boolean isGameFrozen() {
 		return gameFrozen;
 	}
-	
-	public static boolean isNextFrame() {
-		if(nextFrame) {
-			nextFrame=false;
-			return true;
-		}
-		return false;
-	}
-	
 
 }

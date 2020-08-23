@@ -105,4 +105,7 @@ public class EntityManager {
 	public Player getPlayer() {
 		return player;
 	}
+	public EnemySpawner getSpawner() {
+		return spawner;
+	}
 }
