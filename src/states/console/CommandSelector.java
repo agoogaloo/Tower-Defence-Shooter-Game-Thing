@@ -7,9 +7,9 @@ public class CommandSelector {
 	//the instance of the consolestate that holds this selector is needed for a few commands
 	private ConsoleState console;
 	//Parallel arrays to tell which commands match up with which classes
-	private final String[] commandStrings = new String[] {"Help","ShowHitBox", "Freeze", "Nf", "EnemyWave"};
+	private final String[] commandStrings = new String[] {"Help","ShowHitBox", "Freeze", "Fs", "EnemyWave"};
 	private final Command[] commands = new Command[] {new Help(), new ShowHitBox(), new Freeze(), 
-			new NextFrame(), new EnemyWave()};
+			new FrameSkip(), new EnemyWave()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
@@ -81,7 +81,7 @@ public class CommandSelector {
 	private class Freeze extends Command{
 		private Freeze(){
 			helpText= "freeze/unfreeze the gameState to see whats happening better\n"+
-					"  (only freezes the game states update method)";
+					"    (only freezes the game states update method)";
 		}
 		public String execute(String params) {
 			console.gameFrozen=!ConsoleState.gameFrozen;
@@ -90,23 +90,38 @@ public class CommandSelector {
 		}
 	}
 	
-	private class NextFrame extends Command{
-		private NextFrame(){
-			helpText= "progresses the game by 1 frame and freezes it\n"+
-					"  (can be unfrozen with the freeze command)";
+	private class FrameSkip extends Command{
+		private FrameSkip(){
+			helpText= "params: (int amount)      skips the game forward by amount frames and\n"
+					+ "    freezes it. If no amount is given it will skip 1 frame\n"
+					+ "    (can be unfrozen with the freeze command)";
 		}
 		public String execute(String params) {
+			int amount;
+			if(params.equals("")) {
+				amount=1;
+			}else {
+				try {
+					amount=Integer.parseInt(params);
+				} catch (NumberFormatException e) {
+					return "'"+params+"' is not an integer, game state not changed"; 
+				}
+			}
 			console.gameFrozen=false;
-			console.game.update();
+			for(int i=0;i<amount;i++) {
+				System.out.println("frame skipped");
+				console.game.update();
+			}
 			console.gameFrozen=true;
-			return "game state frozen on next frame"+"\n";
+			
+			return "game state updated "+amount+" times and frozen\n "
+					+ "use freeze command to make the game continue normally";
 		}
 	}
 	
 	private class EnemyWave extends Command{
 		private EnemyWave(){
-			helpText= "params: (int amount)\n"+
-					"  spawns amount enemies at the end of the players current room";
+			helpText= "params: (int amount)      spawns amount enemies at the end of the \nplayers current room";
 		}
 		public String execute(String params) {
 			int amount;
