@@ -45,7 +45,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		left = keys[KeyEvent.VK_LEFT]; 
 		right = keys[KeyEvent.VK_RIGHT];
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
-		console.update(keys[KeyEvent.VK_F1]);
+		console.update(keys[KeyEvent.VK_F12]);
 		upPushed.update(up);
 		downPushed.update(down);
 		leftPushed.update(left);

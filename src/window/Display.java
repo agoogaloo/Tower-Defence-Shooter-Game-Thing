@@ -40,7 +40,6 @@ public class Display extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {// where everything is actually drawn
 		// all rendering code goes here
-		
 		//the image the everything is drawn onto
 		BufferedImage image=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		

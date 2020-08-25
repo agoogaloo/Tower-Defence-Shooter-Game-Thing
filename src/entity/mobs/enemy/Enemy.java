@@ -16,6 +16,7 @@ import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 import states.GameState;
+import states.console.ConsoleState;
 
 //@author Kevin (did animations, did shoot method, enemy shoot range and playerBox, shot delay, and rendering)
 //@author Matthew (did update direction, and all damage/collision related code, width, height, damage, friendly)
@@ -108,6 +109,9 @@ public abstract class Enemy extends Mobs {
 		super.damage();
 		if(health!=initialHealth) {
 			//making the enemy flash white when it gets hit
+			if(ConsoleState.isInstaKillEnemy()) {
+				killed=true;
+			}
 			currentPic=damageFlash(currentPic);
 		}
 		if(killed) {
