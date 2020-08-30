@@ -8,8 +8,10 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import graphics.Assets;
 import settings.Settings;
 import states.State;
+import states.console.ConsoleState;
 
 /*
  * by: Matthew Milum
@@ -42,12 +44,17 @@ public class Display extends JPanel {
 		// all rendering code goes here
 		//the image the everything is drawn onto
 		BufferedImage image=new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d=(Graphics2D)image.getGraphics();
 		
 		//drawing everything onto the image 
 		if(State.getState()!=null) {
-			Graphics2D g2d=(Graphics2D)image.getGraphics();
 			g2d.setRenderingHint( RenderingHints.KEY_STROKE_CONTROL,RenderingHints.VALUE_STROKE_PURE);
 			State.getState().render(g2d);
+		}
+		
+		if(ConsoleState.isShowFPS()) {
+			g2d.setFont(Assets.myfont);
+			g2d.drawString("fps: "+Main.Main.getFPS(), 2, 7);
 		}
 		//putting the image onto the display and scaling it
 		g.drawImage(image,0,0,width*scale, height*scale, null);

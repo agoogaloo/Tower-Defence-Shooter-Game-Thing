@@ -166,8 +166,6 @@ public class MegaLaser extends Statics{
 			break;
 		}
 		
-		System.out.println("curent anim: "+curentAnim+", beam frame: "+beamAnims[curentAnim].getFrameIndex()+", gun frame: "+gunAnims[curentAnim].getFrameIndex());
-		
 	}
 
 	@Override

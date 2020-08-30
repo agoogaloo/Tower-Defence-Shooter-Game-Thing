@@ -8,10 +8,10 @@ public class CommandSelector {
 	private ConsoleState console;
 	
 	//Parallel arrays to tell which commands match up with which classes
-	private final String[] commandStrings = new String[] {"Help","ShowHitBox", "Freeze", "Fs",
-			"EnemyWave","InstaKillEnemy"};
-	private final Command[] commands = new Command[] {new Help(), new ShowHitBox(), new Freeze(), 
-			new FrameSkip(), new EnemyWave(), new InstaKillEnemies()};
+	private final String[] commandStrings = new String[] {"Help","EntityCount","ShowHitBox", "ShowFPS",
+			"Freeze", "Fs", "EnemyWave","InstaKillEnemy"};
+	private final Command[] commands = new Command[] {new Help(),new EntityCount(), new ShowHitBox(), 
+			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
@@ -76,7 +76,15 @@ public class CommandSelector {
 			return text;
 		}
 	}
-	
+	private class EntityCount extends Command{
+		private EntityCount() {
+			helpText="tells you how many entities there are in the gamestate currently";
+		}
+		
+		public String execute(String params) {
+			return "there are currently"+Entity.getEntityManager().getEntities().size()+" entities\n";
+		}
+	}
 	private class ShowHitBox extends Command{
 		private ShowHitBox(){
 			helpText= "toggles if the hitboxen of all entities is shown or not";
@@ -85,6 +93,17 @@ public class CommandSelector {
 			ConsoleState.showHitBoxen=!ConsoleState.showHitBoxen;
 			
 			return "showing hotboxen: "+ConsoleState.showHitBoxen+"\n";
+		}
+	}
+	
+	private class ShowFPS extends Command{
+		private ShowFPS(){
+			helpText= "toggles if you can see the framerate in the top left corner";
+		}
+		public String execute(String params) {
+			ConsoleState.showFPS=!ConsoleState.showFPS;
+			
+			return "showing frame rate: "+ConsoleState.showFPS+"\n";
 		}
 	}
 	

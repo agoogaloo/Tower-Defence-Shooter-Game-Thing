@@ -77,9 +77,7 @@ public class EntityManager {
 			}
 		}
 	}
-		
 	
-
 	// same as update but rendering things instead
 	public void render(Graphics g, Camera camera) {
 		

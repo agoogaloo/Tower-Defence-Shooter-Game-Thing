@@ -16,7 +16,7 @@ public class ConsoleState extends State{
 	private String currentLine="", allText="";
 	boolean copyBackGround=true;
 	//a bunch of booleans showing if certain commands are active or not
-	static boolean showHitBoxen=false, gameFrozen=false, instaKillEnemy=false;
+	static boolean showHitBoxen=false, gameFrozen=false, instaKillEnemy=false, showFPS=false;
 	
 	public ConsoleState(GameState game) {
 		this.game=game;//this is used so it can continue the game and not restart it when you push f12 again
@@ -97,6 +97,10 @@ public class ConsoleState extends State{
 	public static boolean isInstaKillEnemy() {
 		return instaKillEnemy;
 	}
+	public static boolean isShowFPS() {
+		return showFPS;
+	}
+	
 	
 
 }
