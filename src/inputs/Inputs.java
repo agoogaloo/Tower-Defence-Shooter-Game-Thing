@@ -23,10 +23,11 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	 */
 	
 	//declaring variables
+	private KeyEvent typedKey;
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
-	private boolean up, down, left, right, shoot,place; //Keys and actions that are game needs
-	private PushButton pause=new PushButton(), upPushed=new PushButton(),downPushed=new PushButton(),
-			leftPushed=new PushButton(),rightPushed=new PushButton();
+	private boolean up, down, left, right, shoot, place; //Keys and actions that are game needs
+	private PushButton console = new PushButton(), pause = new PushButton(), upPushed=new PushButton(),
+			downPushed=new PushButton(), leftPushed=new PushButton(),rightPushed=new PushButton();
 	
 	private int mouseX, mouseY;
 	
@@ -38,11 +39,13 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		Main.getWindow().getFrame().addMouseMotionListener(this);
 	}
 	public void update() { 
+		typedKey=null;
 		up = keys[KeyEvent.VK_UP]; //Setting the right index of the array to a boolean 
 		down = keys[KeyEvent.VK_DOWN]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
 		left = keys[KeyEvent.VK_LEFT]; 
 		right = keys[KeyEvent.VK_RIGHT];
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
+		console.update(keys[KeyEvent.VK_F12]);
 		upPushed.update(up);
 		downPushed.update(down);
 		leftPushed.update(left);
@@ -57,7 +60,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		mouseX=e.getX();//setting the mouse location whenever the mouse is moved
+		mouseX=e.getX();//setting the mouse location whenever theouse is moved
 		mouseY=e.getY();
 		
 	}
@@ -86,16 +89,18 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	//keyboard input methods
 	@Override
 	public void keyPressed(KeyEvent key) {
-		keys[key.getKeyCode()]= true;//setting the index of the correct key to true when it is pushed	
+		keys[key.getKeyCode()]= true;//setting the index of the correct key to true when it is pushed
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent key) {
 		keys[key.getKeyCode()]= false;//setting the index of the correct key to false when it is let go
+		typedKey=key;
 	}
 	@Override
 	public void keyTyped(KeyEvent key) {
-		// needed because it implements KeyListener
+		
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
@@ -131,6 +136,9 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	public boolean isPause() { 
 		return pause.getPushed();	
 	}
+	public boolean isConsole() { 
+		return console.getPushed();	
+	}
 	public boolean isUpPushed() {
 		return upPushed.getPushed();
 	}
@@ -143,11 +151,16 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	public boolean isRightPushed() {
 		return rightPushed.getPushed();
 	}
+	
+	
 	public int getMouseX() {
 		return mouseX/Settings.getScale();//the window is scaled so the location for the mouse needs to match it
 	}
 	public int getMouseY() {
 		//the position needs to be a bit offset because if the bar at the top of the window
 		return (mouseY-24)/Settings.getScale();//the window is scaled so the location for the mouse needs to match it
-	}	
+	}
+	public KeyEvent getTypedKey() {
+		return typedKey;
+	}
 }

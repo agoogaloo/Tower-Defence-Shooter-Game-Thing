@@ -89,16 +89,16 @@ public class MegaLaser extends Statics{
 	private void setBounds() {
 		switch (direction) {
 		case 'u':
-			bounds.setBounds(x-6, y-length, 13, length);
+			bounds.setBounds(x, y-length, 12, length);
 			break;
 		case 'l':
-			bounds.setBounds(x-length, y-6, length, 13);
+			bounds.setBounds(x-length, y, length, 12);
 			break;
 		case 'd':
-			bounds.setBounds(x-6, y, 13, length);
+			bounds.setBounds(x, y, 12, length);
 			break;
 		case 'r':
-			bounds.setBounds(x, y-6, length, 13);
+			bounds.setBounds(x, y, length, 12);
 			break;
 		}
 	}
@@ -165,8 +165,6 @@ public class MegaLaser extends Statics{
 			}
 			break;
 		}
-		
-		System.out.println("curent anim: "+curentAnim+", beam frame: "+beamAnims[curentAnim].getFrameIndex()+", gun frame: "+gunAnims[curentAnim].getFrameIndex());
 		
 	}
 
