@@ -21,6 +21,8 @@ public class Assets {
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");
 	public static final Font myfont=loadFont("res/smallfont.ttf");
 	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
+	
+	public static final BufferedImage[] cursors = splitSpriteSheet(loadImage("res/textures/cursor.png"), 32,32, 5, 1);
 	//spliting all the spritesheets int the right pictures and holding them in arrays
 	//some random images
 	public static final BufferedImage infobackground=loadImage("res/textures/heart texture.png");
@@ -54,7 +56,7 @@ public class Assets {
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/textures/coin.png"), 11, 11, 2, 2);
 	public static final BufferedImage[] tiles=splitSpriteSheet(loadImage("res/textures/tileset.png"), 16, 16, 6, 12);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes
-	private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 23, 2);
+	//private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 23, 2);
 	private static final BufferedImage[] playeridle = splitSpriteSheet(loadImage("res/textures/player combo.png"), 9, 17, 6, 4);
 	private static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/textures/enemies/robot red.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/textures/enemies/robot green.png"), 21, 25, 4, 4);

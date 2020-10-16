@@ -5,6 +5,9 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import graphics.Assets;
+import settings.Settings;
+
 /* 
  * by: Matthew Milum
  */
@@ -27,7 +30,7 @@ public class Window {
 		
 		frame.setLocationRelativeTo(null);// centers the window
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// makes the program stop when you close the window
-		frame.setCursor(toolkit.createCustomCursor(toolkit.getImage("res//textures//cursor.png"),new Point(7,9), "cursor"));
+		frame.setCursor(toolkit.createCustomCursor(Assets.cursors[Settings.getScale()-1],new Point(15,15), "cursor"));
 		frame.setVisible(true);// making the window visible
 
 	}
@@ -42,7 +45,9 @@ public class Window {
 
 	}
 	public void resize(int width, int height) {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		display = new Display(width, height);//making the display
+		frame.setCursor(toolkit.createCustomCursor(Assets.cursors[Settings.getScale()-1],new Point(15,15), "cursor"));
 		frame.add(display);// adding the display to the window so it can actually show it
 		// pack needs to come after setResizable because it changes the window size, so
 		// the window will be the wrong size
