@@ -141,13 +141,13 @@ public abstract class Enemy extends Mobs {
 		updateBounds(); 
 		
 		//opening the door if the enemy runs into it
-		for(int i:Floor.DOORTILES) {
+		/*for(int i:Floor.DOORTILES) {
 			if(i==tile) {
 				GameState.getFloor().getRoom((x/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE,(y/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE).unlock();
 			}
-		}
+		}*/
 		
 		animDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
 		animLeft.update(); //Animation and sprites change depending on the direction

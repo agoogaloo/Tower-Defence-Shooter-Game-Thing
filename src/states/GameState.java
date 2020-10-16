@@ -77,7 +77,7 @@ public class GameState extends State{
 	public static void newFloor() {
 		//creating the floor
 		UIElement.getUIManager().clear();
-		floor = new Floor(8, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+		floor = new Floor(4, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
 		Entity.init();
 		level++;

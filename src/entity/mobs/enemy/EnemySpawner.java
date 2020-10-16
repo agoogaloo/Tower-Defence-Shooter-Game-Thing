@@ -10,19 +10,21 @@ import floors.Room;
 import states.GameState;
 
 public class EnemySpawner {
-	private final int WAVEDELAY=300;
-	private int waveDelay=0, enemyDelay=0, heliDelay=0;
-	private int difficulty=3;
+	private final int WAVEDELAY=300,WAVESPERROOM=3;//how long it waits to start the wave
+	private int waveDelay=-100, enemyDelay=0, heliDelay=0;
+	private int difficulty=3, roomsWaves=0, totalWaves=0;;//dificulty and how many waves have happened in this room
+	
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
-	private ArrayList<Point> openedRooms=new ArrayList<Point>();
+	private ArrayList<Point> openedRooms=new ArrayList<Point>();//all rooms that have been unlocked/"beaten"
 	private HeliBot heliBot=new HeliBot(4000, 4000);
-	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,450,450); //A rectangle of range where the tower can shoot at
+	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,450,450); // the range that will start spawinging the heli
 	
 	public void update() {
-		int roomX,roomY;
-		Point currentRoom;
+		int roomX,roomY;//the room the player is in
+		Point currentRoom;//a point representing the room
 		
 		if(waveComplete()&&waveDelay>=WAVEDELAY) {
+			
 			waveDelay=0;
 			roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
 					TILESIZE)/GameState.getFloor().ROOMSIZE;
@@ -32,8 +34,14 @@ public class EnemySpawner {
 					roomX, roomY);
 			if(!openedRooms.contains(currentRoom)){//checking if the player is in a new room
 				newWave(roomX,roomY,difficulty);
+				roomsWaves++;
+				totalWaves++;
 				difficulty++;
-				openedRooms.add(currentRoom);
+				if(roomsWaves%WAVESPERROOM==0) {
+					openedRooms.add(currentRoom);
+					GameState.getFloor().getRoom(roomX,roomY).unlock();
+					roomsWaves=0;
+				}
 			}
 			
 		}
@@ -42,17 +50,20 @@ public class EnemySpawner {
 			Entity.getEntityManager().addEntity(enemiesToAdd.get(0));
 			enemiesToAdd.remove(0);
 		}
+		
 		if(enemiesToAdd.size()>0) {
-			enemyDelay++;
+			enemyDelay++;//adding to the enemy delay timer if there are still enemies to add
 		}
-		if(waveComplete()){
-		waveDelay++;
-		heliDelay=0;
+		
+		if(waveComplete()){//doing things when there is no wave
+		waveDelay++;//adding to the delay between waves timer
+		heliDelay=0;//reseting heli timer 
 		}
+		//doing heli code
 		spawnHeli();
 	}
 	public void newWave(int roomX,int roomY, int enemies) {
-		System.out.println("\n\nSTARTING WAVE "+String.valueOf(difficulty-2)+"\n\n");
+		System.out.println("\n\nSTARTING WAVE "+totalWaves+"\nroomWaves: "+roomsWaves+"\n");
 		Room room=GameState.getFloor().getRoom(roomX, roomY);
 		int spawnX=roomX*room.ROOMSIZE*room.TILESIZE;
 		int spawnY=roomY*room.ROOMSIZE*room.TILESIZE;
