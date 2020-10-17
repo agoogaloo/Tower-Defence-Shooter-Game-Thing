@@ -19,7 +19,7 @@ import graphics.Camera;
 import states.GameState;
 
 public class EnemySpawner {
-	private final int WAVESPERROOM=2;//how long many waves it takes to clear a room
+	private final int WAVESPERROOM=3;//how long many waves it takes to clear a room 
 	private int enemyDelay=0, heliDelay=0;
 	private int difficulty=1, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
 	
@@ -46,6 +46,7 @@ public class EnemySpawner {
 		if(!visitedRooms.contains(currentRoom)){//checking if the player is in a new room
 			lastRoom=currentRoom;
 			visitedRooms.add(currentRoom);
+			button.create();
 		}
 		
 		//updating the button that starts the next wave
@@ -57,12 +58,8 @@ public class EnemySpawner {
 			roomsWaves++;
 			totalWaves++;
 			difficulty++;
-			
-
-
-		
-			
 		}
+		
 		if(enemyDelay>120-difficulty*4) {
 			enemyDelay=0;
 			Entity.getEntityManager().addEntity(enemiesToAdd.get(0));
@@ -75,10 +72,12 @@ public class EnemySpawner {
 		
 		if(waveComplete()){//doing things when there is no wave
 			heliDelay=0;//reseting heli time {			
-			button.create();
-			if(roomsWaves%WAVESPERROOM==0) {
+			if(roomsWaves%(WAVESPERROOM+1)==0) {
 				GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).unlock();
 				roomsWaves=1;
+			}
+			if(roomsWaves!=1) {
+				button.create();
 			}
 		}
 		

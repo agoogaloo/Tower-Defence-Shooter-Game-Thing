@@ -55,8 +55,8 @@ public class Room {
 	}
 	private void findDoor() {
 		for(int y=0;y<tiles[0].length;y++) {
-			
 			for(int x=0;x<tiles[0].length;x++) {
+				
 				if(tiles[x][y]==43||tiles[x][y]==48) {
 					doorX=x;
 					doorY=y;
@@ -64,8 +64,13 @@ public class Room {
 				}					
 			}		
 		}
+		doorX=-1;
+		doorY=-1;
 	}
 	public void unlock() {
+		if(doorX==-1&&doorY==-1) {
+			return;
+		}
 		if(exit=='u'||exit=='d') {
 			tiles[doorX][doorY]=46;
 			tiles[doorX][doorY+1]=52;
