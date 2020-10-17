@@ -9,58 +9,62 @@ import states.GameState;
 import states.State;
 
 public class SpawnButton {
-	int roomX, roomY;
+	int targetX, targetY;//where the button is pointing towards
 	private Rectangle bounds=new Rectangle(5,180,16,15);
 	private boolean clicked=false, hovered=false,exists=true;
 	
-	public void update(int Roomx,int RoomY, char direction) {
-		this.roomX=Roomx*GameState.getFloor().TILESIZE*GameState.getFloor().ROOMSIZE;
-		this.roomY=Roomx*GameState.getFloor().TILESIZE*GameState.getFloor().ROOMSIZE;
-		
-		switch(direction) {
-		case 'u':
-			roomX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
-			roomY-=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)-40;
-			break;
-		case 'd':
-			roomX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
-			
-			break;
-		case 'l':
-			roomY-=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
-			roomX+=20;
-			break;
-		case 'r':
-			roomX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)-20;
-			roomY-=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
-			break;
-		}
-		
-		
-		
+	public void update(int roomX,int roomY, char direction) {
 		clicked=false;
 		hovered=false;
-		//System.out.println(exists);
+		//exiting the function if the button isnt being shown
 		if(!exists) {
 			return;
 		}
+		
+		//getting the location of the room in pixels
+		this.targetX=roomX*GameState.getFloor().TILESIZE*GameState.getFloor().ROOMSIZE;
+		this.targetY=roomY*GameState.getFloor().TILESIZE*GameState.getFloor().ROOMSIZE;
+		
+		//moving the button location depending on the exit of the room so it will go to the door of the room
+		switch(direction) {
+		case 'u':
+			this.targetX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			this.targetY+=50;
+			break;
+			
+		case 'd':
+			this.targetX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			break;
+			
+		case 'l':
+			this.targetY+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			this.targetX+=30;
+			break;
+			
+		case 'r':
+			this.targetX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)-30;
+			this.targetY+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			break;
+		}
+		
+		
+		//checking if the button is being clicked or hovered on
 		if(bounds.contains(State.getInputs().getMouseX(),State.getInputs().getMouseY())){
 			hovered=true;
 			if(State.getInputs().isShoot()) {
 				clicked=true;
 			}
 		}
-		
 	}
 	
 	public void render(Graphics g, Camera camera) {
 		boolean up=false,down=false,left=false,right=false;
-		if(!exists) {
+		if(!exists) {//exiting if the button isnt being shown
 			return;
 		}
 		
-		bounds.x=roomX-camera.getxOffset();
-		bounds.y=roomY-camera.getyOffset();
+		bounds.x=targetX-camera.getxOffset();
+		bounds.y=targetY-camera.getyOffset();
 		
 		if(bounds.x<10) {
 			bounds.x=10;
@@ -70,7 +74,6 @@ public class SpawnButton {
 			right=true;
 		}
 		
-		
 		if(bounds.y<20) {
 			bounds.y=20;
 			up=true;
@@ -78,6 +81,8 @@ public class SpawnButton {
 			bounds.y=170;
 			down=true;
 		}
+		
+		
 		if(up) {
 			if(left) {
 				g.drawImage(Assets.waveDirections[7],bounds.x-6,bounds.y-9,null );	

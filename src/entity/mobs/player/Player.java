@@ -91,6 +91,7 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
+		
 		int moveKeys=0;
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
