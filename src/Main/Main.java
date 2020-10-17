@@ -59,7 +59,7 @@ public class Main {
 	public static int getFPS() {
 		return fps;
 	}
-	public static void resetWindow() {//this letts us reset the window to apply things like window scaling
+	public static void resetWindow() {//this lets us reset the window to apply things like window scaling
 		window.resize(333*Settings.getScale(), 200*Settings.getScale());
 	}
 }

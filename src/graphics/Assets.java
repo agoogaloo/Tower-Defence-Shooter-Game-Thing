@@ -145,6 +145,7 @@ public class Assets {
 			splitSpriteSheet(loadImage("res/textures/enemies/robot factory.png"),66, 56, 3, 5),0,13);
 	
 	public static final BufferedImage[] waveIcon=splitSpriteSheet(loadImage("res/textures/enemies/wave.png"), 15,16, 3,1);
+	public static final BufferedImage[] waveDirections=splitSpriteSheet(loadImage("res/textures/enemies/wave directions.png"), 27,34, 8,1);
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		//this takes on image and splits it into an array of several smaller photos so we 
 		//only need to load a few big spritesheet instead of a million single images

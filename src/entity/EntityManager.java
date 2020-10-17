@@ -87,7 +87,7 @@ public class EntityManager {
 				entities.get(i).drawHitBox(g, camera);
 			}
 		}
-		spawner.render(g);
+		spawner.render(g, camera);
 	}
 
 	//getters/setters
