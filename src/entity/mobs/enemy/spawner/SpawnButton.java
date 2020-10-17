@@ -66,8 +66,8 @@ public class SpawnButton {
 		bounds.x=targetX-camera.getxOffset();
 		bounds.y=targetY-camera.getyOffset();
 		
-		if(bounds.x<10) {
-			bounds.x=10;
+		if(bounds.x<15) {
+			bounds.x=15;
 			left=true;
 		}else if(bounds.x>303) {
 			bounds.x=303;
@@ -75,7 +75,7 @@ public class SpawnButton {
 		}
 		
 		if(bounds.y<20) {
-			bounds.y=20;
+			bounds.y=25;
 			up=true;
 		}else if(bounds.y>170){
 			bounds.y=170;
