@@ -71,6 +71,7 @@ public class GameState extends State{
 		Particle.getParticleManager().renderBottom(g, camera);
 		Entity.getEntityManager().render(g, camera);// rendering the entities
 		Particle.getParticleManager().renderTop(g, camera);
+		
 		UIElement.getUIManager().render(g);//rendering all the ui ontop of everything
 	}
 	

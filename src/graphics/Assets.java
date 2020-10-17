@@ -140,10 +140,11 @@ public class Assets {
 	public static final BufferedImage[] heliBotL = Arrays.copyOfRange(heliBot, 4, 8);
 	public static final BufferedImage[] heliBotU = Arrays.copyOfRange(heliBot, 8, 12);
 	public static final BufferedImage[] heliBotR = Arrays.copyOfRange(heliBot, 12, 16);
-	
+	//other enemy stuff
 	public static final BufferedImage[] robotFactory =  Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/textures/enemies/robot factory.png"),66, 56, 3, 5),0,13);
-
+	
+	public static final BufferedImage[] waveIcon=splitSpriteSheet(loadImage("res/textures/enemies/wave.png"), 15,16, 3,1);
 	private static BufferedImage[]  splitSpriteSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
 		//this takes on image and splits it into an array of several smaller photos so we 
 		//only need to load a few big spritesheet instead of a million single images

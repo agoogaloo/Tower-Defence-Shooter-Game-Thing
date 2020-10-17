@@ -84,7 +84,7 @@ public class Player extends Mobs {
 			GameState.screenShake(0.07);	
 			angle =(int)Math.round(Math.toDegrees(Math.atan2(targetY+camera.getyOffset()-y, 
 					targetX+camera.getxOffset()-x)));
-			new ParticleEffect(3, new Straight(new Point(x+7,y+12),angle,15,1), new OvalParticle(2, 
+			new ParticleEffect(3, new Straight(new Point(x+width/2,y+height/2),angle,15,1), new OvalParticle(2, 
 					new Timed(new Color(250,230,150),30)), true);
 		}
 	}

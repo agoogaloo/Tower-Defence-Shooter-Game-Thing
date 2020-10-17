@@ -1,48 +1,65 @@
-package entity.mobs.enemy;
+package entity.mobs.enemy.spawner;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
+import entity.mobs.enemy.BlueEnemy;
+import entity.mobs.enemy.Enemy;
+import entity.mobs.enemy.GreenEnemy;
+import entity.mobs.enemy.HamburgerBot;
+import entity.mobs.enemy.HeliBot;
+import entity.mobs.enemy.RedEnemy;
+import entity.mobs.enemy.YellowEnemy;
 import floors.Room;
 import states.GameState;
 
 public class EnemySpawner {
-	private final int WAVEDELAY=300,WAVESPERROOM=3;//how long it waits to start the wave
-	private int waveDelay=-100, enemyDelay=0, heliDelay=0;
-	private int difficulty=3, roomsWaves=0, totalWaves=0;;//dificulty and how many waves have happened in this room
+	private final int WAVESPERROOM=3;//how long many waves it takes to clear a room
+	private int enemyDelay=0, heliDelay=0;
+	private int difficulty=3, roomsWaves=0, totalWaves=0;//dificulty and how many waves have happened in this room
 	
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
-	private ArrayList<Point> openedRooms=new ArrayList<Point>();//all rooms that have been unlocked/"beaten"
+	private ArrayList<Point> visitedRooms=new ArrayList<Point>();//all rooms that have been unlocked/"beaten"
+	private Point lastRoom=new Point(-1,-1);
+	
 	private HeliBot heliBot=new HeliBot(4000, 4000);
-	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,450,450); // the range that will start spawinging the heli
+	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,400,400); // the range that will start spawinging the heli
+	
+	private SpawnButton button=new SpawnButton();
 	
 	public void update() {
-		int roomX,roomY;//the room the player is in
-		Point currentRoom;//a point representing the room
+		//getting what room the player is currently standing in (used to determine where to spawn enemies)
+		int roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
+				TILESIZE)/GameState.getFloor().ROOMSIZE;//the x of the room (in rooms not pixels)
 		
-		if(waveComplete()&&waveDelay>=WAVEDELAY) {
-			
-			waveDelay=0;
-			roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
-					TILESIZE)/GameState.getFloor().ROOMSIZE;
-			roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
-					TILESIZE)/GameState.getFloor().ROOMSIZE;
-			currentRoom=new Point(
-					roomX, roomY);
-			if(!openedRooms.contains(currentRoom)){//checking if the player is in a new room
-				newWave(roomX,roomY,difficulty);
-				roomsWaves++;
-				totalWaves++;
-				difficulty++;
-				if(roomsWaves%WAVESPERROOM==0) {
-					openedRooms.add(currentRoom);
-					GameState.getFloor().getRoom(roomX,roomY).unlock();
-					roomsWaves=0;
-				}
+		int roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
+				TILESIZE)/GameState.getFloor().ROOMSIZE;//the y of the room (in rooms not pixels)
+		
+		Point currentRoom=new Point(roomX, roomY);
+		
+		//updating the button that starts the next wave
+		button.update();
+		
+		if(!visitedRooms.contains(currentRoom)){//checking if the player is in a new room
+			lastRoom=currentRoom;
+		}
+		
+		if(waveComplete()&&button.isClicked()) {
+			newWave(lastRoom.x,lastRoom.y,difficulty);
+			button.remove();
+			roomsWaves++;
+			totalWaves++;
+			difficulty++;
+			if(roomsWaves%WAVESPERROOM==0) {
+				visitedRooms.add(currentRoom);
+				GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).unlock();
+				roomsWaves=0;
 			}
+		
 			
 		}
 		if(enemyDelay>120-difficulty*4) {
@@ -56,12 +73,20 @@ public class EnemySpawner {
 		}
 		
 		if(waveComplete()){//doing things when there is no wave
-		waveDelay++;//adding to the delay between waves timer
 		heliDelay=0;//reseting heli timer 
+		button.create();
 		}
+		
+		
+		
 		//doing heli code
 		spawnHeli();
+		
 	}
+	public void render(Graphics g) {
+		button.render(g);
+	}
+	
 	public void newWave(int roomX,int roomY, int enemies) {
 		System.out.println("\n\nSTARTING WAVE "+totalWaves+"\nroomWaves: "+roomsWaves+"\n");
 		Room room=GameState.getFloor().getRoom(roomX, roomY);
@@ -95,7 +120,10 @@ public class EnemySpawner {
 		}
 	}
 	
-	public static boolean waveComplete() {
+	public boolean waveComplete() {
+		if(enemiesToAdd.size()>0) {
+			return false;
+		}
 		for(Entity e:Entity.getEntityManager().getEntities()) {
 			if(e instanceof Enemy&&!(e instanceof HeliBot)) {
 				return false;
@@ -126,6 +154,7 @@ public class EnemySpawner {
 			Entity.getEntityManager().addEntity(heliBot);
 		}
 	}
+	
 	
 	private Enemy randomEnemy(int x, int y, char direction) {
 		switch(ThreadLocalRandom.current().nextInt(0,5)) {

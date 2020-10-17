@@ -3,7 +3,7 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import entity.mobs.enemy.EnemySpawner;
+import entity.mobs.enemy.spawner.EnemySpawner;
 import entity.mobs.player.Player;
 import entity.statics.Factory;
 import graphics.Camera;
@@ -87,6 +87,7 @@ public class EntityManager {
 				entities.get(i).drawHitBox(g, camera);
 			}
 		}
+		spawner.render(g);
 	}
 
 	//getters/setters
