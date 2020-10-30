@@ -21,6 +21,7 @@ public class Assets {
 	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");
 	public static final Font myfont=loadFont("res/smallfont.ttf");
 	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
+	public static final Font boldfont=loadFont("res/boldfont.ttf");
 	
 	public static final BufferedImage[] cursors = splitSpriteSheet(loadImage("res/textures/cursor.png"), 32,32, 5, 1);
 	//spliting all the spritesheets int the right pictures and holding them in arrays

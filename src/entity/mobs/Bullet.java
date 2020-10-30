@@ -20,8 +20,10 @@ public class Bullet extends Mobs{
 	BufferedImage pic; //Sets this bullet picture to a variable
 
 	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
-		x=startX;
-		y=startY;
+		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
+		int offsetY = pic.getHeight()/2;
+		x=startX-offsetX;
+		y=startY-offsetY;
 		trueX=x;
 		trueY=y;
 		this.speed = speed;
@@ -44,8 +46,7 @@ public class Bullet extends Mobs{
 	@Override
 	public void update(){
 		ArrayList<Entity> collisions;
-		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
-		int offsetY = pic.getHeight()/2;
+		
 		trueX+=velocityX; //Applies the velocity the the true variable, allowing the bullet to move in a specific direction and speed depending on the value of velocity
 		trueY+=velocityY;
 		x=((int)(trueX)); //Sets x to the trueX (including the offset) this updates x moving the bullet
