@@ -1,6 +1,5 @@
 package entity.statics.towers.laser;
 
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 
 import entity.mobs.Bullet;
@@ -71,11 +70,11 @@ public class LaserTowerlvl2 extends Tower{
 			break;
 		case 'l':
 			//shoots straight left
-			entityManager.addEntity(new Bullet(x,y+5,x-2,y+5,Assets.blueLaser[3],8, true));
+			entityManager.addEntity(new Bullet(x,y+3,x-2,y+3,Assets.blueLaser[3],8, true));
 			break;
 		case 'r':
 			//shoots straight right
-			entityManager.addEntity(new Bullet(x+width,y+5,x+2+width,y+5,Assets.blueLaser[1],8, true));
+			entityManager.addEntity(new Bullet(x+width,y+3,x+2+width,y+3,Assets.blueLaser[1],8, true));
 			break;
 		case 'd':
 			//shoots straight up

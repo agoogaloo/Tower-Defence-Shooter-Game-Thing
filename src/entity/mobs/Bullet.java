@@ -24,6 +24,8 @@ public class Bullet extends Mobs{
 		int offsetY = pic.getHeight()/2;
 		x=startX-offsetX;
 		y=startY-offsetY;
+		targetX-=offsetX;
+		targetY-=offsetY;
 		trueX=x;
 		trueY=y;
 		this.speed = speed;
