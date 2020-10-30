@@ -67,6 +67,7 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics g) {
+		g.clearRect(0, 0,333, 200);
 		floor.render(g, camera);
 		Particle.getParticleManager().renderBottom(g, camera);
 		Entity.getEntityManager().render(g, camera);// rendering the entities

@@ -61,6 +61,13 @@ public class Floor {
 
 	// this method draws everything to the screen
 	public void render(Graphics g, Camera camera) {
+		for(int y=0;y<200/TILESIZE+2;y++) {
+			for(int x=0;x<333/TILESIZE+2;x++) {
+				g.drawImage(PICS[getTile(x+camera.getxOffset()/TILESIZE, y+camera.getyOffset()/TILESIZE) - 1], x*TILESIZE-camera.getxOffset()%TILESIZE,
+						y*TILESIZE-camera.getyOffset()%TILESIZE, null);
+			}
+		}
+		/*
 		for (int y = 0; y < size * ROOMSIZE; y++) {// looping though all the tiles
 			for (int x = 0; x < size * ROOMSIZE * 2; x++) {
 				// these will be whatever place the tile is being rendered at
@@ -72,7 +79,7 @@ public class Floor {
 					// drawing the proper tile in the proper place
 				}
 			}
-		}
+		}*/
 
 	}
 
