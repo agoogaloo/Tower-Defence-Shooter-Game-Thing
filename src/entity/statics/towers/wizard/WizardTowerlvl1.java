@@ -10,7 +10,7 @@ public class WizardTowerlvl1 extends Tower{
 		upgradeIcon=Assets.towerMenu[2];
 		price=2;
 		sellValue=1;
-		infoText="buying cost $"+price+"\n\na basic tower that shoots \nin a 100X100 square around \nitself at a slowish rate";
+		infoText="buying cost $"+price+"\n\na basic tower that shoots \nin a small circle around \nitself at a slowish rate";
 	}
 	
 	@Override

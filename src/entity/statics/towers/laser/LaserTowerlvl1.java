@@ -1,6 +1,5 @@
 package entity.statics.towers.laser;
 
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 
 import entity.mobs.Bullet;
@@ -13,8 +12,8 @@ public class LaserTowerlvl1 extends Tower{
 	public LaserTowerlvl1(int x,int y,char direction) {
 		this.direction=direction;
 		price=5;
-		infoText="buying cost $"+price+"\n\nA tower that can only \nshoot directly forward \nbut very far at an average \nrate. It "
-				+ "will be facing the \nsame direction you are \nwhen you place it";
+		infoText="buying cost $"+price+"\n\nA tower that can shoot \nvery far but only in one \n"
+				+ "direction. It will will be \nfacing the same direction\nyou are when you place it";
 		
 		switch (direction) {
 		case 'u':

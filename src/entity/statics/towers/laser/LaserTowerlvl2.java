@@ -13,7 +13,8 @@ public class LaserTowerlvl2 extends Tower{
 		//assigning the animation based off if its direction
 		this.direction=direction;
 		price=2;
-		infoText="upgrade cost $"+price+"\n\ngives the tower a bit more \nrange forward and an \nincreased rate of fire.";
+		infoText="upgrade cost $"+price+"\n\ngives the tower a bit more \nrange and an increased\n"
+				+ "rate of fire.";
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.laserTowerLvl2U,6);
