@@ -57,7 +57,7 @@ public class Room {
 		for(int y=0;y<tiles[0].length;y++) {
 			for(int x=0;x<tiles[0].length;x++) {
 				
-				if(tiles[x][y]==43||tiles[x][y]==48) {
+				if(tiles[x][y]==64||tiles[x][y]==69) {
 					doorX=x;
 					doorY=y;
 					return;
@@ -72,17 +72,17 @@ public class Room {
 			return;
 		}
 		if(exit=='u'||exit=='d') {
-			tiles[doorX][doorY]=46;
-			tiles[doorX][doorY+1]=52;
-			tiles[doorX][doorY+2]=58;//changing the left rows tiles to open ones
+			tiles[doorX][doorY]=60;
+			tiles[doorX][doorY+1]=67;
+			tiles[doorX][doorY+2]=74;//changing the left rows tiles to open ones
 			
-			tiles[doorX+1][doorY]=5;
-			tiles[doorX+1][doorY+1]=6;
-			tiles[doorX+1][doorY+2]=4;//making a path in the middle
+			tiles[doorX+1][doorY]=9;
+			tiles[doorX+1][doorY+1]=7;
+			tiles[doorX+1][doorY+2]=10;//making a path in the middle
 			
-			tiles[doorX+2][doorY]=47;
-			tiles[doorX+2][doorY+1]=53;
-			tiles[doorX+2][doorY+2]=59;//changing the right doors tiles to open ones
+			tiles[doorX+2][doorY]=61;
+			tiles[doorX+2][doorY+1]=68;
+			tiles[doorX+2][doorY+2]=75;//changing the right doors tiles to open ones
 			
 		}else if(exit=='l'||exit=='r') {
 			tiles[doorX][doorY-2]=61;

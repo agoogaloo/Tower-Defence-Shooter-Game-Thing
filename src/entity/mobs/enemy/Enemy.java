@@ -59,16 +59,16 @@ public abstract class Enemy extends Mobs {
 				turnDelay=0;
 			}
 			//getting ready to turn of they see a turning tile
-			if(tile==7||tile==8) {
+			if(tile==4||tile==13) {
 				bufferedDirection='r';
 				
-			}else if(tile==9||tile==10) {
+			}else if(tile==5||tile==6) {
 				bufferedDirection='d';
 				
-			}else if(tile==11||tile==12) {
+			}else if(tile==12||tile==7) {
 				bufferedDirection='l';
 				
-			}else if(tile==13||tile==14) {
+			}else if(tile==11||tile==14) {
 				bufferedDirection='u';
 			}
 		}else {

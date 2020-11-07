@@ -40,8 +40,8 @@ public class Floor {
 	private final Room[] ENDROOMS = loadAllRooms("res/end rooms.json");// loads all the possible rooms
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private  Room STARTROOM=STARTROOMS[ThreadLocalRandom.current().nextInt(0, STARTROOMS.length)];
-	private final int[] WALLS = new int[] {26, 27, 28, 29,30,32,33, 34, 35,36,40,41,42};
-	public static final int[] DOORTILES= {43,44,45,48,49,50,51,54,60,61,62,66,67,68};
+	private final int[] WALLS = new int[] {36,37,38,39,40,43,44,45,46,47,50,51,52,64,65,66,
+			69,70,71,72,73,76,77,78,79,80};
 
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
@@ -189,11 +189,6 @@ public class Floor {
 		int tile = getTile(x, y);
 		for (int i = 0; i < WALLS.length; i++) {
 			if (WALLS[i] == tile) {
-				return true;
-			}
-		}
-		for(int i:DOORTILES) {
-			if(i==tile) {//also returning true if they are running into a door
 				return true;
 			}
 		}
