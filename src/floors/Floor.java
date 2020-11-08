@@ -37,7 +37,7 @@ public class Floor {
 	private int roomSize=30;
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
-	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
+	public Floor(String folder,int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
 		this.size = size;
 		roomSize=30;
@@ -65,10 +65,11 @@ public class Floor {
 		// initializing variables
 		this.size = 1;
 		PICS = pics;
-		roomSize=40;
+		roomSize=50;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
-		rooms =new Room[][] {{loadRoom(path, 0)}};
+		rooms =new Room[][] {{loadRoom(path)}};
+		System.out.println("spawns"+rooms[0][0].getSpawnData(25, 0));
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		
@@ -81,6 +82,7 @@ public class Floor {
 	public void render(Graphics g, Camera camera) {
 		for(int y=-TILESIZE;y<200/TILESIZE+2;y++) {
 			for(int x=-TILESIZE;x<333/TILESIZE+2;x++) {
+				//System.out.println(x+camera.getxOffset()/TILESIZE+", "+ y+camera.getyOffset()/TILESIZE);
 				g.drawImage(PICS[getTile(x+camera.getxOffset()/TILESIZE, y+camera.getyOffset()/TILESIZE) - 1], x*TILESIZE-camera.getxOffset()%TILESIZE,
 						y*TILESIZE-camera.getyOffset()%TILESIZE, null);
 			}
@@ -165,13 +167,13 @@ public class Floor {
 		return rooms.toArray(new Room[0]);// returning the rooms
 	}
 	
-	private Room loadRoom(String path,int index){
+	private Room loadRoom(String path){
 		Room room=null;// the room it will return
 		try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
 			JSONArray layers=(JSONArray)(file.get("layers"));
-			JSONObject data=(JSONObject)(layers.get(index));
-			room=new Room(data);
+			JSONObject data=(JSONObject)(layers.get(0));
+			room=new Room(file);
 			
 		} catch (IOException | ParseException e) {
 			System.out.print("there was a problem loading JSON file at "+path );

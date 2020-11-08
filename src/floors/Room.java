@@ -8,6 +8,8 @@ import org.json.simple.JSONObject;
  * by: Matthew Milum
  */
 
+import graphics.Assets;
+
 public class Room {
 	/*
 	 * this class represents rooms the individual rooms in a floor each layer in one of the 
@@ -16,6 +18,7 @@ public class Room {
 	// declaring instance variables
 	public final int TILESIZE = 16, ROOMSIZE = 30;
 	private int[][] tiles;
+	private int[][] spawns;
 	private char entrance, exit;
 	private int doorX,doorY;
 	
@@ -39,14 +42,29 @@ public class Room {
 		int width=(int)((long)object.get("width"));
 		int height=(int)((long)object.get("height"));
 		tiles = new int[width][height];
-		JSONArray data=(JSONArray)object.get("data");
-		System.out.print("width="+width+"height="+height+"size="+data.size()+"map:\n");
+		spawns = new int[width][height];
+		
+		JSONArray layers=(JSONArray)object.get("layers");//the array of layers
+		System.out.println(object.size());
+		
+		JSONObject mapLayer=(JSONObject) layers.get(0);
+		JSONArray mapData=(JSONArray)mapLayer.get("data");
+		System.out.print("width="+width+"height="+height+"size="+mapData.size()+"map:\n");
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
-				tiles[x][y] =(int)((long) data.get((y *width) + x ));			
+				tiles[x][y] =(int)((long) mapData.get((y *width) + x ));			
+			}
+		}
+		
+		JSONObject spawnLayer=(JSONObject) layers.get(1);
+		JSONArray spawnData=(JSONArray)spawnLayer.get("data");
+		for(int y=0;y<height;y++) {
+			for(int x=0;x<width;x++) {
+				spawns[x][y] =(int)((long) spawnData.get((y *width) + x ));			
 			}
 		}
 
+		//getting entrance/exits
 		JSONArray properties=(JSONArray)object.get("properties");
 		JSONObject entranceObject=(JSONObject)properties.get(0);
 		JSONObject exitObject=(JSONObject)properties.get(1);
@@ -108,9 +126,18 @@ public class Room {
 		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles[0].length) {
 			return 44;
 		}
+		if(tiles[x][y]==0) {
+			return 1;
+		}
 		return tiles[x][y];
 	}
 
+	public int getSpawnData(int x, int y) {
+		if (x < 0 || x >= spawns.length || y < 0 || y >= spawns[0].length) {
+			return 0;
+		}
+		return spawns[x][y]-Assets.tiles.length;
+	}
 	// getters/setters
 	public char getEntrance() {
 		return entrance;
