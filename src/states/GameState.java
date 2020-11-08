@@ -67,7 +67,7 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics g) {
-		g.clearRect(0, 0,333, 200);
+		//g.clearRect(0, 0,333, 200);
 		floor.render(g, camera);
 		Particle.getParticleManager().renderBottom(g, camera);
 		Entity.getEntityManager().render(g, camera);// rendering the entities
@@ -79,7 +79,7 @@ public class GameState extends State{
 	public static void newFloor() {
 		//creating the floor
 		UIElement.getUIManager().clear();
-		floor = new Floor(4, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+		floor = new Floor("res/hub.json", Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
 		Entity.init();
 		level++;

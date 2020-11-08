@@ -49,7 +49,7 @@ public class ConsoleState extends State{
 			allText+="\n"+ commandSelector.executeCommand(currentLine);
 			currentLine="";//reseting the current line to nothing
 			break;
-		//deleting the last characer when you push backspace	
+		//deleting the last character when you push backspace	
 		case KeyEvent.VK_BACK_SPACE:
 			if(currentLine.length()>0) {//making sure there is text to delete
 				//making the current line 1 character shorter

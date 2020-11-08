@@ -37,12 +37,13 @@ public class Room {
 	
 	public Room(JSONObject object) {
 		int width=(int)((long)object.get("width"));
-		tiles = new int[width][width];
+		int height=(int)((long)object.get("height"));
+		tiles = new int[width][height];
 		JSONArray data=(JSONArray)object.get("data");
-		System.out.print("width="+width+"size="+data.size()+"map:\n");
-		for(int y=0;y<width;y++) {
+		System.out.print("width="+width+"height="+height+"size="+data.size()+"map:\n");
+		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
-				tiles[x][y] =(int)((long) data.get((y * width) + x ));			
+				tiles[x][y] =(int)((long) data.get((y *width) + x ));			
 			}
 		}
 
@@ -55,8 +56,7 @@ public class Room {
 	}
 	private void findDoor() {
 		for(int y=0;y<tiles[0].length;y++) {
-			for(int x=0;x<tiles[0].length;x++) {
-				
+			for(int x=0;x<tiles[0].length;x++) {				
 				if(tiles[x][y]==64||tiles[x][y]==69) {
 					doorX=x;
 					doorY=y;
@@ -105,8 +105,8 @@ public class Room {
 		}
 	}
 	public int getTile(int x, int y) {
-		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles.length) {
-			return 27;
+		if (x < 0 || x >= tiles.length || y < 0 || y >= tiles[0].length) {
+			return 44;
 		}
 		return tiles[x][y];
 	}

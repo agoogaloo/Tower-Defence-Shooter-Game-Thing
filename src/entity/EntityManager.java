@@ -37,15 +37,16 @@ public class EntityManager {
 			player=new Player(0,0);
 		}
 		//moving the player to the right place and letting it reset stuff
-		player.reset(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()
-					+230,GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);
+		//player.reset(GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()
+				//	+230,GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()-248);
+		player.reset(200,200);
 		player.createCore();//making the core
-		factory=new Factory(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
-				GameState.getFloor().getEndRoomX()+215,GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
-				GameState.getFloor().getEndRoomY()+220);
+		//factory=new Factory(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
+		//		GameState.getFloor().getEndRoomX()+215,GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE*
+		//		GameState.getFloor().getEndRoomY()+220);
 		
 		entities.add(player);// adding the player and factory to the arraylist so it will be updated and rendered
-		entities.add(factory);
+		//entities.add(factory);
 		
 		spawner=new EnemySpawner();
 	}

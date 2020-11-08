@@ -35,10 +35,10 @@ public class EnemySpawner {
 	public void update() {
 		//getting what room the player is currently standing in (used to determine where to spawn enemies)
 		int roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
-				TILESIZE)/GameState.getFloor().ROOMSIZE;//the x of the room (in rooms not pixels)
+				TILESIZE)/GameState.getFloor().getRoomSize();//the x of the room (in rooms not pixels)
 		
 		int roomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
-				TILESIZE)/GameState.getFloor().ROOMSIZE;//the y of the room (in rooms not pixels)
+				TILESIZE)/GameState.getFloor().getRoomSize();//the y of the room (in rooms not pixels)
 		
 		Point currentRoom=new Point(roomX, roomY);
 		
@@ -48,9 +48,8 @@ public class EnemySpawner {
 			visitedRooms.add(currentRoom);
 			button.create();
 		}
-		
 		//updating the button that starts the next wave
-		button.update(lastRoom.x,lastRoom.y,GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).getExit());
+		//button.update(lastRoom.x,lastRoom.y,GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).getExit());
 		
 		if(waveComplete()&&button.isClicked()) {
 			newWave(lastRoom.x,lastRoom.y,difficulty);

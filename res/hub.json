@@ -8,6 +8,18 @@
          "id":1,
          "name":"hub",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"entrance",
+                 "type":"string",
+                 "value":"u"
+                }, 
+                {
+                 "name":"exit",
+                 "type":"string",
+                 "value":"u"
+                }],
+                
          "type":"tilelayer",
          "visible":true,
          "width":50,

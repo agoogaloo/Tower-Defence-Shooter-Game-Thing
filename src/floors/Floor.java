@@ -5,9 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.simple.JSONArray;
@@ -33,36 +30,57 @@ public class Floor {
 	private int endRoomX, endRoomY;
 
 	// constants
-	public final int TILESIZE = 16, ROOMSIZE = 30, SCREENWIDTH, SCREENHEIGHT;
-	private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
-	//private final Room[] POSSIBLEROOMS = loadAllRooms("res/rooms.json");// loads all the possible rooms
-	private final Room[] STARTROOMS = loadAllRooms("res/start rooms.json");// loads all the possible rooms
-	private final Room[] ENDROOMS = loadAllRooms("res/end rooms.json");// loads all the possible rooms
+	public final int TILESIZE = 16, SCREENWIDTH, SCREENHEIGHT;
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
-	private  Room STARTROOM=STARTROOMS[ThreadLocalRandom.current().nextInt(0, STARTROOMS.length)];
 	private final int[] WALLS = new int[] {36,37,38,39,40,43,44,45,46,47,50,51,52,64,65,66,
 			69,70,71,72,73,76,77,78,79,80};
-
+	private int roomSize=30;
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
 	public Floor(int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
 		this.size = size;
+		roomSize=30;
 		PICS = pics;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
 		rooms = new Room[size * 2][size];
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
-		rooms = generateFloor();// generating a random floor layout
+		Room[] startRooms= loadAllRooms("res/start rooms.json");
+		rooms = generateFloor(startRooms[ThreadLocalRandom.current().nextInt(0, startRooms.length)],
+				loadAllRooms("res/rooms.json"),loadAllRooms("res/end rooms.json"));// generating a random floor layout
+		
+		
+	}
+	
+	/**
+	 * this lets us make a floor out of one json file for things like the hub or tutorial area
+	 * @param path
+	 * @param screenWidth
+	 * @param screenHeight
+	 * @param pics
+	 */
+	public Floor(String path, int screenWidth, int screenHeight, BufferedImage[] pics) {
+		// initializing variables
+		this.size = 1;
+		PICS = pics;
+		roomSize=40;
+		SCREENHEIGHT = screenHeight;//needs the screen width/height 
+		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
+		rooms =new Room[][] {{loadRoom(path, 0)}};
+		// there are no down rooms so that it wont loop on itself which means that the
+		// tallest the floor will be it however many rooms it has
+		
+		
 		
 		
 	}
 
 	// this method draws everything to the screen
 	public void render(Graphics g, Camera camera) {
-		for(int y=0;y<200/TILESIZE+2;y++) {
-			for(int x=0;x<333/TILESIZE+2;x++) {
+		for(int y=-TILESIZE;y<200/TILESIZE+2;y++) {
+			for(int x=-TILESIZE;x<333/TILESIZE+2;x++) {
 				g.drawImage(PICS[getTile(x+camera.getxOffset()/TILESIZE, y+camera.getyOffset()/TILESIZE) - 1], x*TILESIZE-camera.getxOffset()%TILESIZE,
 						y*TILESIZE-camera.getyOffset()%TILESIZE, null);
 			}
@@ -83,12 +101,11 @@ public class Floor {
 
 	}
 
-	// creates a random floor that is held in a 2d array of rooms
-	private Room[][] generateFloor() {
+	private Room[][] generateFloor(Room startRoom, Room[]midRooms, Room[] endRooms) {
 		// declaring variables
 		Room[][] floor = new Room[size * 2][size + 1];
-		Room validRoom = STARTROOM;// making the 1st room the start room, which only has an exit
-		Room checkRoom = POSSIBLEROOMS[0];
+		Room validRoom = startRoom;// making the 1st room the start room, which only has an exit
+		Room checkRoom = midRooms[0];
 		int x = size, y = size - 1;// making the starting room the bottom middle room
 
 		for (int i = 0; i < size; i++) {// looping until it has created a floor with the proper size
@@ -111,10 +128,10 @@ public class Floor {
 
 			do {
 				if(i==size-2) {
-					checkRoom = ENDROOMS[ThreadLocalRandom.current().nextInt(0, ENDROOMS.length)];
+					checkRoom = endRooms[ThreadLocalRandom.current().nextInt(0, endRooms.length)];
 					System.out.println("making the last room");
 				}else {
-					checkRoom = POSSIBLEROOMS[ThreadLocalRandom.current().nextInt(0, POSSIBLEROOMS.length)];
+					checkRoom = midRooms[ThreadLocalRandom.current().nextInt(0, midRooms.length)];
 				}
 				// setting check room to a random room
 				System.out.println(
@@ -169,16 +186,16 @@ public class Floor {
 	// if it is a wall or whatever
 	public int getTile(int x, int y) {
 		// finding the x y of the room the tile is in
-		int roomX = (int) Math.floor(x / ROOMSIZE), roomY = (int) Math.floor(y / ROOMSIZE);
+		int roomX = (int) Math.floor(x / roomSize), roomY = (int) Math.floor(y / roomSize);
 		int result;
 
 		try {// if there isnt actually a room at the location it will throw an error so this
 				// catches it
-			result = getRoom(roomX, roomY).getTile(x - roomX * ROOMSIZE, y - roomY * ROOMSIZE);
+			result = getRoom(roomX, roomY).getTile(x - roomX * roomSize, y - roomY * roomSize);
 			// returning the proper tile from the proper room
 
 		} catch (NullPointerException e) {// if the floor isnt there then it returns the background tile
-			result = 35;// 35 is the tile id for the empty background tile
+			result = 44;// 44 is the tile id for the empty background tile
 
 		}
 		return result;// Returning the tile
@@ -206,6 +223,10 @@ public class Floor {
 	}
 	public int getSize() {
 		return size;
+	}
+	
+	public int getRoomSize() {
+		return roomSize;
 	}
 
 	public int getEndRoomX() {
