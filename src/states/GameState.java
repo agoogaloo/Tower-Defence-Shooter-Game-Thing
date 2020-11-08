@@ -81,27 +81,27 @@ public class GameState extends State{
 		//creating the floor
 		UIElement.getUIManager().clear();
 		
-		floor = new Floor("res/maps/tutorial.json", Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+		floor = new Floor("res/maps/floor 1",3, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
 		Entity.init();
 		
 		Point coreLoc = null;
-		Point playerLoc = new Point(1000,1000);
+		Point playerLoc = new Point(108,77);
 		
 		
 		for (int y = 0; y < floor.getSize()*floor.getRoomSize(); y++) {// looping though all the tiles
-			for (int x = 0; x < floor.getSize()*floor.getRoomSize() ; x++) {
+			for (int x = 0; x < floor.getSize()*floor.getRoomSize()*2 ; x++) {
 				switch (floor.getSpawnData(x, y)) {
 				case 1:
 					coreLoc=new Point(x,y);
+					System.out.println("found core spawn");
 					break;
 		
 				case 2:
 					playerLoc=new Point(x,y);
+					System.out.println("found player spawn");
 					break;
 					
-					
-					//System.out.println();
 				}
 			}
 		}

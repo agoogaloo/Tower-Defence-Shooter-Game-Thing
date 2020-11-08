@@ -1,8 +1,8 @@
 package floors;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +13,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import entity.Entity;
-import entity.mobs.player.Player;
 import graphics.Camera;
 
 /*
@@ -50,9 +48,9 @@ public class Floor {
 		rooms = new Room[size * 2][size];
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
-		Room[] startRooms= loadAllRooms("res/start rooms.json");
+		Room[] startRooms= loadAllRooms(folder+"/start");
 		rooms = generateFloor(startRooms[ThreadLocalRandom.current().nextInt(0, startRooms.length)],
-				loadAllRooms("res/rooms.json"),loadAllRooms("res/end rooms.json"));// generating a random floor layout
+				loadAllRooms(folder+"/mid"),loadAllRooms(folder+"/end"));// generating a random floor layout
 		
 		
 	}
@@ -83,7 +81,7 @@ public class Floor {
 		for(int y=-TILESIZE;y<200/TILESIZE+2;y++) {
 			for(int x=-TILESIZE;x<333/TILESIZE+2;x++) {
 				//System.out.println(x+camera.getxOffset()/TILESIZE+", "+ y+camera.getyOffset()/TILESIZE);
-				g.drawImage(PICS[getTile(x+camera.getxOffset()/TILESIZE, y+camera.getyOffset()/TILESIZE) - 1], x*TILESIZE-camera.getxOffset()%TILESIZE,
+				g.drawImage(PICS[getTile(x+camera.getxOffset()/TILESIZE, y+camera.getyOffset()/TILESIZE) -1], x*TILESIZE-camera.getxOffset()%TILESIZE,
 						y*TILESIZE-camera.getyOffset()%TILESIZE, null);
 			}
 		}
@@ -111,7 +109,6 @@ public class Floor {
 		int x = size, y = size - 1;// making the starting room the bottom middle room
 
 		for (int i = 0; i < size; i++) {// looping until it has created a floor with the proper size
-			//validRoom.unlock();//this can be uncommented to unlock all the rooms in a floor to test stuff easily
 			floor[x][y] = new Room(validRoom);// adding the rooms to the floor in the right place
 			endRoomX=x;
 			endRoomY=y;
@@ -149,9 +146,26 @@ public class Floor {
 		return floor;// returning the array
 	}
 
-	private Room[] loadAllRooms(String path) {
+	private Room[] loadAllRooms(String path) {		
 		ArrayList<Room> rooms = new ArrayList<Room>();// an arraylist to hold all the rooms
+		final File folder = new File(path);
+		
 		try {
+			for(File file:folder.listFiles()) {
+				try {
+					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
+					rooms.add(new Room(object));
+				} catch (IOException |ParseException e) {
+					System.out.println(file.getPath()+" could not be loaded. Make sure it is a .json file");
+				}
+			}
+		} catch (NullPointerException e) {
+			System.out.println(folder.getPath()+" is not a folder");
+			e.printStackTrace();
+		}
+		
+		
+		/*try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
 			JSONArray layers=(JSONArray)(file.get("layers"));
 			for(int i=0;i<layers.size();i++) {
@@ -162,7 +176,7 @@ public class Floor {
 			System.out.print("there was a problem loading JSON file at "+path );
 			e.printStackTrace();
 			
-		}
+		}*/
 		
 		return rooms.toArray(new Room[0]);// returning the rooms
 	}
@@ -171,8 +185,6 @@ public class Floor {
 		Room room=null;// the room it will return
 		try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
-			JSONArray layers=(JSONArray)(file.get("layers"));
-			JSONObject data=(JSONObject)(layers.get(0));
 			room=new Room(file);
 			
 		} catch (IOException | ParseException e) {
