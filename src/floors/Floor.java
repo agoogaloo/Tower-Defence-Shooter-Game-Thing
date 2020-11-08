@@ -1,6 +1,7 @@
 package floors;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +13,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import entity.Entity;
+import entity.mobs.player.Player;
 import graphics.Camera;
 
 /*
@@ -69,14 +72,11 @@ public class Floor {
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
 		rooms =new Room[][] {{loadRoom(path)}};
-		System.out.println("spawns"+rooms[0][0].getSpawnData(25, 0));
-		// there are no down rooms so that it wont loop on itself which means that the
-		// tallest the floor will be it however many rooms it has
 		
 		
 		
 		
-	}
+	}	
 
 	// this method draws everything to the screen
 	public void render(Graphics g, Camera camera) {
@@ -202,6 +202,23 @@ public class Floor {
 		}
 		return result;// Returning the tile
 	}
+	
+	public int getSpawnData(int x, int y) {
+		// finding the x y of the room the tile is in
+		int roomX = (int) Math.floor(x / roomSize), roomY = (int) Math.floor(y / roomSize);
+		int result;
+
+		try {// if there isnt actually a room at the location it will throw an error so this
+				// catches it
+			result = getRoom(roomX, roomY).getSpawnData(x - roomX * roomSize, y - roomY * roomSize);
+			// returning the proper tile from the proper room
+
+		} catch (NullPointerException e) {// if the floor isnt there then it returns the background tile
+			result = 0;// 44 is the tile id for the empty background tile
+
+		}
+		return result;// Returning the tile
+	}
 
 	public boolean checkwall(int x, int y) {
 
@@ -213,6 +230,7 @@ public class Floor {
 		}
 		return false;
 	}
+	
 
 	// if you need a specific room it can return it
 	public Room getRoom(int x, int y) {

@@ -154,9 +154,9 @@ public class CommandSelector {
 		public String execute(String params) {
 			int amount;
 			int spawnRoomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
-					TILESIZE)/GameState.getFloor().ROOMSIZE;
+					TILESIZE)/GameState.getFloor().getRoomSize();
 			int spawnRoomY=(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
-					TILESIZE)/GameState.getFloor().ROOMSIZE;
+					TILESIZE)/GameState.getFloor().getRoomSize();
 			try {
 				amount=Integer.parseInt(params);
 			} catch (NumberFormatException e) {

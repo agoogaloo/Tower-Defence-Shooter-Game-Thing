@@ -1,6 +1,7 @@
 package states;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
@@ -79,9 +80,38 @@ public class GameState extends State{
 	public static void newFloor() {
 		//creating the floor
 		UIElement.getUIManager().clear();
-		floor = new Floor("res/maps/hub.json", Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+		
+		floor = new Floor("res/maps/tutorial.json", Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
 		Entity.init();
+		
+		Point coreLoc = null;
+		Point playerLoc = new Point(1000,1000);
+		
+		
+		for (int y = 0; y < floor.getSize()*floor.getRoomSize(); y++) {// looping though all the tiles
+			for (int x = 0; x < floor.getSize()*floor.getRoomSize() ; x++) {
+				switch (floor.getSpawnData(x, y)) {
+				case 1:
+					coreLoc=new Point(x,y);
+					break;
+		
+				case 2:
+					playerLoc=new Point(x,y);
+					break;
+					
+					
+					//System.out.println();
+				}
+			}
+		}
+		Entity.getEntityManager().getPlayer().reset(playerLoc.x*16,playerLoc.y*16);
+		if(coreLoc!=null) {
+			Entity.getEntityManager().getPlayer().createCore(coreLoc.x*16,coreLoc.y*16);
+		}else {
+			Entity.getEntityManager().getPlayer().createCore(playerLoc.x*16,playerLoc.y*16);
+		}
+		
 		level++;
 	}
 	public static void screenShake(double amount) {

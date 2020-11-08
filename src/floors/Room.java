@@ -1,5 +1,6 @@
 package floors;
 
+import java.awt.Point;
 import java.util.Arrays;
 
 import org.json.simple.JSONArray;
@@ -60,9 +61,10 @@ public class Room {
 		JSONArray spawnData=(JSONArray)spawnLayer.get("data");
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
-				spawns[x][y] =(int)((long) spawnData.get((y *width) + x ));			
+				spawns[x][y] =(int)((long) spawnData.get((y *width) + x ));	
 			}
 		}
+		
 
 		//getting entrance/exits
 		JSONArray properties=(JSONArray)object.get("properties");
@@ -74,7 +76,7 @@ public class Room {
 	}
 	private void findDoor() {
 		for(int y=0;y<tiles[0].length;y++) {
-			for(int x=0;x<tiles[0].length;x++) {				
+			for(int x=0;x<tiles.length;x++) {				
 				if(tiles[x][y]==64||tiles[x][y]==69) {
 					doorX=x;
 					doorY=y;

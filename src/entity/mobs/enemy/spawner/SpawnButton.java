@@ -22,28 +22,28 @@ public class SpawnButton {
 		}
 		
 		//getting the location of the room in pixels
-		this.targetX=roomX*GameState.getFloor().TILESIZE*GameState.getFloor().ROOMSIZE;
-		this.targetY=roomY*GameState.getFloor().TILESIZE*GameState.getFloor().ROOMSIZE;
+		this.targetX=roomX*GameState.getFloor().TILESIZE*GameState.getFloor().getRoomSize();
+		this.targetY=roomY*GameState.getFloor().TILESIZE*GameState.getFloor().getRoomSize();
 		
 		//moving the button location depending on the exit of the room so it will go to the door of the room
 		switch(direction) {
 		case 'u':
-			this.targetX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			this.targetX+=(GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE)/2;
 			this.targetY+=50;
 			break;
 			
 		case 'd':
-			this.targetX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			this.targetX+=(GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE)/2;
 			break;
 			
 		case 'l':
-			this.targetY+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			this.targetY+=(GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE)/2;
 			this.targetX+=30;
 			break;
 			
 		case 'r':
-			this.targetX+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)-30;
-			this.targetY+=(GameState.getFloor().ROOMSIZE*GameState.getFloor().TILESIZE)/2;
+			this.targetX+=(GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE)-30;
+			this.targetY+=(GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE)/2;
 			break;
 		}
 		
