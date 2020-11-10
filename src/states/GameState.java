@@ -86,7 +86,7 @@ public class GameState extends State{
 		Entity.init();
 		
 		Point coreLoc = null;
-		Point playerLoc = new Point(108,77);
+		Point playerLoc = new Point(10,77);
 		
 		
 		for (int y = 0; y < floor.getSize()*floor.getRoomSize(); y++) {// looping though all the tiles

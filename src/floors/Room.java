@@ -99,7 +99,7 @@ public class Room {
 			tiles[doorX][doorY+2]=74;//changing the left rows tiles to open ones
 			
 			tiles[doorX+1][doorY]=9;
-			tiles[doorX+1][doorY+1]=7;
+			tiles[doorX+1][doorY+1]=8;
 			tiles[doorX+1][doorY+2]=10;//making a path in the middle
 			
 			tiles[doorX+2][doorY]=61;
@@ -107,18 +107,18 @@ public class Room {
 			tiles[doorX+2][doorY+2]=75;//changing the right doors tiles to open ones
 			
 		}else if(exit=='l'||exit=='r') {
-			tiles[doorX][doorY-2]=61;
-			tiles[doorX][doorY-1]=67;//the left of thetop door
-			tiles[doorX][doorY]=63;
-			tiles[doorX][doorY+1]=69;
+			tiles[doorX][doorY-2]=41;
+			tiles[doorX][doorY-1]=48;//the left of thetop door
+			tiles[doorX][doorY]=55;
+			tiles[doorX][doorY+1]=62;
 			
-			tiles[doorX+1][doorY-2]=62;
-			tiles[doorX+1][doorY-1]=68;//the right of thetop door
-			tiles[doorX+1][doorY]=64;
-			tiles[doorX+1][doorY+1]=70;
+			tiles[doorX+1][doorY-2]=42;
+			tiles[doorX+1][doorY-1]=49;//the right of thetop door
+			tiles[doorX+1][doorY]=56;
+			tiles[doorX+1][doorY+1]=63;
 			
-			tiles[doorX][doorY+3]=65;//the bottom door
-			tiles[doorX+1][doorY+3]=71;
+			tiles[doorX][doorY+3]=57;//the bottom door
+			tiles[doorX+1][doorY+3]=58;
 			
 			tiles[doorX][doorY+2]=2;//fixing the path
 			

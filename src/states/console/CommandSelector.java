@@ -1,5 +1,7 @@
 package states.console;
 
+import java.awt.Point;
+
 import entity.Entity;
 import states.GameState;
 
@@ -9,9 +11,9 @@ public class CommandSelector {
 	
 	//Parallel arrays to tell which commands match up with which classes
 	private final String[] commandStrings = new String[] {"Help","EntityCount","ShowHitBox", "ShowFPS",
-			"Freeze", "Fs", "EnemyWave","InstaKillEnemy"};
+			"Freeze", "Fs", "EnemyWave","InstaKillEnemy", "unlock"};
 	private final Command[] commands = new Command[] {new Help(),new EntityCount(), new ShowHitBox(), 
-			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies()};
+			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies(), new Unlock()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
@@ -177,6 +179,26 @@ public class CommandSelector {
 		public String execute(String params) {
 			ConsoleState.instaKillEnemy=!ConsoleState.instaKillEnemy;
 			return "instakilling enemies: "+ConsoleState.instaKillEnemy+"\n";
+		}
+	}
+	
+	private class Unlock extends Command{
+		private Unlock() {
+			helpText="unlocks all rooms in the current floor";
+		}
+
+		@Override
+		public String execute(String params) {
+			for (int y = 0; y < GameState.getFloor().getSize(); y++) {// looping though all the tiles
+				for (int x = 0; x < GameState.getFloor().getSize()*2; x++) {
+					try {
+						GameState.getFloor().getRoom(x, y).unlock();
+					} catch (NullPointerException e) {
+						
+					}
+				}
+			}
+			return "rooms unlocked";
 		}
 	}
 }
