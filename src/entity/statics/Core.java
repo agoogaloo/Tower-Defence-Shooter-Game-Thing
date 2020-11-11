@@ -24,8 +24,8 @@ public class Core extends Statics{
 	public Core(int x, int y){
 		friendly=true;
 		health=1;//the core wont take damage because the damage method is modified
-		this.x=x;
-		this.y=y;
+		this.x=x-20;
+		this.y=y-17;
 		this.bounds.x=x;//setting the bounds to be the right size/location
 		this.bounds.y=y;
 		bounds.width=40;

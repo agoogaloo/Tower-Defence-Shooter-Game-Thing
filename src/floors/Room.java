@@ -16,11 +16,11 @@ public class Room {
 	 * json files from tiled represents one room.
 	 */
 	// declaring instance variables
-	public final int TILESIZE = 16, ROOMSIZE = 30;
+	public final int TILESIZE = 16;
 	private int[][] tiles;
 	private int[][] spawns;
 	private char entrance, exit;
-	private int doorX,doorY;
+	private int doorX,doorY, width,height;
 	
 	// the  constructor takes the location and width of the file that should be
 	// loaded all and rooms are squares so the width will be the same as the height
@@ -33,6 +33,8 @@ public class Room {
 		exit=original.exit;
 		doorX=original.doorX;
 		doorY=original.doorY;
+		width=original.width;
+		height=original.height;
 		
 		for(int i = 0; i < original.tiles.length; i++) {
 			tiles[i] = Arrays.copyOf(original.tiles[i], original.tiles[i].length);
@@ -43,8 +45,8 @@ public class Room {
 	}
 	
 	public Room(JSONObject object) {
-		int width=(int)((long)object.get("width"));
-		int height=(int)((long)object.get("height"));
+		width=(int)((long)object.get("width"));
+		height=(int)((long)object.get("height"));
 		tiles = new int[width][height];
 		spawns = new int[width][height];
 		
@@ -147,4 +149,13 @@ public class Room {
 	public char getExit() {
 		return exit;
 	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+	
 }

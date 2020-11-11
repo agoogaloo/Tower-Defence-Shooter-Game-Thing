@@ -18,16 +18,17 @@ public class GameState extends State{
 	/*
 	 * this represents the game when it is actually being played and not in a menu or cutscene or whatever
 	 */
+	//floor index constants
+	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=6,FLOOR2=7,FLOOR3=8;
 	//constants that are needed for different things in the gamestate 
 	private static Floor floor;
-	private static int level=1;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
 	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
 	
 	public GameState() {
 		//creating the floor
-		newFloor();
+		newFloor(HUBINDEX);
 	}
 	
 	@Override
@@ -77,16 +78,39 @@ public class GameState extends State{
 		UIElement.getUIManager().render(g);//rendering all the ui ontop of everything
 	}
 	
-	public static void newFloor() {
+	public static void newFloor(int floorIndex) {
 		//creating the floor
-		UIElement.getUIManager().clear();
+		String path="res/maps/";
+		int size=0;
 		
-		floor = new Floor("res/maps/floor 1",3, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+		switch (floorIndex){
+		case HUBINDEX:
+			path+="hub.json";
+			size=1;
+			break;
+		case TUTORIALINDEX:
+			path+="tutorial.json";
+			size=1;
+			break;
+		case FLOOR1:
+			path+="floor 1";
+			size=4;
+			break;
+		case FLOOR2:
+			path+="floor 2";
+			size=5;
+			break;
+		default :
+				return;
+		}
+		
+		floor = new Floor(path,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
+		UIElement.getUIManager().clear();//clearing the ui things
 		Entity.init();
 		
 		Point coreLoc = null;
-		Point playerLoc = new Point(10,77);
+		Point playerLoc = new Point(0,0);
 		
 		
 		for (int y = 0; y < floor.getSize()*floor.getRoomSize(); y++) {// looping though all the tiles
@@ -111,8 +135,6 @@ public class GameState extends State{
 		}else {
 			Entity.getEntityManager().getPlayer().createCore(playerLoc.x*16,playerLoc.y*16);
 		}
-		
-		level++;
 	}
 	public static void screenShake(double amount) {
 		screenShake+=amount;
@@ -123,9 +145,7 @@ public class GameState extends State{
 	public static Floor getFloor() {
 		return floor;
 	}
-	public static int getLevel() {
-		return level;
-	}
+	
 	public static Camera getCamera() {
 		return camera;
 	}

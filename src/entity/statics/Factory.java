@@ -37,7 +37,7 @@ public class Factory extends Statics{
 		anim.update();
 		currentPic=anim.getCurrentFrame();
 		if(health==1) {
-			GameState.newFloor();
+			GameState.newFloor(5);
 		}
 		
 	}

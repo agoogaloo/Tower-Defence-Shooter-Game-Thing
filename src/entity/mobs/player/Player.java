@@ -49,7 +49,7 @@ public class Player extends Mobs {
 		/*
 		 * this class is the player that you control 
 		 */
-		setLocation(x, y);
+		setLocation(x-width/2, y-height/2);
 		// initializing variables
 		reloadTime=15;
 		width = 9; //The specific width of the player
@@ -145,7 +145,8 @@ public class Player extends Mobs {
 		dustDelay ++;
 		invincibility--;
 		
-		
+		//System.out.println(GameState.getFloor().getSpawnData(, y/16+height/2));
+		GameState.newFloor(GameState.getFloor().getSpawnData((x+width/2)/16, (y+height/2)/16));
 	}
 	
 	private void tower() { //Tower method to create a tower

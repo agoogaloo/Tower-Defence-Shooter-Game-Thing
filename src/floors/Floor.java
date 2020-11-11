@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -41,16 +40,23 @@ public class Floor {
 	public Floor(String folder,int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
 		this.size = size;
-		roomSize=30;
 		PICS = pics;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
 		rooms = new Room[size * 2][size];
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
-		Room[] startRooms= loadAllRooms(folder+"/start");
-		rooms = generateFloor(startRooms[ThreadLocalRandom.current().nextInt(0, startRooms.length)],
-				loadAllRooms(folder+"/mid"),loadAllRooms(folder+"/end"));// generating a random floor layout
+		if(new File(folder).isDirectory()) {
+			Room[] startRooms= loadAllRooms(folder+"/start");
+			roomSize=Math.max(startRooms[0].getWidth(),startRooms[0].getHeight());
+			rooms = generateFloor(startRooms[ThreadLocalRandom.current().nextInt(0, startRooms.length)],
+					loadAllRooms(folder+"/mid"),loadAllRooms(folder+"/end"));// generating a random floor layout
+		}else {
+			rooms = new Room[][] {{loadRoom(folder)}};// generating a random floor layout
+			roomSize=Math.max(rooms[0][0].getWidth(),rooms[0][0].getHeight());
+		}
+		
+		
 		
 		
 	}
@@ -226,7 +232,7 @@ public class Floor {
 			// returning the proper tile from the proper room
 
 		} catch (NullPointerException e) {// if the floor isnt there then it returns the background tile
-			result = 0;// 44 is the tile id for the empty background tile
+			result = 0;
 
 		}
 		return result;// Returning the tile
