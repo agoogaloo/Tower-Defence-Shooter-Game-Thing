@@ -33,7 +33,7 @@ public class Floor {
 	public final int TILESIZE = 16, SCREENWIDTH, SCREENHEIGHT;
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private final int[] WALLS = new int[] {36,37,38,39,40,43,44,45,46,47,50,51,52,64,65,66,
-			69,70,71,72,73,76,77,78,79,80,41,42,48,49};
+			69,70,71,72,73,76,77,41,42,48,49};
 	private int roomSize=30;
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes

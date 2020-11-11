@@ -22,7 +22,7 @@ public class EntityManager {
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	Player player;// creating a player
 	Factory factory;//the robot factory at the end of the level
-	EnemySpawner spawner=new EnemySpawner();//the thing that controls when/where enemies spawn
+	EnemySpawner spawner=new EnemySpawner(false);//the thing that controls when/where enemies spawn
 
 	public void reset() {
 
@@ -48,7 +48,7 @@ public class EntityManager {
 		entities.add(player);// adding the player and factory to the arraylist so it will be updated and rendered
 		//entities.add(factory);
 		
-		spawner=new EnemySpawner();
+		spawner=new EnemySpawner(GameState.canHaveEnemies());
 	}
 
 	// this method updates all the entitys in the entities arrayList and removes the dead ones

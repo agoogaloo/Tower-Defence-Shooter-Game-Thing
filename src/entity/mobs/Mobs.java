@@ -20,9 +20,9 @@ public abstract class Mobs extends Entity{
 		
 		//checking if they would move into a wall
 		if (!(GameState.getFloor().checkwall((int)(checkX)/ 16,(int)(checkY) / 16)
-				|| GameState.getFloor().checkwall((width+(int)(checkX)) / 16, (int)(checkY)/ 16)
-				|| GameState.getFloor().checkwall((int)(checkX) / 16, (height+(int)(checkY)) / 16)
-				|| GameState.getFloor().checkwall((width+(int)(checkX)) / 16, (height+(int)(checkY)) / 16))) {
+				|| GameState.getFloor().checkwall((bounds.width+(int)(checkX)) / 16, (int)(checkY)/ 16)
+				|| GameState.getFloor().checkwall((int)(checkX) / 16, (bounds.height+(int)(checkY)) / 16)
+				|| GameState.getFloor().checkwall((bounds.width+(int)(checkX)) / 16, (bounds.height+(int)(checkY)) / 16))) {
 			trueX=checkX;//moving the if they are going into a free area
 			trueY=checkY;
 			x=(int)(trueX);

@@ -22,6 +22,7 @@ public class GameState extends State{
 	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=6,FLOOR2=7,FLOOR3=8;
 	//constants that are needed for different things in the gamestate 
 	private static Floor floor;
+	private static boolean canHaveEnemies=true;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
 	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
@@ -87,18 +88,22 @@ public class GameState extends State{
 		case HUBINDEX:
 			path+="hub.json";
 			size=1;
+			canHaveEnemies=false;
 			break;
 		case TUTORIALINDEX:
 			path+="tutorial.json";
 			size=1;
+			canHaveEnemies=false;
 			break;
 		case FLOOR1:
 			path+="floor 1";
 			size=4;
+			canHaveEnemies=true;
 			break;
 		case FLOOR2:
 			path+="floor 2";
 			size=5;
+			canHaveEnemies=true;
 			break;
 		default :
 				return;
@@ -131,9 +136,9 @@ public class GameState extends State{
 		}
 		Entity.getEntityManager().getPlayer().reset(playerLoc.x*16,playerLoc.y*16);
 		if(coreLoc!=null) {
-			Entity.getEntityManager().getPlayer().createCore(coreLoc.x*16,coreLoc.y*16);
+			Entity.getEntityManager().getPlayer().createCore(coreLoc.x*16+8,coreLoc.y*16+8);
 		}else {
-			Entity.getEntityManager().getPlayer().createCore(playerLoc.x*16,playerLoc.y*16);
+			Entity.getEntityManager().getPlayer().createCore(playerLoc.x*16+8,playerLoc.y*16+8);
 		}
 	}
 	public static void screenShake(double amount) {
@@ -148,5 +153,10 @@ public class GameState extends State{
 	
 	public static Camera getCamera() {
 		return camera;
+	}
+	
+	public static boolean canHaveEnemies() {
+		return canHaveEnemies;
+		
 	}
 }

@@ -26,8 +26,8 @@ public class Core extends Statics{
 		health=1;//the core wont take damage because the damage method is modified
 		this.x=x-20;
 		this.y=y-17;
-		this.bounds.x=x;//setting the bounds to be the right size/location
-		this.bounds.y=y;
+		this.bounds.x=this.x;//setting the bounds to be the right size/location
+		this.bounds.y=this.y;
 		bounds.width=40;
 		bounds.height=35;
 		damage=1000;//enemies that touch it will take a bunch of damage so they wont repeatedly hit the core

@@ -23,6 +23,8 @@ public class EnemySpawner {
 	private int enemyDelay=0, heliDelay=0;
 	private int difficulty=3, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
 	
+	private boolean buttonSpawns =true;
+	
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
 	private ArrayList<Point> visitedRooms=new ArrayList<Point>();//all rooms that have been unlocked/"beaten"
 	private Point lastRoom=new Point(-1,-1);
@@ -32,7 +34,12 @@ public class EnemySpawner {
 	
 	private SpawnButton button=new SpawnButton();
 	
+	public EnemySpawner(boolean buttonSpawns) {
+		this.buttonSpawns=buttonSpawns;
+		if(!buttonSpawns) button.remove(); 
+	}
 	public void update() {
+		
 		//getting what room the player is currently standing in (used to determine where to spawn enemies)
 		int roomX=(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
 				TILESIZE)/GameState.getFloor().getRoomSize();//the x of the room (in rooms not pixels)
@@ -46,10 +53,11 @@ public class EnemySpawner {
 		if(!visitedRooms.contains(currentRoom)){//checking if the player is in a new room
 			lastRoom=currentRoom;
 			visitedRooms.add(currentRoom);
-			button.create();
+			if(buttonSpawns)
+				button.create();
 		}
 		//updating the button that starts the next wave
-		//button.update(lastRoom.x,lastRoom.y,GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).getExit());
+		button.update(lastRoom.x,lastRoom.y,GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).getExit());
 		
 		if(waveComplete()&&button.isClicked()) {
 			newWave(lastRoom.x,lastRoom.y,difficulty);
@@ -75,8 +83,8 @@ public class EnemySpawner {
 				GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).unlock();
 				roomsWaves=1;
 			}
-			if(roomsWaves!=1) {
-				button.create();
+			if(roomsWaves!=1&&buttonSpawns) {
+				//button.create();
 			}
 		}
 		
@@ -93,29 +101,29 @@ public class EnemySpawner {
 	public void newWave(int roomX,int roomY, int enemies) {
 		System.out.println("\n\nSTARTING WAVE "+totalWaves+"\nroomWaves: "+roomsWaves+"\n");
 		Room room=GameState.getFloor().getRoom(roomX, roomY);
-		int spawnX=roomX*room.ROOMSIZE*room.TILESIZE;
-		int spawnY=roomY*room.ROOMSIZE*room.TILESIZE;
+		int spawnX=roomX*room.getWidth()*room.TILESIZE;
+		int spawnY=roomY*room.getHeight()*room.TILESIZE;
 		char direction='d';
 		switch(room.getExit()) {
 		case 'u':
 			direction='d';
-			spawnX+=(room.ROOMSIZE*room.TILESIZE)/2;
+			spawnX+=(room.getWidth()*room.TILESIZE)/2;
 			spawnY-=30;
 			break;
 		case 'd':
 			direction='u';
-			spawnX+=(room.ROOMSIZE*room.TILESIZE)/2;
-			spawnY+=(room.ROOMSIZE*room.TILESIZE)+30;
+			spawnX+=(room.getWidth()*room.TILESIZE)/2;
+			spawnY+=(room.getHeight()*room.TILESIZE)+30;
 			break;
 		case 'l':
 			direction='r';
-			spawnY+=(room.ROOMSIZE*room.TILESIZE)/2;
+			spawnY+=(room.getHeight()*room.TILESIZE)/2;
 			spawnX-=30;
 			break;
 		case 'r':
 			direction='l';
-			spawnX+=(room.ROOMSIZE*room.TILESIZE)+30;
-			spawnY+=(room.ROOMSIZE*room.TILESIZE)/2;
+			spawnX+=(room.getWidth()*room.TILESIZE)+30;
+			spawnY+=(room.getHeight()*room.TILESIZE)/2;
 			break;
 		}
 		for (int i=0;i<enemies;i++) {

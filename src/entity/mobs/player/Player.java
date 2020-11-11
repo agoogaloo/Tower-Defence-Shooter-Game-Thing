@@ -64,7 +64,7 @@ public class Player extends Mobs {
 
 	public void reset(int x, int y) {
 		//this is called at the start of each floor so it can reset/set its ui/location
-		setLocation(x, y);
+		setLocation(x+width/2, y+height/2);
 		ui=new PlayerUI();
 		towerPlacer=new TowerPlacer();
 		miniMap=new MiniMap();
