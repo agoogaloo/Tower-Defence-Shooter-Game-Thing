@@ -9,7 +9,7 @@ import states.GameState;
 import states.State;
 
 public class SpawnButton {
-	int targetX, targetY;//where the button is pointing towards
+	private int targetX, targetY;//where the button is pointing towards
 	private Rectangle bounds=new Rectangle(5,180,16,15);
 	private boolean clicked=false, hovered=false,exists=true;
 	
@@ -127,6 +127,9 @@ public class SpawnButton {
 		return clicked;
 	}
 	
-	
+	public void move(int x, int y) {
+		targetX=x;
+		targetY=y;
+	}
 	
 }

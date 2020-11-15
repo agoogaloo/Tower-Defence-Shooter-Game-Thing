@@ -92,23 +92,32 @@ public class Room {
 		doorY=-1;
 	}
 	public void unlock() {
+		unlock(doorX,doorY);
+	}
+	public void unlock(int doorX, int doorY) {
 		if(doorX==-1&&doorY==-1) {
 			return;
 		}
-		if(exit=='u'||exit=='d') {
+		if(tiles[doorX][doorY]==64) {
 			tiles[doorX][doorY]=60;
 			tiles[doorX][doorY+1]=67;
 			tiles[doorX][doorY+2]=74;//changing the left rows tiles to open ones
-			
-			tiles[doorX+1][doorY]=9;
-			tiles[doorX+1][doorY+1]=8;
-			tiles[doorX+1][doorY+2]=10;//making a path in the middle
 			
 			tiles[doorX+2][doorY]=61;
 			tiles[doorX+2][doorY+1]=68;
 			tiles[doorX+2][doorY+2]=75;//changing the right doors tiles to open ones
 			
-		}else if(exit=='l'||exit=='r') {
+			if(tiles[doorX+1][doorY-1]!=21) {//checking if there is a path right above the door
+				tiles[doorX+1][doorY]=9;
+				tiles[doorX+1][doorY+1]=8;
+				tiles[doorX+1][doorY+2]=10;//making a path in the middle
+			}else {
+				tiles[doorX+1][doorY]=21;
+				tiles[doorX+1][doorY+1]=21;
+				tiles[doorX+1][doorY+2]=21;//making a path in the middle
+			}
+			
+		}else if(tiles[doorX][doorY]==69) {
 			tiles[doorX][doorY-2]=41;
 			tiles[doorX][doorY-1]=48;//the left of thetop door
 			tiles[doorX][doorY]=55;

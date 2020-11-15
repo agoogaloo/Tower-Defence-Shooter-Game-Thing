@@ -5,7 +5,9 @@ import java.awt.Point;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
+import entity.mobs.enemy.TutorialEnemy;
 import floors.Floor;
+import floors.Tutorialator;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.UIElement;
@@ -22,6 +24,7 @@ public class GameState extends State{
 	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=6,FLOOR2=7,FLOOR3=8;
 	//constants that are needed for different things in the gamestate 
 	private static Floor floor;
+	private static Tutorialator tutorial;
 	private static boolean canHaveEnemies=true;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
@@ -51,6 +54,7 @@ public class GameState extends State{
 		Particle.getParticleManager().update();
 		Entity.getEntityManager().update();
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
+		if(tutorial!=null)tutorial.update();
 		// updating the camera position to center on the player
 		
 		//moving the screen in a random direction by the current screen shake amount
@@ -76,6 +80,7 @@ public class GameState extends State{
 		Entity.getEntityManager().render(g, camera);// rendering the entities
 		Particle.getParticleManager().renderTop(g, camera);
 		
+		if(tutorial!=null)tutorial.render(g,camera);
 		UIElement.getUIManager().render(g);//rendering all the ui ontop of everything
 	}
 	
@@ -109,10 +114,15 @@ public class GameState extends State{
 				return;
 		}
 		
+		
+		UIElement.getUIManager().clear();//clearing the ui things
 		floor = new Floor(path,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
-		UIElement.getUIManager().clear();//clearing the ui things
 		Entity.init();
+		
+		if(floorIndex==TUTORIALINDEX)
+			tutorial=new Tutorialator();
+		else tutorial=null;
 		
 		Point coreLoc = null;
 		Point playerLoc = new Point(0,0);

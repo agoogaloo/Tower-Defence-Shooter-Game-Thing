@@ -185,4 +185,11 @@ public class EnemySpawner {
 		}
 	}
 	
+	public void setButtonLocation(int x, int y) {
+		button.move(x, y);
+	}
+	public void setButtonSpawns(boolean buttonSpawns) {
+		this.buttonSpawns=buttonSpawns;
+	}
+	
 }
