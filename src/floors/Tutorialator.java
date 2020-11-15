@@ -182,14 +182,14 @@ public class Tutorialator {
 		case 60*3:
 			Entity.getEntityManager().addEntity(new YellowEnemy(464, 16,'d'));
 			break;
-		case 60*6:
+		case 60*7:
 			Entity.getEntityManager().addEntity(new GreenEnemy(464, 16,'d'));
 			break;
 		case 60*9:
 			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,'d'));
 			break;
 		}
-		if(!areEnemies()&&sectionTime>150) {
+		if(!areEnemies()&&sectionTime>60*9) {
 			text.move(77, 172);
 			GameState.getFloor().getRoom(0, 0).unlock(28, 1);
 			textToAdd="congratulations you have beaten the tutorial";
