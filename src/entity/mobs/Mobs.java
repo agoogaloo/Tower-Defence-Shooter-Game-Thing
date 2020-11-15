@@ -19,21 +19,44 @@ public abstract class Mobs extends Entity{
 		double checkY=trueY+changeY;
 		
 		//checking if they would move into a wall horizontally
-		if (!(GameState.getFloor().checkwall((int)(checkX)/ 16,(int)(trueY) / 16)
-				|| GameState.getFloor().checkwall((bounds.width+(int)(checkX)) / 16, (int)(trueY)/ 16)
-				|| GameState.getFloor().checkwall((int)(checkX) / 16, (bounds.height+(int)(trueY)) / 16)
-				|| GameState.getFloor().checkwall((bounds.width+(int)(checkX)) / 16, (bounds.height+(int)(trueY)) / 16))) {
-			trueX=checkX;//moving the if they are going into a free area
+		//checking left side if they're moving left
+		if(changeX<0) {
+			if (!(GameState.getFloor().checkwall((int)(checkX)/ 16,(int)(trueY) / 16)
+					|| GameState.getFloor().checkwall((int)(checkX) / 16, (bounds.height+(int)(trueY)) / 16)))
+				trueX=checkX;//moving the if they are going into a free area
+			else {
+				trueX =(int)(checkX / 16+1)*16;
+			}
+		}else if(checkX>0){//if they aremoving right
+			if (!(GameState.getFloor().checkwall((bounds.width+(int)(checkX)) / 16, (int)(trueY)/ 16)
+					|| GameState.getFloor().checkwall((bounds.width+(int)(checkX)) / 16, (bounds.height+(int)(trueY)) / 16))) {
+				trueX=checkX;//moving the if they are going into a free area
+			}else {
+				trueX =(int)(checkX / 16+1)*16-bounds.width-1;
+			}
 		}
 		
 		
-		if (!(GameState.getFloor().checkwall((int)(trueX)/ 16,(int)(checkY) / 16)
-				|| GameState.getFloor().checkwall((bounds.width+(int)(trueX)) / 16, (int)(checkY)/ 16)
-				|| GameState.getFloor().checkwall((int)(trueX) / 16, (bounds.height+(int)(checkY)) / 16)
-				|| GameState.getFloor().checkwall((bounds.width+(int)(trueX)) / 16, (bounds.height+(int)(checkY)) / 16))) {
-			trueY=checkY;
+		//doing vertical wall collisions
+		if(changeY>0) {//moving down collisions
+			if (!(GameState.getFloor().checkwall((int)(trueX) / 16, (bounds.height+(int)(checkY)) / 16)
+					|| GameState.getFloor().checkwall((bounds.width+(int)(trueX)) / 16, (bounds.height+(int)(checkY)) / 16))) {
+				trueY=checkY;
+				
+			}else {
+				trueY =(int)(checkY / 16+1)*16-bounds.height-1;
+			}	
 			
+		}else if(changeY<0) {//moving up collisions
+			if (!(GameState.getFloor().checkwall((int)(trueX)/ 16,(int)(checkY) / 16)
+					|| GameState.getFloor().checkwall((bounds.width+(int)(trueX)) / 16, (int)(checkY)/ 16))) {
+				trueY=checkY;
+				
+			}else {
+				trueY =(int)(checkY / 16+1)*16;
+			}
 		}
+		
 		
 		x=(int)(trueX);
 		y=(int)(trueY);
