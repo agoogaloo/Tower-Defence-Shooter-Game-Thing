@@ -84,7 +84,7 @@ public class EnemySpawner {
 				roomsWaves=1;
 			}
 			if(roomsWaves!=1&&buttonSpawns) {
-				//button.create();
+				button.create();
 			}
 		}
 		
