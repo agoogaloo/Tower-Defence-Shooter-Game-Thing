@@ -88,15 +88,18 @@ public class GameState extends State{
 		//creating the floor
 		String path="res/maps/";
 		int size=0;
+		boolean deletePlayer=false;
 		
 		switch (floorIndex){
 		case HUBINDEX:
 			path+="hub.json";
+			deletePlayer=true;
 			size=1;
 			canHaveEnemies=false;
 			break;
 		case TUTORIALINDEX:
 			path+="tutorial.json";
+			deletePlayer=true;
 			size=1;
 			canHaveEnemies=false;
 			break;
@@ -118,7 +121,7 @@ public class GameState extends State{
 		UIElement.getUIManager().clear();//clearing the ui things
 		floor = new Floor(path,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
-		Entity.init();
+		Entity.init(deletePlayer);
 		
 		if(floorIndex==TUTORIALINDEX)
 			tutorial=new Tutorialator();

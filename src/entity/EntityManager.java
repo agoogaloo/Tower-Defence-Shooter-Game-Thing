@@ -24,13 +24,14 @@ public class EntityManager {
 	Factory factory;//the robot factory at the end of the level
 	EnemySpawner spawner=new EnemySpawner(false);//the thing that controls when/where enemies spawn
 
-	public void reset() {
+	public void reset(boolean deletePlayer) {
 
   	// this initializes/resets the entity manager and is seperate from the constructor so
 		// the player can add the core to the array if it was added in the constructor the
 		// entityManager wouldn't be created yet and would throw an error so the init method is called
 		// after it is created.
 				
+		if(deletePlayer) player=null;
 		entities.clear();//removing any entities that still exist
 		if(player==null) {
 			//if the player doesnt exist yet then it will make a new player

@@ -27,8 +27,8 @@ public abstract class Entity {
 	protected boolean killed=false, friendly;
     protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 	
-	public static void init(){
-		entityManager.reset();
+	public static void init(boolean deletePlayer){
+		entityManager.reset(deletePlayer);
 	}
 
 	protected ArrayList<Entity> entityCollide() {
