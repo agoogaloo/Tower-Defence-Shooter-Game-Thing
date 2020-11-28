@@ -7,7 +7,6 @@
          "target":"start U1.json"
         }
     },
-    
  "height":20,
  "infinite":false,
  "layers":[
@@ -42,7 +41,7 @@
         {
          "name":"entrance",
          "type":"string",
-         "value":"u"
+         "value":"d"
         }, 
         {
          "name":"exit",
@@ -65,5 +64,4 @@
  "type":"map",
  "version":1.2,
  "width":20
- 
 }
