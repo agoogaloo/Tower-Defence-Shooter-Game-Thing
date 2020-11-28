@@ -12,7 +12,7 @@ public class HamburgerBot extends Enemy{
 		height=24; //The height of the enemy
 		health=10;
 		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
-		damage=1; //The amount of damage the enemy will do if it collides with the player
+		//damage=1; //The amount of damage the enemy will do if it collides with the player
 		reloadTime = 14;
 		rangeWidth=300;
 		rangeHeight=300;

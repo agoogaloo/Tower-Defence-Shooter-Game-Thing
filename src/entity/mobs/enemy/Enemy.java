@@ -44,6 +44,7 @@ public abstract class Enemy extends Mobs {
 		friendly=false;
 		width=0;
 		height=0;
+		damage=0;
 	}
 
 	public void updateDirection() {

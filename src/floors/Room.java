@@ -108,9 +108,9 @@ public class Room {
 			tiles[doorX+2][doorY+2]=75;//changing the right doors tiles to open ones
 			
 			//if(tiles[doorX+1][doorY-1]!=21) {//checking if there is a path right above the door
-				tiles[doorX+1][doorY]=9;
+				tiles[doorX+1][doorY]=8;
 				tiles[doorX+1][doorY+1]=8;
-				tiles[doorX+1][doorY+2]=10;//making a path in the middle
+				tiles[doorX+1][doorY+2]=8;//making a path in the middle
 			/*}else {
 				tiles[doorX+1][doorY]=21;
 				tiles[doorX+1][doorY+1]=21;
@@ -131,7 +131,7 @@ public class Room {
 			tiles[doorX][doorY+3]=57;//the bottom door
 			tiles[doorX+1][doorY+3]=58;
 			
-			tiles[doorX][doorY+2]=2;//fixing the path
+			tiles[doorX][doorY+2]=1;//fixing the path
 			
 			
 			

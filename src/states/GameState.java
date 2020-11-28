@@ -22,7 +22,7 @@ public class GameState extends State{
 	 * this represents the game when it is actually being played and not in a menu or cutscene or whatever
 	 */
 	//floor index constants
-	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=0,FLOOR2=6,FLOOR3=8;
+	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=6,FLOOR2=7,FLOOR3=8;
 	//constants that are needed for different things in the gamestate 
 	private static Floor floor;
 	private static Tutorialator tutorial;
@@ -109,13 +109,14 @@ public class GameState extends State{
 			break;
 		case FLOOR1:
 			path+="floor 1";
-			size=2;
+			size=3;
 			canHaveEnemies=true;
 			tiles=Assets.level1tiles;
+			deletePlayer=true;
 			break;
 		case FLOOR2:
 			path+="floor 2";
-			size=5;
+			size=3;
 			canHaveEnemies=true;
 			tiles=Assets.level2tiles;
 			break;
