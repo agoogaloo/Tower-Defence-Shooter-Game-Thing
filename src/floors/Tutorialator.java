@@ -13,6 +13,7 @@ import entity.mobs.enemy.spawner.SpawnButton;
 import entity.statics.towers.Tower;
 import graphics.Camera;
 import graphics.UI.TextElement;
+import saveData.SaveData;
 import states.GameState;
 
 /*
@@ -193,6 +194,7 @@ public class Tutorialator {
 			text.move(77, 172);
 			GameState.getFloor().getRoom(0, 0).unlock(28, 1);
 			textToAdd="congratulations you have beaten the tutorial";
+			SaveData.tutorialDone();
 			section++;//going to the next section even though it doesnt exist to make this one stop updating
 			
 		}

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import graphics.Assets;
-import settings.Settings;
+import saveData.Settings;
 import states.State;
 import states.console.ConsoleState;
 

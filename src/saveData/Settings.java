@@ -1,4 +1,4 @@
-package settings;
+package saveData;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ public class Settings {
 	private static int screenShake, scale;
 	private static String towerInfo;
 	private static Properties propertiesFile=new Properties();
-	private static String settingsPath="res/settings/settings.properties";
+	private static String settingsPath="res/saves/settings.properties";
 	public Settings() {
 		reload();
 	}

@@ -6,14 +6,14 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
-import entity.mobs.enemy.TutorialEnemy;
 import floors.Floor;
 import floors.Tutorialator;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.UIElement;
 import graphics.particles.Particle;
-import settings.Settings;
+import saveData.SaveData;
+import saveData.Settings;
 import states.console.ConsoleState;
 import window.Window;
 
@@ -92,6 +92,8 @@ public class GameState extends State{
 		boolean deletePlayer=false;
 		BufferedImage[] tiles;
 		
+		if(!SaveData.isFinishedTutorial()&&floorIndex==FLOOR1)
+			floorIndex=TUTORIALINDEX;
 		switch (floorIndex){
 		case HUBINDEX:
 			path+="hub.json";
@@ -107,7 +109,8 @@ public class GameState extends State{
 			canHaveEnemies=false;
 			tiles=Assets.level1tiles;
 			break;
-		case FLOOR1:
+			
+		case FLOOR1:			
 			path+="floor 1";
 			size=3;
 			canHaveEnemies=true;

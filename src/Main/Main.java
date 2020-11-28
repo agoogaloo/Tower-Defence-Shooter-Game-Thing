@@ -1,5 +1,6 @@
 package Main;
-import settings.Settings;
+import saveData.SaveData;
+import saveData.Settings;
 import states.State;
 import window.Window;
 
@@ -15,6 +16,7 @@ public class Main {
 	private static int fps=0;
 	public static void main(String[] args) {
 		Settings.reload();
+		SaveData.reload();
 		window= new Window(333*Settings.getScale(), 200*Settings.getScale());
 		State.init();
 		boolean run = true;

@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import Main.Main;
 import graphics.Assets;
-import settings.Settings;
+import saveData.Settings;
 import window.Window;
 
 public class PauseState extends State{

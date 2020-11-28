@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import graphics.Assets;
-import settings.Settings;
+import saveData.Settings;
 
 /* 
  * by: Matthew Milum

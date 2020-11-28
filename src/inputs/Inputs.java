@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import Main.Main;
-import settings.Settings;
+import saveData.Settings;
 
 //@author Matthew (Organized all player inputs into it's own class, did basically all of this class)
 //@author Kevin (Only control key, mouse, and direction in updates)

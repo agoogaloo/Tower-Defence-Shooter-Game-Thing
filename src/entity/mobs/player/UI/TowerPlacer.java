@@ -11,7 +11,7 @@ import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
-import settings.Settings;
+import saveData.Settings;
 import states.State;
 
 public class TowerPlacer {
