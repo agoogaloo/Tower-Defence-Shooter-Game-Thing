@@ -2,6 +2,7 @@ package states;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
@@ -21,7 +22,7 @@ public class GameState extends State{
 	 * this represents the game when it is actually being played and not in a menu or cutscene or whatever
 	 */
 	//floor index constants
-	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=6,FLOOR2=7,FLOOR3=8;
+	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=0,FLOOR2=6,FLOOR3=8;
 	//constants that are needed for different things in the gamestate 
 	private static Floor floor;
 	private static Tutorialator tutorial;
@@ -89,6 +90,7 @@ public class GameState extends State{
 		String path="res/maps/";
 		int size=0;
 		boolean deletePlayer=false;
+		BufferedImage[] tiles;
 		
 		switch (floorIndex){
 		case HUBINDEX:
@@ -96,22 +98,26 @@ public class GameState extends State{
 			deletePlayer=true;
 			size=1;
 			canHaveEnemies=false;
+			tiles=Assets.level1tiles;
 			break;
 		case TUTORIALINDEX:
 			path+="tutorial.json";
 			deletePlayer=true;
 			size=1;
 			canHaveEnemies=false;
+			tiles=Assets.level1tiles;
 			break;
 		case FLOOR1:
 			path+="floor 1";
-			size=4;
+			size=2;
 			canHaveEnemies=true;
+			tiles=Assets.level1tiles;
 			break;
 		case FLOOR2:
 			path+="floor 2";
 			size=5;
 			canHaveEnemies=true;
+			tiles=Assets.level2tiles;
 			break;
 		default :
 				return;
@@ -120,7 +126,7 @@ public class GameState extends State{
 		
 		UIElement.getUIManager().clear();//clearing the ui things
 		floor = new Floor(path,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
-				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), Assets.tiles);
+				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), tiles);
 		Entity.init(deletePlayer);
 		
 		if(floorIndex==TUTORIALINDEX)

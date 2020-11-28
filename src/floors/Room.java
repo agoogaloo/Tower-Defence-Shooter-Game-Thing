@@ -107,15 +107,15 @@ public class Room {
 			tiles[doorX+2][doorY+1]=68;
 			tiles[doorX+2][doorY+2]=75;//changing the right doors tiles to open ones
 			
-			if(tiles[doorX+1][doorY-1]!=21) {//checking if there is a path right above the door
+			//if(tiles[doorX+1][doorY-1]!=21) {//checking if there is a path right above the door
 				tiles[doorX+1][doorY]=9;
 				tiles[doorX+1][doorY+1]=8;
 				tiles[doorX+1][doorY+2]=10;//making a path in the middle
-			}else {
+			/*}else {
 				tiles[doorX+1][doorY]=21;
 				tiles[doorX+1][doorY+1]=21;
 				tiles[doorX+1][doorY+2]=21;//making a path in the middle
-			}
+			}*/
 			
 		}else if(tiles[doorX][doorY]==69) {
 			tiles[doorX][doorY-2]=41;
@@ -148,7 +148,7 @@ public class Room {
 		if (x < 0 || x >= spawns.length || y < 0 || y >= spawns[0].length) {
 			return 0;
 		}
-		return spawns[x][y]-Assets.tiles.length;
+		return spawns[x][y]-Assets.level1tiles.length;
 	}
 	// getters/setters
 	public char getEntrance() {
