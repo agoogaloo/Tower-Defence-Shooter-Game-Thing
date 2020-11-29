@@ -119,7 +119,7 @@ public class GameState extends State{
 			break;
 		case FLOOR2:
 			path+="floor 2";
-			size=3;
+			size=4;
 			canHaveEnemies=true;
 			tiles=Assets.level2tiles;
 			break;

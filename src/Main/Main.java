@@ -10,7 +10,8 @@ import window.Window;
 public class Main {
 	/*
 	 * the main class that will create the window then updates and renders it
-	 * (basically holds the main game loop)
+	 * (basically hold
+	 * s the main game loop)
 	 */
 	private static Window window;//creating a window so we can see things
 	private static int fps=0;
