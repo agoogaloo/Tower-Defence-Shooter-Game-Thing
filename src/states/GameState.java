@@ -94,7 +94,6 @@ public class GameState extends State{
 		
 		if(!SaveData.isFinishedTutorial()&&floorIndex==FLOOR1)
 			floorIndex=TUTORIALINDEX;
-		if(floorIndex==FLOOR1)floorIndex=FLOOR2;
 		switch (floorIndex){
 		case HUBINDEX:
 			path+="hub.json";
@@ -120,7 +119,7 @@ public class GameState extends State{
 			break;
 		case FLOOR2:
 			path+="floor 2";
-			size=30;
+			size=4;
 			canHaveEnemies=true;
 			tiles=Assets.level2tiles;
 			break;
