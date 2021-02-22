@@ -44,7 +44,7 @@ public class Settings {
 		//setting all the variables from the properties file
 		screenShake=Integer.parseInt(propertiesFile.getProperty("screenShake"));
 		towerInfo=propertiesFile.getProperty("towerInfo");
-		scale=Integer.parseInt(propertiesFile.getProperty("scale"));
+		scale=Integer.parseInt(propertiesFile.getProperty("pixelScale"));
 	}
 	
 	

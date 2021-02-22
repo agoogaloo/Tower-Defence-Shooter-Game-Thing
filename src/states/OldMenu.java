@@ -1,21 +1,21 @@
 package states;
 
-public class Menu {
+public class OldMenu{
 	private String[] options;
 	private String[] values;//this lets the options have values attached to them 
 	private int selected;
 	
-	public Menu(String[] options, String[] values, int selected) {
+	public OldMenu(String[] options, String[] values, int selected) {
 		this.options = options;
 		this.selected = selected;
 		this.values=values;
 	}
 	
-	public Menu(String[] options, String[] values) {
+	public OldMenu(String[] options, String[] values) {
 		this(options, values, 0);
 	}
 	
-	public Menu(String[] options) {
+	public OldMenu(String[] options) {
 		this(options,new String[options.length], 0);
 	}
 	

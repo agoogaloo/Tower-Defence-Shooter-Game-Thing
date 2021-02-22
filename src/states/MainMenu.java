@@ -13,6 +13,9 @@ public class MainMenu extends State{
 		if(getInputs().isShoot()) {
 			currentState=new GameState();
 		}
+		if(getInputs().isPause()) {
+			currentState= new PauseState(null);
+		}
 		
 	}
 

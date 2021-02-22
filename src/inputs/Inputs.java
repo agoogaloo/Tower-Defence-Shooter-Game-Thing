@@ -60,7 +60,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		mouseX=e.getX();//setting the mouse location whenever theouse is moved
+		mouseX=e.getX();//setting the mouse location whenever the mouse is moved
 		mouseY=e.getY();
 		
 	}
