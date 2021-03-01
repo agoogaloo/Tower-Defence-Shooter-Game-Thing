@@ -10,13 +10,9 @@ public class MainMenu extends State{
 	@Override
 	public void update() {
 		getInputs().update();
-		if(getInputs().isShoot()) {
+		if(getInputs().isSelect()) {
 			currentState=new GameState();
-		}
-		if(getInputs().isPause()) {
-			currentState= new PauseState(null);
-		}
-		
+		}	
 	}
 
 	@Override

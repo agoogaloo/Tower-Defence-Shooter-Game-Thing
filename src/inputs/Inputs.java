@@ -26,7 +26,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	private KeyEvent typedKey;
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
 	private boolean up, down, left, right, shoot, place; //Keys and actions that are game needs
-	private PushButton console = new PushButton(), pause = new PushButton(), upPushed=new PushButton(),
+	private PushButton console = new PushButton(), pause = new PushButton(), select = new PushButton(), upPushed=new PushButton(),
 			downPushed=new PushButton(), leftPushed=new PushButton(),rightPushed=new PushButton();
 	
 	private int mouseX, mouseY;
@@ -40,6 +40,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	}
 	public void update() { 
 		typedKey=null;
+		
 		up = keys[KeyEvent.VK_UP]; //Setting the right index of the array to a boolean 
 		down = keys[KeyEvent.VK_DOWN]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
 		left = keys[KeyEvent.VK_LEFT]; 
@@ -47,6 +48,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
 		console.update(keys[KeyEvent.VK_F12]);
 		upPushed.update(up);
+		select.update(shoot);
 		downPushed.update(down);
 		leftPushed.update(left);
 		rightPushed.update(right);
@@ -67,7 +69,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	//mouse input methods
 	@Override //Despite not being used these methods are needed by the interface, otherwise it will cause errors
 	public void mouseClicked(MouseEvent e) {
-		//needed because it implements mouse listener
+		
 	}
 	@Override
 
@@ -82,9 +84,11 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton()==1) {
 			shoot=false;//it has been released so the command can stop now
+			
 		}else if(e.getButton()==3) {
 			place=false;
 		};
+		
 	}
 	//keyboard input methods
 	@Override
@@ -132,6 +136,9 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	}
 	public boolean isPlace() { 
 		return place;	
+	}
+	public boolean isSelect() {
+		return select.getPushed();
 	}
 	public boolean isPause() { 
 		return pause.getPushed();	

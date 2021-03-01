@@ -43,7 +43,7 @@ public class GameState extends State{
 		
 		getInputs().update();
 		if(getInputs().isPause()) {
-			currentState=new OldPauseState(this);
+			currentState=new PauseState(this);
 		}else if(getInputs().isConsole()) {
 			currentState=new ConsoleState(this);
 		}

@@ -1,7 +1,10 @@
 package states.menus;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import states.console.ConsoleState;
 
 
 public abstract class MenuObject {
@@ -15,7 +18,15 @@ public abstract class MenuObject {
 	}
 
 
-	public abstract void render(Graphics g);
+	public void render(Graphics g) {
+		if(ConsoleState.isShowHitBoxen()) {
+			g.setColor(Color.pink);
+			g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+		}
+		renderObject(g);
+	}
+	public abstract void renderObject(Graphics g);
+	
 	
 	public void hover() {}
 	

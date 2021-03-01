@@ -65,6 +65,13 @@ public class Display extends JPanel {
 		State.getState().update();
 	}
 	
+	public int getRelativeWidth() {
+		return width;
+	}
+
+	public int getRelativeHeight() {
+		return height;
+	}
 	//getters
 	public int getScale() {
 		return scale;

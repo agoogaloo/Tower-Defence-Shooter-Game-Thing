@@ -30,11 +30,9 @@ public class SettingOption extends MenuObject{
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void renderObject(Graphics g) {
 		//BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 		//Graphics g = img.getGraphics();
-		g.setColor(Color.pink);
-		g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 		g.setFont(Assets.bigpixelfont);//setting the font
 		
 		if(selected||hovered) {
