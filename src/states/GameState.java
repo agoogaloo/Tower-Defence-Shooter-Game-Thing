@@ -123,6 +123,8 @@ public class GameState extends State{
 			canHaveEnemies=true;
 			tiles=Assets.level2tiles;
 			break;
+		case FLOOR3:
+			currentState = new WinState();
 		default :
 				return;
 		}

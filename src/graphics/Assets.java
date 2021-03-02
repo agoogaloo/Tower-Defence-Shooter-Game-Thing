@@ -23,7 +23,7 @@ public class Assets {
 	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
 	public static final Font boldfont=loadFont("res/boldfont.ttf");
 	
-	public static final BufferedImage[] cursors = splitSpriteSheet(loadImage("res/textures/cursor.png"), 32,32, 5, 1);
+	public static final BufferedImage cursor = loadImage("res/textures/cursor.png");
 	//spliting all the spritesheets int the right pictures and holding them in arrays
 	//some random images
 	public static final BufferedImage infobackground=loadImage("res/textures/heart texture.png");

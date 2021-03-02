@@ -23,7 +23,7 @@ public class PauseState extends State{
 					Window.getDisplay().getRelativeHeight()/2-67,100,8),80, "towerInfo", new String[] {"on", "price", "off"}),
 			
 			new SettingOption(new Rectangle(Window.getDisplay().getRelativeWidth()/2-85+6,
-					Window.getDisplay().getRelativeHeight()/2-67+12,100,8),80, "pixelScale", new String[] {"1","2","3","4","5"}) {
+					Window.getDisplay().getRelativeHeight()/2-67+12,100,8),80, "pixelScale", new String[] {"1","2","3","4","5","6"}) {
 				public void leftPress() {super.leftPress();
 				Main.resetWindow();
 				};

@@ -167,6 +167,13 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		//the position needs to be a bit offset because if the bar at the top of the window
 		return (mouseY-24)/Settings.getScale();//the window is scaled so the location for the mouse needs to match it
 	}
+	public int getTrueMouseX() {
+		return mouseX;//the window is scaled so the location for the mouse needs to match it
+	}
+	public int getTrueMouseY() {
+		//the position needs to be a bit offset because if the bar at the top of the window
+		return (mouseY-24);//the window is scaled so the location for the mouse needs to match it
+	}
 	public KeyEvent getTypedKey() {
 		return typedKey;
 	}

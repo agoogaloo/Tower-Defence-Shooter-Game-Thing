@@ -52,12 +52,15 @@ public class Display extends JPanel {
 			State.getState().render(g2d);
 		}
 		
+		
 		if(ConsoleState.isShowFPS()) {
 			g2d.setFont(Assets.myfont);
 			g2d.drawString("fps: "+Main.Main.getFPS(), 2, 7);
 		}
 		//putting the image onto the display and scaling it
 		g.drawImage(image,0,0,width*scale, height*scale, null);
+		g.drawImage(Assets.cursor,State.getInputs().getTrueMouseX()-3,State.getInputs().getTrueMouseY()-3,
+				Assets.cursor.getWidth()*scale,Assets.cursor.getHeight()*scale,null);
 		
 	}
 
