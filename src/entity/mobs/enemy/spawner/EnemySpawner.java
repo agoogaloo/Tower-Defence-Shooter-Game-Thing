@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
-import entity.mobs.enemy.BlueEnemy;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.GreenEnemy;
 import entity.mobs.enemy.HamburgerBot;
 import entity.mobs.enemy.HeliBot;
 import entity.mobs.enemy.RedEnemy;
+import entity.mobs.enemy.TankBot;
 import entity.mobs.enemy.YellowEnemy;
 import floors.Room;
 import graphics.Camera;
@@ -172,7 +172,7 @@ public class EnemySpawner {
 		case 0:
 			return new RedEnemy(x, y, direction);
 		case 1:
-			return new BlueEnemy(x, y, direction);
+			return new TankBot(x, y, direction);
 		case 2:
 			return new GreenEnemy(x, y, direction);
 		case 3:

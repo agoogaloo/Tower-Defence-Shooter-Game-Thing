@@ -62,7 +62,7 @@ public class Assets {
 	private static final BufferedImage[] playeridle = splitSpriteSheet(loadImage("res/textures/player combo.png"), 9, 17, 6, 4);
 	private static final BufferedImage[] enemyRed = splitSpriteSheet(loadImage("res/textures/enemies/robot red.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] enemyGreen = splitSpriteSheet(loadImage("res/textures/enemies/robot green.png"), 21, 25, 4, 4);
-	private static final BufferedImage[] enemyBlue = splitSpriteSheet(loadImage("res/textures/enemies/robot blue.png"), 21, 25, 4, 4);
+	private static final BufferedImage[] tankBot = splitSpriteSheet(loadImage("res/textures/enemies/tank bot.png"), 34, 33, 8, 4);
 	private static final BufferedImage[] enemyYellow = splitSpriteSheet(loadImage("res/textures/enemies/robot yellow.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] hamburgerBot = splitSpriteSheet(loadImage("res/textures/enemies/hamburger bot.png"), 33, 25, 4, 4);
 	private static final BufferedImage[] heliBot = splitSpriteSheet(loadImage("res/textures/enemies/flying bot.png"), 30, 26, 4, 4);
@@ -123,10 +123,10 @@ public class Assets {
 	public static final BufferedImage[] enemyGreenU = Arrays.copyOfRange(enemyGreen, 8, 12);
 	public static final BufferedImage[] enemyGreenR = Arrays.copyOfRange(enemyGreen, 12, 16);
 	
-	public static final BufferedImage[] enemyBlueD = Arrays.copyOfRange(enemyBlue, 0, 4);
-	public static final BufferedImage[] enemyBlueL = Arrays.copyOfRange(enemyBlue, 4, 8);
-	public static final BufferedImage[] enemyBlueU = Arrays.copyOfRange(enemyBlue, 8, 12);
-	public static final BufferedImage[] enemyBlueR = Arrays.copyOfRange(enemyBlue, 12, 16);
+	public static final BufferedImage[] tankBotD = Arrays.copyOfRange(tankBot, 0, 8);
+	public static final BufferedImage[] tankBotL = Arrays.copyOfRange(tankBot, 8, 16);
+	public static final BufferedImage[] tankBotU = Arrays.copyOfRange(tankBot, 16, 24);
+	public static final BufferedImage[] tankBotR = Arrays.copyOfRange(tankBot, 24, 32);
 	
 	public static final BufferedImage[] enemyYellowD = Arrays.copyOfRange(enemyYellow, 0, 4);
 	public static final BufferedImage[] enemyYellowL = Arrays.copyOfRange(enemyYellow, 4, 8);
