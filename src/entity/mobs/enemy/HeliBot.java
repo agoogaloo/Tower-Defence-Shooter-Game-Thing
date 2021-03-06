@@ -24,20 +24,19 @@ public class HeliBot extends Enemy  {
 		bounds.width=0;
 		bounds.height=0;
 		//creating its animations
-		animUp=new Animation(Assets.heliBotU);
-		animDown=new Animation(Assets.heliBotD);
-		animLeft=new Animation(Assets.heliBotL);
-		animRight=new Animation(Assets.heliBotR);
+		anims[UP]=new Animation(Assets.heliBotU);
+		anims[DOWN]=new Animation(Assets.heliBotD);
+		anims[LEFT]=new Animation(Assets.heliBotL);
+		anims[RIGHT]=new Animation(Assets.heliBotR);
 	}
 
 	
 	@Override
 	public void update() {
 		//updating the animations
-		animDown.update();
-		animLeft.update();
-		animRight.update();
-		animUp.update();
+		for(Animation i: anims) {
+			i.update();
+		}
 		timeAlive++;
 		//making it shoot 1 frame faster every 35 frames
 		if(timeAlive%35==0 &&reloadTime>=7) {
@@ -62,31 +61,19 @@ public class HeliBot extends Enemy  {
 		int yDiff=entityManager.getPlayer().getY()-y;
 		if(Math.abs(xDiff)>Math.abs(yDiff)) {
 			if(xDiff>0) {
-				direction='r';
+				direction=RIGHT;
 			}else {
-				direction='l';
+				direction=LEFT;
 			}
 		}else {
 			if(yDiff>0) {
-				direction='d';
+				direction=DOWN;
 			}else {
-				direction='u';
+				direction=UP;
 			}
 		}
 		//using the right animation base on its direction
-		switch(direction) {
-		case 'd':
-			currentPic=animDown.getCurrentFrame();
-			break;
-		case 'u':
-			currentPic=animUp.getCurrentFrame();
-			break;
-		case 'l':
-			currentPic=animLeft.getCurrentFrame();
-			break;
-		case 'r':
-			currentPic=animRight.getCurrentFrame();
-		}
+		currentPic=anims[direction].getCurrentFrame();
 		
 	}
 	

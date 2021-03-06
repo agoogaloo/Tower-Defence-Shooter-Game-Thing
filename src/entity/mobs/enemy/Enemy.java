@@ -11,7 +11,6 @@ import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.statics.Health;
 import entity.statics.Money;
-import floors.Floor;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
@@ -25,20 +24,23 @@ import states.console.ConsoleState;
 	 * this is the robot enemy guy that will go around the path to the core and try to shoot you
 	 */
 public abstract class Enemy extends Mobs {
-	protected char direction, bufferedDirection; //Depending on the direction the enemy will face different ways
+	public static final int DOWN=0,LEFT=1,UP=2,RIGHT=3;
+	protected int direction, bufferedDirection; //Depending on the direction the enemy will face different ways
 	protected int shotDelay, turnDelay; //Shot delay to make sure enemies can not shoot rapidly
 	protected int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
 	private boolean attack = false; //If true enemy will shoot
 	
 	//setting default animations
-	protected Animation animDown = new Animation(Assets.enemyRedD,5); //Different animations depending on the direction the enemy is facing
-	protected Animation animLeft = new Animation(Assets.enemyRedL,5);
-	protected Animation animUp = new Animation(Assets.enemyRedU,5);
-	protected Animation animRight = new Animation(Assets.enemyRedR,5);
+	protected Animation[] anims = new Animation[4];	
+	protected Rectangle[] directionBounds = new Rectangle[4];
 	protected BufferedImage currentPic;//the current sprite being drawn onto the screen
 
-	public Enemy(int x, int y, char direction) { //Enemy Class contains traits of the enemies
+	public Enemy(int x, int y, int direction) { //Enemy Class contains traits of the enemies
 		setLocation(x+width/2, y+height-8);
+		anims[DOWN] = new Animation(Assets.enemyRedD,5); //Different animations depending on the direction the enemy is facing
+		anims[LEFT] = new Animation(Assets.enemyRedL,5);
+		anims[UP] = new Animation(Assets.enemyRedU,5);
+		anims[RIGHT] = new Animation(Assets.enemyRedR,5);
 		this.direction=direction;
 		bufferedDirection=direction;
 		friendly=false;
@@ -47,30 +49,36 @@ public abstract class Enemy extends Mobs {
 		damage=0;
 	}
 
+	protected void setDefaultBounds() {
+		/*for(Rectangle i:directionBounds) {
+			i= new R
+		}*/
+	}
+	
 	public void updateDirection() {
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
 		int tile=GameState.getFloor().getTile((x+width/2)/16,(y+height-15)/16);
 		if(bufferedDirection==direction) {//doing things if the enemy doesnt need to turn soon
 			//setting turn delay to the right amount so that they will end up centered
-			if(direction=='l'||direction=='r') {
+			if(direction==LEFT||direction==RIGHT) {
 				turnDelay=(int)(8/speed);
-			}else if(direction=='u') {
-				turnDelay=(int)(14/speed);//(int)((1)/speed);
+			}else if(direction==UP) {
+				turnDelay=(int)(14/speed);
 			}else {
 				turnDelay=0;
 			}
 			//getting ready to turn of they see a turning tile
 			if(tile==4||tile==13) {
-				bufferedDirection='r';
+				bufferedDirection=RIGHT;
 				
 			}else if(tile==5||tile==6) {
-				bufferedDirection='d';
+				bufferedDirection=DOWN;
 				
 			}else if(tile==12||tile==7) {
-				bufferedDirection='l';
+				bufferedDirection=LEFT;
 				
 			}else if(tile==11||tile==14) {
-				bufferedDirection='u';
+				bufferedDirection=UP;
 			}
 		}else {
 			turnDelay--;
@@ -81,16 +89,16 @@ public abstract class Enemy extends Mobs {
 		}
 		
 		switch(direction) {//moving a different direction depending on which way it is facing
-		case 'u'://if it is facing up 
+		case UP://if it is facing up 
 			trueY-=speed;//it should move up
 			break;
-		case 'd'://move cases for the other directions
+		case DOWN://move cases for the other directions
 			trueY+=speed;
 			break;
-		case 'l':
+		case LEFT:
 			trueX-=speed;
 			break;
-		case 'r':
+		case RIGHT:
 			trueX+=speed;
 			break;
 		}
@@ -126,7 +134,6 @@ public abstract class Enemy extends Mobs {
 	}
 	@Override
 	public void update() {
-		int tile=GameState.getFloor().getTile(x/16, y/16);//getting the tile the enemy is currently on
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight); //The range which the enemy looks for targets
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight); //The player's own box
 		if(playerBox.intersects(attackRange)) {  //If the playerBox is intersects the attackRange attack will be set to true, and the enemy will attack the player 
@@ -141,38 +148,16 @@ public abstract class Enemy extends Mobs {
 		updateDirection();//setting its direction and moving based on it
 		updateBounds(); 
 		
-		//opening the door if the enemy runs into it
-		/*for(int i:Floor.DOORTILES) {
-			if(i==tile) {
-				GameState.getFloor().getRoom((x/GameState.getFloor().
-					TILESIZE)/GameState.getFloor().ROOMSIZE,(y/GameState.getFloor().
-					TILESIZE)/GameState.getFloor().ROOMSIZE).unlock();
-			}
-		}*/
-		
-		animDown.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
-		animLeft.update(); //Animation and sprites change depending on the direction
-		animUp.update();
-		animRight.update();
-		//setting the current picture to the right animation depending on its direction
-		switch(direction) {
-		case 'd':
-			currentPic=animDown.getCurrentFrame();
-			break;
-		case 'u':
-			currentPic=animUp.getCurrentFrame();
-			break;
-		case 'l':
-			currentPic=animLeft.getCurrentFrame();
-			break;
-		case 'r':
-			currentPic=animRight.getCurrentFrame();
+		for(Animation i: anims) {
+			i.update();
 		}
+		//setting the current picture to the right animation depending on its direction
+		currentPic=anims[direction].getCurrentFrame();
 		shotDelay++; //Increase shotDelay by one every frame
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
-		g.drawImage(currentPic, x-camera.getxOffset(), y-camera.getyOffset(), null);
+		g.drawImage(currentPic, x-camera.getxOffset()+xOffset, y-camera.getyOffset()+yOffset, null);
 	}
 }
 

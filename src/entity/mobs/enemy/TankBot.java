@@ -8,20 +8,19 @@ public class TankBot extends Enemy{
 
 	private int volleyTime=0, volleyShots=0;
 	private double targetX, targetY;
-	public TankBot(int x, int y, char direction) {
+	public TankBot(int x, int y, int direction) {
 		super(x, y, direction);
 		width=21; //The width of the enemy
 		height=25; //The height of the enemy
-		speed=0.7; //The speed which the enemy travels, higher nubmer resuts in higher speeds
-		//damage=1; //The amount of damage the enemy will do if it collides with the player
-		health = 50;
+		speed=0.7; //The speed which the enemy travels, higher number resuts in higher speeds
+		health = 40;
 		reloadTime = 240;
 		
 		//using the blue enemy animations so it looks different
-		animDown = new Animation(Assets.tankBotD,4); //Different animations depending on the direction the enemy is facing
-		animLeft = new Animation(Assets.tankBotL,4);
-		animUp = new Animation(Assets.tankBotU,4);
-		animRight = new Animation(Assets.tankBotR,4);
+		anims[DOWN] = new Animation(Assets.tankBotD,4); //Different animations depending on the direction the enemy is facing
+		anims[LEFT] = new Animation(Assets.tankBotL,4);
+		anims[UP] = new Animation(Assets.tankBotU,4);
+		anims[RIGHT] = new Animation(Assets.tankBotR,4);
 	}
 	@Override
 	public void update() {

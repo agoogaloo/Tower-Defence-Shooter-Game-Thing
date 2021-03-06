@@ -103,25 +103,25 @@ public class EnemySpawner {
 		Room room=GameState.getFloor().getRoom(roomX, roomY);
 		int spawnX=roomX*room.getWidth()*room.TILESIZE;
 		int spawnY=roomY*room.getHeight()*room.TILESIZE;
-		char direction='d';
+		int direction=Enemy.DOWN;
 		switch(room.getExit()) {
 		case 'u':
-			direction='d';
+			direction=Enemy.DOWN;
 			spawnX+=(room.getWidth()*room.TILESIZE)/2;
 			spawnY-=30;
 			break;
 		case 'd':
-			direction='u';
+			direction=Enemy.UP;
 			spawnX+=(room.getWidth()*room.TILESIZE)/2;
 			spawnY+=(room.getHeight()*room.TILESIZE)+30;
 			break;
 		case 'l':
-			direction='r';
+			direction=Enemy.RIGHT;
 			spawnY+=(room.getHeight()*room.TILESIZE)/2;
 			spawnX-=30;
 			break;
 		case 'r':
-			direction='l';
+			direction=Enemy.LEFT;
 			spawnX+=(room.getWidth()*room.TILESIZE)+30;
 			spawnY+=(room.getHeight()*room.TILESIZE)/2;
 			break;
@@ -167,7 +167,7 @@ public class EnemySpawner {
 	}
 	
 	
-	private Enemy randomEnemy(int x, int y, char direction) {
+	private Enemy randomEnemy(int x, int y, int direction) {
 		switch(ThreadLocalRandom.current().nextInt(0,5)) {
 		case 0:
 			return new RedEnemy(x, y, direction);

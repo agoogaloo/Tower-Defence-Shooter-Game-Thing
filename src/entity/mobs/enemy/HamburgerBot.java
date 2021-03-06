@@ -6,7 +6,7 @@ import graphics.Assets;
 
 public class HamburgerBot extends Enemy{
 	
-	public HamburgerBot(int x, int y, char direction) {
+	public HamburgerBot(int x, int y, int direction) {
 		super(x, y, direction);
 		width=33; //The width of the enemy
 		height=24; //The height of the enemy
@@ -17,15 +17,15 @@ public class HamburgerBot extends Enemy{
 		rangeWidth=300;
 		rangeHeight=300;
 		
-		animDown=new Animation(Assets.hamburgerBotD);
-		animUp=new Animation(Assets.hamburgerBotU);
-		animLeft=new Animation(Assets.hamburgerBotL);
-		animRight=new Animation(Assets.hamburgerBotR);
+		anims[DOWN]=new Animation(Assets.hamburgerBotD);
+		anims[UP]=new Animation(Assets.hamburgerBotU);
+		anims[LEFT]=new Animation(Assets.hamburgerBotL);
+		anims[RIGHT]=new Animation(Assets.hamburgerBotR);
 	}
 	@Override
 	protected void shoot() {
 		double targetX=1, targetY=0; 
-		switch (animUp.getFrameIndex()) {
+		switch (anims[0].getFrameIndex()) {
 		//switch(0) {
 		case 0:
 			targetX=1;
@@ -48,9 +48,4 @@ public class HamburgerBot extends Enemy{
 		entityManager.addEntity(new Bullet (x+width/2,y+height/2, targetX+width/2+x, targetY+height/2+y,Assets.enemyBullet, 3, false)); //Creates red bullets that shoot towards the player
 		entityManager.addEntity(new Bullet (x+width/2,y+height/2, -targetX+width/2+x, -targetY+height/2+y,Assets.enemyBullet, 3, false)); //Creates red bullets that shoot towards the player
 	}
-	
-	/*@Override
-	protected void updateBounds() {
-		
-	}*/
 }

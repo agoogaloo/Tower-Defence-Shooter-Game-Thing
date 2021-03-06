@@ -90,7 +90,7 @@ public class Tutorialator {
 	private void section1() {
 		//lets you experiment/enemy=bad
 		if(!sectionInit) {//initializing the section
-			 Entity.getEntityManager().addEntity(new TutorialEnemy(142, 480,'d', 0,999999999));
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(142, 480,Enemy.DOWN, 0,999999999));
 			 sectionInit=true;
 		}
 		
@@ -106,7 +106,7 @@ public class Tutorialator {
 	private void section2() {
 		//teaches enemies following paths/coreness
 		if(!sectionInit) {//initializing the section
-			 Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,'l', 0.5, 999999999));
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.5, 999999999));
 			 text.move(48, 167);
 			 sectionInit=true;
 		}
@@ -146,7 +146,7 @@ public class Tutorialator {
 		
 		if(sectionTime==10) 
 			textToAdd="enemies will shoot back at you. make sure you don't get hit.";
-		else if(sectionTime==40) Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,'l', 0.8,50,10));
+		else if(sectionTime==40) Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.8,50,10));
 		
 		if(!areEnemies()&&sectionTime>40) {
 			nextSection();
@@ -178,16 +178,16 @@ public class Tutorialator {
 		
 		switch(sectionTime) {
 		case 15:
-			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,'d'));
+			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,Enemy.DOWN));
 			break;
 		case 60*3:
-			Entity.getEntityManager().addEntity(new YellowEnemy(464, 16,'d'));
+			Entity.getEntityManager().addEntity(new YellowEnemy(464, 16,Enemy.DOWN));
 			break;
 		case 60*7:
-			Entity.getEntityManager().addEntity(new GreenEnemy(464, 16,'d'));
+			Entity.getEntityManager().addEntity(new GreenEnemy(464, 16,Enemy.DOWN));
 			break;
 		case 60*9:
-			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,'d'));
+			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,Enemy.DOWN));
 			break;
 		}
 		if(!areEnemies()&&sectionTime>60*9) {

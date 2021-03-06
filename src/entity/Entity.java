@@ -21,6 +21,7 @@ public abstract class Entity {
 	protected static EntityManager entityManager = new EntityManager();
 	// declaring instance variables
 	protected int x, y;
+	protected int xOffset, yOffset;
 	protected int health = 10, damage;//its health and how much damage it can deal
 	protected int width, height;
 	protected int reloadTime;
