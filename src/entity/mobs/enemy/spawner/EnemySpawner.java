@@ -127,7 +127,7 @@ public class EnemySpawner {
 			break;
 		}
 		for (int i=0;i<enemies;i++) {
-			enemiesToAdd.add(randomEnemy(spawnX, spawnY,direction));
+			enemiesToAdd.add(randomEnemy(spawnX+8, spawnY+8,direction));
 		}
 	}
 	
@@ -178,7 +178,7 @@ public class EnemySpawner {
 		case 3:
 			return new YellowEnemy(x, y, direction);
 		case 4:
-			return new HamburgerBot(x-10,y,direction);
+			return new HamburgerBot(x,y,direction);
 		default:
 			System.out.println("random enemy number out of range so a normal one was made");
 			return new RedEnemy(x, y, direction);		

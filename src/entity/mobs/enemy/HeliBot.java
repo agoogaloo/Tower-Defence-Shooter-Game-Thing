@@ -1,6 +1,7 @@
 package entity.mobs.enemy;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import entity.Entity;
 import graphics.Animation;
@@ -15,7 +16,7 @@ public class HeliBot extends Enemy  {
 	
 	
 	public HeliBot(int x, int y) {
-		super(x, y,'d');		
+		super(x, y,DOWN);		
 		speed=2.5;
 		health=1;
 		reloadTime=25;
@@ -28,6 +29,11 @@ public class HeliBot extends Enemy  {
 		anims[DOWN]=new Animation(Assets.heliBotD);
 		anims[LEFT]=new Animation(Assets.heliBotL);
 		anims[RIGHT]=new Animation(Assets.heliBotR);
+		
+		for(int i=0;i<directionBounds.length;i++) {
+			directionBounds[i]= new Rectangle(0, 0);
+			
+		}
 	}
 
 	

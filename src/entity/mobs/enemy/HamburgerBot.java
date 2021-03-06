@@ -1,5 +1,7 @@
 package entity.mobs.enemy;
 
+import java.awt.Rectangle;
+
 import entity.mobs.Bullet;
 import graphics.Animation;
 import graphics.Assets;
@@ -8,8 +10,6 @@ public class HamburgerBot extends Enemy{
 	
 	public HamburgerBot(int x, int y, int direction) {
 		super(x, y, direction);
-		width=33; //The width of the enemy
-		height=24; //The height of the enemy
 		health=10;
 		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
 		//damage=1; //The amount of damage the enemy will do if it collides with the player
@@ -21,6 +21,11 @@ public class HamburgerBot extends Enemy{
 		anims[UP]=new Animation(Assets.hamburgerBotU);
 		anims[LEFT]=new Animation(Assets.hamburgerBotL);
 		anims[RIGHT]=new Animation(Assets.hamburgerBotR);
+		
+		for(int i=0;i<directionBounds.length;i++) {
+			directionBounds[i]=new Rectangle(5,3,23,20);
+		}
+		init();
 	}
 	@Override
 	protected void shoot() {

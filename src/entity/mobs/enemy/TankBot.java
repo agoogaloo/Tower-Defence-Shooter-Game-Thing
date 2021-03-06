@@ -1,5 +1,7 @@
 package entity.mobs.enemy;
 
+import java.awt.Rectangle;
+
 import entity.mobs.Bullet;
 import graphics.Animation;
 import graphics.Assets;
@@ -10,8 +12,6 @@ public class TankBot extends Enemy{
 	private double targetX, targetY;
 	public TankBot(int x, int y, int direction) {
 		super(x, y, direction);
-		width=21; //The width of the enemy
-		height=25; //The height of the enemy
 		speed=0.7; //The speed which the enemy travels, higher number resuts in higher speeds
 		health = 40;
 		reloadTime = 240;
@@ -21,6 +21,12 @@ public class TankBot extends Enemy{
 		anims[LEFT] = new Animation(Assets.tankBotL,4);
 		anims[UP] = new Animation(Assets.tankBotU,4);
 		anims[RIGHT] = new Animation(Assets.tankBotR,4);
+		
+		directionBounds[UP]=new Rectangle(-1,6,22,24);
+		directionBounds[LEFT]=new Rectangle(6,0,27,26);
+		directionBounds[DOWN]=new Rectangle(-1,0,22,24);
+		directionBounds[RIGHT]=new Rectangle(0,0,27,26);
+		init();
 	}
 	@Override
 	public void update() {
