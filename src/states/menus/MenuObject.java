@@ -32,12 +32,12 @@ public abstract class MenuObject {
 	
 	public void select() {
 		selected=true;
-		System.out.println("menu thing selected at "+bounds.toString());
+		
 	}
 	
 	public void deselect() {
 		selected=false;
-		System.out.println("menu thing deselected at "+bounds.toString());
+		
 	}
 	public void leftPress() {}
 	public void rightPress() {}

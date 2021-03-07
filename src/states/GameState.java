@@ -23,7 +23,8 @@ public class GameState extends State{
 	 */
 	//floor index constants
 	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=6,FLOOR2=7,FLOOR3=8;
-	//constants that are needed for different things in the gamestate 
+	//constants that are needed for different things in the gamestate
+	private static int floorIndex;
 	private static Floor floor;
 	private static Tutorialator tutorial;
 	private static boolean canHaveEnemies=true;
@@ -54,9 +55,14 @@ public class GameState extends State{
 		
 		Particle.getParticleManager().update();
 		Entity.getEntityManager().update();
+		if(Entity.getEntityManager().getPlayer().isKilled()) {
+			State.currentState=new DeadState(this);
+		}
+		
+		// updating the camera position to center on the player
 		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
 		if(tutorial!=null)tutorial.update();
-		// updating the camera position to center on the player
+		
 		
 		//moving the screen in a random direction by the current screen shake amount
 		if(maxScreenShake>0) {//makes sure that screen shake is enabled so it doesnt break everytihng
@@ -85,16 +91,17 @@ public class GameState extends State{
 		UIElement.getUIManager().render(g);//rendering all the ui ontop of everything
 	}
 	
-	public static void newFloor(int floorIndex) {
+	public static void newFloor(int newFloorIndex) {
 		//creating the floor
+		
 		String path="res/maps/";
 		int size=0;
 		boolean deletePlayer=false;
 		BufferedImage[] tiles;
 		
-		if(!SaveData.isFinishedTutorial()&&floorIndex==FLOOR1)
-			floorIndex=TUTORIALINDEX;
-		switch (floorIndex){
+		if(!SaveData.isFinishedTutorial()&&newFloorIndex==FLOOR1)
+			newFloorIndex=TUTORIALINDEX;
+		switch (newFloorIndex){
 		case HUBINDEX:
 			path+="hub.json";
 			deletePlayer=true;
@@ -128,14 +135,14 @@ public class GameState extends State{
 		default :
 				return;
 		}
-		
+		floorIndex=newFloorIndex;
 		
 		UIElement.getUIManager().clear();//clearing the ui things
 		floor = new Floor(path,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), tiles);
 		Entity.init(deletePlayer);
 		
-		if(floorIndex==TUTORIALINDEX)
+		if(newFloorIndex==TUTORIALINDEX)
 			tutorial=new Tutorialator();
 		else tutorial=null;
 		
@@ -174,6 +181,9 @@ public class GameState extends State{
 	}
 	public static Floor getFloor() {
 		return floor;
+	}
+	public static int getFloorIndex() {
+		return floorIndex;
 	}
 	
 	public static Camera getCamera() {

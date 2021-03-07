@@ -3,11 +3,13 @@ package entity;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.spawner.EnemySpawner;
 import entity.mobs.player.Player;
 import entity.statics.Factory;
 import graphics.Camera;
 import states.GameState;
+import states.State;
 import states.console.ConsoleState;
 
 //@author Matthew (Did most of the logic and everything in this class)
@@ -20,6 +22,7 @@ public class EntityManager {
 	// an arrayList that holds all the entities in the game
   
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
+	private int kills=0;
 	Player player;// creating a player
 	Factory factory;//the robot factory at the end of the level
 	EnemySpawner spawner=new EnemySpawner(false);//the thing that controls when/where enemies spawn
@@ -69,13 +72,13 @@ public class EntityManager {
 		//each other on the same frame they will both take damage
 		for (int i = entities.size()-1; i >=0 ; i--) {
 			//looping backwards so things arent skipped when other entities are deleted 
-			if(entities.get(i).isKilled()){ 
-				if(entities.get(i) instanceof Player){ //If player gets killed do stuff
-					//TODO kill the player
-					//System.out.println("Player has been deadified");
-				}else{
+			if(entities.get(i).isKilled()){
+				if(entities.get(i) instanceof Enemy){ //killing the player
+					kills++;
+				}
+				if(!(entities.get(i) instanceof Player)){ //killing the player
 					entities.remove(i); //If an other entity besides the player gets hit remove that entity
-				}	
+				}
 			}
 		}
 	}
@@ -108,5 +111,8 @@ public class EntityManager {
 	}
 	public EnemySpawner getSpawner() {
 		return spawner;
+	}
+	public int getKills() {
+		return kills;
 	}
 }

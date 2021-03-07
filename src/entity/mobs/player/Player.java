@@ -206,4 +206,7 @@ public class Player extends Mobs {
 		//lets other things heal the player
 		health+=amount;
 	}
+	public int getMoney() {
+		return money;
+	}
 }

@@ -173,10 +173,10 @@ public abstract class Enemy extends Mobs {
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
 		g.drawImage(currentPic, x-camera.getxOffset()-xOffset, y-camera.getyOffset()-yOffset, null);
-		g.setColor(Color.pink);
+		//g.setColor(Color.pink);
 		//g.fillRect(Math.round((x+width/2)/16f-0.5f)*16-camera.getxOffset(),Math.round((y+(height/2))/16-0.5f)*16-camera.getyOffset(), 16,16);
-		g.setColor(Color.BLUE);
-		g.drawRect(Math.round(x+width/2)-camera.getxOffset(),Math.round(y+(height/2))-camera.getyOffset(), 0,0);
+		//g.setColor(Color.BLUE);
+		//g.drawRect(Math.round(x+width/2)-camera.getxOffset(),Math.round(y+(height/2))-camera.getyOffset(), 0,0);
 	}
 }
 
