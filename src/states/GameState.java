@@ -33,8 +33,12 @@ public class GameState extends State{
 	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
 	
 	public GameState() {
+		this(HUBINDEX);
+		
+	}
+	public GameState(int floorIndex) {
 		//creating the floor
-		newFloor(HUBINDEX);
+		newFloor(floorIndex);
 	}
 	
 	@Override
@@ -55,7 +59,7 @@ public class GameState extends State{
 		
 		Particle.getParticleManager().update();
 		Entity.getEntityManager().update();
-		if(Entity.getEntityManager().getPlayer().isKilled()) {
+		if(Entity.getEntityManager().getPlayer().isKilled()&&currentState==this) {
 			State.currentState=new DeadState(this);
 		}
 		

@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 import entity.Entity;
 import graphics.Assets;
-import inputs.Inputs;
 import states.menus.Menu;
 import states.menus.MenuObject;
 import states.menus.MenuSelection;
@@ -16,38 +15,60 @@ import window.Window;
 public class DeadState extends State{
 
 	private int floorIndex;
+	private int gameUpdates=30
+			,updatespeed=3;
 	BufferedImage background;
+	GameState gameState;
 	Menu menu = new Menu(new Rectangle(), new MenuObject[] {
-			new MenuSelection(new Rectangle(110, 130,50,10), "SHOOT TO RESTART") {
+			new MenuSelection(new Rectangle(90, 130,45,10), "RESTART",Color.white,Color.red) {
+				public void select() { currentState=new GameState(GameState.FLOOR1);};
+			},new MenuSelection(new Rectangle(180, 130,50,10), "BACK TO HUB", Color.white,Color.red) {
 				public void select() { currentState=new GameState();};
 			}
 	});
 	public DeadState(GameState gameState) {
+		this.gameState=gameState;
 		floorIndex=GameState.getFloorIndex();
 		
 		background=new BufferedImage(Window.getDisplay().getRelativeWidth(),
 				Window.getDisplay().getRelativeHeight(),BufferedImage.TYPE_INT_ARGB);
+		
 		gameState.render(background.getGraphics());
 		
 		menu.select();
 	}
 	@Override
 	public void update() {
+		if(gameUpdates>0) {
+			gameUpdates--;
+			if(gameUpdates%updatespeed==0) {
+				gameState.update();
+				gameState.render(background.getGraphics());
+			}
+			return;
+		}
 		getInputs().update();
 		menu.update(getInputs());
+		System.out.println(gameUpdates+", "+gameUpdates%updatespeed);
+		
+		
 	}
 
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(background,0,0,null);
+		if(gameUpdates>0) {
+			return;
+		}
 		g.setColor(new Color(1,1,26));//setting the background colour
 		g.fillRect(Window.getDisplay().getRelativeWidth()/2-125,Window.getDisplay().getRelativeHeight()/2-75,250,150); 
 		g.setFont(Assets.boldfont);
-		g.setColor(new Color(45,135,153));
-		g.drawString("YOU DIED",131, 41);
+		g.setColor(Color.red);
+		g.drawString("YOU DIED",135, 41);
 		g.setColor(Color.white);
-		g.drawString("YOU DIED",130, 40);
+		g.drawString("YOU DIED",134, 40);
 		
+		g.setFont(Assets.myfont);
 		String floor="";
 		switch (floorIndex) {
 		case GameState.HUBINDEX:
@@ -64,9 +85,9 @@ public class DeadState extends State{
 			floor="2";
 			break;
 		}
-		g.drawString("FLOOR"+": "+floor.toUpperCase(),70, 70);
-		g.drawString("KILLS"+": "+Entity.getEntityManager().getKills(),70, 90);
-		g.drawString("MONEY"+": "+Entity.getEntityManager().getPlayer().getMoney(),70, 110);
+		g.drawString("FLOOR"+": "+floor.toUpperCase(),145, 70);
+		g.drawString("KILLS"+": "+Entity.getEntityManager().getKills(),145, 80);
+		g.drawString("MONEY"+": "+Entity.getEntityManager().getPlayer().getMoney(),145, 90);
 		menu.render(g);
 				
 		
