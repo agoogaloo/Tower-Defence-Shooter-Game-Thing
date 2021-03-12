@@ -41,10 +41,10 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	public void update() { 
 		typedKey=null;
 		
-		up = keys[KeyEvent.VK_UP]; //Setting the right index of the array to a boolean 
-		down = keys[KeyEvent.VK_DOWN]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
-		left = keys[KeyEvent.VK_LEFT]; 
-		right = keys[KeyEvent.VK_RIGHT];
+		up = keys[KeyEvent.VK_UP]||keys[KeyEvent.VK_W]; //Setting the right index of the array to a boolean 
+		down = keys[KeyEvent.VK_DOWN]||keys[KeyEvent.VK_S]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
+		left = keys[KeyEvent.VK_LEFT]||keys[KeyEvent.VK_A]; 
+		right = keys[KeyEvent.VK_RIGHT]||keys[KeyEvent.VK_D];
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
 		console.update(keys[KeyEvent.VK_F12]);
 		upPushed.update(up);
