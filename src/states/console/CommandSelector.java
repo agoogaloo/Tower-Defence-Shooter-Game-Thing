@@ -1,7 +1,5 @@
 package states.console;
 
-import java.awt.Point;
-
 import entity.Entity;
 import states.GameState;
 

@@ -23,8 +23,8 @@ public class YellowEnemy extends Enemy{
 		width=21; //The width of the enemy
 		height=25; //The height of the enemy
 		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
-		reloadTime = 30;
-		health = 3;
+		reloadTime = 15;
+		health = 20;
 		
 		
 	}

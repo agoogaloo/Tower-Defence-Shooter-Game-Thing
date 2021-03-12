@@ -9,8 +9,9 @@ public class WizardTowerlvl2 extends Tower{
 		super(x, y, 115, 115, new Animation(Assets.wizardTowerLvl2,6), 30);
 		price=1;
 		sellValue=2;
-		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger so it can shoot a \n"
-				+ "bit faster and have a bit \nmore range";
+		damage=6;
+		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger so it can shoot a "
+				+ "\nbit faster and have a bit more \nrange";
 		upgradeIcon=Assets.towerMenu[3];
 	}
 

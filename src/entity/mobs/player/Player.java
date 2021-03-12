@@ -27,9 +27,9 @@ import states.State;
 
 public class Player extends Mobs {
 	//declaring variables
-	private int shotDelay = 0,dustDelay=0; //Prevents player from shooting too fast
-	
-	private int money=10,invincibility=0; //The amount of towers player can build
+	private int reloadTime = 15 , shotDelay = 0, shotDamage=5;
+	private int dustDelay=0; 
+	private int money=10,invincibility=0;
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	
@@ -44,17 +44,18 @@ public class Player extends Mobs {
 	
 	private char direction='d'; //Sets player's direction to down by default at the start
 	
+	/**
+	 * constructor for the player that you control
+	 * @param x - x location in pixels
+	 * @param y - y location in pixels
+	 */
 	public Player(int x, int y) {
 		
-		/*
-		 * this class is the player that you control 
-		 */
-				// initializing variables
-		reloadTime=15;
+		
 		width = 8; //The specific width of the player
 		height = 15; //The specific height of the player
 		speed = 3.4; //The speed which the player moves at, higher the value the faster the speed
-		health = 2;  //The amount of health the player has, when health hits 0 the player "dies"
+		health = 6;  //The amount of health the player has, when health hits 0 the player "dies"
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
 		camera=GameState.getCamera(); //The camera will follow the player
@@ -78,7 +79,8 @@ public class Player extends Mobs {
 			int angle=180;
 			targetX = (State.getInputs().getMouseX()); //Sets the mousesX position to targetX
 			targetY = (State.getInputs().getMouseY()); //Sets the mousesY position to targetY
-			entityManager.addEntity(new Bullet(x+4, y+11, targetX+camera.getxOffset(), targetY+camera.getyOffset(), Assets.yellowBullet, 5, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
+			entityManager.addEntity(new Bullet(x+4, y+11, targetX+camera.getxOffset(), 
+					targetY+camera.getyOffset(), Assets.yellowBullet, 5,shotDamage, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
 	
 			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
 			//adding a bit of screenshake so things feel better

@@ -9,7 +9,8 @@ public class FireWizardTower extends Tower{
 		super(x, y, 125, 125, new Animation(Assets.fireWizardTower,6), 20);
 		sellValue=5;
 		price=5;
-		infoText="upgrade cost $"+price+"\n\ngives the wizard fire \npowers letting him shoot \nfaster and have more range";
+		damage=8;
+		infoText="upgrade cost $"+price+"\n\ngives the wizard fire \npowers letting him deal \nmore damage and have more \nrange";
 	}
 	
 	@Override

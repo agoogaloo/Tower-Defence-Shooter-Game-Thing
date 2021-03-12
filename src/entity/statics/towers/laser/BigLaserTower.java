@@ -13,7 +13,7 @@ public class BigLaserTower extends Tower{
 public BigLaserTower(int x,int y, char direction) {
 	this.direction=direction;
 	price=5;
-	infoText="upgrade cost $"+price+"\n\ncan now shoot a huge laser \nbeam of doom after a long \nchrarging time";
+	infoText="upgrade cost $"+price+"\n\ncan now shoot a huge laser \nbeam of doom after a long \ncharging time";
 	switch (direction) {
 	case 'u':
 		animation=new Animation(Assets.bigLaserTowerU,6);

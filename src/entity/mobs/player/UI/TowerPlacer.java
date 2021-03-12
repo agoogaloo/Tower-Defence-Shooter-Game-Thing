@@ -93,7 +93,7 @@ public class TowerPlacer {
 			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
 				startX=State.getInputs().getMouseX();//setting the location of the menu 
 				startY=State.getInputs().getMouseY();//and where the tower will be placed
-				infoText.move(startX-53, startY+29);
+				infoText.move(startX-55, startY+29);
 				mode=Mode.PLACING;
 				for(Entity e:entities) {
 					if(e instanceof Tower&&e.getBounds().contains(startX+camera.getxOffset(), startY+camera.getyOffset())){
@@ -126,8 +126,8 @@ public class TowerPlacer {
 		//drawing the text background if there is upgrade/placing tower text
 		if(infoText.getText()!="") {
 			//making the image the right size
-			background.update(Assets.infobackground.getSubimage(0, 0,110, infoText.getHeight()+4));
-			background.move(startX-55, startY+27);//putting it into the right place
+			background.update(Assets.infobackground.getSubimage(0, 0,120, infoText.getHeight()+6));
+			background.move(startX-60, startY+27);//putting it into the right place
 		}else {
 			background.update(Assets.blank);//making the background disappear if there is no text
 		}

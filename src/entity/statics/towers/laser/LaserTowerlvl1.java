@@ -12,8 +12,8 @@ public class LaserTowerlvl1 extends Tower{
 	public LaserTowerlvl1(int x,int y,char direction) {
 		this.direction=direction;
 		price=5;
-		infoText="buying cost $"+price+"\n\nA tower that can shoot \nvery far but only in one \n"
-				+ "direction. It will will be \nfacing the same direction\nyou are when you place it";
+		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in one "
+				+ "\ndirection. It will will be \nfacing the same direction \nyou are when you place it";
 		
 		switch (direction) {
 		case 'u':
@@ -64,19 +64,19 @@ public class LaserTowerlvl1 extends Tower{
 		switch(direction) {
 		case 'u':
 			//shoots straight up
-			entityManager.addEntity(new Bullet(x+width/2,y,x+width/2,y-2,Assets.blueLaser[0],8, true));
+			entityManager.addEntity(new Bullet(x+width/2,y,x+width/2,y-2,Assets.blueLaser[0],8,6, true));
 			break;
 		case 'l':
 			//shoots straight left
-			entityManager.addEntity(new Bullet(x,y+3,x-2,y+3,Assets.blueLaser[3],8, true));
+			entityManager.addEntity(new Bullet(x,y+3,x-2,y+3,Assets.blueLaser[3],8,6, true));
 			break;
 		case 'r':
 			//shoots straight right
-			entityManager.addEntity(new Bullet(x+width,y+3,x+2+width,y+3,Assets.blueLaser[1],8, true));
+			entityManager.addEntity(new Bullet(x+width,y+3,x+2+width,y+3,Assets.blueLaser[1],8,6, true));
 			break;
 		case 'd':
 			//shoots straight up
-			entityManager.addEntity(new Bullet(x+width/2,y+height,x+width/2,y+height+2,Assets.blueLaser[2],8, true));
+			entityManager.addEntity(new Bullet(x+width/2,y+height,x+width/2,y+height+2,Assets.blueLaser[2],8,6, true));
 			break;
 		}
 	}

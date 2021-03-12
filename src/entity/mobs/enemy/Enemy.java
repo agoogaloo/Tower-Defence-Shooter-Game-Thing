@@ -2,7 +2,6 @@
 
 package entity.mobs.enemy;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -27,7 +26,7 @@ import states.console.ConsoleState;
 public abstract class Enemy extends Mobs {
 	public static final int DOWN=0,LEFT=1,UP=2,RIGHT=3;
 	protected int direction, bufferedDirection; //Depending on the direction the enemy will face different ways
-	protected int shotDelay, turnDelay; //Shot delay to make sure enemies can not shoot rapidly
+	protected int reloadTime, shotDelay, turnDelay; //Shot delay to make sure enemies can not shoot rapidly
 	protected int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
 	private boolean attack = false; //If true enemy will shoot
 	

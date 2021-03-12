@@ -24,7 +24,6 @@ public abstract class Entity {
 	protected int xOffset, yOffset;
 	protected int health = 10, damage;//its health and how much damage it can deal
 	protected int width, height;
-	protected int reloadTime;
 	protected boolean killed=false, friendly;
     protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
 	

@@ -12,14 +12,20 @@ import states.GameState;
 
 public class Bullet extends Mobs{
 
-	double bulletPath; //Calculates the path to the target
-	double velocityX,velocityY, trueX, trueY; //Velocity is how fast bullet travels and it's direction, trueX and trueY are the actual locations of x and y, otherwise they would be 0
-	int startX, startY; //The bullets starting coordinates, can be changed with a parameter
-	int speed; //How fast bullets move, can be changed with a parameter
+	private double bulletPath; //Calculates the path to the target
+	private double velocityX,velocityY, trueX, trueY; //Velocity is how fast bullet travels and it's direction, trueX and trueY are the actual locations of x and y, otherwise they would be 0
 	//int intVelocityX, intVelocityY; //Needed to parse velocityX and velocityY into ints
 	BufferedImage pic; //Sets this bullet picture to a variable
+	
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, boolean friendly){
+		this(startX, startY, targetX, targetY, pic, speed, 1, friendly);
+	}
+	
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, int damage, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
+		this.damage=damage;
+		this.friendly=friendly;
+		this.pic=pic; //Sets this variable to the pics specified, allowing different bullet pictures to be used depending on the parameter
 
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
 		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
 		int offsetY = pic.getHeight()/2;
 		x=startX-offsetX;
@@ -28,10 +34,7 @@ public class Bullet extends Mobs{
 		targetY-=offsetY;
 		trueX=x;
 		trueY=y;
-		this.speed = speed;
-		this.friendly=friendly;
-		this.pic=pic; //Sets this variable to the pics specified, allowing different bullet pictures to be used depending on the parameter
-		damage=1; //How much points of damage a bullet will do
+		
 		width=pic.getWidth(); //making the dimentions the right size
 		height=pic.getHeight(); 
 		bounds.width=width;
@@ -58,8 +61,7 @@ public class Bullet extends Mobs{
 		
 		//updating the hitboxes location
 		bounds.setLocation(x,y);
-		
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		checkWalls((int)(velocityX),(int)(velocityY));														//
 	//destroying the bullet if it hits an enemy
 		if(friendly) {//only bullets made by the player and towers will break once they hit things
@@ -72,8 +74,7 @@ public class Bullet extends Mobs{
 			}
 		}
 		
-	}																														//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	}
 		
 	@Override
 	public void render(Graphics g, Camera camera){ //Renders bullets, depending on the value of bulletType the bullet sprite will be different, the x and y will also grow or shrink depending on the bullet picture, as x and y subtract the bullet pictures width and height respectively
