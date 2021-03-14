@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author The Computer Man
  *
  */
-public class Rectangle extends SpawnPattern{
+public class RectangleSpawner extends SpawnPattern{
 	private int width,height;
 	
 	/**
@@ -16,7 +16,7 @@ public class Rectangle extends SpawnPattern{
 	 * @param width - width of spawning rectangle in pixels
 	 * @param height - height of spawning rectangle in pixels
 	 */
-	public Rectangle(int x, int y,int width, int height) {
+	public RectangleSpawner(int x, int y,int width, int height) {
 		super(x, y);
 		this.width=width;
 		this.height=height;
@@ -28,7 +28,7 @@ public class Rectangle extends SpawnPattern{
 	 * @param y - y of top left corner
 	 * @param size - size of side length of spwning range square in pixels
 	 */
-	public Rectangle(int x, int y, int size) {
+	public RectangleSpawner(int x, int y, int size) {
 		this(x,y,size,size);
 	}
 

@@ -17,7 +17,9 @@ import graphics.Camera;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
+import graphics.particles.movers.spawnPattern.RectangleSpawner;
 import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
 import states.State;
@@ -94,7 +96,6 @@ public class Player extends Mobs {
 
 	@Override
 	public void update() {
-		
 		int moveKeys=0;
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
@@ -137,6 +138,7 @@ public class Player extends Mobs {
 		}else {
 			currentPic=animator.update(direction, true);
 			if(dustDelay>=15) {
+				
 				new ParticleEffect(3, new Straight(new Point(x+7,y+12),0.5), 
 						new OvalParticle(2, new Timed(45)), false);
 				dustDelay=0;

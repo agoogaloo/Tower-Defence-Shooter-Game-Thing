@@ -2,6 +2,7 @@
 
 package entity.mobs.enemy;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -14,6 +15,11 @@ import entity.statics.Money;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.particles.ParticleEffect;
+import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.RectangleSpawner;
+import graphics.particles.shapes.ShrinkOvalParticle;
+import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
 import states.console.ConsoleState;
 
@@ -169,6 +175,10 @@ public abstract class Enemy extends Mobs {
 			}
 		}if (statusEffect==StatusEffect.BURN){
 			health-=statusLevel;
+			new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.25),
+					new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(225, 255),
+							ThreadLocalRandom.current().nextInt(120, 140),0), 120,30), 4,5,0.2,0.3), true);
+			
 		}
 		
 		//setting the current picture to the right animation depending on its direction
