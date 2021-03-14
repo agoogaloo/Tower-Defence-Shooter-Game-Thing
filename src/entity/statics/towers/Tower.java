@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.Enemy;
+import entity.mobs.enemy.StatusEffect;
 import entity.statics.Statics;
 import graphics.Animation;
 import graphics.Assets;
@@ -20,6 +21,8 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	
 	private boolean attack = false; //When this variable is true tower is capable of attacking enemies
 	protected int shotDelay = 0, reloadTime, damage; //Shot delay making towers shoot once a second, rather than rapidly shooting 
+	protected StatusEffect statusEffect=StatusEffect.NONE;
+	protected int effectLevel=0, effectLength=0;
 	
 	protected Entity target; //The specific target the tower gets the x and y of
 	protected Ellipse2D.Float towerRange; //A rectangle of range where the tower can shoot at
@@ -59,7 +62,8 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		}
 	}
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.yellowBullet,8,damage, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.yellowBullet,8,damage
+				,statusEffect,statusLength,statusLevel, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	}			
 
 	@Override

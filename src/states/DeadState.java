@@ -48,10 +48,7 @@ public class DeadState extends State{
 			return;
 		}
 		getInputs().update();
-		menu.update(getInputs());
-		System.out.println(gameUpdates+", "+gameUpdates%updatespeed);
-		
-		
+		menu.update(getInputs());		
 	}
 
 	@Override

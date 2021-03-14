@@ -13,7 +13,7 @@ public class TankBot extends Enemy{
 	public TankBot(int x, int y, int direction) {
 		super(x, y, direction);
 		speed=0.7; //The speed which the enemy travels, higher number resuts in higher speeds
-		health = 175;
+		health = 250;
 		reloadTime = 240;
 		
 		//using the blue enemy animations so it looks different

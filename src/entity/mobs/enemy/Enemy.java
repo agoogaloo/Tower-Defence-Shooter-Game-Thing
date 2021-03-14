@@ -34,6 +34,7 @@ public abstract class Enemy extends Mobs {
 	protected Animation[] anims = new Animation[4];	
 	protected Rectangle[] directionBounds = new Rectangle[4];
 	protected BufferedImage currentPic;//the current sprite being drawn onto the screen
+	
 
 	public Enemy(int x, int y, int direction) { //Enemy Class contains traits of the enemies
 		setLocation(x, y);
@@ -98,22 +99,26 @@ public abstract class Enemy extends Mobs {
 			}
 		}
 		
-		switch(direction) {//moving a different direction depending on which way it is facing
-		case UP://if it is facing up 
-			trueY-=speed;//it should move up
-			break;
-		case DOWN://move cases for the other directions
-			trueY+=speed;
-			break;
-		case LEFT:
-			trueX-=speed;
-			break;
-		case RIGHT:
-			trueX+=speed;
-			break;
+		if(statusEffect!=StatusEffect.STUN) {
+			switch(direction) {//moving a different direction depending on which way it is facing
+			case UP://if it is facing up 
+				trueY-=speed;//it should move up
+				break;
+			case DOWN://move cases for the other directions
+				trueY+=speed;
+				break;
+			case LEFT:
+				trueX-=speed;
+				break;
+			case RIGHT:
+				trueX+=speed;
+				break;
+			}
 		}
+		
 		x=(int)(trueX);
 		y=(int)(trueY);
+		
 	}
 	
 	protected void shoot() {
@@ -158,9 +163,14 @@ public abstract class Enemy extends Mobs {
 		updateDirection();//setting its direction and moving based on it
 		updateBounds(); 
 		
-		for(Animation i: anims) {
-			i.update();
+		if(statusEffect!=StatusEffect.STUN) {
+			for(Animation i: anims) {
+				i.update();
+			}
+		}if (statusEffect==StatusEffect.BURN){
+			health-=statusLevel;
 		}
+		
 		//setting the current picture to the right animation depending on its direction
 		currentPic=anims[direction].getCurrentFrame();
 		xOffset=directionBounds[direction].x;
@@ -168,6 +178,11 @@ public abstract class Enemy extends Mobs {
 		width=directionBounds[direction].width;
 		height=directionBounds[direction].height;
 		shotDelay++; //Increase shotDelay by one every frame
+		if(statusLength<=0) {
+			statusEffect=StatusEffect.NONE;
+		}else {
+			statusLength--;
+		}
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
@@ -176,6 +191,12 @@ public abstract class Enemy extends Mobs {
 		//g.fillRect(Math.round((x+width/2)/16f-0.5f)*16-camera.getxOffset(),Math.round((y+(height/2))/16-0.5f)*16-camera.getyOffset(), 16,16);
 		//g.setColor(Color.BLUE);
 		//g.drawRect(Math.round(x+width/2)-camera.getxOffset(),Math.round(y+(height/2))-camera.getyOffset(), 0,0);
+	}
+	
+	public void setStatusEffect(StatusEffect statusEffect, int length, int level) {
+		this.statusEffect = statusEffect;
+		this.statusLength=length;
+		this.statusLevel=level;
 	}
 }
 

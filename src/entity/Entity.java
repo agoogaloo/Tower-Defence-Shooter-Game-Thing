@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import entity.mobs.Bullet;
+import entity.mobs.enemy.StatusEffect;
 import graphics.Camera;
 
 //@author Matthew (basically did all the logic and everything in this class)
@@ -26,6 +28,8 @@ public abstract class Entity {
 	protected int width, height;
 	protected boolean killed=false, friendly;
     protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
+    protected int statusLength=0, statusLevel=0;
+	protected StatusEffect statusEffect=StatusEffect.NONE;
 	
 	public static void init(boolean deletePlayer){
 		entityManager.reset(deletePlayer);
@@ -48,7 +52,12 @@ public abstract class Entity {
 			//checking which side the thing that touched it is on 
 			//(making sure enemies only attack the player, player cant attack the core, etc.)
 			if (e.isFriendly() != friendly) {
-				health -= e.getDamage();//dealing however much damage that entity does		
+				health -= e.getDamage();//dealing however much damage that entity does	
+				if(e instanceof Bullet) {
+					statusEffect=e.statusEffect;
+					statusLength=e.statusLength;
+					statusLevel=e.statusLevel;
+				}
 			}
 		}
 		if (health <= 0) {//if it has no more health left that it should be dead

@@ -146,7 +146,7 @@ public class Tutorialator {
 		
 		if(sectionTime==10) 
 			textToAdd="enemies will shoot back at you. make sure you don't get hit.";
-		else if(sectionTime==40) Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.8,50,10));
+		else if(sectionTime==40) Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.8,50,50));
 		
 		if(!areEnemies()&&sectionTime>40) {
 			nextSection();
@@ -159,14 +159,14 @@ public class Tutorialator {
 	private void section5() {
 		
 		if(!sectionInit) {//initializing the section
-			text.move(85, 167);
+			text.move(69, 167);
 			button.create();
 			sectionInit=true;
 		}
 		button.update(0, 0, 'u');
 		button.move(464, 64);
 		if(sectionTime==10) 
-			textToAdd=" as your final callenge you need to beat a \nwave of enemies. press the button to start";
+			textToAdd=" as your final callenge you need to beat a wave of \nenemies. press the red button in the corner to start";
 		
 		if(button.isClicked()) {
 			nextSection();

@@ -13,6 +13,7 @@ public class MachineGunTower extends Tower{
 public MachineGunTower(int x,int y, char direction) {
 	this.direction=direction;
 	price=13;
+	damage=3;
 	infoText="upgrade cost $"+price+"\n\ncan shoot super duper fast";
 	switch (direction) {
 	case 'u':
@@ -33,7 +34,7 @@ public MachineGunTower(int x,int y, char direction) {
 		this.x = x-width/2;
 		this.y = y-2;
 		updateBounds();
-		reloadTime=6;
+		reloadTime=5;
 		sellValue=10;
 		switch (direction) {
 		case 'u':
@@ -60,19 +61,19 @@ public MachineGunTower(int x,int y, char direction) {
 		switch(direction) {
 		case 'u':
 			//shoots straight up
-			entityManager.addEntity(new Bullet(x+width/2+offset-5,y,x+width/2+offset-5,y-2,Assets.YellowLaser[1],8,2, true));
+			entityManager.addEntity(new Bullet(x+width/2+offset-5,y,x+width/2+offset-5,y-2,Assets.YellowLaser[1],8,damage, true));
 			break;
 		case 'l':
 			//shoots straight left
-			entityManager.addEntity(new Bullet(x,y+offset,x-2,y+offset,Assets.YellowLaser[0],8,2, true));
+			entityManager.addEntity(new Bullet(x,y+offset,x-2,y+offset,Assets.YellowLaser[0],8,damage, true));
 			break;
 		case 'r':
 			//shoots straight right
-			entityManager.addEntity(new Bullet(x+width,y+offset,x+2+width,y+offset,Assets.YellowLaser[0],8,2, true));
+			entityManager.addEntity(new Bullet(x+width,y+offset,x+2+width,y+offset,Assets.YellowLaser[0],8,damage, true));
 			break;
 		case 'd':
 			//shoots straight up
-			entityManager.addEntity(new Bullet(x+width/2+offset-5,y+height,x+width/2+offset-5,y+height+2,Assets.YellowLaser[1],8,2, true));
+			entityManager.addEntity(new Bullet(x+width/2+offset-5,y+height,x+width/2+offset-5,y+height+2,Assets.YellowLaser[1],8,damage, true));
 			break;
 		}
 		}

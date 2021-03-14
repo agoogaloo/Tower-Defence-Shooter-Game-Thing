@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entity.Entity;
+import entity.mobs.enemy.StatusEffect;
+import entity.statics.Pickup;
 import graphics.Camera;
 import states.GameState;
 
@@ -20,12 +22,18 @@ public class Bullet extends Mobs{
 	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, boolean friendly){
 		this(startX, startY, targetX, targetY, pic, speed, 1, friendly);
 	}
-	
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, int damage, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, int damage, boolean friendly){
+		this(startX, startY, targetX, targetY, pic, speed, damage, StatusEffect.NONE, 0, 0, friendly);
+	}
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed,
+			int damage,StatusEffect effect,int effectLength,int effectPower, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
 		this.damage=damage;
 		this.friendly=friendly;
 		this.pic=pic; //Sets this variable to the pics specified, allowing different bullet pictures to be used depending on the parameter
-
+		this.statusEffect=effect;
+		this.statusLength=effectLength;
+		this.statusLevel=effectPower;
+		
 		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
 		int offsetY = pic.getHeight()/2;
 		x=startX-offsetX;
@@ -49,9 +57,7 @@ public class Bullet extends Mobs{
 	
 
 	@Override
-	public void update(){
-		ArrayList<Entity> collisions;
-		
+	public void update(){		
 		trueX+=velocityX; //Applies the velocity the the true variable, allowing the bullet to move in a specific direction and speed depending on the value of velocity
 		trueY+=velocityY;
 		x=((int)(trueX)); //Sets x to the trueX (including the offset) this updates x moving the bullet
@@ -63,19 +69,19 @@ public class Bullet extends Mobs{
 		bounds.setLocation(x,y);
 
 		checkWalls((int)(velocityX),(int)(velocityY));														//
-	//destroying the bullet if it hits an enemy
-		if(friendly) {//only bullets made by the player and towers will break once they hit things
-			collisions=entityCollide();
-			for(Entity e:collisions) {
-				if(e.isFriendly()==false) {//if it is touching an enemy...
-					killed=true;//destroy the bullet next frame
-					break;//and quit the loop
-				}
-			}
-		}
 		
 	}
-		
+	
+	@Override
+	public void damage() {
+		for (Entity e : entityCollide()) {//checking what is colliding with itself
+			//checking which side the thing that touched it is on 
+			//(making sure enemies only attack the player, player can't attack the core, etc.)
+			if (e.isFriendly() != friendly&&!(e instanceof Pickup)) {
+				killed=true;
+			}
+		}
+	}
 	@Override
 	public void render(Graphics g, Camera camera){ //Renders bullets, depending on the value of bulletType the bullet sprite will be different, the x and y will also grow or shrink depending on the bullet picture, as x and y subtract the bullet pictures width and height respectively
 		g.drawImage(pic, x-camera.getxOffset(),y- camera.getyOffset(), null);

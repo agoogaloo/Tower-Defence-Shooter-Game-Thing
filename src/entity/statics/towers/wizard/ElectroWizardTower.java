@@ -1,18 +1,20 @@
 package entity.statics.towers.wizard;
 
+import entity.mobs.enemy.StatusEffect;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
 
 public class ElectroWizardTower extends Tower{
 	public ElectroWizardTower(int x, int y) {
-		super(x, y, 150, 150, new Animation(Assets.elecricWizardTower,6), 10);
+		super(x, y, 150, 150, new Animation(Assets.elecricWizardTower,6), 20);
 		sellValue=7;
 		price=10;
-		damage=6;
-		
+		damage=5;
+		statusEffect=StatusEffect.STUN;
+		statusLength=5;
 		infoText="upgrade cost $"+price+"\n\ngives the wizard the power \nof electricity "
-				+ "letting it \nshoot very fast and have \nmuch more range";
+				+ "letting it \nshoot faster and stun \nenemies to slow them down";
 	}
 
 	@Override

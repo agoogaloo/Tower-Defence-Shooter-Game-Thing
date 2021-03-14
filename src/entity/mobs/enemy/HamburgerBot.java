@@ -10,7 +10,7 @@ public class HamburgerBot extends Enemy{
 	
 	public HamburgerBot(int x, int y, int direction) {
 		super(x, y, direction);
-		health=40;
+		health=75;
 		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
 		//damage=1; //The amount of damage the enemy will do if it collides with the player
 		reloadTime = 14;
