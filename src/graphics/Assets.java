@@ -55,6 +55,7 @@ public class Assets {
 	public static final BufferedImage[] healthIcon=Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/textures/heart icon.png"), 13, 13, 3, 3),0,8);
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/textures/coin.png"), 11, 11, 2, 2);
+	public static final BufferedImage[] hubtiles=splitSpriteSheet(loadImage("res/textures/hub tiles.png"), 16, 16, 7, 12);
 	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/level 1 tiles.png"), 16, 16, 7, 12);
 	public static final BufferedImage[] level2tiles=splitSpriteSheet(loadImage("res/textures/level 2 tiles.png"), 16, 16, 7, 12);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes

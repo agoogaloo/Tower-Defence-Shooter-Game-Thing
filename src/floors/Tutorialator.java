@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.GreenEnemy;
+import entity.mobs.enemy.HeliBot;
 import entity.mobs.enemy.RedEnemy;
 import entity.mobs.enemy.TutorialEnemy;
 import entity.mobs.enemy.YellowEnemy;
@@ -35,6 +36,7 @@ public class Tutorialator {
 	public Tutorialator() {
 		 text=new TextElement(52, 172, "");
 		 button.remove();
+		 Entity.getEntityManager().getSpawner().setUseHeli(false);
 		
 	}
 	public void update() {

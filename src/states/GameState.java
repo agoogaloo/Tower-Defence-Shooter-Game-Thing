@@ -111,7 +111,7 @@ public class GameState extends State{
 			deletePlayer=true;
 			size=1;
 			canHaveEnemies=false;
-			tiles=Assets.level1tiles;
+			tiles=Assets.hubtiles;
 			break;
 		case TUTORIALINDEX:
 			path+="tutorial.json";

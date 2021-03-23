@@ -29,8 +29,9 @@ public class EnemySpawner {
 	private ArrayList<Point> visitedRooms=new ArrayList<Point>();//all rooms that have been unlocked/"beaten"
 	private Point lastRoom=new Point(-1,-1);
 	
-	private HeliBot heliBot=new HeliBot(4000, 4000);
-	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,400,400); // the range that will start spawinging the heli
+	private HeliBot heliBot=new HeliBot(0, 0);
+	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,400,400); // the range that will start spawning the heli
+	private boolean useHeli=true;
 	
 	private SpawnButton button=new SpawnButton();
 	
@@ -89,9 +90,10 @@ public class EnemySpawner {
 		}
 		
 		
-		
-		//doing heli stuff
-		spawnHeli();
+		if(useHeli) {
+			//doing heli stuff
+			spawnHeli();
+		}
 		
 	}
 	public void render(Graphics g, Camera camera) {
@@ -161,7 +163,11 @@ public class EnemySpawner {
 		}
 		heliDelay+=1;
 		if(heliBot.isKilled()&&heliDelay>=600) {
-			heliBot=new HeliBot((int)heliSpawnRange.x, (int)heliSpawnRange.y);
+			if(heliSpawnRange.x>0&&heliSpawnRange.y>0) {
+				heliBot=new HeliBot((int)heliSpawnRange.x, (int)heliSpawnRange.y);
+			} else{
+				heliBot=new HeliBot((int)(heliSpawnRange.x+heliSpawnRange.width), (int)(heliSpawnRange.y+heliSpawnRange.width));
+			}
 			Entity.getEntityManager().addEntity(heliBot);
 		}
 	}
@@ -190,6 +196,9 @@ public class EnemySpawner {
 	}
 	public void setButtonSpawns(boolean buttonSpawns) {
 		this.buttonSpawns=buttonSpawns;
+	}
+	public void setUseHeli(boolean useHeli) {
+		this.useHeli = useHeli;
 	}
 	
 }
