@@ -9,8 +9,8 @@ import graphics.Assets;
 
 public class LaserTowerlvl1 extends Tower{
 	char direction;
-	public LaserTowerlvl1(int x,int y,char direction) {
-		this.direction=direction;
+	public LaserTowerlvl1(int x,int y) {
+		this.direction='l';
 		price=5;
 		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in one "
 				+ "\ndirection. It will will be \nfacing the same direction \nyou are when you place it";
@@ -62,7 +62,7 @@ public class LaserTowerlvl1 extends Tower{
 
 	@Override
 	public Tower createNew(int x, int y) {
-		return new LaserTowerlvl1(x, y,direction);
+		return new LaserTowerlvl1(x, y);
 	}
 	@Override
 	protected void shoot() {

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entity.Entity;
+import entity.statics.towers.EmptyTowerSlot;
 import entity.statics.towers.Tower;
 import entity.statics.towers.Plant.Plantlvl1;
 import entity.statics.towers.laser.LaserTowerlvl1;
@@ -20,7 +21,8 @@ import states.State;
 public class TowerPlacer {
 	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing
 	private enum Mode{PLACING,UPGRADING,WAITING}
-	private Tower[] towers = {new LaserTowerlvl1(0,0,'r'),new WizardTowerlvl1(0, 0),new Plantlvl1(0, 0),new Plantlvl1(0, 0)};
+	private Tower[] towers = {new WizardTowerlvl1(0, 0),new LaserTowerlvl1(0,0),
+			new Plantlvl1(0, 0),new EmptyTowerSlot(0, 0)};
 	private Tower selectedTower;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
 	private PicElement wheelMenu=new PicElement(100, 0, Assets.blank);

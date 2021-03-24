@@ -1,5 +1,6 @@
 package entity.statics.towers.Plant;
 
+import entity.mobs.enemy.StatusEffect;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
@@ -9,8 +10,10 @@ public class Plantlvl1 extends Tower{
 		super(x, y, 100, 100, new Animation(Assets.plantLvl1,6), 120);
 		price=1;
 		damage=5;
+		statusEffect=StatusEffect.STUN;
+		statusLength=15;
 		sellValue=1;
-		infoText="buying cost $"+price+"\n\na small bud that is waiting to grow up";
+		infoText="buying cost $"+price+"\n\na tiny bud that's trying to \ngrow up";
 		buyIcon=Assets.towerIcons[8];
 		upgradeIcon=Assets.towerIcons[9];
 	}
