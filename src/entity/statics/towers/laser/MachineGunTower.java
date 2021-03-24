@@ -12,7 +12,7 @@ public class MachineGunTower extends Tower{
 	char direction;
 	public MachineGunTower(int x,int y, char direction) {
 		this.direction=direction;
-		price=13;
+		price=8;
 		damage=3;
 		infoText="upgrade cost $"+price+"\n\ncan shoot super duper fast";
 		switch (direction) {

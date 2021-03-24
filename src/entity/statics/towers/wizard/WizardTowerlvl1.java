@@ -33,6 +33,6 @@ public class WizardTowerlvl1 extends Tower{
 
 	@Override
 	public Tower createNew(int x, int y) {
-		return new WizardTowerlvl1(x+width*2, y+height*2);
+		return new WizardTowerlvl1(x, y);
 	}
 }

@@ -62,7 +62,7 @@ public class LaserTowerlvl1 extends Tower{
 
 	@Override
 	public Tower createNew(int x, int y) {
-		return new LaserTowerlvl1(x+width/2, y+2,direction);
+		return new LaserTowerlvl1(x, y,direction);
 	}
 	@Override
 	protected void shoot() {

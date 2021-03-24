@@ -20,7 +20,7 @@ import states.State;
 public class TowerPlacer {
 	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing
 	private enum Mode{PLACING,UPGRADING,WAITING}
-	private Tower[] towers = {new WizardTowerlvl1(0, 0),new LaserTowerlvl1(0,0,'r'),new Plantlvl1(0, 0),null};
+	private Tower[] towers = {new LaserTowerlvl1(0,0,'r'),new WizardTowerlvl1(0, 0),new Plantlvl1(0, 0),new Plantlvl1(0, 0)};
 	private Tower selectedTower;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
 	private PicElement wheelMenu=new PicElement(100, 0, Assets.blank);
@@ -68,7 +68,10 @@ public class TowerPlacer {
 			}
 		}
 		
-		if(hoveredTower==null) {return null;}
+		if(hoveredTower==null) {
+			infoText.update("");
+			return null;
+			}
 		
 		infoText.update(hoveredTower.getInfoText());
 		if(!State.getInputs().isPlace()&&money>=hoveredTower.getPrice()) {
@@ -97,9 +100,7 @@ public class TowerPlacer {
 		**/
 		return null;
 	}
-	private Tower upgrade(int money,Camera camera) {
-		//topPic.update(selectedTower.getUpgradeIcon());
-		
+	private Tower upgrade(int money,Camera camera) {		
 		if(mouseUpDown=='u') {
 			infoText.update(selectedTower.hover(mouseLeftRight));
 			if(!State.getInputs().isPlace()) {
@@ -174,11 +175,10 @@ public class TowerPlacer {
 			if(towers[2]!=null) 
 			menuGraphics.drawImage(towers[2].getBuyIcon().getSubimage(0, 25, 25, 25), 0,25, null);
 			if(towers[3]!=null) 
-			menuGraphics.drawImage(towers[3].getBuyIcon().getSubimage(25, 5, 25, 25), 25,25, null);
+			menuGraphics.drawImage(towers[3].getBuyIcon().getSubimage(25, 25, 25, 25), 25,25, null);
 		}else if(mode==Mode.UPGRADING) {
-			//bottomPic.update(Assets.towerMenu[1]);
-			//bottomPic.move(x-Assets.towerMenu[0].getWidth()/2, y-Assets.towerMenu[0].getHeight()/2);	
-			//topPic.move(x-Assets.towerMenu[0].getWidth()/2, y-Assets.towerMenu[0].getHeight()/2);
+			menuGraphics.drawImage(Assets.towerIcons[1],0,0, null);
+			menuGraphics.drawImage(selectedTower.getUpgradeIcon(),0,0, null);
 			selectedTower.showRange(g, camera);
 			
 		}else {

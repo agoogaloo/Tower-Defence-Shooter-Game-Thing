@@ -16,6 +16,7 @@ public class LaserTowerlvl2 extends Tower{
 		price=2;
 		infoText="upgrade cost $"+price+"\n\ngives the tower a bit more \nrange and an increased"
 				+ " rate \nof fire.";
+		upgradeIcon=Assets.towerIcons[7];
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.laserTowerLvl2U,6);
@@ -40,7 +41,7 @@ public class LaserTowerlvl2 extends Tower{
 		updateBounds();
 		reloadTime=20;
 		sellValue=4;
-		upgradeIcon=Assets.towerIcons[5];
+		
 		//making its range based off of its direction 
 		//this is done seperatedly from animations so that it can use the right x,y,width,and height variables
 		switch (direction) {
@@ -66,7 +67,7 @@ public class LaserTowerlvl2 extends Tower{
 
 	@Override
 	public Tower createNew(int x, int y) {
-		return new LaserTowerlvl2(x+width*2, y+2,direction);
+		return new LaserTowerlvl2(x, y,direction);
 	}
 	@Override
 	protected void shoot() {

@@ -12,7 +12,7 @@ public class WizardTowerlvl2 extends Tower{
 		damage=6;
 		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger so it can shoot a "
 				+ "\nbit faster and have a bit more \nrange";
-		upgradeIcon=Assets.towerIcons[3];
+		upgradeIcon=Assets.towerIcons[4];
 	}
 	@Override
 	public Tower createNew(int x, int y) {

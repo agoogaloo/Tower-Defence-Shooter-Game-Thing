@@ -3,7 +3,6 @@ package entity.statics.towers.laser;
 import java.awt.geom.Ellipse2D;
 
 import entity.statics.towers.Tower;
-import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -13,7 +12,7 @@ public class BigLaserTower extends Tower{
 	
 	public BigLaserTower(int x,int y, char direction) {
 		this.direction=direction;
-		price=5;
+		price=9;
 		infoText="upgrade cost $"+price+"\n\ncan now shoot a huge laser \nbeam of doom after a long \ncharging time";
 		switch (direction) {
 		case 'u':
