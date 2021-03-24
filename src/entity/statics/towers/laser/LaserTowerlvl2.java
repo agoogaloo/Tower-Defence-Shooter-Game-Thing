@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 import entity.mobs.Bullet;
 import entity.statics.towers.Tower;
+import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -39,7 +40,7 @@ public class LaserTowerlvl2 extends Tower{
 		updateBounds();
 		reloadTime=20;
 		sellValue=4;
-		upgradeIcon=Assets.towerMenu[5];
+		upgradeIcon=Assets.towerIcons[5];
 		//making its range based off of its direction 
 		//this is done seperatedly from animations so that it can use the right x,y,width,and height variables
 		switch (direction) {
@@ -61,6 +62,11 @@ public class LaserTowerlvl2 extends Tower{
 		}
 		
 
+	}
+
+	@Override
+	public Tower createNew(int x, int y) {
+		return new LaserTowerlvl2(x+width*2, y+2,direction);
 	}
 	@Override
 	protected void shoot() {

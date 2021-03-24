@@ -16,6 +16,10 @@ public class FireWizardTower extends Tower{
 		statusLevel=1;
 		infoText="upgrade cost $"+price+"\n\ngives the wizard fire \npowers letting him burn \nenemies to deal damage over \ntime ";
 	}
+	@Override
+	public Tower createNew(int x, int y) {
+		return new ElectroWizardTower(x+width/2, y+height*2);
+	}
 	
 	@Override
 	public int upgrade(char leftRight, int money) {

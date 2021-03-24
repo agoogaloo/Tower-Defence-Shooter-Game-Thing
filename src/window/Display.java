@@ -59,7 +59,7 @@ public class Display extends JPanel {
 		}
 		//putting the image onto the display and scaling it
 		g.drawImage(image,0,0,width*scale, height*scale, null);
-		g.drawImage(Assets.cursor,State.getInputs().getTrueMouseX()-3,State.getInputs().getTrueMouseY()-3,
+		g.drawImage(Assets.cursor,State.getInputs().getTrueMouseX()-3*Settings.getScale(),State.getInputs().getTrueMouseY()-3*Settings.getScale(),
 				Assets.cursor.getWidth()*scale,Assets.cursor.getHeight()*scale,null);
 		
 	}

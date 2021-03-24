@@ -7,11 +7,12 @@ import graphics.Assets;
 public class WizardTowerlvl1 extends Tower{
 	public WizardTowerlvl1(int x, int y) {
 		super(x, y, 100, 100, new Animation(Assets.wizardTowerLvl1,6), 40);
-		upgradeIcon=Assets.towerMenu[2];
 		price=2;
 		damage=5;
 		sellValue=1;
 		infoText="buying cost $"+price+"\n\na basic tower that shoots in\na small circle around itself \nat a slowish rate";
+		buyIcon=Assets.towerIcons[2];
+		upgradeIcon=Assets.towerIcons[3];
 	}
 	
 	@Override
@@ -28,5 +29,10 @@ public class WizardTowerlvl1 extends Tower{
 	@Override
 	public String hover(char leftRight) {
 		return new WizardTowerlvl2(0,0).getInfoText();
+	}
+
+	@Override
+	public Tower createNew(int x, int y) {
+		return new WizardTowerlvl1(x+width*2, y+height*2);
 	}
 }

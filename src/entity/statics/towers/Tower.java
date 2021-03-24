@@ -29,7 +29,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected Animation animation;
 	
 	
-	protected BufferedImage upgradeIcon;
+	protected BufferedImage buyIcon,upgradeIcon;
 	protected int price, sellValue;
 	protected String infoText;
 	protected Tower() {
@@ -44,23 +44,24 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		animation=anim;
 		this.reloadTime=reloadTime;
 		towerRange=new Ellipse2D.Float(x-rangeWidth/2,y-rangeHeight/2, rangeWidth, rangeHeight);
-	
-		//towerRange=new Rectangle(x-rangeWidth/2,y-rangeHeight/2,rangeWidth,rangeHeight); //Creates a rectangle for the towers range 
 		updateBounds();
 	}
+	
 	public abstract int upgrade(char leftRight, int money);
 	public abstract String hover(char leftRight);//this if used when the tower is hovered over but not actually bought yet
+	public abstract Tower createNew(int x,int y);
 	
 	public void search() {
 		attack=false; //Attack is normally false
 		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
 			if(towerRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
 					e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy) { //If an enemy entity is detected within tower range it gets its x and y values and sets it to the appropriate variables
-				target=e; //sets the target to the specific enemy enetity that intersected the tower's range
+				target=e; //sets the target to the specific enemy entity that intersected the tower's range
 				attack= true; //An entity has been detected so the tower will start shooting	
 			}
 		}
 	}
+	
 	protected void shoot() {
 		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.yellowBullet,8,damage
 				,statusEffect,statusLength,statusLevel, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
@@ -80,27 +81,28 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower
 		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
-		//showRange(g, camera);
 	}
 	
 	public void showRange(Graphics g, Camera camera ) {
 		//this is used to show the towers range
-		
 		g.setColor(new Color(0,0,0,75));//setting the colour to a translucent dark colour
 		g.fillOval((int)towerRange.x-camera.getxOffset(),(int) towerRange.y-camera.getyOffset(),
 				(int)towerRange.width, (int)towerRange.height);//making everything in its range darker
 	}
-	
 	@Override
 	public void damage() {
 		//left blank so that the towers wont take damage
 	}
+	
 	public void destroy() {
 		killed=true;
-		
 	}	
+	//getters/setters
 	public BufferedImage getUpgradeIcon() {
 		return upgradeIcon;
+	}
+	public BufferedImage getBuyIcon() {
+		return buyIcon;
 	}
 	public int getPrice() {
 		return price;
@@ -112,5 +114,6 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	public String getInfoText() {
 		return infoText;
 	}
+	
 	
 }

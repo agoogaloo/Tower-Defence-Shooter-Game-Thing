@@ -14,7 +14,8 @@ public class LaserTowerlvl1 extends Tower{
 		price=5;
 		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in one "
 				+ "\ndirection. It will will be \nfacing the same direction \nyou are when you place it";
-		
+		buyIcon=Assets.towerIcons[5];
+		upgradeIcon=Assets.towerIcons[6];
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.laserTowerLvl1U,6);
@@ -37,7 +38,6 @@ public class LaserTowerlvl1 extends Tower{
 		updateBounds();
 		reloadTime=30;
 		sellValue=3;
-		upgradeIcon=Assets.towerMenu[4];
 		
 		switch (direction) {
 		case 'u':
@@ -58,6 +58,11 @@ public class LaserTowerlvl1 extends Tower{
 		}
 		
 
+	}
+
+	@Override
+	public Tower createNew(int x, int y) {
+		return new LaserTowerlvl1(x+width/2, y+2,direction);
 	}
 	@Override
 	protected void shoot() {

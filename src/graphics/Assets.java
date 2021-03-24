@@ -48,10 +48,7 @@ public class Assets {
 			18, 13, 9, 2);
 	public static final BufferedImage[] megaLaserL=splitSpriteSheet(loadImage("res/textures/bullets/mega laser l.png"), 
 			18, 13, 9, 2);
-	
-	
-	public static final BufferedImage[] towerMenu=splitSpriteSheet(loadImage("res/textures/towers/tower menu.png"),
-			50, 50, 2, 3);
+
 	public static final BufferedImage[] healthIcon=Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/textures/heart icon.png"), 13, 13, 3, 3),0,8);
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/textures/coin.png"), 11, 11, 2, 2);
@@ -70,6 +67,7 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
 	//loading towers
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 10,1);
 	
 	public static final BufferedImage[] wizardTowerLvl1 =  Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 3, 3),0,8);
@@ -101,6 +99,10 @@ public class Assets {
 	public static  final BufferedImage[] bigLaserTowerR=splitSpriteSheet(loadImage("res/textures/towers/big laser tower R.png"),37,21,2,4);	
 	public static  final BufferedImage[] bigLaserTowerD=splitSpriteSheet(loadImage("res/textures/towers/big laser tower D.png"),19,30,4,2);	
 	public static  final BufferedImage[] bigLaserTowerL=splitSpriteSheet(loadImage("res/textures/towers/big laser tower L.png"),37,21,2,4);	
+	
+	public static  final BufferedImage[] plantLvl1=splitSpriteSheet(loadImage("res/textures/towers/plant lv.1.png"),9,9,10,1);
+	public static  final BufferedImage[] plantLvl2=splitSpriteSheet(loadImage("res/textures/towers/plant lv.2.png"),10,13,10,1);
+
 	
 	//player animations
 	public static  final BufferedImage[] playerIdleD=Arrays.copyOfRange(playeridle, 0, 6);

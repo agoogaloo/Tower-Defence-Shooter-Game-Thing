@@ -1,10 +1,13 @@
 package entity.mobs.player.UI;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entity.Entity;
 import entity.statics.towers.Tower;
+import entity.statics.towers.Plant.Plantlvl1;
 import entity.statics.towers.laser.LaserTowerlvl1;
 import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Assets;
@@ -17,29 +20,32 @@ import states.State;
 public class TowerPlacer {
 	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing
 	private enum Mode{PLACING,UPGRADING,WAITING}
+	private Tower[] towers = {new WizardTowerlvl1(0, 0),new LaserTowerlvl1(0,0,'r'),new Plantlvl1(0, 0),null};
 	private Tower selectedTower;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
-	private PicElement topPic=new PicElement(100, 0, Assets.blank),bottomPic=new PicElement(100, 0, Assets.blank);
+	private PicElement wheelMenu=new PicElement(100, 0, Assets.blank);
+	private BufferedImage menuPic;
+	private Graphics2D menuGraphics;
 	private TextElement infoText=new TextElement(100, 0,7,"");
 	private PicElement background=new PicElement(100, 0, Assets.blank);//created 1st so it will be at the back
-	private int startX,startY, moneySpent;
+	private int x, y, moneySpent;
 	private Mode mode=Mode.WAITING;
 	
 	private void updateMouseAngle() {
-		if(State.getInputs().getMouseY()-startY>7) {
+		if(State.getInputs().getMouseY()-y>7) {
 			//this means the mouse is in the bottom half
 			mouseUpDown='d';
-		}else if(State.getInputs().getMouseY()-startY<-7) {
+		}else if(State.getInputs().getMouseY()-y<-7) {
 			//this means it is on the top of the circle
 			mouseUpDown='u';
 		}else{
 			//otherwise it is in the middle
 			mouseUpDown='n';
 		}
-		if(State.getInputs().getMouseX()-startX>7) {
+		if(State.getInputs().getMouseX()-x>7) {
 			//this means it is to the right
 			mouseLeftRight='r';
-		}else if(State.getInputs().getMouseX()-startX<-7) {
+		}else if(State.getInputs().getMouseX()-x<-7) {
 			//this means it is to the left
 			mouseLeftRight='l';
 		}else {
@@ -47,28 +53,52 @@ public class TowerPlacer {
 		}	
 	}
 	private Tower place(int money,Camera camera, char direction) {
-		if(mouseUpDown=='d') {
+		Tower hoveredTower=null;
+		if(mouseUpDown=='u') {
+			if(mouseLeftRight=='l') {
+				hoveredTower=towers[0];
+			}else if(mouseLeftRight=='r') {
+				hoveredTower=towers[1];
+			}
+		}else if(mouseUpDown=='d') {
+			if(mouseLeftRight=='l') {
+				hoveredTower=towers[2];
+			}else if(mouseLeftRight=='r') {
+				hoveredTower=towers[3];
+			}
+		}
+		
+		if(hoveredTower==null) {return null;}
+		
+		infoText.update(hoveredTower.getInfoText());
+		if(!State.getInputs().isPlace()&&money>=hoveredTower.getPrice()) {
+			moneySpent=hoveredTower.getPrice();
+			return hoveredTower.createNew(x+camera.getxOffset(), y+camera.getyOffset());
+		}
+			
+		
+		/**if(mouseUpDown=='d') {
 			infoText.update(new LaserTowerlvl1(0,0,'r').getInfoText());
 			//returns a laser tower if it is selected
 			if(money>=5&&!State.getInputs().isPlace()) {
 				moneySpent+=5;
-				return new LaserTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset(), direction); 
+				return new LaserTowerlvl1(x+camera.getxOffset(),y+camera.getyOffset(), direction); 
 			}
 		}else if(mouseUpDown=='u') {
-			infoText.update(new WizardTowerlvl1(0,0).getInfoText());
+			infoText.update(new Plantlvl1(0,0).getInfoText());
 			//returns a wizard tower if it is selected
 			if(money>=2&&!State.getInputs().isPlace()) {
 				moneySpent+=2;
-				return new WizardTowerlvl1(startX+camera.getxOffset(),startY+camera.getyOffset());
+				return new Plantlvl1(x+camera.getxOffset(),y+camera.getyOffset());
 			}
 		}else {
 			infoText.update("");
 		}
-		
+		**/
 		return null;
 	}
 	private Tower upgrade(int money,Camera camera) {
-		topPic.update(selectedTower.getUpgradeIcon());
+		//topPic.update(selectedTower.getUpgradeIcon());
 		
 		if(mouseUpDown=='u') {
 			infoText.update(selectedTower.hover(mouseLeftRight));
@@ -91,18 +121,19 @@ public class TowerPlacer {
 		//determining if the player is waiting, placing, or upgrading a tower
 		if(State.getInputs().isPlace()) {//checking if the right click is pressed
 			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
-				startX=State.getInputs().getMouseX();//setting the location of the menu 
-				startY=State.getInputs().getMouseY();//and where the tower will be placed
-				infoText.move(startX-55, startY+29);
+				x=State.getInputs().getMouseX();//setting the location of the menu 
+				y=State.getInputs().getMouseY();//and where the tower will be placed
+				infoText.move(x-55, y+29);
 				mode=Mode.PLACING;
 				for(Entity e:entities) {
-					if(e instanceof Tower&&e.getBounds().contains(startX+camera.getxOffset(), startY+camera.getyOffset())){
+					if(e instanceof Tower&&e.getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
 						mode=Mode.UPGRADING;
 						selectedTower=(Tower)(e);//making the entity a tower so it can it can be set as the selected tower
 					}
 				}
 			}
 		}
+		
 		updateMouseAngle();
 		if(mode==Mode.PLACING) {
 			tower = place(money,camera, direction);
@@ -127,25 +158,36 @@ public class TowerPlacer {
 		if(infoText.getText()!="") {
 			//making the image the right size
 			background.update(Assets.infobackground.getSubimage(0, 0,120, infoText.getHeight()+6));
-			background.move(startX-60, startY+27);//putting it into the right place
+			background.move(x-60, y+27);//putting it into the right place
 		}else {
 			background.update(Assets.blank);//making the background disappear if there is no text
 		}
-		
+		menuPic= new BufferedImage(50,50,BufferedImage.TYPE_4BYTE_ABGR);
+		menuGraphics= menuPic.createGraphics();
+		//menuGraphics.clearRect(0, 0, 50, 50);
 		if(mode==Mode.PLACING) {
-			topPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);
-			topPic.update(Assets.towerMenu[0]);			
+			
+			if(towers[0]!=null) 
+			menuGraphics.drawImage(towers[0].getBuyIcon().getSubimage(0, 0, 25, 25), 0,0, null);
+			if(towers[1]!=null) 
+			menuGraphics.drawImage(towers[1].getBuyIcon().getSubimage(25, 0, 25, 25), 25,0, null);
+			if(towers[2]!=null) 
+			menuGraphics.drawImage(towers[2].getBuyIcon().getSubimage(0, 25, 25, 25), 0,25, null);
+			if(towers[3]!=null) 
+			menuGraphics.drawImage(towers[3].getBuyIcon().getSubimage(25, 5, 25, 25), 25,25, null);
 		}else if(mode==Mode.UPGRADING) {
-			bottomPic.update(Assets.towerMenu[1]);
-			bottomPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);	
-			topPic.move(startX-Assets.towerMenu[0].getWidth()/2, startY-Assets.towerMenu[0].getHeight()/2);
+			//bottomPic.update(Assets.towerMenu[1]);
+			//bottomPic.move(x-Assets.towerMenu[0].getWidth()/2, y-Assets.towerMenu[0].getHeight()/2);	
+			//topPic.move(x-Assets.towerMenu[0].getWidth()/2, y-Assets.towerMenu[0].getHeight()/2);
 			selectedTower.showRange(g, camera);
 			
 		}else {
 			infoText.update("");
-			topPic.update(Assets.blank);
-			bottomPic.update(Assets.blank);
+			//topPic.update(Assets.blank);
+			//bottomPic.update(Assets.blank);
 		}
+		wheelMenu.update(menuPic);
+		wheelMenu.move(x-25, y-25);
 	}
 	
 	public int getSpentMoney() {

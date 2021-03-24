@@ -16,6 +16,10 @@ public class ElectroWizardTower extends Tower{
 		infoText="upgrade cost $"+price+"\n\ngives the wizard the power \nof electricity "
 				+ "letting it \nshoot faster and stun \nenemies to slow them down";
 	}
+	@Override
+	public Tower createNew(int x, int y) {
+		return new ElectroWizardTower(x+width/2, y+height*2);
+	}
 
 	@Override
 	public int upgrade(char leftRight, int money) {
