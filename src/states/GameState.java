@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
+import entity.statics.Chest;
 import floors.Floor;
 import floors.Tutorialator;
 import graphics.Assets;
@@ -171,6 +172,9 @@ public class GameState extends State{
 			}
 		}
 		Entity.getEntityManager().getPlayer().reset(playerLoc.x*16,playerLoc.y*16);
+		Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16-32,playerLoc.y*16-64));
+		Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16,playerLoc.y*16-64));
+		Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+32,playerLoc.y*16-64));
 		if(coreLoc!=null) {
 			Entity.getEntityManager().getPlayer().createCore(coreLoc.x*16+8,coreLoc.y*16+8);
 		}else {

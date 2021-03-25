@@ -4,8 +4,8 @@ import graphics.Animation;
 import graphics.Assets;
 
 public class EmptyTowerSlot extends Tower{
-	public EmptyTowerSlot(int x, int y) {
-		super(x, y, 0, 0, new Animation(Assets.wizardTowerLvl1,6), 99999);
+	public EmptyTowerSlot() {
+		super(0,0, 0, 0, new Animation(Assets.wizardTowerLvl1,6), 99999);
 		price=0;
 		damage=0;
 		sellValue=0;
@@ -27,6 +27,6 @@ public class EmptyTowerSlot extends Tower{
 
 	@Override
 	public Tower createNew(int x, int y) {
-		return new EmptyTowerSlot(x, y);
+		return new EmptyTowerSlot();
 	}
 }

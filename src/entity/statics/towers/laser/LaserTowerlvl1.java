@@ -10,7 +10,7 @@ import graphics.Assets;
 public class LaserTowerlvl1 extends Tower{
 	char direction;
 	public LaserTowerlvl1(int x,int y) {
-		this.direction='l';
+		this.direction=entityManager.getPlayer().getDirection();
 		price=5;
 		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in one "
 				+ "\ndirection. It will will be \nfacing the same direction \nyou are when you place it";

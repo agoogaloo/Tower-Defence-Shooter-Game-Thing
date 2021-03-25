@@ -6,11 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entity.Entity;
-import entity.statics.towers.EmptyTowerSlot;
 import entity.statics.towers.Tower;
-import entity.statics.towers.Plant.Plantlvl1;
-import entity.statics.towers.laser.LaserTowerlvl1;
-import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.PicElement;
@@ -21,8 +17,7 @@ import states.State;
 public class TowerPlacer {
 	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing
 	private enum Mode{PLACING,UPGRADING,WAITING}
-	private Tower[] towers = {new WizardTowerlvl1(0, 0),new LaserTowerlvl1(0,0),
-			new Plantlvl1(0, 0),new EmptyTowerSlot(0, 0)};
+	private Tower[] towers;
 	private Tower selectedTower;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
 	private PicElement wheelMenu=new PicElement(100, 0, Assets.blank);
@@ -80,26 +75,6 @@ public class TowerPlacer {
 			moneySpent=hoveredTower.getPrice();
 			return hoveredTower.createNew(x+camera.getxOffset(), y+camera.getyOffset());
 		}
-			
-		
-		/**if(mouseUpDown=='d') {
-			infoText.update(new LaserTowerlvl1(0,0,'r').getInfoText());
-			//returns a laser tower if it is selected
-			if(money>=5&&!State.getInputs().isPlace()) {
-				moneySpent+=5;
-				return new LaserTowerlvl1(x+camera.getxOffset(),y+camera.getyOffset(), direction); 
-			}
-		}else if(mouseUpDown=='u') {
-			infoText.update(new Plantlvl1(0,0).getInfoText());
-			//returns a wizard tower if it is selected
-			if(money>=2&&!State.getInputs().isPlace()) {
-				moneySpent+=2;
-				return new Plantlvl1(x+camera.getxOffset(),y+camera.getyOffset());
-			}
-		}else {
-			infoText.update("");
-		}
-		**/
 		return null;
 	}
 	private Tower upgrade(int money,Camera camera) {		
@@ -119,8 +94,9 @@ public class TowerPlacer {
 		}
 		return null;
 	}
-	public Tower update(int money,Camera camera, ArrayList<Entity> entities, char direction) {
+	public Tower update(int money,Tower[] towers,Camera camera, ArrayList<Entity> entities, char direction) {
 		Tower tower=null;//the tower that will be returned at the end of the method
+		this.towers=towers;
 		//determining if the player is waiting, placing, or upgrading a tower
 		if(State.getInputs().isPlace()) {//checking if the right click is pressed
 			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame

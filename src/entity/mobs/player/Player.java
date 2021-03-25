@@ -11,15 +11,18 @@ import entity.mobs.player.UI.MiniMap;
 import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
 import entity.statics.Core;
+import entity.statics.towers.EmptyTowerSlot;
+import entity.statics.towers.TestTower2;
 import entity.statics.towers.Tower;
+import entity.statics.towers.Plant.Plantlvl1;
+import entity.statics.towers.laser.LaserTowerlvl1;
+import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
-import graphics.particles.movers.spawnPattern.RectangleSpawner;
 import graphics.particles.shapes.OvalParticle;
-import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
 import states.State;
@@ -32,6 +35,8 @@ public class Player extends Mobs {
 	private int reloadTime = 15 , shotDelay = 0, shotDamage=5;
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
+	private Tower[] towers = {new WizardTowerlvl1(0, 0),new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
+	
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
 	
@@ -42,7 +47,6 @@ public class Player extends Mobs {
 	
 	
 	private BufferedImage currentPic;//the current image of the player
-	private PlayerAnimations currentAnim=PlayerAnimations.IDLEDOWN;
 	
 	private char direction='d'; //Sets player's direction to down by default at the start
 	
@@ -155,7 +159,7 @@ public class Player extends Mobs {
 	}
 	
 	private void tower() { //Tower method to create a tower
-		Tower tower=towerPlacer.update(money,camera, entityManager.getEntities(), direction);
+		Tower tower=towerPlacer.update(money,towers,camera, entityManager.getEntities(), direction);
 		int moneySpent=towerPlacer.getSpentMoney();
 		entityManager.addEntity(tower);
 		money-=moneySpent;
@@ -210,7 +214,13 @@ public class Player extends Mobs {
 		//lets other things heal the player
 		health+=amount;
 	}
+	public void swapTower(Tower newTower, int location) {
+		towers[location]=newTower;
+	}
 	public int getMoney() {
 		return money;
+	}
+	public char getDirection() {
+		return direction;
 	}
 }
