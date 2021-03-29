@@ -79,7 +79,7 @@ public class PauseState extends State{
 		//drawing the rombus for the menu in the middle
 		g.drawImage(Assets.MenuPic,Window.getDisplay().getWidth()/(Settings.getScale()*2)-100,
 				Window.getDisplay().getHeight()/(Settings.getScale()*2)-80,null);
-		menu.renderObject(g);
+		menu.render(g);
 		
 	}
 

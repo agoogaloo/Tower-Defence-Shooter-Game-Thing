@@ -101,6 +101,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	public BufferedImage getUpgradeIcon() {
 		return upgradeIcon;
 	}
+	public Animation getAnimation() {
+		return animation;
+	}
 	public BufferedImage getBuyIcon() {
 		return buyIcon;
 	}

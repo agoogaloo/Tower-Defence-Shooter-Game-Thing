@@ -14,8 +14,8 @@ public class Plantlvl1 extends Tower{
 		statusLength=15;
 		sellValue=1;
 		infoText="buying cost $"+price+"\n\na tiny bud that's trying to \ngrow up";
-		buyIcon=Assets.towerIcons[8];
-		upgradeIcon=Assets.towerIcons[9];
+		buyIcon=Assets.towerIcons[9];
+		upgradeIcon=Assets.towerIcons[10];
 	}
 	@Override
 	public Tower createNew(int x, int y) {

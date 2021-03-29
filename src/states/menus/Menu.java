@@ -79,7 +79,7 @@ public class Menu extends MenuSelection{
 	}
 		
 	@Override
-	public void renderObject(Graphics g) {
+	protected void renderObject(Graphics g) {
 		if(inSubMenu) {
 			menuObjects[selection].render(g);
 			return;

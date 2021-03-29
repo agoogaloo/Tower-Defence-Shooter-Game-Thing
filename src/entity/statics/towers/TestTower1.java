@@ -10,7 +10,7 @@ public class TestTower1 extends Tower{
 		damage=5;
 		sellValue=1;
 		infoText="buying cost $"+price+"\n\na the first test tower wow";
-		buyIcon=Assets.towerIcons[2];
+		buyIcon=Assets.towerIcons[3];
 		upgradeIcon=Assets.towerIcons[3];
 	}
 	

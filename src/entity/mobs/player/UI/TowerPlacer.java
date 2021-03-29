@@ -145,14 +145,9 @@ public class TowerPlacer {
 		menuGraphics= menuPic.createGraphics();
 		//menuGraphics.clearRect(0, 0, 50, 50);
 		if(mode==Mode.PLACING) {
-			
-			if(towers[0]!=null) 
 			menuGraphics.drawImage(towers[0].getBuyIcon().getSubimage(0, 0, 25, 25), 0,0, null);
-			if(towers[1]!=null) 
 			menuGraphics.drawImage(towers[1].getBuyIcon().getSubimage(25, 0, 25, 25), 25,0, null);
-			if(towers[2]!=null) 
 			menuGraphics.drawImage(towers[2].getBuyIcon().getSubimage(0, 25, 25, 25), 0,25, null);
-			if(towers[3]!=null) 
 			menuGraphics.drawImage(towers[3].getBuyIcon().getSubimage(25, 25, 25, 25), 25,25, null);
 		}else if(mode==Mode.UPGRADING) {
 			menuGraphics.drawImage(Assets.towerIcons[1],0,0, null);

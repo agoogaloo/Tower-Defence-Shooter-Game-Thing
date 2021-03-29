@@ -10,7 +10,7 @@ public class TestTower2 extends Tower{
 		damage=1;
 		sellValue=1;
 		infoText="buying cost $"+price+"\n\nthe second tower for testing";
-		buyIcon=Assets.towerIcons[2];
+		buyIcon=Assets.towerIcons[3];
 		upgradeIcon=Assets.towerIcons[3];
 	}
 	

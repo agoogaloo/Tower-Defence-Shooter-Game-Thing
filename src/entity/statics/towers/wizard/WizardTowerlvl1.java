@@ -11,8 +11,8 @@ public class WizardTowerlvl1 extends Tower{
 		damage=5;
 		sellValue=1;
 		infoText="buying cost $"+price+"\n\na basic tower that shoots in\na small circle around itself \nat a slowish rate";
-		buyIcon=Assets.towerIcons[2];
-		upgradeIcon=Assets.towerIcons[3];
+		buyIcon=Assets.towerIcons[3];
+		upgradeIcon=Assets.towerIcons[4];
 	}
 	
 	@Override

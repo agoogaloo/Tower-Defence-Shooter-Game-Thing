@@ -175,10 +175,17 @@ public abstract class Enemy extends Mobs {
 			}
 		}if (statusEffect==StatusEffect.BURN){
 			health-=statusLevel;
-			new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.25),
+			new ParticleEffect(statusLevel, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.25),
 					new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(225, 255),
 							ThreadLocalRandom.current().nextInt(120, 140),0), 120,30), 4,5,0.2,0.3), true);
-			
+		}else if (statusEffect==StatusEffect.POISON){
+			if(statusLength%statusLevel==0) {
+				health-=1;
+				new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.1),
+						new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(0, 20),
+								ThreadLocalRandom.current().nextInt(100, 170),ThreadLocalRandom.current().nextInt(0, 20))
+								, 120,30), 6,0.1), true);
+			}
 		}
 		
 		//setting the current picture to the right animation depending on its direction

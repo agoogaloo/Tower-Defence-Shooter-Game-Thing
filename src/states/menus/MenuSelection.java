@@ -23,7 +23,7 @@ public class MenuSelection extends MenuObject{
 	}
 
 	@Override
-	public void renderObject(Graphics g) {
+	protected void renderObject(Graphics g) {
 		g.setFont(Assets.bigpixelfont);//setting the font
 		if(selected||isHovered) {
 			g.setColor(hoverColour);//setting the colour for the menu text

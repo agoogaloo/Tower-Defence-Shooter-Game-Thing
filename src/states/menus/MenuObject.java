@@ -25,7 +25,7 @@ public abstract class MenuObject {
 		}
 		renderObject(g);
 	}
-	public abstract void renderObject(Graphics g);
+	protected abstract void renderObject(Graphics g);
 	
 	
 	public void hover() {}

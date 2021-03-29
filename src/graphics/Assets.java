@@ -73,7 +73,7 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
 	//loading towers
-	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 10,1);
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 11,1);
 	
 	public static final BufferedImage[] wizardTowerLvl1 =  Arrays.copyOfRange(
 			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 3, 3),0,8);
@@ -109,6 +109,8 @@ public class Assets {
 	public static  final BufferedImage[] plantLvl1=splitSpriteSheet(loadImage("res/textures/towers/plant lv.1.png"),9,8,10,1);
 	public static  final BufferedImage[] plantLvl2=splitSpriteSheet(loadImage("res/textures/towers/plant lv.2.png"),10,12
 			,10,1);
+	
+	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 
 	
 	//player animations

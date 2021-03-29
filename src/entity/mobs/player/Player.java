@@ -14,6 +14,7 @@ import entity.statics.Core;
 import entity.statics.towers.EmptyTowerSlot;
 import entity.statics.towers.TestTower2;
 import entity.statics.towers.Tower;
+import entity.statics.towers.Mushroom.Mushroomlvl1;
 import entity.statics.towers.Plant.Plantlvl1;
 import entity.statics.towers.laser.LaserTowerlvl1;
 import entity.statics.towers.wizard.WizardTowerlvl1;
@@ -56,8 +57,6 @@ public class Player extends Mobs {
 	 * @param y - y location in pixels
 	 */
 	public Player(int x, int y) {
-		
-		
 		width = 8; //The specific width of the player
 		height = 15; //The specific height of the player
 		speed = 3.4; //The speed which the player moves at, higher the value the faster the speed
@@ -66,7 +65,6 @@ public class Player extends Mobs {
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
 		camera=GameState.getCamera(); //The camera will follow the player
 		setLocation(x-width/2, y-height/2);
-
 		
 	}
 
@@ -216,6 +214,9 @@ public class Player extends Mobs {
 	}
 	public void swapTower(Tower newTower, int location) {
 		towers[location]=newTower;
+	}
+	public Tower[] getTowers() {
+		return towers;
 	}
 	public int getMoney() {
 		return money;

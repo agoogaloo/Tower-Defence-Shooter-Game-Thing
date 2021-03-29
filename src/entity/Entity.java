@@ -96,6 +96,11 @@ public abstract class Entity {
 	public abstract void move();//move and check for walls
 
 	// getters/setters
+	public void giveStatusEffect(StatusEffect statusEffect, int statusLevel, int statusLength) {
+		this.statusEffect = statusEffect;
+		this.statusLevel=statusLevel;
+		this.statusLength=statusLength;
+	}
 	public int getX() {
 		return this.x;
 	}

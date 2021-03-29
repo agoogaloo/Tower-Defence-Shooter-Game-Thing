@@ -9,9 +9,9 @@ public class CommandSelector {
 	
 	//Parallel arrays to tell which commands match up with which classes
 	private final String[] commandStrings = new String[] {"Help","EntityCount","ShowHitBox", "ShowFPS",
-			"Freeze", "Fs", "EnemyWave","InstaKillEnemy", "unlock"};
+			"Freeze", "Fs", "EnemyWave","InstaKillEnemy", "Unlock","Money"};
 	private final Command[] commands = new Command[] {new Help(),new EntityCount(), new ShowHitBox(), 
-			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies(), new Unlock()};
+			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies(), new Unlock(),new Money()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
@@ -198,5 +198,24 @@ public class CommandSelector {
 			}
 			return "rooms unlocked";
 		}
+	}
+	private class Money extends Command{
+		private Money() {
+			helpText="params: (int amount)      gives you money";
+		}
+		@Override
+		public String execute(String params) {
+			
+			try {
+				int amount = Integer.parseInt(params);
+				Entity.getEntityManager().getPlayer().giveMoney(amount);
+				
+			}catch(NumberFormatException e) {
+				return"paramiter given is not an int";
+			}
+			
+			return "gave "+params+" money to the player";
+		}
+		
 	}
 }
