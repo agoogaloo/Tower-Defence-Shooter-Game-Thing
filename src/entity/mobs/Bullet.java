@@ -4,7 +4,6 @@ package entity.mobs;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import entity.Entity;
 import entity.mobs.enemy.StatusEffect;
@@ -25,6 +24,7 @@ public class Bullet extends Mobs{
 	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, int damage, boolean friendly){
 		this(startX, startY, targetX, targetY, pic, speed, damage, StatusEffect.NONE, 0, 0, friendly);
 	}
+	
 	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed,
 			int damage,StatusEffect effect,int effectLength,int effectPower, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
 		this.damage=damage;
@@ -56,6 +56,7 @@ public class Bullet extends Mobs{
 	}
 	
 
+	
 	@Override
 	public void update(){		
 		trueX+=velocityX; //Applies the velocity the the true variable, allowing the bullet to move in a specific direction and speed depending on the value of velocity

@@ -105,22 +105,21 @@ public abstract class Enemy extends Mobs {
 			}
 		}
 		
-		if(statusEffect!=StatusEffect.STUN) {
-			switch(direction) {//moving a different direction depending on which way it is facing
-			case UP://if it is facing up 
-				trueY-=speed;//it should move up
-				break;
-			case DOWN://move cases for the other directions
-				trueY+=speed;
-				break;
-			case LEFT:
-				trueX-=speed;
-				break;
-			case RIGHT:
-				trueX+=speed;
-				break;
-			}
+		switch(direction) {//moving a different direction depending on which way it is facing
+		case UP://if it is facing up 
+			trueY-=speed;//it should move up
+			break;
+		case DOWN://move cases for the other directions
+			trueY+=speed;
+			break;
+		case LEFT:
+			trueX-=speed;
+			break;
+		case RIGHT:
+			trueX+=speed;
+			break;
 		}
+		
 		
 		x=(int)(trueX);
 		y=(int)(trueY);
@@ -166,7 +165,9 @@ public abstract class Enemy extends Mobs {
 			shoot();
 			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
-		updateDirection();//setting its direction and moving based on it
+		if(statusEffect!=StatusEffect.STUN) {
+			updateDirection();//setting its direction and moving based on it
+		}
 		updateBounds(); 
 		
 		if(statusEffect!=StatusEffect.STUN) {

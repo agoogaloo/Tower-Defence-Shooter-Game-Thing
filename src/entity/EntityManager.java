@@ -9,7 +9,6 @@ import entity.mobs.player.Player;
 import entity.statics.Factory;
 import graphics.Camera;
 import states.GameState;
-import states.State;
 import states.console.ConsoleState;
 
 //@author Matthew (Did most of the logic and everything in this class)
@@ -39,6 +38,7 @@ public class EntityManager {
 		if(player==null) {
 			//if the player doesnt exist yet then it will make a new player
 			player=new Player(0,0);
+			kills=0;
 		}
 		//moving the player to the right place and letting it reset stuff
 		//player.reset(GameState.getFloor().getRoomSize()*GameState.getFloor().TILESIZE*GameState.getFloor().getSize()

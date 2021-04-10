@@ -12,12 +12,8 @@ import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
 import entity.statics.Core;
 import entity.statics.towers.EmptyTowerSlot;
-import entity.statics.towers.TestTower2;
 import entity.statics.towers.Tower;
-import entity.statics.towers.Mushroom.Mushroomlvl1;
 import entity.statics.towers.Plant.Plantlvl1;
-import entity.statics.towers.laser.LaserTowerlvl1;
-import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.particles.ParticleEffect;
@@ -36,7 +32,7 @@ public class Player extends Mobs {
 	private int reloadTime = 15 , shotDelay = 0, shotDamage=5;
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private Tower[] towers = {new WizardTowerlvl1(0, 0),new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
+	private Tower[] towers = {new Plantlvl1(0, 0),new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
 	
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health

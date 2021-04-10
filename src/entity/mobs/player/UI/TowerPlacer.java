@@ -150,7 +150,7 @@ public class TowerPlacer {
 			menuGraphics.drawImage(towers[2].getBuyIcon().getSubimage(0, 25, 25, 25), 0,25, null);
 			menuGraphics.drawImage(towers[3].getBuyIcon().getSubimage(25, 25, 25, 25), 25,25, null);
 		}else if(mode==Mode.UPGRADING) {
-			menuGraphics.drawImage(Assets.towerIcons[1],0,0, null);
+			menuGraphics.drawImage(Assets.towerIcons[2],0,0, null);
 			menuGraphics.drawImage(selectedTower.getUpgradeIcon(),0,0, null);
 			selectedTower.showRange(g, camera);
 			

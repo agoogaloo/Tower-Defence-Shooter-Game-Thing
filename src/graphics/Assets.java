@@ -56,7 +56,7 @@ public class Assets {
 			18, 13, 9, 2);
 	public static final BufferedImage[] megaLaserL=splitSpriteSheet(loadImage("res/textures/bullets/mega laser l.png"), 
 			18, 13, 9, 2);
-
+	public static final BufferedImage[] acorn=splitSpriteSheet(loadImage("res/textures/bullets/acorn.png"), 10, 10, 8, 1);
 	
 	public static final BufferedImage[] hubtiles=splitSpriteSheet(loadImage("res/textures/hub tiles.png"), 16, 16, 7, 12);
 	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/level 1 tiles.png"), 16, 16, 7, 12);
@@ -73,15 +73,13 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
 	//loading towers
-	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 11,1);
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 12,1);
 	
-	public static final BufferedImage[] wizardTowerLvl1 =  Arrays.copyOfRange(
-			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 3, 3),0,8);
+	public static final BufferedImage[] wizardTowerLvl1 =
+			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 8, 1);
 	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/textures/towers/fire wizard.png"), 18, 37, 8, 1);
-	public static final BufferedImage[] elecricWizardTower =  Arrays.copyOfRange(
-			splitSpriteSheet(loadImage("res/textures/towers/electric wizard.png"),35, 29, 3, 3),0,8);
-	public static final BufferedImage[] wizardTowerLvl2 =  Arrays.copyOfRange(
-			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.2.png"), 26, 33, 3, 3),0,8);
+	public static final BufferedImage[] elecricWizardTower =splitSpriteSheet(loadImage("res/textures/towers/electric wizard.png"),35, 29,8,1);
+	public static final BufferedImage[] wizardTowerLvl2 =splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.2.png"), 26, 33, 8, 1);
 		
 	
 	//the laser tower has alot becasue t has different up down left and right animations
@@ -107,8 +105,8 @@ public class Assets {
 	public static  final BufferedImage[] bigLaserTowerL=splitSpriteSheet(loadImage("res/textures/towers/big laser tower L.png"),37,21,2,4);	
 	
 	public static  final BufferedImage[] plantLvl1=splitSpriteSheet(loadImage("res/textures/towers/plant lv.1.png"),9,8,10,1);
-	public static  final BufferedImage[] plantLvl2=splitSpriteSheet(loadImage("res/textures/towers/plant lv.2.png"),10,12
-			,10,1);
+	public static  final BufferedImage[] plantLvl2=splitSpriteSheet(loadImage("res/textures/towers/plant lv.2.png"),10,12,10,1);
+	public static  final BufferedImage[] tree= splitSpriteSheet(loadImage("res/textures/towers/tree.png"),37,32,8,1);
 	
 	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 
