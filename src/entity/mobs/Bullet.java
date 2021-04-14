@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.mobs.enemy.StatusEffect;
 import entity.statics.Pickup;
+import entity.statics.towers.Tower;
 import graphics.Camera;
 import states.GameState;
 
@@ -78,7 +79,7 @@ public class Bullet extends Mobs{
 		for (Entity e : entityCollide()) {//checking what is colliding with itself
 			//checking which side the thing that touched it is on 
 			//(making sure enemies only attack the player, player can't attack the core, etc.)
-			if (e.isFriendly() != friendly&&!(e instanceof Pickup)) {
+			if (e.isFriendly() != friendly&&!(e instanceof Pickup)&&!(e instanceof Tower)) {
 				killed=true;
 			}
 		}

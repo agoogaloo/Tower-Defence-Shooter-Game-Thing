@@ -46,6 +46,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		towerRange=new Ellipse2D.Float(x-rangeWidth/2,y-rangeHeight/2, rangeWidth, rangeHeight);
 		updateBounds();
 	}
+	public void init() {
+		
+	}
 	
 	public abstract int upgrade(char leftRight, int money);
 	public abstract String hover(char leftRight);//this if used when the tower is hovered over but not actually bought yet

@@ -1,7 +1,11 @@
 package entity.statics.towers.Plant;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import entity.mobs.enemy.StatusEffect;
 import entity.statics.towers.Tower;
+import entity.statics.towers.wizard.ElectroWizardTower;
+import entity.statics.towers.wizard.FireWizardTower;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -17,6 +21,7 @@ public class Plantlvl2 extends Tower{
 		statusLength=20;
 		upgradeIcon=Assets.towerIcons[11];
 		infoText="water cost $"+price+"\n\nwater the plant to help it \ngrow faster";
+		waveCounted=!entityManager.getSpawner().waveComplete();
 		
 	}
 	@Override
@@ -33,7 +38,12 @@ public class Plantlvl2 extends Tower{
 				wavesToGrow--;
 			}
 			if(wavesToGrow==0&&minTime<=0) {
-				upgrade('l',99);
+				if(ThreadLocalRandom.current().nextBoolean()) {
+					upgrade('r',99);
+				}else {
+					upgrade('l',99);
+				}
+				
 			}
 		}else {
 			waveCounted=false;
@@ -42,8 +52,15 @@ public class Plantlvl2 extends Tower{
 
 	@Override
 	public int upgrade(char leftRight, int money) {
-		Tower newTower=new Tree(x+width/2, y+height/2);
-		if(money>=newTower.getPrice()) {
+		Tower newTower=null;
+		if(leftRight=='l') {
+			newTower=new Tree(x+width/2, y+height/2);	
+		}else if(leftRight=='r') {
+			newTower=new VinePlant(x+width/2, y+height/2);
+		}
+	
+		if(newTower!=null&&money>=newTower.getPrice()) {
+			newTower.init();
 			entityManager.addEntity(newTower);
 			destroy();
 			return newTower.getPrice();
@@ -56,7 +73,7 @@ public class Plantlvl2 extends Tower{
 		if(leftRight=='l') {
 			return new Tree(0,0).getInfoText();
 		}else if(leftRight=='r') {
-			return "not implemented yet";
+			return new VinePlant(0,0).getInfoText();
 		}else {
 			return "";
 		}

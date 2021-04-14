@@ -107,6 +107,8 @@ public class Assets {
 	public static  final BufferedImage[] plantLvl1=splitSpriteSheet(loadImage("res/textures/towers/plant lv.1.png"),9,8,10,1);
 	public static  final BufferedImage[] plantLvl2=splitSpriteSheet(loadImage("res/textures/towers/plant lv.2.png"),10,12,10,1);
 	public static  final BufferedImage[] tree= splitSpriteSheet(loadImage("res/textures/towers/tree.png"),37,32,8,1);
+	public static  final BufferedImage[] vinePlant= new BufferedImage[] { loadImage("res/textures/towers/plant.png")};
+	public static  final BufferedImage[] vines= splitSpriteSheet(loadImage("res/textures/towers/vines.png"),10,10,2,1);
 	
 	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 
