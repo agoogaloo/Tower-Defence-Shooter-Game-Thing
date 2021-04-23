@@ -8,6 +8,7 @@ import graphics.Assets;
 public class ElectroWizardTower extends Tower{
 	public ElectroWizardTower(int x, int y) {
 		super(x, y, 150, 150, new Animation(Assets.elecricWizardTower,6), 20);
+		height=15;
 		sellValue=7;
 		price=10;
 		damage=5;

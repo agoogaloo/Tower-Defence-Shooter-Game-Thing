@@ -21,10 +21,10 @@ public class Chest extends Statics{
 	public Chest(int x,int y) {
 		this.x=x-12;
 		this.y=y-10;
-		this.bounds.x=this.x;//setting the bounds to be the right size/location
-		this.bounds.y=this.y;
-		bounds.width=24;
-		bounds.height=21;
+		width=24;
+		height=21;
+		updateBounds();
+		
 		health=1;
 		damage=0;
 		friendly=false;

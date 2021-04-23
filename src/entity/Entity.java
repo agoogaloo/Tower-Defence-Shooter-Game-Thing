@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
+import entity.statics.towers.Plant.Vine;
 import graphics.Camera;
 
 //@author Matthew (basically did all the logic and everything in this class)
@@ -30,6 +31,7 @@ public abstract class Entity {
     protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
     protected int statusLength=0, statusLevel=0;
 	protected StatusEffect statusEffect=StatusEffect.NONE;
+	protected RenderLayer layer = RenderLayer.MID;
 	
 	public static void init(boolean deletePlayer){
 		entityManager.reset(deletePlayer);
@@ -135,5 +137,22 @@ public abstract class Entity {
 
 	public static EntityManager getEntityManager() {
 		return entityManager;
+	}
+	public static char getOppositeDir(char dir) {
+		switch (dir) {
+		case 'u':
+			return 'd';
+		case 'r':
+			return 'l';
+		case 'd':
+			return 'u';
+		case 'l':
+			return 'r';
+		}
+		System.out.println("couldnt find the opposite direction for'"+dir+"'.");
+		return ' ';
+	}
+	public RenderLayer getLayer() {
+		return layer;
 	}
 }

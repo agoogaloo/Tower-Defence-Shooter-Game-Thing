@@ -238,6 +238,11 @@ public class Floor {
 		return result;// Returning the tile
 	}
 
+	/**
+	 * @param x - x coordinate in tiles
+	 * @param y - y coordinate in tiles
+	 * @return - true if the tile at x,y is a wall and false if it is not
+	 */
 	public boolean checkwall(int x, int y) {
 
 		int tile = getTile(x, y);

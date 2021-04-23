@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import entity.Entity;
+import entity.RenderLayer;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.mobs.player.UI.MiniMap;
@@ -14,6 +15,7 @@ import entity.statics.Core;
 import entity.statics.towers.EmptyTowerSlot;
 import entity.statics.towers.Tower;
 import entity.statics.towers.Plant.Plantlvl1;
+import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.particles.ParticleEffect;
@@ -32,7 +34,7 @@ public class Player extends Mobs {
 	private int reloadTime = 15 , shotDelay = 0, shotDamage=5;
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private Tower[] towers = {new Plantlvl1(0, 0),new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
+	private Tower[] towers = {new Plantlvl1(0, 0),new WizardTowerlvl1(0, 0),new EmptyTowerSlot(),new EmptyTowerSlot()};
 	
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
@@ -183,6 +185,7 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
+		
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
 		//drawHitBox(g, camera);

@@ -2,6 +2,8 @@ package entity;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.spawner.EnemySpawner;
@@ -58,6 +60,8 @@ public class EntityManager {
 	// this method updates all the entitys in the entities arrayList and removes the dead ones
 	public void update() {
 		spawner.update();
+		
+		
 		for (int i = 0; i < entities.size(); i++) { // Loop through arraylist to update
 			// everything needs to loop like this so that entities can be added in update
 			// methods
@@ -85,6 +89,19 @@ public class EntityManager {
 	
 	// same as update but rendering things instead
 	public void render(Graphics g, Camera camera) {
+		//sorting the entitys by their location on the y axis so that things at the back will be behind things close to the screen
+		Collections.sort(entities, new Comparator<Entity>() {
+			@Override
+			public int compare(Entity e1, Entity e2) {
+				if(e1.getLayer()==e2.getLayer()) {
+					return (e1.getY()+e1.getHeight())-(e2.getY()+e2.getHeight());
+				}
+				if(e1.getLayer()==RenderLayer.FRONT||e2.getLayer()==RenderLayer.BACK) {
+					return 1;
+				}
+				return -1;
+			}
+		});
 		
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).render(g, camera);// rendering all the entities

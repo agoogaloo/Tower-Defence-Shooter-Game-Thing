@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import entity.Entity;
+import entity.RenderLayer;
 import entity.mobs.enemy.StatusEffect;
 import entity.statics.Pickup;
 import entity.statics.towers.Tower;
@@ -34,6 +35,7 @@ public class Bullet extends Mobs{
 		this.statusEffect=effect;
 		this.statusLength=effectLength;
 		this.statusLevel=effectPower;
+		layer=RenderLayer.FRONT;
 		
 		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 
 		int offsetY = pic.getHeight()/2;
