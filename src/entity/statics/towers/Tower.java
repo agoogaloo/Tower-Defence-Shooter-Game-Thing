@@ -13,6 +13,7 @@ import entity.statics.Statics;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.ImageUtils;
 
 // @author Kevin (did all of tower except for a few parts)
 // @author Matthew (helped debug the code, made Entity target, and fixed towerRange, made width and height too)
@@ -83,7 +84,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower
-		g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
+		g.drawImage(ImageUtils.outline(animation.getCurrentFrame(),Color.black), x-camera.getxOffset(), y-camera.getyOffset(), null);
 	}
 	
 	public void showRange(Graphics g, Camera camera ) {

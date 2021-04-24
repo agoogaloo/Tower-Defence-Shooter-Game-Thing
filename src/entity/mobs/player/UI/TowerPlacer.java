@@ -104,11 +104,16 @@ public class TowerPlacer {
 				y=State.getInputs().getMouseY();//and where the tower will be placed
 				infoText.move(x-55, y+29);
 				mode=Mode.PLACING;
-				for(Entity e:entities) {
-					if(e instanceof Tower&&e.getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
-						mode=Mode.UPGRADING;
-						selectedTower=(Tower)(e);//making the entity a tower so it can it can be set as the selected tower
-					}
+			}
+		}
+		for(Entity e:entities) {
+			if(e instanceof Tower&&e.getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
+				if(mode==Mode.WAITING) {
+					//TODO: hover over tower
+					
+				}else if(mode==Mode.PLACING) {
+					mode=Mode.UPGRADING;
+					selectedTower=(Tower)(e);//making the entity a tower so it can it can be set as the selected tower
 				}
 			}
 		}
@@ -118,6 +123,8 @@ public class TowerPlacer {
 			tower = place(money,camera, direction);
 		}else if(mode==Mode.UPGRADING) {
 			tower=upgrade(money,camera);
+		}else if(mode==Mode.WAITING) {
+			
 		}
 		if(!State.getInputs().isPlace()) {
 			mode=Mode.WAITING;//if the button is not being pushed the mode can be set back to waiting

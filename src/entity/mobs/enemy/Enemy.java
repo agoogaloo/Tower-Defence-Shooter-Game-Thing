@@ -15,6 +15,7 @@ import entity.statics.Money;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.ImageUtils;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
@@ -141,7 +142,7 @@ public abstract class Enemy extends Mobs {
 			if(ConsoleState.isInstaKillEnemy()) {
 				killed=true;
 			}
-			currentPic=damageFlash(currentPic);
+			currentPic=ImageUtils.fillPic(currentPic);
 		}
 		if(killed) {
 			int randnum=ThreadLocalRandom.current().nextInt(0,20);//generating a random number to determine what should drop

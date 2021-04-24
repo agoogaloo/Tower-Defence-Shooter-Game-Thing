@@ -3,11 +3,14 @@ package entity.statics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.sun.imageio.plugins.common.ImageUtil;
+
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.ImageUtils;
 
 //@author Matthew
 
@@ -38,7 +41,7 @@ public class Core extends Statics{
 		for(Entity e:entityCollide()) {//checking if anything is touching it
 			if(e instanceof Enemy) {//making sure the entity is an enemy
 				damageTaken+=1;//an enemy has reached the core so it should deal 10 damage to the player
-				currentPic=damageFlash(currentPic);
+				currentPic=ImageUtils.fillPic(currentPic);
 			}
 		}
 	}

@@ -73,19 +73,7 @@ public abstract class Entity {
 		this.bounds.height=height;//it will never change
 	}
 	
-	protected BufferedImage damageFlash(BufferedImage startPic) {
-		//this method makes the enemy flash white so you can tell they are actually taking damage
-		BufferedImage newPic=new BufferedImage(startPic.getWidth(), startPic.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		for(int x=0;x<startPic.getWidth();x++) {
-			for(int y=0;y<startPic.getHeight();y++) {
-				if(new Color(startPic.getRGB(x, y), true).getAlpha()!=0) {
-					newPic.setRGB(x, y, Color.WHITE.getRGB());
-					
-				}
-			}
-		}
-		return newPic;
-	}
+	
 	// abstract methods
 	public abstract void update();//used to change the state of all the enemies and is called every frame
 

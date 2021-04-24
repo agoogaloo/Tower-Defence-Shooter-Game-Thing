@@ -18,6 +18,7 @@ import entity.statics.towers.Plant.Plantlvl1;
 import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.ImageUtils;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
@@ -34,7 +35,7 @@ public class Player extends Mobs {
 	private int reloadTime = 15 , shotDelay = 0, shotDamage=5;
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private Tower[] towers = {new Plantlvl1(0, 0),new WizardTowerlvl1(0, 0),new EmptyTowerSlot(),new EmptyTowerSlot()};
+	private Tower[] towers = {new WizardTowerlvl1(0, 0), new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
 	
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
@@ -172,7 +173,7 @@ public class Player extends Mobs {
 					if(e.getDamage()>0) {//making sure you actually take damage from the entity
 						//shaking the screen so it feels like you actually got hit
 						GameState.screenShake(0.75);
-						currentPic=damageFlash(currentPic);
+						currentPic=ImageUtils.fillPic(currentPic);
 						invincibility=30;
 					}
 				}
@@ -186,6 +187,8 @@ public class Player extends Mobs {
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
 		
+		g.drawImage(ImageUtils.outline(Assets.vinePlant[0],Color.white),120,10, null);
+		g.drawImage(Assets.vinePlant[0],170,10, null);
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
 		//drawHitBox(g, camera);

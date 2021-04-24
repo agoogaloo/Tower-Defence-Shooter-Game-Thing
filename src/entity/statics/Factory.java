@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.ImageUtils;
 import states.GameState;
 
 public class Factory extends Statics{
@@ -28,7 +29,7 @@ public class Factory extends Statics{
 		super.damage();
 		if(health!=initialHealth) {
 			//making the factory flash white when it gets hit
-			currentPic=damageFlash(currentPic);
+			currentPic=ImageUtils.fillPic(currentPic);
 		}
 	}
 	
