@@ -4,14 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import com.sun.tools.javac.code.Source;
-
 public class ImageUtils {
-
-	public ImageUtils() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	/**
 	 * fills the non transparent pixels of an image with a solid colour (useful for damage flashes)
 	 * @param startPic - the picture to fill
@@ -63,6 +56,7 @@ public class ImageUtils {
 		}			
 		return newPic.getSubimage(1, 1, img.getWidth()+2, img.getHeight()+2);
 	}
+	
 	private static boolean isTransparent(BufferedImage img, int x, int y) {
 		if(x<0||y<0||x>=img.getWidth()||y>=img.getHeight()) {
 			return true;
@@ -80,9 +74,8 @@ public class ImageUtils {
 	    g.dispose();
 	    return b;
 	}
+	
 	public static BufferedImage copyImage(BufferedImage source){
 	   return copyImage(source, 0, 0);
 	}
-	
-
 }

@@ -106,7 +106,7 @@ public class LaserTowerlvl2 extends Tower{
 		
 	}
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		if(leftRight=='l') {
 			return new MachineGunTower(0,0,'r').getInfoText();
 		}else if(leftRight=='r') {

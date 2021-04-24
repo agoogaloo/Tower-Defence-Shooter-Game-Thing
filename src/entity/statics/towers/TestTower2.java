@@ -20,7 +20,7 @@ public class TestTower2 extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return "another testing tower";
 	}
 

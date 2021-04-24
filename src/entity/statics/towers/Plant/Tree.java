@@ -51,7 +51,7 @@ public class Tree extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return "already completely grown";
 	}
 }

@@ -82,7 +82,7 @@ public class VinePlant extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return "water the plant to help it grow its vines";
 	}
 }

@@ -79,7 +79,7 @@ public class TowerPlacer {
 	}
 	private Tower upgrade(int money,Camera camera) {		
 		if(mouseUpDown=='u') {
-			infoText.update(selectedTower.hover(mouseLeftRight));
+			infoText.update(selectedTower.select(mouseLeftRight));
 			if(!State.getInputs().isPlace()) {
 				moneySpent+=selectedTower.upgrade(mouseLeftRight, money);
 			}
@@ -100,18 +100,19 @@ public class TowerPlacer {
 		//determining if the player is waiting, placing, or upgrading a tower
 		if(State.getInputs().isPlace()) {//checking if the right click is pressed
 			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
-				x=State.getInputs().getMouseX();//setting the location of the menu 
-				y=State.getInputs().getMouseY();//and where the tower will be placed
 				infoText.move(x-55, y+29);
 				mode=Mode.PLACING;
 			}
 		}
+		if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
+			x=State.getInputs().getMouseX();//setting the location of the menu 
+			y=State.getInputs().getMouseY();//and where the tower will be placed
+		}
 		for(Entity e:entities) {
 			if(e instanceof Tower&&e.getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
-				if(mode==Mode.WAITING) {
-					//TODO: hover over tower
+				((Tower) e).hover();
 					
-				}else if(mode==Mode.PLACING) {
+				if(mode==Mode.PLACING) {
 					mode=Mode.UPGRADING;
 					selectedTower=(Tower)(e);//making the entity a tower so it can it can be set as the selected tower
 				}

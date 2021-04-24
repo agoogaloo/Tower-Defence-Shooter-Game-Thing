@@ -69,7 +69,7 @@ public class Plantlvl2 extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		if(leftRight=='l') {
 			return new Tree(0,0).getInfoText();
 		}else if(leftRight=='r') {

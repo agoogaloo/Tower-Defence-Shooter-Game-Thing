@@ -155,7 +155,7 @@ public class Vine extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return "a vine that damages enemies. \nselling it can let it regrow \nin a different direction";
 	}
 }

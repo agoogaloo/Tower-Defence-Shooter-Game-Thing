@@ -27,7 +27,7 @@ public class WizardTowerlvl1 extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return new WizardTowerlvl2(0,0).getInfoText();
 	}
 

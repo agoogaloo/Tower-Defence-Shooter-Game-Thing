@@ -83,7 +83,7 @@ public class BigLaserTower extends Tower{
 		return 0;
 	}
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return "already at full power";//saying that you cant upgrade it anymore when you try to upgrade it
 	}
 

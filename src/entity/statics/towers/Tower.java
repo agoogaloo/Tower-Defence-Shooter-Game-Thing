@@ -33,6 +33,8 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected BufferedImage buyIcon,upgradeIcon;
 	protected int price, sellValue;
 	protected String infoText;
+	
+	protected boolean hovered=false;
 	protected Tower() {
 		friendly=true;
 	}
@@ -52,7 +54,10 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	
 	public abstract int upgrade(char leftRight, int money);
-	public abstract String hover(char leftRight);//this if used when the tower is hovered over but not actually bought yet
+	public abstract String select(char leftRight);//this if used when the tower is hovered over but not actually bought yet
+	public void hover() {
+		hovered=true;
+	}
 	public abstract Tower createNew(int x,int y);
 	
 	public void search() {
@@ -84,7 +89,13 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower
-		g.drawImage(ImageUtils.outline(animation.getCurrentFrame(),Color.black), x-camera.getxOffset(), y-camera.getyOffset(), null);
+		if(hovered) {
+			g.drawImage(ImageUtils.outline(animation.getCurrentFrame(),Color.WHITE), x-camera.getxOffset()-1, y-camera.getyOffset()-1, null);
+		}else {
+			g.drawImage(animation.getCurrentFrame(), x-camera.getxOffset(), y-camera.getyOffset(), null);
+		}
+		hovered=false;
+		
 	}
 	
 	public void showRange(Graphics g, Camera camera ) {

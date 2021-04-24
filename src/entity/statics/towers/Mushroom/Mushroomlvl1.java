@@ -46,7 +46,7 @@ public class Mushroomlvl1 extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return "coming sometime";
 	}
 }

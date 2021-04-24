@@ -21,7 +21,7 @@ public class EmptyTowerSlot extends Tower{
 	}
 
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return "you shouldn't be able to read this";
 	}
 

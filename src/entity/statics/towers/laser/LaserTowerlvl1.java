@@ -96,7 +96,7 @@ public class LaserTowerlvl1 extends Tower{
 		return 0;		
 	}
 	@Override
-	public String hover(char leftRight) {
+	public String select(char leftRight) {
 		return new LaserTowerlvl2(0, 0, 'r').getInfoText();
 	}
 	
