@@ -186,9 +186,6 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
-		
-		g.drawImage(ImageUtils.outline(Assets.vinePlant[0],Color.white),120,10, null);
-		g.drawImage(Assets.vinePlant[0],170,10, null);
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
 		//drawHitBox(g, camera);

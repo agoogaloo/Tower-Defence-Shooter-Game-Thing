@@ -1,6 +1,5 @@
 package entity.statics.towers.Plant;
 
-import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,14 +9,12 @@ import entity.RenderLayer;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.Camera;
 import states.GameState;
 
 public class Vine extends Tower{
 
 	private char startDir, endDir;
 	private boolean grown=false;
-	private Animation anim; 
 	Vine nextVine;
 
 	public Vine(int x, int y,char startDir, char endDir) {
@@ -37,19 +34,19 @@ public class Vine extends Tower{
 		layer=RenderLayer.BACK;
 		
 		if((startDir=='u'&&endDir=='d')||(startDir=='d'&&endDir=='u')) {
-			anim=new Animation(new BufferedImage[] {Assets.vines[0]});	
+			animation=new Animation(new BufferedImage[] {Assets.vines[0]});	
 		}else if((startDir=='l'&&endDir=='r')||(startDir=='r'&&endDir=='l')) {
-			anim=new Animation(new BufferedImage[] {Assets.vines[1]});	
+			animation=new Animation(new BufferedImage[] {Assets.vines[1]});	
 		}else if((startDir=='d'&&endDir=='r')||(startDir=='r'&&endDir=='d')) {
-			anim=new Animation(new BufferedImage[] {Assets.vines[2]});
+			animation=new Animation(new BufferedImage[] {Assets.vines[2]});
 		}else if((startDir=='d'&&endDir=='l')||(startDir=='l'&&endDir=='d')) {
-			anim=new Animation(new BufferedImage[] {Assets.vines[3]});
+			animation=new Animation(new BufferedImage[] {Assets.vines[3]});
 		}else if((startDir=='u'&&endDir=='l')||(startDir=='l'&&endDir=='u')) {
-			anim=new Animation(new BufferedImage[] {Assets.vines[4]});
+			animation=new Animation(new BufferedImage[] {Assets.vines[4]});
 		}else if((startDir=='r'&&endDir=='u')||(startDir=='u'&&endDir=='r')) {
-			anim=new Animation(new BufferedImage[] {Assets.vines[5]});
+			animation=new Animation(new BufferedImage[] {Assets.vines[5]});
 		}else {
-			anim=new Animation(new BufferedImage[] {Assets.vines[0]});
+			animation=new Animation(new BufferedImage[] {Assets.vines[0]});
 			System.out.println("a vine was created and but its startDir is "
 			+startDir+" and its endDir is "+endDir+" breaking everything");
 		}
@@ -130,11 +127,7 @@ public class Vine extends Tower{
 	}
 	
 
-	@Override
-	public void render(Graphics g, Camera camera) {
-		g.drawImage(anim.getCurrentFrame(),x - camera.getxOffset(), y - camera.getyOffset(), null);
-		
-	}
+	
 	@Override
 	public int getDamage() {
 		health--;

@@ -174,7 +174,11 @@ public class GameState extends State{
 		Entity.getEntityManager().getPlayer().reset(playerLoc.x*16,playerLoc.y*16);
 		if(newFloorIndex!=TUTORIALINDEX&&newFloorIndex!=HUBINDEX) {
 			Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+8,playerLoc.y*16-55));
+			Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+8,playerLoc.y*16-55));
 		}
+		Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+8,playerLoc.y*16-55));
+		Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+8,playerLoc.y*16-55));
+		Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+8,playerLoc.y*16-55));
 		
 		if(coreLoc!=null) {
 			Entity.getEntityManager().getPlayer().createCore(coreLoc.x*16+8,coreLoc.y*16+8);

@@ -53,6 +53,7 @@ public class Plantlvl1 extends Tower{
 		}
 		shotDelay-=1; //Counts up for every frame, towers can only shoot every 60 frames
 		
+		
 	}
 	
 	@Override
