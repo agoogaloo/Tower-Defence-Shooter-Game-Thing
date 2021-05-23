@@ -4,6 +4,8 @@ import java.awt.geom.Ellipse2D;
 
 import entity.mobs.Bullet;
 import entity.statics.towers.Tower;
+import entity.statics.towers.wizard.ElectroWizardTower;
+import entity.statics.towers.wizard.FireWizardTower;
 import entity.statics.towers.wizard.WizardTowerlvl1;
 import graphics.Animation;
 import graphics.Assets;
@@ -93,17 +95,20 @@ public class LaserTowerlvl2 extends Tower{
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
-		if(leftRight=='l'&&money>=13) {
-			entityManager.addEntity(new MachineGunTower(x+width/2, y+2, direction));
-			destroy();
-			return 13;
-		}else if(leftRight=='r'&&money>=5) {
-			entityManager.addEntity(new BigLaserTower(x+width/2, y+2, direction));
-			destroy();
-			return 5;
-		}
-		return 0;
 		
+		Tower newTower=null;
+		if(leftRight=='l') {
+			newTower=new MachineGunTower(x+width/2, y+2, direction);	
+		}else if(leftRight=='r') {
+			newTower=new BigLaserTower(x+width/2, y+2, direction);
+		}
+	
+		if(newTower!=null&&money>=newTower.getPrice()) {
+			entityManager.addEntity(newTower);
+			destroy();
+			return newTower.getPrice();
+		}
+		return 0;		
 	}
 	@Override
 	public String select(char leftRight) {

@@ -107,8 +107,13 @@ public class Assets {
 	public static  final BufferedImage[] plantLvl1=splitSpriteSheet(loadImage("res/textures/towers/plant lv.1.png"),9,8,10,1);
 	public static  final BufferedImage[] plantLvl2=splitSpriteSheet(loadImage("res/textures/towers/plant lv.2.png"),10,12,10,1);
 	public static  final BufferedImage[] tree= splitSpriteSheet(loadImage("res/textures/towers/tree.png"),37,32,8,1);
-	public static  final BufferedImage[] vinePlant= new BufferedImage[] { loadImage("res/textures/towers/plant.png")};
-	public static  final BufferedImage[] vines= splitSpriteSheet(loadImage("res/textures/towers/vines.png"),10,10,6,1);
+	public static  final BufferedImage[][] vinePlant=new BufferedImage[][] {
+		splitSpriteSheet( loadImage("res/textures/towers/vine plant green.png"),39,37,10,1),
+		//splitSpriteSheet( loadImage("res/textures/towers/vine plant yellow.png"),39,37,10,1),
+		splitSpriteSheet( loadImage("res/textures/towers/vine plant purple.png"),39,37,10,1),
+		splitSpriteSheet( loadImage("res/textures/towers/vine plant blue.png"),39,37,10,1)
+	};
+	public static  final BufferedImage[][] vines= splitAnimsSheet(loadImage("res/textures/towers/vines.png"),10,10,16,3);
 	
 	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 
@@ -164,6 +169,18 @@ public class Assets {
 		for(int y=0;y<columns;y++) {//looping through the image vertically
 			for(int x=0;x<rows;x++) {//looping horizontally
 				pics[(y*rows)+x]=sheet.getSubimage(x*width, y*height, width, height);
+				//spliting the image and putting it in the array
+			}
+		}
+		return pics;//returning the array
+	}
+	private static BufferedImage[][] splitAnimsSheet(BufferedImage sheet, int width, int height, int rows, int columns) {
+		//this takes on image and splits it into an array of several smaller photos so we 
+		//only need to load a few big spritesheet instead of a million single images
+		BufferedImage[][] pics=new BufferedImage[columns][rows];//creating the array
+		for(int y=0;y<columns;y++) {//looping through the image vertically
+			for(int x=0;x<rows;x++) {//looping horizontally
+				pics[y][x]=sheet.getSubimage(x*width, y*height, width, height);
 				//spliting the image and putting it in the array
 			}
 		}

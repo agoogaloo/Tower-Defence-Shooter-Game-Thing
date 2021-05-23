@@ -99,8 +99,14 @@ public class TowerPickup extends State{
 		
 		menu.render(g);
 		
+	
 		g.setColor(new Color(46,153,64));
+		g.drawString("CHOOSE A TOWER TO SWITCH OUT", Window.getDisplay().getRelativeWidth()/2-79, 21);
+		g.drawString("CHOOSE A TOWER TO SWITCH OUT", Window.getDisplay().getRelativeWidth()/2-80, 21);
+		g.setColor(Color.white);
 		g.drawString("CHOOSE A TOWER TO SWITCH OUT", Window.getDisplay().getRelativeWidth()/2-80, 20);
+		
+		g.setColor(new Color(46,153,64));
 		g.fillRect(Window.getDisplay().getRelativeWidth()/2+25,Window.getDisplay().getRelativeHeight()/2-25,50,50);
 		g.drawImage(towerAnim.getCurrentFrame(),Window.getDisplay().getRelativeWidth()/2+50-towerAnim.getCurrentFrame().getWidth()/2,
 				Window.getDisplay().getRelativeHeight()/2-towerAnim.getCurrentFrame().getHeight ()/2,null);

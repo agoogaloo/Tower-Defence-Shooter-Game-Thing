@@ -3,8 +3,6 @@ package entity.statics;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
-import entity.statics.towers.TestTower1;
-import entity.statics.towers.TestTower2;
 import entity.statics.towers.Tower;
 import entity.statics.towers.Mushroom.Mushroomlvl1;
 import entity.statics.towers.Plant.Plantlvl1;
@@ -15,8 +13,7 @@ import graphics.Camera;
 import states.TowerPickup;
 
 public class Chest extends Statics{
-	private static Tower[] towers= {new Plantlvl1(0, 0), new LaserTowerlvl1(0, 0),new TestTower1(0, 0),
-			new TestTower2(0, 0),new Mushroomlvl1(0,0)};
+	private static Tower[] towers= {new Plantlvl1(0, 0), new LaserTowerlvl1(0, 0),new WizardTowerlvl1(0, 0),new Mushroomlvl1(0,0)};
 	
 	public Chest(int x,int y) {
 		this.x=x-12;

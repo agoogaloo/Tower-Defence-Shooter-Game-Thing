@@ -1,5 +1,7 @@
 package entity.statics.towers.Plant;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import entity.mobs.enemy.StatusEffect;
 import entity.statics.towers.Tower;
 import graphics.Animation;
@@ -8,26 +10,31 @@ import graphics.Assets;
 public class VinePlant extends Tower{
 	private Vine[] vines;
 	private boolean waveCounted=false;
+	private int colour;
+	
 	
 	public VinePlant(int x, int y) {
-		super(x, y, 115, 115, new Animation(Assets.vinePlant,6), 60);
+		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 12);
+		colour=ThreadLocalRandom.current().nextInt(0,Assets.vinePlant.length);
+		animation= new Animation(Assets.vinePlant[colour]);
 		height/=2;
 		price=3;
 		sellValue=1;
 		damage=5;
 		statusEffect=StatusEffect.STUN;
 		statusLength=20;
-		infoText="an unfinished mess";	
+		infoText="not finished";	
 		waveCounted=entityManager.getSpawner().waveComplete();
 		
 	}
+	
 	@Override
 	public void init() {
 		vines = new Vine[] {
-			new Vine(x+bounds.width/2,y,'d','u'),
-			new Vine(x+bounds.width/2,y+bounds.height,'u','d'),
-			new Vine(x+width,y+bounds.height/2,'l','r'),
-			new Vine(x,y+bounds.height/2,'r','l')
+			new Vine(x+bounds.width/2,y+5,'d','u',colour),
+			new Vine(x+bounds.width/2,y+bounds.height-5,'u','d',colour),
+			new Vine(x+width-5,y+bounds.height/2,'l','r',colour),
+			new Vine(x+5,y+bounds.height/2,'r','l',colour)
 		};		
 		
 		for(Vine i:vines) {
@@ -45,17 +52,18 @@ public class VinePlant extends Tower{
 		// TODO Auto-generated method stub
 		super.update();
 		if(entityManager.getSpawner().waveComplete()&&!killed) {
+			for(Vine i:vines){
+				if(i.isKilled()) {
+					i.grow();
+				}
+			}
 			if(!waveCounted) {
 				waveCounted=true;
 				for(Vine i:vines){
 					i.grow();
 				}
 			}
-			for(Vine i:vines){
-				if(i.isKilled()) {
-					i.grow();
-				}
-			}
+			
 		}else if(!entityManager.getSpawner().waveComplete()) {
 			waveCounted=false;
 		}

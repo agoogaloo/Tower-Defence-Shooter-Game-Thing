@@ -1,10 +1,12 @@
 package entity.mobs.enemy.spawner;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import graphics.Assets;
 import graphics.Camera;
+import graphics.ImageUtils;
 import states.GameState;
 import states.State;
 
@@ -107,7 +109,7 @@ public class SpawnButton {
 		if(clicked) {
 			g.drawImage(Assets.waveIcon[2],bounds.x,bounds.y,null );	
 		}else if(hovered) {
-			g.drawImage(Assets.waveIcon[1],bounds.x,bounds.y,null );	
+			g.drawImage(ImageUtils.outline(Assets.waveIcon[2],Color.white),bounds.x-1,bounds.y-1,null );	
 		}else {
 			g.drawImage(Assets.waveIcon[0],bounds.x,bounds.y,null );	
 		}

@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import entity.Entity;
-import entity.RenderLayer;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.mobs.player.UI.MiniMap;
@@ -35,7 +34,7 @@ public class Player extends Mobs {
 	private int reloadTime = 15 , shotDelay = 0, shotDamage=5;
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private Tower[] towers = {new WizardTowerlvl1(0, 0), new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
+	private Tower[] towers = {new Plantlvl1(0,0), new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
 	
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
