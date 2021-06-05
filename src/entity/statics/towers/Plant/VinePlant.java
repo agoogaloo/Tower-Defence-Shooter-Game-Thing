@@ -16,14 +16,15 @@ public class VinePlant extends Tower{
 	public VinePlant(int x, int y) {
 		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 12);
 		colour=ThreadLocalRandom.current().nextInt(0,Assets.vinePlant.length);
+		upgradeIcon=Assets.towerIcons[10];
 		animation= new Animation(Assets.vinePlant[colour]);
 		height/=2;
-		price=3;
-		sellValue=1;
+		price=4;
+		sellValue=3;
 		damage=5;
 		statusEffect=StatusEffect.STUN;
 		statusLength=20;
-		infoText="not finished";	
+		infoText="water cost: "+price+"\n\n a plant that grows long \nvines which damage enemies";	
 		waveCounted=entityManager.getSpawner().waveComplete();
 		
 	}
@@ -91,6 +92,6 @@ public class VinePlant extends Tower{
 
 	@Override
 	public String select(char leftRight) {
-		return "water the plant to help it grow its vines";
+		return "water the plant to grow its \nvines longer";
 	}
 }

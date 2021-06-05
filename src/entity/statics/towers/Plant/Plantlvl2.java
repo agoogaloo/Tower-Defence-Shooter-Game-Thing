@@ -4,8 +4,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.enemy.StatusEffect;
 import entity.statics.towers.Tower;
-import entity.statics.towers.wizard.ElectroWizardTower;
-import entity.statics.towers.wizard.FireWizardTower;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -14,8 +12,8 @@ public class Plantlvl2 extends Tower{
 	private boolean waveCounted;
 	public Plantlvl2(int x, int y) {
 		super(x, y, 115, 115, new Animation(Assets.plantLvl2,6), 60);
-		price=3;
-		sellValue=1;
+		price=2;
+		sellValue=2;
 		damage=5;
 		statusEffect=StatusEffect.STUN;
 		statusLength=20;

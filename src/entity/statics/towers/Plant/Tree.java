@@ -15,12 +15,11 @@ public class Tree extends Tower{
 	public Tree(int x, int y) {
 		super(x, y, 150, 150, new Animation(Assets.tree,12), 60);
 		price=4;
-		sellValue=2;
+		sellValue=3;
 		damage=6;
 		statusEffect=StatusEffect.STUN;
 		statusLength=30;
-		infoText="water cost $"+price+"\n\nwater the plant to help it \ngrow into a big tree that \nshoots acorns at enemies. "
-				+ "\nallowing it to plant new \nbuds every round";
+		infoText="water cost $"+price+"\n\ngrows into a big tree that \nshoots acorns at enemies \nthat grow into new buds";
 		
 	}
 	@Override

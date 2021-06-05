@@ -13,7 +13,7 @@ import graphics.Camera;
 import states.TowerPickup;
 
 public class Chest extends Statics{
-	private static Tower[] towers= {new Plantlvl1(0, 0), new LaserTowerlvl1(0, 0),new WizardTowerlvl1(0, 0),new Mushroomlvl1(0,0)};
+	private static Tower[] towers= {new Plantlvl1(0, 0), new LaserTowerlvl1(0, 0),new WizardTowerlvl1(0, 0)};
 	
 	public Chest(int x,int y) {
 		this.x=x-12;

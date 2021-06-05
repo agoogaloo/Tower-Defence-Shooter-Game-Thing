@@ -11,6 +11,7 @@ import entity.mobs.enemy.RedEnemy;
 import entity.mobs.enemy.TutorialEnemy;
 import entity.mobs.enemy.YellowEnemy;
 import entity.mobs.enemy.spawner.SpawnButton;
+import entity.statics.Chest;
 import entity.statics.towers.Tower;
 import graphics.Camera;
 import graphics.UI.TextElement;
@@ -29,6 +30,7 @@ import states.GameState;
 public class Tutorialator {
 	private String textToAdd=""; 
 	private TextElement text;
+	private Chest chest = new Chest(447, 187);
 	SpawnButton button = new SpawnButton();
 	private boolean sectionInit=false;
 	private int section=1, sectionTime=0;
@@ -37,6 +39,7 @@ public class Tutorialator {
 		 text=new TextElement(52, 172, "");
 		 button.remove();
 		 Entity.getEntityManager().getSpawner().setUseHeli(false);
+		 Entity.getEntityManager().addEntity(chest);
 		
 	}
 	public void update() {
@@ -60,6 +63,9 @@ public class Tutorialator {
 			break;
 		case 6:
 			section6();
+			break;
+		case 7:
+			section7();
 			break;
 		}
 		
@@ -157,8 +163,19 @@ public class Tutorialator {
 		}
 			
 	}
-	
 	private void section5() {
+		if(!sectionInit) {//initializing the section
+			text.move(75, 172);
+			sectionInit=true;
+		}
+		if(sectionTime==10) {
+			textToAdd="shoot the chest in the next room to open it";
+		}
+		if(chest.isKilled()) {
+			nextSection();
+		}
+	}
+	private void section6() {
 		
 		if(!sectionInit) {//initializing the section
 			text.move(69, 167);
@@ -168,7 +185,7 @@ public class Tutorialator {
 		button.update(0, 0, 'u');
 		button.move(464, 64);
 		if(sectionTime==10) 
-			textToAdd=" as your final callenge you need to beat a wave of \nenemies. press the red button in the corner to start";
+			textToAdd=" as your final challenge you need to beat a wave of \nenemies. press the red button in the corner to start";
 		
 		if(button.isClicked()) {
 			nextSection();
@@ -176,7 +193,8 @@ public class Tutorialator {
 		}
 		
 	}
-	private void section6() {
+	
+	private void section7() {
 		
 		switch(sectionTime) {
 		case 15:

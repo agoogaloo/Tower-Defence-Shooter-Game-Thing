@@ -10,8 +10,7 @@ public class WizardTowerlvl2 extends Tower{
 		price=1;
 		sellValue=2;
 		damage=6;
-		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger so it can shoot a "
-				+ "\nbit faster and have a bit more \nrange";
+		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger, with more range \nand bullets";
 		upgradeIcon=Assets.towerIcons[5];
 	}
 	@Override

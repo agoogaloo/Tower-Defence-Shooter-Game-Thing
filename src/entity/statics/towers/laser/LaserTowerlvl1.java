@@ -12,8 +12,7 @@ public class LaserTowerlvl1 extends Tower{
 	public LaserTowerlvl1(int x,int y) {
 		this.direction=entityManager.getPlayer().getDirection();
 		price=5;
-		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in one "
-				+ "\ndirection. It will will be \nfacing the same direction \nyou are when you place it";
+		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in the you are \nfaceing when you place it";
 		buyIcon=Assets.towerIcons[6];
 		upgradeIcon=Assets.towerIcons[7];
 		switch (direction) {
