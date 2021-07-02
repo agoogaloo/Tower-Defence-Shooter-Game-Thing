@@ -47,7 +47,7 @@ public class GameState extends State{
 		double xshake=0,yshake=0;
 		int maxScreenShake=Settings.getScreenShake();
 		
-		getInputs().update();
+		
 		if(getInputs().isPause()) {
 			currentState=new PauseState(this);
 		}else if(getInputs().isConsole()) {
@@ -81,6 +81,7 @@ public class GameState extends State{
 		camera.move((int)(Math.round(xshake)),(int)(Math.round(yshake)));
 		//the random direction part breaks if screen shake is 0 so it resets to a super small number so it will round 
 		// down to 0 when it is applied
+		getInputs().update();
 		screenShake=0.000000001;
 	}
 

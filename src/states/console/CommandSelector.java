@@ -9,10 +9,10 @@ public class CommandSelector {
 	
 	//Parallel arrays to tell which commands match up with which classes
 	private final String[] commandStrings = new String[] {"Help","EntityCount","ShowHitBox", "ShowFPS",
-			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal"};
+			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal","Chest", "Give"};
 	private final Command[] commands = new Command[] {new Help(),new EntityCount(), new ShowHitBox(), 
 			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies(), 
-			new Unlock(),new Money(), new Heal()};
+			new Unlock(),new Money(), new Heal(), new Chest(), new Give()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
@@ -169,6 +169,7 @@ public class CommandSelector {
 		}
 	}
 	
+	
 	private class InstaKillEnemies extends Command{
 		private InstaKillEnemies() {
 			helpText="toggles if enemies get 1 shotted by anything that\n    normally deals damage";
@@ -238,4 +239,31 @@ public class CommandSelector {
 		}
 		
 	}
+	private class Chest extends Command{
+		private Chest(){
+			helpText= "spawns a chest with a random item inside";
+		}
+		public String execute(String params) {
+			Entity.getEntityManager().addEntity(new entity.statics.Chest(Entity.getEntityManager().getPlayer().getX()
+					, Entity.getEntityManager().getPlayer().getY()));
+			return "spawned a chest";
+		}
+	}
+	private class Give extends Command{
+		private Give(){
+			helpText= "params: (int id)  gives you an item of id";
+		}
+		public String execute(String params) {
+			try {
+				int id = Integer.parseInt(params);
+				Entity.getEntityManager().getPlayer().giveItem(id);
+				return "gave item "+id;
+				
+			}catch(NumberFormatException e) {
+				return"paramiter given is not an int";
+			}
+			
+		}
+	}
+	
 }

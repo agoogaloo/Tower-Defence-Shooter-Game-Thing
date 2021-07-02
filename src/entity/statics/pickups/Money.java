@@ -1,4 +1,4 @@
-package entity.statics;
+package entity.statics.pickups;
 
 import java.awt.Graphics;
 

@@ -154,9 +154,12 @@ public class EnemySpawner {
 				heliDelay=0;
 			}
 		}
-		for(Entity e:Entity.getEntityManager().getEntities()) {
-			if(heliSpawnRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
-					e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy&&!(e instanceof HeliBot)) {
+		for(int i=0;i<Entity.getEntityManager().getEntities().size();i++) {
+			if(heliSpawnRange.intersects(Entity.getEntityManager().getEntities().get(i).getBounds().getX(), 
+					Entity.getEntityManager().getEntities().get(i).getBounds().getY(),
+					Entity.getEntityManager().getEntities().get(i).getBounds().getWidth(), 
+					Entity.getEntityManager().getEntities().get(i).getBounds().getHeight())&&
+					Entity.getEntityManager().getEntities().get(i) instanceof Enemy&&!(Entity.getEntityManager().getEntities().get(i) instanceof HeliBot)) {
 				heliDelay-=4;
 				return;
 			}

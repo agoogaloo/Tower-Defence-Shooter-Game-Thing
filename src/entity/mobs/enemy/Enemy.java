@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
-import entity.statics.Health;
-import entity.statics.Money;
+import entity.statics.pickups.Health;
+import entity.statics.pickups.Money;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;

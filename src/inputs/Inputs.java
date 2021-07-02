@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import Main.Main;
 import saveData.Settings;
@@ -14,7 +16,7 @@ import saveData.Settings;
 //@author Matthew (Organized all player inputs into it's own class, did basically all of this class)
 //@author Kevin (Only control key, mouse, and direction in updates)
 
-public class Inputs implements MouseListener, MouseMotionListener, KeyListener{  //Implements different interfaces to allow for mouse presses, mouse motion, and key presses 
+public class Inputs implements MouseListener,MouseWheelListener, MouseMotionListener, KeyListener{  //Implements different interfaces to allow for mouse presses, mouse motion, and key presses 
 	/*
 	 *this class separates all the keyboard and mouse inputs from the player class
 	 *so that it is smaller and easier to manage. it has a variable for each input 
@@ -25,7 +27,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	//declaring variables
 	private KeyEvent typedKey;
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
-	private boolean up, down, left, right, shoot, place; //Keys and actions that are game needs
+	private boolean up, down, left, right, shoot, place, nextGun, prevGun; //Keys and actions that are game needs
 	private PushButton console = new PushButton(), pause = new PushButton(), select = new PushButton(), upPushed=new PushButton(),
 			downPushed=new PushButton(), leftPushed=new PushButton(),rightPushed=new PushButton();
 	
@@ -37,9 +39,12 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		Main.getWindow().getFrame().addKeyListener(this);
 		Main.getWindow().getFrame().addMouseListener(this);
 		Main.getWindow().getFrame().addMouseMotionListener(this);
+		Main.getWindow().getFrame().addMouseWheelListener(this);
 	}
 	public void update() { 
 		typedKey=null;
+		prevGun=false;
+		nextGun=false;
 		
 		up = keys[KeyEvent.VK_UP]||keys[KeyEvent.VK_W]; //Setting the right index of the array to a boolean 
 		down = keys[KeyEvent.VK_DOWN]||keys[KeyEvent.VK_S]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
@@ -53,7 +58,19 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		leftPushed.update(left);
 		rightPushed.update(right);
 	}
+	
+	//mouse wheel methods
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if (e.getWheelRotation() > 0) {
+			prevGun=true;
+		}
+		if (e.getWheelRotation() < 0) {
+			nextGun=true;
+		}
+	}
 	//mouse position methods
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		mouseX=e.getX();//setting the mouse location whenever the mouse is dragged
@@ -158,6 +175,12 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 	public boolean isRightPushed() {
 		return rightPushed.getPushed();
 	}
+	public boolean isNextGun() {
+		return nextGun;
+	}
+	public boolean isPrevGun() {
+		return prevGun;
+	}
 	
 	
 	public int getMouseX() {
@@ -167,6 +190,7 @@ public class Inputs implements MouseListener, MouseMotionListener, KeyListener{ 
 		//the position needs to be a bit offset because if the bar at the top of the window
 		return (mouseY-24)/Settings.getScale();//the window is scaled so the location for the mouse needs to match it
 	}
+	
 	public int getTrueMouseX() {
 		return mouseX;//the window is scaled so the location for the mouse needs to match it
 	}

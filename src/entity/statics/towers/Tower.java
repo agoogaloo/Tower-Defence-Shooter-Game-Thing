@@ -62,10 +62,11 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	
 	public void search() {
 		attack=false; //Attack is normally false
-		for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
-			if(towerRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
-					e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy) { //If an enemy entity is detected within tower range it gets its x and y values and sets it to the appropriate variables
-				target=e; //sets the target to the specific enemy entity that intersected the tower's range
+		for(int i=0;i<entityManager.getEntities().size();i++) { //Check each entity to see if it's intersecting the tower's range
+			if(towerRange.intersects(entityManager.getEntities().get(i).getBounds().getX(), entityManager.getEntities().get(i).getBounds().getY(),
+					entityManager.getEntities().get(i).getBounds().getWidth(), 
+					entityManager.getEntities().get(i).getBounds().getHeight())&&entityManager.getEntities().get(i) instanceof Enemy) { //If an enemy entity is detected within tower range it gets its x and y values and sets it to the appropriate variables
+				target=entityManager.getEntities().get(i); //sets the target to the specific enemy entity that intersected the tower's range
 				attack= true; //An entity has been detected so the tower will start shooting	
 			}
 		}

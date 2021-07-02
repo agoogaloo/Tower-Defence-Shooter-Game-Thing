@@ -1,14 +1,17 @@
 package entity.mobs.player.UI;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import Main.ItemList;
 import entity.Entity;
 import entity.statics.towers.Tower;
 import graphics.Assets;
 import graphics.Camera;
+import graphics.ImageUtils;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
 import saveData.Settings;
@@ -17,7 +20,7 @@ import states.State;
 public class TowerPlacer {
 	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing
 	private enum Mode{PLACING,UPGRADING,WAITING}
-	private Tower[] towers;
+	private int[] towers;
 	private Tower selectedTower;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
 	private PicElement wheelMenu=new PicElement(100, 0, Assets.blank);
@@ -50,7 +53,7 @@ public class TowerPlacer {
 		}	
 	}
 	private Tower place(int money,Camera camera, char direction) {
-		Tower hoveredTower=null;
+		int hoveredTower=-1;
 		if(mouseUpDown=='u') {
 			if(mouseLeftRight=='l') {
 				hoveredTower=towers[0];
@@ -65,15 +68,15 @@ public class TowerPlacer {
 			}
 		}
 		
-		if(hoveredTower==null) {
+		if(hoveredTower==-1) {
 			infoText.update("");
 			return null;
 			}
 		
-		infoText.update(hoveredTower.getInfoText());
-		if(!State.getInputs().isPlace()&&money>=hoveredTower.getPrice()) {
-			moneySpent=hoveredTower.getPrice();
-			return hoveredTower.createNew(x+camera.getxOffset(), y+camera.getyOffset());
+		infoText.update(ItemList.getTower(hoveredTower).getInfoText());
+		if(!State.getInputs().isPlace()&&money>=ItemList.getTower(hoveredTower).getPrice()) {
+			moneySpent=ItemList.getTower(hoveredTower).getPrice();
+			return ItemList.getTower(hoveredTower).createNew(x+camera.getxOffset(), y+camera.getyOffset());
 		}
 		return null;
 	}
@@ -94,7 +97,7 @@ public class TowerPlacer {
 		}
 		return null;
 	}
-	public Tower update(int money,Tower[] towers,Camera camera, ArrayList<Entity> entities, char direction) {
+	public Tower update(int money,int[] towers,Camera camera, ArrayList<Entity> entities, char direction) {
 		Tower tower=null;//the tower that will be returned at the end of the method
 		this.towers=towers;
 		//determining if the player is waiting, placing, or upgrading a tower
@@ -108,17 +111,17 @@ public class TowerPlacer {
 			x=State.getInputs().getMouseX();//setting the location of the menu 
 			y=State.getInputs().getMouseY();//and where the tower will be placed
 		}
-		for(Entity e:entities) {
-			if(e instanceof Tower&&e.getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
-				((Tower) e).hover();
+		for(int i=0;i<entities.size();i++) {
+			if(entities.get(i) instanceof Tower&&
+					entities.get(i).getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
+				((Tower) entities.get(i)).hover();
 					
 				if(mode==Mode.PLACING) {
 					mode=Mode.UPGRADING;
-					selectedTower=(Tower)(e);//making the entity a tower so it can it can be set as the selected tower
+					selectedTower=(Tower)(entities.get(i));//making the entity a tower so it can it can be set as the selected tower
 				}
 			}
-		}
-		
+		}		
 		updateMouseAngle();
 		if(mode==Mode.PLACING) {
 			tower = place(money,camera, direction);
@@ -149,17 +152,27 @@ public class TowerPlacer {
 		}else {
 			background.update(Assets.blank);//making the background disappear if there is no text
 		}
-		menuPic= new BufferedImage(50,50,BufferedImage.TYPE_4BYTE_ABGR);
+		menuPic= new BufferedImage(52,52,BufferedImage.TYPE_4BYTE_ABGR);
 		menuGraphics= menuPic.createGraphics();
 		//menuGraphics.clearRect(0, 0, 50, 50);
 		if(mode==Mode.PLACING) {
-			menuGraphics.drawImage(towers[0].getBuyIcon().getSubimage(0, 0, 25, 25), 0,0, null);
-			menuGraphics.drawImage(towers[1].getBuyIcon().getSubimage(25, 0, 25, 25), 25,0, null);
-			menuGraphics.drawImage(towers[2].getBuyIcon().getSubimage(0, 25, 25, 25), 0,25, null);
-			menuGraphics.drawImage(towers[3].getBuyIcon().getSubimage(25, 25, 25, 25), 25,25, null);
+			menuGraphics.drawImage(ItemList.getTower(towers[0]).getBuyIcon().getSubimage(0, 0, 25, 25), 1,1, null);
+			menuGraphics.drawImage(ItemList.getTower(towers[1]).getBuyIcon().getSubimage(25, 0, 25, 25), 26,1, null);
+			menuGraphics.drawImage(ItemList.getTower(towers[2]).getBuyIcon().getSubimage(0, 25, 25, 25), 1,26, null);
+			menuGraphics.drawImage(ItemList.getTower(towers[3]).getBuyIcon().getSubimage(25, 25, 25, 25), 26,26, null);
 		}else if(mode==Mode.UPGRADING) {
-			menuGraphics.drawImage(Assets.towerIcons[2],0,0, null);
-			menuGraphics.drawImage(selectedTower.getUpgradeIcon(),0,0, null);
+			if(mouseUpDown=='d') {
+				menuGraphics.drawImage(ImageUtils.outline(Assets.towerIcons[1],Color.white),0,0, null);
+			}else {
+				menuGraphics.drawImage(Assets.towerIcons[1],1,1, null);
+			}
+			if(mouseUpDown=='u') {
+				menuGraphics.drawImage(ImageUtils.outline(selectedTower.getUpgradeIcon(),Color.white),0,0, null);
+			}else {
+				menuGraphics.drawImage(selectedTower.getUpgradeIcon(),1,1, null);
+			}
+			
+		
 			selectedTower.showRange(g, camera);
 			
 		}else {
@@ -168,7 +181,7 @@ public class TowerPlacer {
 			//bottomPic.update(Assets.blank);
 		}
 		wheelMenu.update(menuPic);
-		wheelMenu.move(x-25, y-25);
+		wheelMenu.move(x-26, y-26);
 	}
 	
 	public int getSpentMoney() {

@@ -17,8 +17,8 @@ public class Plantlvl1 extends Tower{
 		statusLength=15;
 		sellValue=1;
 		infoText="planting cost $"+price+"\n\na tiny bud that's waiting to \ngrow up. It occasionally \nstuns enemies around it";
-		buyIcon=Assets.towerIcons[9];
-		upgradeIcon=Assets.towerIcons[10];
+		buyIcon=Assets.towerIcons[8];
+		upgradeIcon=Assets.towerIcons[9];
 		waveCounted=!entityManager.getSpawner().waveComplete();
 	}
 	@Override

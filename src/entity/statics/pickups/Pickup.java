@@ -1,19 +1,31 @@
-package entity.statics;
+package entity.statics.pickups;
 
 import entity.Entity;
 import entity.mobs.player.Player;
+import entity.statics.Statics;
 
 public abstract class Pickup extends Statics{
 	
-	public Pickup(int x, int y, int width, int height) {
+	public Pickup(int x, int y) {
 		this.x=x;
-		this.y=y;//setting the size and location so updatebounds will work
+		this.y=y;
+		health=1;
+	}
+	public Pickup(int x, int y, int width, int height) {
+		this(x,y);
+		setSize(width, height);
+		
+	}
+	
+	protected void setSize(int width, int height) {
 		this.width=width;
 		this.height=height;
-		health=1;
 	}
 	
 	abstract void playerCollide(Player p);
+	
+	@Override
+	public void update() {}
 	
 	@Override
 	public void damage() {

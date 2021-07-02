@@ -1,21 +1,22 @@
 package entity.mobs.player;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import Main.ItemList;
 import entity.Entity;
-import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.mobs.player.UI.MiniMap;
 import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
+import entity.mobs.player.guns.Beam;
+import entity.mobs.player.guns.Gun;
+import entity.mobs.player.guns.Pistol;
+import entity.mobs.player.guns.Sniper;
 import entity.statics.Core;
-import entity.statics.towers.EmptyTowerSlot;
 import entity.statics.towers.Tower;
-import entity.statics.towers.Plant.Plantlvl1;
-import entity.statics.towers.wizard.WizardTowerlvl1;
-import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.particles.ParticleEffect;
@@ -25,16 +26,20 @@ import graphics.particles.shapes.OvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
 import states.State;
+import states.TowerPickup;
 
 //@author Matthew (did all of player movement, the player class, anything related to core)
 //@author Kevin (did animation, shoot method, shot delay, anything related to tower, rendering)
 
 public class Player extends Mobs {
 	//declaring variables
-	private int reloadTime = 15 , shotDelay = 0, shotDamage=5;
+	
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private Tower[] towers = {new WizardTowerlvl1(0, 0), new EmptyTowerSlot(),new EmptyTowerSlot(),new EmptyTowerSlot()};
+	private int[] towers = {ItemList.WIZARD,ItemList.EMTPTY,ItemList.EMTPTY,ItemList.EMTPTY};
+	private ArrayList<Gun> guns;
+	private int gun=0;
+	
 	
 	private Camera camera; //Camera needed so it can follow player
 	private Core core; //Core is related to player, as core effects player health
@@ -43,6 +48,7 @@ public class Player extends Mobs {
 	private TowerPlacer towerPlacer;
 	private MiniMap miniMap;
 	private Animator animator=new Animator();
+	
 	
 	
 	private BufferedImage currentPic;//the current image of the player
@@ -62,7 +68,9 @@ public class Player extends Mobs {
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
 		camera=GameState.getCamera(); //The camera will follow the player
+		guns=new ArrayList<Gun>(Arrays.asList(ItemList.newGun(entityManager, ItemList.PISTOL)));
 		setLocation(x-width/2, y-height/2);
+		
 		
 	}
 
@@ -75,35 +83,13 @@ public class Player extends Mobs {
 		
 	}
 	
-	public void shoot() {
-		if (shotDelay >= reloadTime) { //Allows the player to shoot every 10 frames
-			double targetX, targetY;
-			int angle=180;
-			targetX = (State.getInputs().getMouseX()); //Sets the mousesX position to targetX
-			targetY = (State.getInputs().getMouseY()); //Sets the mousesY position to targetY
-			entityManager.addEntity(new Bullet(x+4, y+11, targetX+camera.getxOffset(), 
-					targetY+camera.getyOffset(), Assets.yellowBullet, 5,shotDamage, true)); //Creates a new Bullet, camera offset is applied as it effects the bullets velocity calculation
-	
-			shotDelay = 0; //Resets shotDelay to ensure player can not shoot for another 10 frames
-			//adding a bit of screenshake so things feel better
-			GameState.screenShake(0.07);	
-			angle =(int)Math.round(Math.toDegrees(Math.atan2(targetY+camera.getyOffset()-y, 
-					targetX+camera.getxOffset()-x)));
-			new ParticleEffect(3, new Straight(new Point(x+width/2,y+height/2),angle,15,1), new OvalParticle(2, 
-					new Timed(new Color(250,230,150),30)), true);
-		}
-	}
-
 	@Override
 	public void update() {
 		int moveKeys=0;
 		
-		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
-		ui.update(health, money);//updating ui with current health and money
-		miniMap.update(entityManager.getEntities(), x, y);
-		
 		if (State.getInputs().isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
-			shoot();
+			guns.get(gun).shoot(x+width/2, y+height/2, State.getInputs().getMouseX()+camera.getxOffset(),
+					State.getInputs().getMouseY()+camera.getyOffset());
 		}
 		if (State.getInputs().isUp()) {// if the up input is triggered than it will move the player up
 			changeY -= speed;
@@ -125,11 +111,27 @@ public class Player extends Mobs {
 			direction='r';
 			moveKeys++;
 		}
+		if (State.getInputs().isNextGun()) {
+			gun++;
+			if(gun>=guns.size()) {
+				gun=0;
+			}
+		}
+		if (State.getInputs().isPrevGun()) {
+			gun--;
+			if(gun<0) {
+				gun=guns.size()-1;
+			}
+		}
 		if(moveKeys>=2) {
 			changeX/=1.25;
 			changeY/=1.25;
 		}
 		
+		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
+		ui.update(health, money,guns,gun);//updating ui with current health and money
+		miniMap.update(entityManager.getEntities(), x, y);
+		guns.get(gun).update();
 		tower();
 		
 		if(changeX==0&&changeY==0) {
@@ -146,7 +148,7 @@ public class Player extends Mobs {
 		}
 		
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
-		shotDelay ++; //Increase shotDelay by one every frame
+		//shotDelay ++; //Increase shotDelay by one every frame
 		dustDelay ++;
 		invincibility--;
 		
@@ -185,8 +187,10 @@ public class Player extends Mobs {
 	@Override
 	public void render(Graphics g, Camera camera) { //Draws different player sprites depending on it's direction 
 		g.drawImage(currentPic,x - camera.getxOffset(), y - camera.getyOffset(), null);
+		
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
+		
 		//drawHitBox(g, camera);
 	}
 	
@@ -206,14 +210,23 @@ public class Player extends Mobs {
 		//lets us give the player money
 		money+=amount;
 	}
+	public void giveItem(int id) {
+		//if its a tower
+		if(ItemList.isTower(id)) {
+			new TowerPickup(id);
+		}else if(ItemList.isGun(id)) {
+			guns.add(ItemList.newGun(entityManager, id));
+			gun=guns.size()-1;
+		}
+	}
 	public void heal(int amount) {
 		//lets other things heal the player
 		health+=amount;
 	}
-	public void swapTower(Tower newTower, int location) {
+	public void swapTower(int newTower, int location) {
 		towers[location]=newTower;
 	}
-	public Tower[] getTowers() {
+	public int[] getTowers() {
 		return towers;
 	}
 	public int getMoney() {

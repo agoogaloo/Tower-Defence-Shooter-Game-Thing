@@ -30,11 +30,10 @@ public class ConsoleState extends State{
 			updateText(key);
 		}
 		
-		getInputs().update();
-		
 		if(getInputs().isConsole()) {
 			currentState=game;//continuing the game if you push the console button again
 		}
+		getInputs().update();
 		
 		
 	}

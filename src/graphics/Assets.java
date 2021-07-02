@@ -35,6 +35,17 @@ public class Assets {
 			splitSpriteSheet(loadImage("res/textures/heart icon.png"), 13, 13, 3, 3),0,8);
 	public static final BufferedImage[] coin=splitSpriteSheet(loadImage("res/textures/coin.png"), 11, 11, 2, 2);
 	public static final BufferedImage[] chest=splitSpriteSheet(loadImage("res/textures/chest.png"),24,21, 2, 1);
+	public static final BufferedImage gunBg=loadImage("res/textures/ui/gunBg.png");
+	public static final BufferedImage altGunBg=loadImage("res/textures/ui/altGunBg.png");
+
+	//loading guns
+	public static final BufferedImage pistol = loadImage("res/textures/guns/pistol.png");
+	public static final BufferedImage[] pistolShoot = splitSpriteSheet(loadImage("res/textures/guns/pistolShoot.png"),32,21,3,1);
+	public static final BufferedImage beam = loadImage("res/textures/guns/beam.png");
+	public static final BufferedImage[] beamShoot = splitSpriteSheet(loadImage("res/textures/guns/beamShoot.png"),32,21,4,1);
+	public static final BufferedImage beamBullet=loadImage("res/textures/bullets/beamGun.png");
+	public static final BufferedImage sniper = loadImage("res/textures/guns/sniper.png");
+	public static final BufferedImage[] sniperShoot = splitSpriteSheet(loadImage("res/textures/guns/sniperShoot.png"),32,21,2,1);
 	
 	
 	//loading bullets
@@ -73,7 +84,7 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
 	//loading towers
-	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 12,1);
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 11,1);
 	
 	public static final BufferedImage[] wizardTowerLvl1 =
 			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 8, 1);

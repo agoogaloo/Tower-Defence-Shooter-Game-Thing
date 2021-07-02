@@ -1,14 +1,11 @@
 package entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
-import entity.statics.towers.Plant.Vine;
 import graphics.Camera;
 
 //@author Matthew (basically did all the logic and everything in this class)
@@ -40,10 +37,17 @@ public abstract class Entity {
 	protected ArrayList<Entity> entityCollide() {
 		// this is used to see what is colliding with what
 		ArrayList<Entity> entities = new ArrayList<Entity>();// this holds all the entities that are touching
-		for (Entity e : entityManager.getEntities()) {// looping through all the entities
+		
+		/*for (Entity e : entityManager.getEntities()) {// looping through all the entities
 			if (e != this && e.getBounds().intersects(this.bounds)) {// checking if it is touching this
 				entities.add(e);// if something is touching then it adds it to the arrayList
 			}
+		}*/
+		for (int i=entityManager.getEntities().size()-1;i>=0;i--) {// looping through all the entities
+			if (entityManager.getEntities().get(i) != this &&entityManager.getEntities().get(i).getBounds().intersects(this.bounds)) {// checking if it is touching this
+				entities.add(entityManager.getEntities().get(i));// if something is touching then it adds it to the arrayList
+			}
+			
 		}
 		return entities;// returning everything that is touching this entity
 	}

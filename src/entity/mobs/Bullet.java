@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.RenderLayer;
 import entity.mobs.enemy.StatusEffect;
-import entity.statics.Pickup;
+import entity.statics.pickups.Pickup;
 import entity.statics.towers.Tower;
 import graphics.Camera;
 import states.GameState;
@@ -20,14 +20,14 @@ public class Bullet extends Mobs{
 	//int intVelocityX, intVelocityY; //Needed to parse velocityX and velocityY into ints
 	BufferedImage pic; //Sets this bullet picture to a variable
 	
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, boolean friendly){
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, boolean friendly){
 		this(startX, startY, targetX, targetY, pic, speed, 1, friendly);
 	}
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed, int damage, boolean friendly){
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, int damage, boolean friendly){
 		this(startX, startY, targetX, targetY, pic, speed, damage, StatusEffect.NONE, 0, 0, friendly);
 	}
 	
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, int speed,
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed,
 			int damage,StatusEffect effect,int effectLength,int effectPower, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
 		this.damage=damage;
 		this.friendly=friendly;
@@ -72,7 +72,7 @@ public class Bullet extends Mobs{
 		//updating the hitboxes location
 		bounds.setLocation(x,y);
 
-		checkWalls((int)(velocityX),(int)(velocityY));														//
+		checkWalls((int)(velocityX),(int)(velocityY));
 		
 	}
 	

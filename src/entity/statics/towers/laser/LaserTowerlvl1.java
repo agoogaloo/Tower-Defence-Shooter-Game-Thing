@@ -10,11 +10,14 @@ import graphics.Assets;
 public class LaserTowerlvl1 extends Tower{
 	char direction;
 	public LaserTowerlvl1(int x,int y) {
-		this.direction=entityManager.getPlayer().getDirection();
+		this(x,y,entityManager.getPlayer().getDirection());
+	}
+	public LaserTowerlvl1(int x,int y, char direction) {
+		this.direction=direction;
 		price=5;
 		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in the you are \nfaceing when you place it";
-		buyIcon=Assets.towerIcons[6];
-		upgradeIcon=Assets.towerIcons[7];
+		buyIcon=Assets.towerIcons[5];
+		upgradeIcon=Assets.towerIcons[6];
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.laserTowerLvl1U,6);

@@ -11,8 +11,8 @@ public class WizardTowerlvl1 extends Tower{
 		damage=5;
 		sellValue=1;
 		infoText="buying cost $"+price+"\n\nan ordinary tower that \nshoots enemies in its range";
-		buyIcon=Assets.towerIcons[3];
-		upgradeIcon=Assets.towerIcons[4];
+		buyIcon=Assets.towerIcons[2];
+		upgradeIcon=Assets.towerIcons[3];
 	}
 	
 	@Override

@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Main.ItemList;
 import entity.Entity;
-import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
 import states.menus.Menu;
@@ -17,20 +17,20 @@ import window.Window;
 
 public class TowerPickup extends State{
 
-	Tower newTower;
+	int towerId;
 	Animation towerAnim;
 	State previousState;
-	Tower[] currentTowers=Entity.getEntityManager().getPlayer().getTowers();
+	int[] currentTowers=Entity.getEntityManager().getPlayer().getTowers();
 	Menu menu;
 	int towerToSwitch=-1;
-	public TowerPickup(Tower newTower) {
-		this.newTower=newTower;
-		towerAnim=newTower.getAnimation();
+	public TowerPickup(int towerId) {
+		this.towerId=towerId;
+		towerAnim=ItemList.getTower(towerId).getAnimation();
 		previousState=State.currentState;
 		currentState=this;
 		BufferedImage[] selectionPics=new BufferedImage[currentTowers.length];
 		for(int i=0;i<currentTowers.length;i++) {
-			BufferedImage initial=currentTowers[i].getBuyIcon();
+			BufferedImage initial=ItemList.getTower(currentTowers[i]).getBuyIcon();
 			selectionPics[i] = new BufferedImage(initial.getWidth(), initial.getHeight(), initial.getType());
 		    Graphics g = selectionPics[i].getGraphics();
 		    g.drawImage(initial, 0, 0, null);
@@ -39,7 +39,8 @@ public class TowerPickup extends State{
 		}
 		
 		menu = new Menu(new Rectangle(),new MenuObject[] {
-				new PictureSelection(new Rectangle(100,75,25,25),currentTowers[0].getBuyIcon().getSubimage(0, 0, 25, 25), 
+				new PictureSelection(new Rectangle(100,75,25,25),
+						ItemList.getTower(currentTowers[0]).getBuyIcon().getSubimage(0, 0, 25, 25), 
 						selectionPics[0].getSubimage(0, 0, 25, 25)) {
 					@Override
 					public void select() {
@@ -47,7 +48,8 @@ public class TowerPickup extends State{
 						towerToSwitch=0;
 					}
 				},
-				new PictureSelection(new Rectangle(125,75,25,25),currentTowers[1].getBuyIcon().getSubimage(25, 0, 25, 25), 
+				new PictureSelection(new Rectangle(125,75,25,25),
+						ItemList.getTower(currentTowers[1]).getBuyIcon().getSubimage(25, 0, 25, 25), 
 						selectionPics[1].getSubimage(25, 0, 25, 25)){
 					@Override
 					public void select() {
@@ -55,7 +57,7 @@ public class TowerPickup extends State{
 						towerToSwitch=1;
 					}
 				},
-				new PictureSelection(new Rectangle(100,100,25,25),currentTowers[2].getBuyIcon().getSubimage(0, 25, 25, 25), 
+				new PictureSelection(new Rectangle(100,100,25,25),
 						selectionPics[2].getSubimage(0, 25, 25, 25)){
 					@Override
 					public void select() {
@@ -63,7 +65,8 @@ public class TowerPickup extends State{
 						towerToSwitch=2;
 					}
 				},
-				new PictureSelection(new Rectangle(125,100,25,25),currentTowers[3].getBuyIcon().getSubimage(25, 25, 25, 25), 
+				new PictureSelection(new Rectangle(125,100,25,25),
+						ItemList.getTower(currentTowers[3]).getBuyIcon().getSubimage(25, 25, 25, 25), 
 						selectionPics[3].getSubimage(25, 25, 25, 25)){
 					@Override
 					public void select() {
@@ -85,7 +88,7 @@ public class TowerPickup extends State{
 		menu.update(getInputs());
 		towerAnim.update();
 		if(towerToSwitch!=-1) {
-			Entity.getEntityManager().getPlayer().swapTower(newTower, towerToSwitch);
+			Entity.getEntityManager().getPlayer().swapTower(towerId, towerToSwitch);
 			currentState=previousState;
 		}
 		

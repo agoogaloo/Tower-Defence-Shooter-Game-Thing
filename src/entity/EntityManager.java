@@ -43,7 +43,7 @@ public class EntityManager {
 			kills=0;
 		}
 		
-		player.reset(200,200);
+		//player.reset(200,200);
 		player.createCore();//making the core
 		
 		entities.add(player);// adding the player and factory to the arraylist so it will be updated and rendered

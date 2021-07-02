@@ -3,17 +3,14 @@ package entity.statics;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
-import entity.statics.towers.Tower;
-import entity.statics.towers.Mushroom.Mushroomlvl1;
-import entity.statics.towers.Plant.Plantlvl1;
-import entity.statics.towers.laser.LaserTowerlvl1;
-import entity.statics.towers.wizard.WizardTowerlvl1;
+import Main.ItemList;
+import entity.statics.pickups.GunTowerItem;
 import graphics.Assets;
 import graphics.Camera;
-import states.TowerPickup;
 
 public class Chest extends Statics{
-	private static Tower[] towers= {new Plantlvl1(0, 0), new LaserTowerlvl1(0, 0),new WizardTowerlvl1(0, 0)};
+	private static int[] items= {ItemList.WIZARD,ItemList.LASER,ItemList.PLANT, ItemList.BEAM, 
+			ItemList.PISTOL, ItemList.SNIPER};
 	
 	public Chest(int x,int y) {
 		this.x=x-12;
@@ -41,8 +38,9 @@ public class Chest extends Statics{
 	public void damage() {
 		super.damage();
 		if(killed) {
-			Tower tower=towers[ThreadLocalRandom.current().nextInt(0, towers.length)];
-			new TowerPickup(tower);
+			int item=items[ThreadLocalRandom.current().nextInt(0, items.length)];
+			entityManager.addEntity(new GunTowerItem(x, y, item));
+			//new TowerPickup(tower);
 		}
 	}
 
