@@ -39,6 +39,9 @@ public class ImageUtils {
 	 * @param colour - the outline colour
 	 */
 	public static BufferedImage outline(BufferedImage img, Color colour) {
+		if(img==null||(img.getWidth()==0&&img.getHeight()==0)) {
+			return img;
+		}
 		BufferedImage startPic=copyImage(img,2,2);
 		BufferedImage newPic = copyImage(startPic);
 		

@@ -156,10 +156,32 @@ public class TowerPlacer {
 		menuGraphics= menuPic.createGraphics();
 		//menuGraphics.clearRect(0, 0, 50, 50);
 		if(mode==Mode.PLACING) {
-			menuGraphics.drawImage(ItemList.getTower(towers[0]).getBuyIcon().getSubimage(0, 0, 25, 25), 1,1, null);
-			menuGraphics.drawImage(ItemList.getTower(towers[1]).getBuyIcon().getSubimage(25, 0, 25, 25), 26,1, null);
-			menuGraphics.drawImage(ItemList.getTower(towers[2]).getBuyIcon().getSubimage(0, 25, 25, 25), 1,26, null);
-			menuGraphics.drawImage(ItemList.getTower(towers[3]).getBuyIcon().getSubimage(25, 25, 25, 25), 26,26, null);
+			if(mouseLeftRight=='l'&&mouseUpDown=='u') {
+				menuGraphics.drawImage(ImageUtils.outline(
+						ItemList.getTower(towers[0]).getBuyIcon().getSubimage(0, 0, 25, 25),Color.white),0,0, null);
+			}else {
+				menuGraphics.drawImage(ItemList.getTower(towers[0]).getBuyIcon().getSubimage(0, 0, 25, 25), 1,1, null);
+			}
+			if(mouseLeftRight=='r'&&mouseUpDown=='u') {
+				menuGraphics.drawImage(ImageUtils.outline(
+						ItemList.getTower(towers[1]).getBuyIcon().getSubimage(25, 0, 25, 25),Color.white), 25,0, null);
+			}else {
+				menuGraphics.drawImage(ItemList.getTower(towers[1]).getBuyIcon().getSubimage(25, 0, 25, 25), 26,1, null);
+			}
+			
+			if(mouseLeftRight=='l'&&mouseUpDown=='d') {
+				menuGraphics.drawImage(ImageUtils.outline(
+						ItemList.getTower(towers[2]).getBuyIcon().getSubimage(0, 25, 25, 25),Color.white), 0,25, null);
+			}else {
+				menuGraphics.drawImage(ItemList.getTower(towers[2]).getBuyIcon().getSubimage(0, 25, 25, 25), 1,26, null);
+			}
+			if(mouseLeftRight=='r'&&mouseUpDown=='d') {
+				menuGraphics.drawImage(ImageUtils.outline(
+						ItemList.getTower(towers[3]).getBuyIcon().getSubimage(25, 25, 25, 25),Color.white), 25,25, null);
+			}else {
+				menuGraphics.drawImage(ItemList.getTower(towers[3]).getBuyIcon().getSubimage(25, 25, 25, 25), 26,26, null);
+			}
+			
 		}else if(mode==Mode.UPGRADING) {
 			if(mouseUpDown=='d') {
 				menuGraphics.drawImage(ImageUtils.outline(Assets.towerIcons[1],Color.white),0,0, null);
@@ -167,9 +189,23 @@ public class TowerPlacer {
 				menuGraphics.drawImage(Assets.towerIcons[1],1,1, null);
 			}
 			if(mouseUpDown=='u') {
-				menuGraphics.drawImage(ImageUtils.outline(selectedTower.getUpgradeIcon(),Color.white),0,0, null);
+				if(selectedTower.isSplitUpgrades()) {
+					if(mouseLeftRight=='r') {
+						menuGraphics.drawImage(selectedTower.getUpgradeIcon('l'),1,1, null);
+						menuGraphics.drawImage(ImageUtils.outline(selectedTower.getUpgradeIcon('r'),Color.white),25,0, null);
+						
+					}else if (mouseLeftRight=='l') {
+						menuGraphics.drawImage(ImageUtils.outline(selectedTower.getUpgradeIcon('l'),Color.white),0,0, null);
+						menuGraphics.drawImage(selectedTower.getUpgradeIcon('r'),26,1, null);
+					}else {
+						menuGraphics.drawImage(selectedTower.getUpgradeIcon('n'),1,1, null);
+					}
+					
+				}else {
+					menuGraphics.drawImage(ImageUtils.outline(selectedTower.getUpgradeIcon('n'),Color.white),0,0, null);
+				}
 			}else {
-				menuGraphics.drawImage(selectedTower.getUpgradeIcon(),1,1, null);
+				menuGraphics.drawImage(selectedTower.getUpgradeIcon('n'),1,1, null);
 			}
 			
 		

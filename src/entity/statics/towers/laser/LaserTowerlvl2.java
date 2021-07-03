@@ -36,6 +36,7 @@ public class LaserTowerlvl2 extends Tower{
 			animation=new Animation(Assets.laserTowerLvl2R,6);
 				
 		}
+		splitUpgrades=true;
 		width=animation.getCurrentFrame().getWidth();
 		height=animation.getCurrentFrame().getHeight();//setting the size of the tower to the size of the animation
 		this.x = x-width/2;

@@ -29,7 +29,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected Ellipse2D.Float towerRange; //A rectangle of range where the tower can shoot at
 	protected Animation animation;
 	
-	
+	protected boolean splitUpgrades=false;
 	protected BufferedImage buyIcon,upgradeIcon;
 	protected int price, sellValue;
 	protected String infoText;
@@ -114,11 +114,23 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		killed=true;
 	}	
 	//getters/setters
-	public BufferedImage getUpgradeIcon() {
+	public BufferedImage getUpgradeIcon(char leftRight) {
+		if(!splitUpgrades) {
+			return upgradeIcon;
+		}
+		if(leftRight=='l') {
+			return upgradeIcon.getSubimage(0, 0, 25, 25);
+		}
+		if(leftRight=='r') {
+			return upgradeIcon.getSubimage(25, 0, 25, 25);
+		}
 		return upgradeIcon;
 	}
 	public Animation getAnimation() {
 		return animation;
+	}
+	public boolean isSplitUpgrades() {
+		return splitUpgrades;
 	}
 	public BufferedImage getBuyIcon() {
 		return buyIcon;

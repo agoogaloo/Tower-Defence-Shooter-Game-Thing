@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import Main.ItemList;
 import entity.Entity;
 import graphics.Animation;
-import graphics.Assets;
+import graphics.ImageUtils;
 import states.menus.Menu;
 import states.menus.MenuObject;
 import states.menus.MenuSelection;
@@ -23,25 +23,22 @@ public class TowerPickup extends State{
 	int[] currentTowers=Entity.getEntityManager().getPlayer().getTowers();
 	Menu menu;
 	int towerToSwitch=-1;
+	BufferedImage[] selectionPics;
+	
 	public TowerPickup(int towerId) {
 		this.towerId=towerId;
 		towerAnim=ItemList.getTower(towerId).getAnimation();
 		previousState=State.currentState;
 		currentState=this;
-		BufferedImage[] selectionPics=new BufferedImage[currentTowers.length];
+		selectionPics=new BufferedImage[currentTowers.length];
 		for(int i=0;i<currentTowers.length;i++) {
-			BufferedImage initial=ItemList.getTower(currentTowers[i]).getBuyIcon();
-			selectionPics[i] = new BufferedImage(initial.getWidth(), initial.getHeight(), initial.getType());
-		    Graphics g = selectionPics[i].getGraphics();
-		    g.drawImage(initial, 0, 0, null);
-		    g.drawImage(Assets.towerIcons[1],0,0, null);
-		    g.dispose();
+			selectionPics[i] = ItemList.getTower(currentTowers[i]).getBuyIcon();
 		}
 		
 		menu = new Menu(new Rectangle(),new MenuObject[] {
 				new PictureSelection(new Rectangle(100,75,25,25),
-						ItemList.getTower(currentTowers[0]).getBuyIcon().getSubimage(0, 0, 25, 25), 
-						selectionPics[0].getSubimage(0, 0, 25, 25)) {
+						ImageUtils.copyImage(selectionPics[0].getSubimage(0, 0, 25, 25),1,1), 
+						ImageUtils.outline(selectionPics[0].getSubimage(0, 0, 25, 25),Color.white)) {
 					@Override
 					public void select() {
 						super.select();
@@ -49,8 +46,8 @@ public class TowerPickup extends State{
 					}
 				},
 				new PictureSelection(new Rectangle(125,75,25,25),
-						ItemList.getTower(currentTowers[1]).getBuyIcon().getSubimage(25, 0, 25, 25), 
-						selectionPics[1].getSubimage(25, 0, 25, 25)){
+						ImageUtils.copyImage(selectionPics[1].getSubimage(25, 0, 25, 25),1,1),
+						ImageUtils.outline(selectionPics[1].getSubimage(25, 0, 25, 25),Color.white)){
 					@Override
 					public void select() {
 						super.select();
@@ -58,7 +55,8 @@ public class TowerPickup extends State{
 					}
 				},
 				new PictureSelection(new Rectangle(100,100,25,25),
-						selectionPics[2].getSubimage(0, 25, 25, 25)){
+						ImageUtils.copyImage(selectionPics[2].getSubimage(0, 25, 25, 25),1,1),
+						ImageUtils.outline(selectionPics[2].getSubimage(0, 25, 25, 25),Color.white)){
 					@Override
 					public void select() {
 						super.select();
@@ -66,8 +64,8 @@ public class TowerPickup extends State{
 					}
 				},
 				new PictureSelection(new Rectangle(125,100,25,25),
-						ItemList.getTower(currentTowers[3]).getBuyIcon().getSubimage(25, 25, 25, 25), 
-						selectionPics[3].getSubimage(25, 25, 25, 25)){
+						ImageUtils.copyImage(selectionPics[3].getSubimage(25, 25, 25, 25), 1,1),
+						ImageUtils.outline(selectionPics[3].getSubimage(25, 25, 25, 25),Color.white)){
 					@Override
 					public void select() {
 						super.select();
@@ -75,7 +73,9 @@ public class TowerPickup extends State{
 					}
 				}, new MenuSelection(new Rectangle(Window.getDisplay().getRelativeWidth()/2-10,
 						Window.getDisplay().getRelativeHeight()/2+50,50,10),"leave it", Color.white, new Color(84,204,60)) {
-					public void select() {currentState=previousState;}
+					public void select() {
+						currentState=previousState;
+					}
 				}
 			});
 		menu.select();
