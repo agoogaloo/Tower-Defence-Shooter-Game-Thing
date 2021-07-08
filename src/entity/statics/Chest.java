@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
 import Main.ItemList;
-import entity.statics.pickups.GunTowerItem;
+import entity.mobs.pickups.GunTowerItem;
 import graphics.Assets;
 import graphics.Camera;
 

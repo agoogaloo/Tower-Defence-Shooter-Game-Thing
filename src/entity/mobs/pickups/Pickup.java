@@ -1,10 +1,10 @@
-package entity.statics.pickups;
+package entity.mobs.pickups;
 
 import entity.Entity;
+import entity.mobs.Mobs;
 import entity.mobs.player.Player;
-import entity.statics.Statics;
 
-public abstract class Pickup extends Statics{
+public abstract class Pickup extends Mobs{
 	
 	public Pickup(int x, int y) {
 		this.x=x;
@@ -25,7 +25,9 @@ public abstract class Pickup extends Statics{
 	abstract void playerCollide(Player p);
 	
 	@Override
-	public void update() {}
+	public void update() {
+		move();
+	}
 	
 	@Override
 	public void damage() {

@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.RenderLayer;
 import entity.mobs.enemy.StatusEffect;
-import entity.statics.pickups.Pickup;
+import entity.mobs.pickups.Pickup;
 import entity.statics.towers.Tower;
 import graphics.Camera;
 import states.GameState;
