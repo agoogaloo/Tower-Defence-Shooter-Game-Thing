@@ -16,6 +16,7 @@ public class ElectroWizardTower extends Tower{
 		statusLength=5;
 		infoText="upgrade cost $"+price+"\n\ngives the wizard the power \nof electricity "
 				+ "letting it \nshoot faster and stun \nenemies to slow them down";
+		
 	}
 	@Override
 	public Tower createNew(int x, int y) {

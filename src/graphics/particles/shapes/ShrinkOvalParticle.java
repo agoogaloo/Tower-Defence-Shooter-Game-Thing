@@ -39,7 +39,7 @@ public class ShrinkOvalParticle extends ParticleShape{
 	@Override
 	/** this returns a copy of this particle shape*/
 	public ParticleShape copy() {
-		return new ShrinkOvalParticle(colourer, width, height, xShrink, yShrink);
+		return new ShrinkOvalParticle(colourer.copy(), width, height, xShrink, yShrink);
 	}
 
 }

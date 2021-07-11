@@ -142,7 +142,7 @@ public class Player extends Mobs {
 			if(dustDelay>=15) {
 				
 				new ParticleEffect(3, new Straight(new Point(x+7,y+12),0.5), 
-						new OvalParticle(2, new Timed(45)), false);
+						new OvalParticle(2, new Timed(15)), false);
 				dustDelay=0;
 			}
 		}
@@ -228,6 +228,9 @@ public class Player extends Mobs {
 	}
 	public int[] getTowers() {
 		return towers;
+	}
+	public ArrayList<Gun> getGuns() {
+		return guns;
 	}
 	public int getMoney() {
 		return money;

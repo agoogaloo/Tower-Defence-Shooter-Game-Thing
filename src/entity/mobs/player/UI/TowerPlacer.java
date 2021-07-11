@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import Main.ItemList;
 import entity.Entity;
@@ -14,6 +15,13 @@ import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
+import graphics.particles.ParticleEffect;
+import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.Point;
+import graphics.particles.movers.spawnPattern.RectangleSpawner;
+import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.ShrinkOvalParticle;
+import graphics.particles.shapes.colourers.Timed;
 import saveData.Settings;
 import states.State;
 
@@ -75,8 +83,10 @@ public class TowerPlacer {
 		
 		infoText.update(ItemList.getTower(hoveredTower).getInfoText());
 		if(!State.getInputs().isPlace()&&money>=ItemList.getTower(hoveredTower).getPrice()) {
-			moneySpent=ItemList.getTower(hoveredTower).getPrice();
-			return ItemList.getTower(hoveredTower).createNew(x+camera.getxOffset(), y+camera.getyOffset());
+			Tower tower=ItemList.getTower(hoveredTower).createNew(x+camera.getxOffset(), y+camera.getyOffset());
+			moneySpent=tower.getPrice();
+			tower.buildParticles();
+			return tower;
 		}
 		return null;
 	}

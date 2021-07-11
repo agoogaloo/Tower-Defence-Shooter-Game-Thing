@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
 import entity.mobs.Bullet;
@@ -14,6 +15,13 @@ import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
+import graphics.particles.ParticleEffect;
+import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.Point;
+import graphics.particles.movers.spawnPattern.RectangleSpawner;
+import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.ShrinkOvalParticle;
+import graphics.particles.shapes.colourers.Timed;
 
 // @author Kevin (did all of tower except for a few parts)
 // @author Matthew (helped debug the code, made Entity target, and fixed towerRange, made width and height too)
@@ -48,9 +56,19 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		this.reloadTime=reloadTime;
 		towerRange=new Ellipse2D.Float(x-rangeWidth/2,y-rangeHeight/2, rangeWidth, rangeHeight);
 		updateBounds();
+		
+		
 	}
 	public void init() {
 		
+	}
+	public void buildParticles() {
+		new ParticleEffect(7, new Straight(new RectangleSpawner(x,y+(int)(height*0.75),width/2,height/4),220,80,0.3), 
+				new ShrinkOvalParticle(new Timed(60) , 6,0.15), true);
+		new ParticleEffect(7, new Straight(new RectangleSpawner(x+width/2,y+(int)(height*0.75),width/2,height/4),-40,80,0.3), 
+				new ShrinkOvalParticle(new Timed(60) , 6,0.15), true);
+		new ParticleEffect(6, new Straight(new Point(x+width/2,y+(int)(height*0.75)),0.4), 
+				new ShrinkOvalParticle(new Timed(new Color(181,181,181),60), 7,0.15), true);
 	}
 	
 	public abstract int upgrade(char leftRight, int money);
@@ -111,6 +129,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	
 	public void destroy() {
+		buildParticles();
 		killed=true;
 	}	
 	//getters/setters

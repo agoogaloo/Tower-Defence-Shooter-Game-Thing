@@ -41,7 +41,7 @@ public class OvalParticle extends ParticleShape{
 	@Override
 	/** this returns a copy of this particle shape*/
 	public ParticleShape copy() {
-		return new OvalParticle(width, height, colourer);
+		return new OvalParticle(width, height, colourer.copy());
 	}
 
 }

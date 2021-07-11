@@ -46,6 +46,8 @@ public class Assets {
 	public static final BufferedImage beamBullet=loadImage("res/textures/bullets/beamGun.png");
 	public static final BufferedImage sniper = loadImage("res/textures/guns/sniper.png");
 	public static final BufferedImage[] sniperShoot = splitSpriteSheet(loadImage("res/textures/guns/sniperShoot.png"),32,21,2,1);
+	public static final BufferedImage cannon = loadImage("res/textures/guns/cannon.png");
+	public static final BufferedImage[] cannonShoot = splitSpriteSheet(loadImage("res/textures/guns/cannonShoot.png"),32,21,4,1);
 	
 	
 	//loading bullets

@@ -15,7 +15,9 @@ public class LaserTowerlvl1 extends Tower{
 	public LaserTowerlvl1(int x,int y, char direction) {
 		this.direction=direction;
 		price=5;
+		sellValue=3;
 		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in the you are \nfaceing when you place it";
+		
 		buyIcon=Assets.towerIcons[5];
 		upgradeIcon=Assets.towerIcons[6];
 		switch (direction) {
@@ -39,7 +41,7 @@ public class LaserTowerlvl1 extends Tower{
 		this.y = y-2;
 		updateBounds();
 		reloadTime=30;
-		sellValue=3;
+		
 		
 		switch (direction) {
 		case 'u':

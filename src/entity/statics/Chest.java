@@ -9,8 +9,8 @@ import graphics.Assets;
 import graphics.Camera;
 
 public class Chest extends Statics{
-	private static int[] items= {ItemList.WIZARD,ItemList.LASER,ItemList.PLANT, ItemList.BEAM, 
-			ItemList.PISTOL, ItemList.SNIPER};
+	private static int[] items= {ItemList.LASER,ItemList.PLANT, ItemList.BEAM, ItemList.SNIPER,
+			ItemList.CANNON};
 	
 	public Chest(int x,int y) {
 		this.x=x-12;
@@ -39,6 +39,7 @@ public class Chest extends Statics{
 		super.damage();
 		if(killed) {
 			int item=items[ThreadLocalRandom.current().nextInt(0, items.length)];
+			
 			entityManager.addEntity(new GunTowerItem(x, y, item));
 			//new TowerPickup(tower);
 		}
