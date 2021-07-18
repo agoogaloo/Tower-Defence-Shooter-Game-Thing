@@ -12,15 +12,22 @@ public class Animation {
 	private int totalFrames; //The amount of frames in the animation
 	private BufferedImage[] pics; //The list that contains all the frames, is different depending on the parameter
 	
+	private int xOffset=0,yOffset=0;
+	
 	//if you dont specify the framerate it will default to 10
 	public Animation(BufferedImage[] pics) {
 		this(pics,6);
 	}
 	//a constructor that lets you specify framerate
 	public Animation(BufferedImage[] pics, int frameDelay) {
+		this(pics,frameDelay,0,0);
+	}
+	public Animation(BufferedImage[] pics, int frameDelay, int xOffset, int yOffset) {
 		this.frameDelay = frameDelay;	
 		this.totalFrames = pics.length; //Sets the total frames of animation to how many frames there are in the arraylist
 		this.pics=pics;
+		this.xOffset=xOffset;
+		this.yOffset=yOffset;
 		
 	}
 	
@@ -73,6 +80,12 @@ public class Animation {
 	
 	public int getlength() {
 		return totalFrames;
+	}
+	public int getxOffset() {
+		return xOffset;
+	}
+	public int getyOffset() {
+		return yOffset;
 	}
 	
 }

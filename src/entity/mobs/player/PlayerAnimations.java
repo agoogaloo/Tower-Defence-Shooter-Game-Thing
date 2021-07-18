@@ -8,5 +8,8 @@ public enum PlayerAnimations {
 	RUNUP,
 	RUNDOWN,
 	RUNLEFT,
-	RUNRIGHT
+	RUNRIGHT,
+	SPINSTART,
+	SPIN
+	
 }

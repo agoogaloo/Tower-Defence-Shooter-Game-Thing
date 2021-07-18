@@ -29,7 +29,7 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
 	private boolean up, down, left, right, shoot, place, nextGun, prevGun; //Keys and actions that are game needs
 	private PushButton console = new PushButton(), pause = new PushButton(), select = new PushButton(), upPushed=new PushButton(),
-			downPushed=new PushButton(), leftPushed=new PushButton(),rightPushed=new PushButton();
+			downPushed=new PushButton(), leftPushed=new PushButton(),rightPushed=new PushButton(), spinPushed=new PushButton();
 	
 	private int mouseX, mouseY;
 	
@@ -52,6 +52,7 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 		right = keys[KeyEvent.VK_RIGHT]||keys[KeyEvent.VK_D];
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
 		console.update(keys[KeyEvent.VK_F12]);
+		spinPushed.update(keys[KeyEvent.VK_SHIFT]);
 		upPushed.update(up);
 		select.update(shoot);
 		downPushed.update(down);
@@ -162,6 +163,9 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 	}
 	public boolean isConsole() { 
 		return console.getPushed();	
+	}
+	public boolean isSpin() { 
+		return spinPushed.getPushed();	
 	}
 	public boolean isUpPushed() {
 		return upPushed.getPushed();
