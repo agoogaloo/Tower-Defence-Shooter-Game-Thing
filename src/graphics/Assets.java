@@ -142,7 +142,7 @@ public class Assets {
 	public static  final BufferedImage[] playerRunU =playerIdleU;//Arrays.copyOfRange(player,37, 43);
 	public static  final BufferedImage[] playerRunR =playerIdleR;//Arrays.copyOfRange(player,43, 46);
 	
-	public static final BufferedImage[] spinD=splitSpriteSheet(loadImage("res/textures/spin.png"), 29,29, 8,1);
+	public static final BufferedImage[] spinD=splitSpriteSheet(loadImage("res/textures/spin.png"), 35,35, 8,1);
 	public static final BufferedImage spinStartD=loadImage("res/textures/spin start.png");
 	//enemy animations
 	public static final BufferedImage[] enemyRedD = Arrays.copyOfRange(enemyRed, 0, 4);

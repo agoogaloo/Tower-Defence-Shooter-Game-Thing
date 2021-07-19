@@ -52,7 +52,7 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 		right = keys[KeyEvent.VK_RIGHT]||keys[KeyEvent.VK_D];
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
 		console.update(keys[KeyEvent.VK_F12]);
-		spinPushed.update(keys[KeyEvent.VK_SHIFT]);
+		spinPushed.update(keys[KeyEvent.VK_SHIFT]||keys[KeyEvent.VK_NUMPAD0]);
 		upPushed.update(up);
 		select.update(shoot);
 		downPushed.update(down);

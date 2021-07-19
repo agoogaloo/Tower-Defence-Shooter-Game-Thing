@@ -19,7 +19,7 @@ public class Animator {
 	private Animation runUp = idleUp;// new Animation(Assets.playerRunU,6);
 	private Animation runRight = idleRight;// new Animation(Assets.playerRunR,6);
 	
-	private Animation spin= new Animation(Assets.spinD,3 ,11,7);
+	private Animation spin= new Animation(Assets.spinD,3 ,14,11);
 	
 	
 	public BufferedImage update(char direction, boolean moving, boolean spinStart) {

@@ -90,30 +90,33 @@ public class Player extends Mobs {
 	public void update() {
 		int moveKeys=0;
 		
-		if (State.getInputs().isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
-			guns.get(gun).shoot(x+width/2, y+height/2, State.getInputs().getMouseX()+camera.getxOffset(),
-					State.getInputs().getMouseY()+camera.getyOffset());
+		if(!(animator.getCurrentAnimation()==PlayerAnimations.SPIN||animator.getCurrentAnimation()==PlayerAnimations.SPINEND)) {
+			if (State.getInputs().isShoot()) { //If shoot in PlayerInput is triggered (by clicking) than it will call the shoot method
+				guns.get(gun).shoot(x+width/2, y+height/2, State.getInputs().getMouseX()+camera.getxOffset(),
+						State.getInputs().getMouseY()+camera.getyOffset());
+			}
+			if (State.getInputs().isUp()) {// if the up input is triggered than it will move the player up
+				changeY -= speed;
+				direction='u';
+				moveKeys++;
+			}
+			if (State.getInputs().isDown()) {// moving other directions
+				changeY += speed;
+				direction='d';
+				moveKeys++;
+			}
+			if (State.getInputs().isLeft()) {
+				changeX -= speed;
+				direction='l';
+				moveKeys++;
+			}
+			if (State.getInputs().isRight()) {
+				changeX += speed;
+				direction='r';
+				moveKeys++;
+			}
 		}
-		if (State.getInputs().isUp()) {// if the up input is triggered than it will move the player up
-			changeY -= speed;
-			direction='u';
-			moveKeys++;
-		}
-		if (State.getInputs().isDown()) {// moving other directions
-			changeY += speed;
-			direction='d';
-			moveKeys++;
-		}
-		if (State.getInputs().isLeft()) {
-			changeX -= speed;
-			direction='l';
-			moveKeys++;
-		}
-		if (State.getInputs().isRight()) {
-			changeX += speed;
-			direction='r';
-			moveKeys++;
-		}
+		
 		if (State.getInputs().isNextGun()) {
 			gun++;
 			if(gun>=guns.size()) {
@@ -170,13 +173,13 @@ public class Player extends Mobs {
 		spinAttack();
 		dustDelay ++;
 		invincibility--;
-		
 		GameState.newFloor(GameState.getFloor().getSpawnData((x+width/2)/16, (y+height/2)/16));
 	}
 	
 	private void spinAttack() {
 		if(spinHitBox!=null) {
-			spinHitBox.updateBounds((float)trueX-12, (float)trueY-8);
+			invincibility=2;
+			spinHitBox.updateBounds(x-14, y-11);
 			for(Entity i:spinHitBox.getCollisions()) {
 				if(!i.isFriendly()) {
 					i.damage(spinDamage);
@@ -186,8 +189,8 @@ public class Player extends Mobs {
 			}
 		}
 		if(animator.getCurrentAnimation()==PlayerAnimations.SPIN&&spinHitBox==null) {
-			entityManager.addEntity(spinHitBox=new CircleBox(x-12, y-8, 30,30,true));
-			invincibility=1;
+			entityManager.addEntity(spinHitBox=new CircleBox(x-14, y-11, 35,35,true));
+			
 			
 		}
 		if(animator.getCurrentAnimation()==PlayerAnimations.SPINEND&&spinHitBox!=null) {
