@@ -14,7 +14,7 @@ public class VinePlant extends Tower{
 	
 	
 	public VinePlant(int x, int y) {
-		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 12);
+		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 9999);
 		colour=ThreadLocalRandom.current().nextInt(0,Assets.vinePlant.length);
 		upgradeIcon=Assets.towerIcons[10];
 		animation= new Animation(Assets.vinePlant[colour]);
@@ -22,8 +22,6 @@ public class VinePlant extends Tower{
 		price=4;
 		sellValue=3;
 		damage=5;
-		statusEffect=StatusEffect.STUN;
-		statusLength=20;
 		infoText="water cost: "+price+"\n\n a plant that grows long \nvines which damage enemies";	
 		waveCounted=entityManager.getSpawner().waveComplete();
 		
@@ -50,7 +48,6 @@ public class VinePlant extends Tower{
 	}
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		super.update();
 		if(entityManager.getSpawner().waveComplete()&&!killed) {
 			for(Vine i:vines){
@@ -70,6 +67,8 @@ public class VinePlant extends Tower{
 		}
 			
 	}	
+	@Override
+	protected void shoot() {}//making it not shoot anything
 
 	@Override
 	public int upgrade(char leftRight, int money) {

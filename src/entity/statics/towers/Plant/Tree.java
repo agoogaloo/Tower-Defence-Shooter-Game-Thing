@@ -18,7 +18,7 @@ public class Tree extends Tower{
 		sellValue=3;
 		damage=6;
 		statusEffect=StatusEffect.STUN;
-		statusLength=30;
+		statusLength=20;
 		infoText="water cost $"+price+"\n\ngrows into a big tree that \nshoots acorns at enemies \nthat grow into new buds";
 		
 	}

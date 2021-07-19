@@ -26,7 +26,7 @@ public class GreenEnemy extends Enemy {
 		height=25; //The height of the enemy
 		speed=2; //The speed which the enemy travels, higher nubmer resuts in higher speeds
 		//damage=1; //The amount of damage the enemy will do if it collides with the player
-		health=35;
+		health=50;
 		reloadTime = 40;
 	}
 }

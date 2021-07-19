@@ -1,5 +1,7 @@
 package graphics.particles.movers.spawnPattern;
 
+import java.awt.Point;
+
 /**spawn patterns control where particles will spawn but do not influence 
  * where they can end up
  * @author The Computer Man 
@@ -13,10 +15,6 @@ public abstract class SpawnPattern {
 		this.y=y;
 	}
 	
-	/**
-	 * @return - returns a possible starting x coordinate depending on spawning pattern type */
-	public abstract int getNewX();
-	/**
-	 * @return - returns a possible starting x coordinate depending on spawning pattern type */
-	public abstract int getNewY();
+	public abstract Point getNewCoord();
+	
 }

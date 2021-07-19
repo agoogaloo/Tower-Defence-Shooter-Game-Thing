@@ -70,6 +70,7 @@ public class Assets {
 	public static final BufferedImage[] megaLaserL=splitSpriteSheet(loadImage("res/textures/bullets/mega laser l.png"), 
 			18, 13, 9, 2);
 	public static final BufferedImage[] acorn=splitSpriteSheet(loadImage("res/textures/bullets/acorn.png"), 10, 10, 8, 1);
+	public static final BufferedImage[] greenStars=splitSpriteSheet(loadImage("res/textures/particles/green stars.png"), 5, 5, 6, 1);
 	
 	public static final BufferedImage[] hubtiles=splitSpriteSheet(loadImage("res/textures/hub tiles.png"), 16, 16, 7, 12);
 	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/level 1 tiles.png"), 16, 16, 7, 12);

@@ -2,19 +2,24 @@ package entity.statics.towers.Plant;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import entity.Entity;
+import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
+import graphics.particles.ParticleEffect;
+import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.CircleSpawn;
+import graphics.particles.shapes.ImgShape;
 
 public class Plantlvl2 extends Tower{
 	private int minTime=300, wavesToGrow=2;
 	private boolean waveCounted;
 	public Plantlvl2(int x, int y) {
-		super(x, y, 115, 115, new Animation(Assets.plantLvl2,6), 60);
+		super(x, y, 110, 110, new Animation(Assets.plantLvl2,6), 55);
 		price=2;
 		sellValue=2;
-		damage=5;
 		statusEffect=StatusEffect.STUN;
 		statusLength=20;
 		upgradeIcon=Assets.towerIcons[10];
@@ -28,8 +33,7 @@ public class Plantlvl2 extends Tower{
 		return new Plantlvl2(x+width*2, y+height*2);
 	}
 	@Override
-	public void update() {
-		super.update();
+	public void update() {		
 		minTime--;
 		if(entityManager.getSpawner().waveComplete()) {
 			if(!waveCounted) {
@@ -47,6 +51,25 @@ public class Plantlvl2 extends Tower{
 		}else {
 			waveCounted=false;
 		}
+		
+		
+		animation.update();
+		if (shotDelay<=0) { //If attack is true and it's been 60 frames since last shot, shoot again
+			shotDelay = reloadTime; //Ensures the tower can't rapidly shoot
+			boolean stunned = false;
+			for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
+				if(towerRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
+						e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy) {
+					e.giveStatusEffect(statusEffect, 1, statusLength);
+					stunned=true;
+				}
+			}
+			if(stunned) {
+			new ParticleEffect(20, new Straight(new CircleSpawn(x+width/2,y+height/2
+					,(int)towerRange.width/2),0.25),new ImgShape(Assets.greenStars,50, 25),true);
+			}
+		}
+		shotDelay-=1; //Counts up for every frame, towers can only shoot every 60 frames
 	}
 
 	@Override

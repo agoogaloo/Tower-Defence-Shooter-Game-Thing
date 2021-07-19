@@ -12,13 +12,8 @@ public class Point extends SpawnPattern{
 	}
 
 	@Override
-	public int getNewX() {
-		return x;		
-	}
-
-	@Override
-	public int getNewY() {
-		return y;
+	public java.awt.Point getNewCoord() {
+		return new java.awt.Point(x, y);
 	}
 	
 	

@@ -36,7 +36,7 @@ public class Vine extends Tower{
 		damage=1;
 		this.startDir = startDir;
 		this.endDir = endDir;
-		health=10;
+		health=12;
 		layer=RenderLayer.BACK;
 		
 		int picIndex=0;

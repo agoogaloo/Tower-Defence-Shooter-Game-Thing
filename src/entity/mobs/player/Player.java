@@ -16,11 +16,14 @@ import entity.mobs.player.guns.Gun;
 import entity.statics.Core;
 import entity.statics.hitBox.CircleBox;
 import entity.statics.towers.Tower;
+import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
+import graphics.particles.movers.spawnPattern.RectangleSpawner;
+import graphics.particles.shapes.ImgShape;
 import graphics.particles.shapes.OvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
@@ -35,7 +38,7 @@ public class Player extends Mobs {
 	
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private int[] towers = {ItemList.WIZARD,ItemList.EMTPTY,ItemList.EMTPTY,ItemList.EMTPTY};
+	private int[] towers = {ItemList.WIZARD,ItemList.PLANT,ItemList.EMTPTY,ItemList.EMTPTY};
 	private ArrayList<Gun> guns;
 	private int gun=0;
 	
@@ -164,7 +167,7 @@ public class Player extends Mobs {
 			if(dustDelay>=15) {
 				
 				new ParticleEffect(3, new Straight(new Point(x+7,y+12),0.5), 
-						new OvalParticle(2, new Timed(15)), false);
+					new OvalParticle(2, new Timed(15)), false);
 				dustDelay=0;
 			}
 		}

@@ -18,7 +18,7 @@ public class Straight extends ParticleMover {
 	 * @param speed - speed in pixels/frame that particles move
 	 */
 	public Straight(SpawnPattern spawnPattern,int angle, int angleRange, double speed) {
-		super(spawnPattern.getNewX(),spawnPattern.getNewY());
+		super(spawnPattern.getNewCoord());
 		this.pattern=spawnPattern;
 		if(angleRange<=0) {
 			angleRange=1;

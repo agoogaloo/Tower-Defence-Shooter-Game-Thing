@@ -1,5 +1,6 @@
 package graphics.particles.movers.spawnPattern;
 
+import java.awt.Point;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -33,12 +34,7 @@ public class RectangleSpawner extends SpawnPattern{
 	}
 
 	@Override
-	public int getNewX() {
-		return ThreadLocalRandom.current().nextInt(x,x+width);
-	}
-
-	@Override
-	public int getNewY() {
-		return ThreadLocalRandom.current().nextInt(y,y+height);
+	public Point getNewCoord() {
+		return new Point(ThreadLocalRandom.current().nextInt(x,x+width),ThreadLocalRandom.current().nextInt(y,y+height));
 	}
 }
