@@ -19,14 +19,14 @@ public class Animator {
 	private Animation runUp = idleUp;// new Animation(Assets.playerRunU,6);
 	private Animation runRight = idleRight;// new Animation(Assets.playerRunR,6);
 	
-	private Animation spin= new Animation(Assets.spinD,4,11,7);
+	private Animation spin= new Animation(Assets.spinD,3 ,11,7);
 	
 	
 	public BufferedImage update(char direction, boolean moving, boolean spinStart) {
-		PlayerAnimations initialAnim=anim;
+		Animation initialAnim=currentAnim;
 
 		setAnim(direction, moving, spinStart);
-		if(anim!=initialAnim) {
+		if(currentAnim!=initialAnim) {
 			currentAnim.setCurrentFrame(0);
 		}else {
 			currentAnim.update();
@@ -36,9 +36,12 @@ public class Animator {
 	}
 	
 	private void setAnim(char direction, boolean moving, boolean spinStart) {
-		if(spinStart||(anim==PlayerAnimations.SPIN&&currentAnim.getFrameIndex()<currentAnim.getlength()-1)) {
+		if(spinStart||((anim==PlayerAnimations.SPIN||anim==PlayerAnimations.SPINEND)&&currentAnim.getFrameIndex()<currentAnim.getlength()-1)) {
 			anim=PlayerAnimations.SPIN;
 			currentAnim=spin;
+			if(currentAnim.getFrameIndex()>=4&&!spinStart) {
+				anim=PlayerAnimations.SPINEND;
+			}
 			
 		}else if(moving) {
 			switch(direction) {

@@ -38,5 +38,7 @@ public abstract class Pickup extends Mobs{
 			}
 		}
 	}
+	@Override
+	public void damage(int amount) {}
 
 }

@@ -38,11 +38,6 @@ public abstract class Entity {
 		// this is used to see what is colliding with what
 		ArrayList<Entity> entities = new ArrayList<Entity>();// this holds all the entities that are touching
 		
-		/*for (Entity e : entityManager.getEntities()) {// looping through all the entities
-			if (e != this && e.getBounds().intersects(this.bounds)) {// checking if it is touching this
-				entities.add(e);// if something is touching then it adds it to the arrayList
-			}
-		}*/
 		for (int i=entityManager.getEntities().size()-1;i>=0;i--) {// looping through all the entities
 			if (entityManager.getEntities().get(i) != this &&entityManager.getEntities().get(i).getBounds().intersects(this.bounds)) {// checking if it is touching this
 				entities.add(entityManager.getEntities().get(i));// if something is touching then it adds it to the arrayList
@@ -54,11 +49,12 @@ public abstract class Entity {
 
 	public void damage() {
 		//everything calls this so they can be hurt whenever something that is against them touches them
+		int damage=0;
 		for (Entity e : entityCollide()) {//checking what is colliding with itself
 			//checking which side the thing that touched it is on 
 			//(making sure enemies only attack the player, player cant attack the core, etc.)
 			if (e.isFriendly() != friendly) {
-				health -= e.getDamage();//dealing however much damage that entity does	
+				damage+= e.getDamage();//dealing however much damage that entity does	
 				if(e instanceof Bullet) {
 					statusEffect=e.statusEffect;
 					statusLength=e.statusLength;
@@ -66,6 +62,10 @@ public abstract class Entity {
 				}
 			}
 		}
+		damage(damage);
+	}
+	public void damage(int amount) {
+		health-=amount;
 		if (health <= 0) {//if it has no more health left that it should be dead
 			killed = true;
 		}
@@ -115,6 +115,9 @@ public abstract class Entity {
 		return damage;
 	}
 
+	public void destroy() {
+		killed=true;
+	}
 	public boolean isKilled() {
 		return this.killed;
 	}

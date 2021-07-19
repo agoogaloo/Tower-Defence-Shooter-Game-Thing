@@ -7,15 +7,14 @@ import java.util.Arrays;
 
 import Main.ItemList;
 import entity.Entity;
+import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.mobs.player.UI.MiniMap;
 import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
-import entity.mobs.player.guns.Beam;
 import entity.mobs.player.guns.Gun;
-import entity.mobs.player.guns.Pistol;
-import entity.mobs.player.guns.Sniper;
 import entity.statics.Core;
+import entity.statics.hitBox.CircleBox;
 import entity.statics.towers.Tower;
 import graphics.Camera;
 import graphics.ImageUtils;
@@ -48,6 +47,10 @@ public class Player extends Mobs {
 	private TowerPlacer towerPlacer;
 	private MiniMap miniMap;
 	private Animator animator=new Animator();
+	
+	private CircleBox spinHitBox;
+	private int spinDamage=30;
+	private double initXSpeed, initYSpeed;
 	
 	
 	
@@ -111,9 +114,6 @@ public class Player extends Mobs {
 			direction='r';
 			moveKeys++;
 		}
-		if (State.getInputs().isSpin()) {
-			System.out.println("spin2win");
-		}
 		if (State.getInputs().isNextGun()) {
 			gun++;
 			if(gun>=guns.size()) {
@@ -126,9 +126,24 @@ public class Player extends Mobs {
 				gun=guns.size()-1;
 			}
 		}
+		
 		if(moveKeys>=2) {
 			changeX/=1.25;
 			changeY/=1.25;
+		}
+		
+		if(animator.getCurrentAnimation()==PlayerAnimations.SPIN||animator.getCurrentAnimation()==PlayerAnimations.SPINSTART) {
+			changeX=initXSpeed;
+			changeY=initYSpeed;
+		}else if(animator.getCurrentAnimation()==PlayerAnimations.SPINEND) {
+			initXSpeed*=0.8;
+			initYSpeed*=0.8;
+			changeX=initXSpeed;
+			changeY=initYSpeed;
+		}else {
+			
+			initXSpeed=changeX;
+			initYSpeed=changeY;
 		}
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
@@ -136,6 +151,7 @@ public class Player extends Mobs {
 		miniMap.update(entityManager.getEntities(), x, y);
 		guns.get(gun).update();
 		tower();
+		
 		
 		if(changeX==0&&changeY==0) {
 			currentPic=animator.update(direction, false,State.getInputs().isSpin());
@@ -151,11 +167,37 @@ public class Player extends Mobs {
 		}
 		
 		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
-		//shotDelay ++; //Increase shotDelay by one every frame
+		spinAttack();
 		dustDelay ++;
 		invincibility--;
 		
 		GameState.newFloor(GameState.getFloor().getSpawnData((x+width/2)/16, (y+height/2)/16));
+	}
+	
+	private void spinAttack() {
+		if(spinHitBox!=null) {
+			spinHitBox.updateBounds((float)trueX-12, (float)trueY-8);
+			for(Entity i:spinHitBox.getCollisions()) {
+				if(!i.isFriendly()) {
+					i.damage(spinDamage);
+					
+				}
+				
+			}
+		}
+		if(animator.getCurrentAnimation()==PlayerAnimations.SPIN&&spinHitBox==null) {
+			entityManager.addEntity(spinHitBox=new CircleBox(x-12, y-8, 30,30,true));
+			invincibility=1;
+			
+		}
+		if(animator.getCurrentAnimation()==PlayerAnimations.SPINEND&&spinHitBox!=null) {
+			spinHitBox.destroy();
+			spinHitBox=null;
+		}
+		
+		
+		
+		
 	}
 	
 	private void tower() { //Tower method to create a tower
@@ -173,11 +215,13 @@ public class Player extends Mobs {
 				//(making sure enemies only attack the player, player cant attack the core, etc.)
 				if (e.isFriendly() != friendly) {
 					health -= e.getDamage();//dealing however much damage that entity does
+					
 					if(e.getDamage()>0) {//making sure you actually take damage from the entity
 						//shaking the screen so it feels like you actually got hit
 						GameState.screenShake(0.75);
 						currentPic=ImageUtils.fillPic(currentPic);
 						invincibility=30;
+						System.out.println("damaged by "+e.getClass().getSimpleName()+" for "+e.getDamage()+" damage");
 					}
 				}
 			}
@@ -192,8 +236,6 @@ public class Player extends Mobs {
 		
 		towerPlacer.render(g, camera);
 		miniMap.render(g);
-		
-		//drawHitBox(g, camera);
 	}
 	
 	public void createCore() {

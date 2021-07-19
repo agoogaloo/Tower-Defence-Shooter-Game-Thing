@@ -10,6 +10,7 @@ public enum PlayerAnimations {
 	RUNLEFT,
 	RUNRIGHT,
 	SPINSTART,
-	SPIN
+	SPIN,
+	SPINEND
 	
 }

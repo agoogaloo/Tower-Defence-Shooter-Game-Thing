@@ -18,7 +18,7 @@ public class HeliBot extends Enemy  {
 	public HeliBot(int x, int y) {
 		super(x, y,DOWN);		
 		speed=2.5;
-		health=1;
+		health=99999;
 		reloadTime=25;
 		bounds.x=x;
 		bounds.y=y;
@@ -140,10 +140,6 @@ public class HeliBot extends Enemy  {
 	}
 	
 	@Override
-	public void damage() {
-	}
-	
-	public void destroy() {
-		killed=true;
+	public void damage(int amount) {
 	}
 }

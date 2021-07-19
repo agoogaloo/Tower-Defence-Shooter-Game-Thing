@@ -134,10 +134,9 @@ public abstract class Enemy extends Mobs {
 		entityManager.addEntity(new Bullet (x+10,y+10, targetX, targetY,Assets.enemyBullet, 3, false)); //Creates red bullets that shoot towards the player
 	}
 	@Override
-	public void damage() {
-		int initialHealth=health;
-		super.damage();
-		if(health!=initialHealth) {
+	public void damage(int amount) {
+		super.damage(amount);
+		if(amount>0) {
 			//making the enemy flash white when it gets hit
 			if(ConsoleState.isInstaKillEnemy()) {
 				killed=true;
