@@ -3,6 +3,7 @@ package entity.statics.towers.Plant;
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
@@ -17,8 +18,7 @@ public class Plantlvl1 extends Tower{
 	public Plantlvl1(int x, int y) {
 		super(x, y, 75, 75, new Animation(Assets.plantLvl1,6), 65);
 		price=2;
-		statusEffect=StatusEffect.STUN;
-		statusLength=15;
+		statusEffect=new StatusEffect(StatusType.STUN, 1, 15);
 		sellValue=1;
 		infoText="planting cost $"+price+"\n\na tiny bud that's waiting to \ngrow up. It occasionally \nstuns enemies around it";
 		buyIcon=Assets.towerIcons[8];
@@ -35,6 +35,7 @@ public class Plantlvl1 extends Tower{
 	
 	@Override
 	public void update() {
+		updateEffects();
 		minTime--;
 		if(entityManager.getSpawner().waveComplete()) {
 			if(!waveCounted) {
@@ -54,7 +55,7 @@ public class Plantlvl1 extends Tower{
 			for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
 				if(towerRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
 						e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy) {
-					e.giveStatusEffect(statusEffect, 1, statusLength);
+					e.giveStatusEffect(statusEffect);
 					stunned=true;
 				}
 			}

@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
@@ -20,8 +21,7 @@ public class Plantlvl2 extends Tower{
 		super(x, y, 110, 110, new Animation(Assets.plantLvl2,6), 55);
 		price=2;
 		sellValue=2;
-		statusEffect=StatusEffect.STUN;
-		statusLength=20;
+		statusEffect=new StatusEffect(StatusType.STUN, 1, 20);
 		upgradeIcon=Assets.towerIcons[10];
 		splitUpgrades=true;
 		infoText="water cost $"+price+"\n\nwater the plant to help it \ngrow faster";
@@ -33,7 +33,8 @@ public class Plantlvl2 extends Tower{
 		return new Plantlvl2(x+width*2, y+height*2);
 	}
 	@Override
-	public void update() {		
+	public void update() {
+		updateEffects();
 		minTime--;
 		if(entityManager.getSpawner().waveComplete()) {
 			if(!waveCounted) {
@@ -60,7 +61,7 @@ public class Plantlvl2 extends Tower{
 			for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
 				if(towerRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
 						e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy) {
-					e.giveStatusEffect(statusEffect, 1, statusLength);
+					e.giveStatusEffect(statusEffect);
 					stunned=true;
 				}
 			}

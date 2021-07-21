@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
-import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
@@ -26,18 +26,18 @@ public class Mushroomlvl1 extends Tower{
 	
 	@Override
 	public void update() {
-		if (shotDelay<=0) { //If attack is true and it's been 60 frames since last shot, shoot again
+		/*if (shotDelay<=0) { //If attack is true and it's been 60 frames since last shot, shoot again
 			shotDelay = reloadTime; //Ensures the tower can't rapidly shoot
 			for(Entity e:entityManager.getEntities()) { //Check each entity to see if it's intersecting the tower's range
 				if(towerRange.intersects(e.getBounds().getX(), e.getBounds().getY(),
 						e.getBounds().getWidth(), e.getBounds().getHeight())&&e instanceof Enemy) {
-					e.giveStatusEffect(StatusEffect.POISON, 10, 120);
+					e.giveStatusEffect(StatusType.POISON, 10, 120);
 					
 				}
 			}
 		}
 		shotDelay-=1; //Counts up for every frame, towers can only shoot every 60 frames
-		
+		*/
 	}
 	
 	@Override

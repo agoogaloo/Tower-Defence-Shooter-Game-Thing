@@ -2,7 +2,7 @@ package entity.statics.towers.Plant;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;

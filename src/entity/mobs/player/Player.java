@@ -5,10 +5,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import Main.ItemList;
 import entity.Entity;
-import entity.mobs.Bullet;
 import entity.mobs.Mobs;
+import entity.mobs.pickups.ItemList;
 import entity.mobs.player.UI.MiniMap;
 import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
@@ -16,14 +15,11 @@ import entity.mobs.player.guns.Gun;
 import entity.statics.Core;
 import entity.statics.hitBox.CircleBox;
 import entity.statics.towers.Tower;
-import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
-import graphics.particles.movers.spawnPattern.RectangleSpawner;
-import graphics.particles.shapes.ImgShape;
 import graphics.particles.shapes.OvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
@@ -38,7 +34,7 @@ public class Player extends Mobs {
 	
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private int[] towers = {ItemList.WIZARD,ItemList.PLANT,ItemList.EMTPTY,ItemList.EMTPTY};
+	private int[] towers = {ItemList.WIZARD,ItemList.SUPPORT,ItemList.EMPTY,ItemList.EMPTY};
 	private ArrayList<Gun> guns;
 	private int gun=0;
 	
@@ -153,7 +149,7 @@ public class Player extends Mobs {
 		}
 		
 		health-=core.giveDamage(); //If Core takes damage apply the damage to the player's health, as player shares damage with core
-		ui.update(health, money,guns,gun);//updating ui with current health and money
+		ui.update((int)Math.round(health), money,guns,gun);//updating ui with current health and money
 		miniMap.update(entityManager.getEntities(), x, y);
 		guns.get(gun).update();
 		tower();

@@ -1,24 +1,23 @@
-package entity.statics.towers.wizard;
+package entity.statics.towers.support;
 
-import entity.mobs.enemy.StatusEffect;
-import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
 
-public class FireWizardTower extends Tower{
-	public FireWizardTower(int x, int y) {
-		super(x, y, 125, 125, new Animation(Assets.fireWizardTower,6), 30);
+public class SupportTech extends Tower{
+	public SupportTech(int x, int y) {
+		super(x, y, 125, 125, new Animation(Assets.supportTech,6), 30);
 		sellValue=5;
-		price=7;
+		price=0;
 		damage=1;
-		statusEffect=new StatusEffect(StatusType.BURN, 0.75, 30);
+		//statusEffect=new StatusEffect(null, x, y);
+	
 		infoText="upgrade cost $"+price+"\n\ngives the wizard fire \npowers letting him burn \nenemies to deal damage over \ntime ";
 		
 	}
 	@Override
 	public Tower createNew(int x, int y) {
-		return new ElectroWizardTower(x+width/2, y+height*2);
+		return new SupportTech(x+width/2, y+height*2);
 	}
 	
 	@Override

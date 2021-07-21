@@ -9,7 +9,7 @@ public class WizardTowerlvl2 extends Tower{
 		super(x, y, 115, 115, new Animation(Assets.wizardTowerLvl2,6), 30);
 		price=1;
 		sellValue=2;
-		damage=6;
+		damage=20;
 		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger, with more range \nand bullets";
 		upgradeIcon=Assets.towerIcons[4];
 		splitUpgrades=true;

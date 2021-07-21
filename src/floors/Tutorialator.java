@@ -98,7 +98,7 @@ public class Tutorialator {
 	private void section1() {
 		//lets you experiment/enemy=bad
 		if(!sectionInit) {//initializing the section
-			 Entity.getEntityManager().addEntity(new TutorialEnemy(142, 480,Enemy.DOWN, 0,999999999));
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(142, 480,Enemy.DOWN, 0,999999999,100));
 			 sectionInit=true;
 		}
 		

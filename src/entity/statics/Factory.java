@@ -25,7 +25,7 @@ public class Factory extends Statics{
 	
 	@Override
 	public void damage() {
-		int initialHealth=health;
+		double initialHealth=health;
 		super.damage();
 		if(health!=initialHealth) {
 			//making the factory flash white when it gets hit

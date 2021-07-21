@@ -3,13 +3,13 @@ package entity.statics;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Main.ItemList;
 import entity.mobs.pickups.GunTowerItem;
+import entity.mobs.pickups.ItemList;
 import graphics.Assets;
 import graphics.Camera;
 
 public class Chest extends Statics{
-	private static int[] items= {ItemList.LASER,ItemList.PLANT, ItemList.BEAM, ItemList.SNIPER,
+	private static int[] items= {ItemList.LASER,ItemList.PLANT,ItemList.SUPPORT, ItemList.BEAM, ItemList.SNIPER,
 			ItemList.CANNON};
 	
 	public Chest(int x,int y) {

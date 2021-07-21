@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Main.ItemList;
 import entity.mobs.player.Player;
 import graphics.Camera;
 import graphics.ImageUtils;

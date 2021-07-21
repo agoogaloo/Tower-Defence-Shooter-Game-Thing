@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import Main.ItemList;
 import entity.Entity;
+import entity.mobs.pickups.ItemList;
 import graphics.Animation;
 import graphics.ImageUtils;
 import states.menus.Menu;

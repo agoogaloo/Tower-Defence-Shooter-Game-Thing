@@ -10,6 +10,7 @@ import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import entity.statics.Statics;
 import graphics.Animation;
 import graphics.Assets;
@@ -19,7 +20,7 @@ import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
-import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.RectangleShape;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 
@@ -30,9 +31,10 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	
 	private boolean attack = false; //When this variable is true tower is capable of attacking enemies
 	protected int shotDelay = 0, reloadTime, damage; //Shot delay making towers shoot once a second, rather than rapidly shooting 
-	protected StatusEffect statusEffect=StatusEffect.NONE;
-	protected int effectLevel=0, effectLength=0;
-	
+
+	protected double buffDamage=1;
+	protected boolean jammed=false;
+	protected StatusEffect statusEffect= new StatusEffect(StatusType.NONE,0,0);
 	protected Entity target; //The specific target the tower gets the x and y of
 	protected Ellipse2D.Float towerRange; //A rectangle of range where the tower can shoot at
 	protected Animation animation;
@@ -91,13 +93,14 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.yellowBullet,8,damage
-				,statusEffect,statusLength,statusLevel, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
+		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.yellowBullet,8,damage*buffDamage
+				,statusEffect, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	}			
 
 	@Override
 	public void update(){ 
 		animation.update(); //Updates animations, allowing it to get the currentFrame, and allowing it to go through the animation array
+		updateEffects();
 		search(); //Every frame check to see if an entity is within towers range, if so start attacking
 		if (attack && shotDelay<=0) { //If attack is true and it's been 60 frames since last shot, shoot again
 			shoot(); //Calls shoot method
@@ -144,6 +147,31 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 			return upgradeIcon.getSubimage(25, 0, 25, 25);
 		}
 		return upgradeIcon;
+	}
+	protected void updateEffects() {
+		jammed=false;
+		buffDamage=1;
+		for(int i=currentEffects.size()-1;i>=0;i--) {
+			currentEffects.get(i).update();
+			if(!currentEffects.get(i).isActive()) {
+				currentEffects.remove(i); 
+				continue;
+			}
+			switch (currentEffects.get(i).getType()) {
+			case JAMMED:
+				jammed=true;
+				break;
+			case BUFFDMG:
+				buffDamage=currentEffects.get(i).getLevel();
+				new ParticleEffect(1, new Straight(new RectangleSpawner(x,y,bounds.width,bounds.height)
+						,-90,0,0.4),new RectangleShape(1, 3, new Timed(new Color(33,166,144), 20)),true);
+				System.out.println("buffed");
+			default:
+				break;
+			}
+			
+			
+		}
 	}
 	public Animation getAnimation() {
 		return animation;

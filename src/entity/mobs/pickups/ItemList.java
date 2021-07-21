@@ -1,4 +1,4 @@
-package Main;
+package entity.mobs.pickups;
 
 import java.awt.image.BufferedImage;
 
@@ -12,18 +12,19 @@ import entity.statics.towers.EmptyTowerSlot;
 import entity.statics.towers.Tower;
 import entity.statics.towers.Plant.Plantlvl1;
 import entity.statics.towers.laser.LaserTowerlvl1;
+import entity.statics.towers.support.Supportlvl1;
 import entity.statics.towers.wizard.WizardTowerlvl1;
 
 public class ItemList {
 	private static Tower[] towers = new Tower[] {
-			new EmptyTowerSlot(), new WizardTowerlvl1(0, 0), new LaserTowerlvl1(0, 0,'r'), new Plantlvl1(0, 0)
+			new EmptyTowerSlot(), new WizardTowerlvl1(0, 0), new LaserTowerlvl1(0, 0,'r'), new Plantlvl1(0, 0), new Supportlvl1(0, 0)
 	};
 	private static Gun[] guns = new Gun[] {
 			new Pistol(null),new Beam(null), new Sniper(null),new Cannon(null)
 	};
 	public final static int TOWERS_LEN=towers.length;
 	public final static int GUNS_LEN=towers.length;
-	public final static int EMTPTY=0,WIZARD=1,LASER=2,PLANT=3;
+	public final static int EMPTY=0,WIZARD=1,LASER=2,PLANT=3,SUPPORT=4;
 	public final static int PISTOL=TOWERS_LEN, BEAM=1+TOWERS_LEN, SNIPER=2+TOWERS_LEN,CANNON=3+TOWERS_LEN;
 	
 	

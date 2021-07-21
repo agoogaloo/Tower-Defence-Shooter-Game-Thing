@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
@@ -17,8 +18,7 @@ public class Tree extends Tower{
 		price=4;
 		sellValue=3;
 		damage=6;
-		statusEffect=StatusEffect.STUN;
-		statusLength=20;
+		statusEffect= new StatusEffect(StatusType.STUN, 1, 10);
 		infoText="water cost $"+price+"\n\ngrows into a big tree that \nshoots acorns at enemies \nthat grow into new buds";
 		
 	}
@@ -44,7 +44,7 @@ public class Tree extends Tower{
 	@Override
 	protected void shoot() {
 		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.acorn[0],5,damage
-				,statusEffect,statusLength,statusLevel, true));
+				,statusEffect, true));
 		seedLocs.add(new Point(target.getX(),target.getY()));
 		
 	}

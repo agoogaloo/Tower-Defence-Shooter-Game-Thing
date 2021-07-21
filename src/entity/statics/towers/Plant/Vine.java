@@ -169,7 +169,7 @@ public class Vine extends Tower{
 
 	
 	@Override
-	public int getDamage() {
+	public double getDamage() {
 		health--;
 		return damage; 
 	}

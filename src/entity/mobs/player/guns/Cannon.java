@@ -3,6 +3,7 @@ package entity.mobs.player.guns;
 import entity.EntityManager;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -23,7 +24,7 @@ public class Cannon extends Gun{
 		if (shotDelay >= reloadTime) {	
 			shotDelay=0;
 			shootAnim.setPaused(false);
-			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 7,15,StatusEffect.STUN,60,1, true));
+			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 7,20,new StatusEffect(StatusType.STUN,1,60), true));
 		}
 		
 	}

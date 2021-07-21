@@ -5,23 +5,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
-import Main.ItemList;
 import entity.Entity;
+import entity.mobs.pickups.ItemList;
 import entity.statics.towers.Tower;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
-import graphics.particles.ParticleEffect;
-import graphics.particles.movers.Straight;
-import graphics.particles.movers.spawnPattern.Point;
-import graphics.particles.movers.spawnPattern.RectangleSpawner;
-import graphics.particles.shapes.OvalParticle;
-import graphics.particles.shapes.ShrinkOvalParticle;
-import graphics.particles.shapes.colourers.Timed;
 import saveData.Settings;
 import states.State;
 

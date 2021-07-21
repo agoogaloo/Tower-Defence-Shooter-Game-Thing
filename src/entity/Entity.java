@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import graphics.Camera;
 
 //@author Matthew (basically did all the logic and everything in this class)
@@ -22,13 +23,17 @@ public abstract class Entity {
 	// declaring instance variables
 	protected int x, y;
 	protected int xOffset, yOffset;
-	protected int health = 10, damage;//its health and how much damage it can deal
 	protected int width, height;
+	
+	protected double health = 10;
+	protected double damage;
 	protected boolean killed=false, friendly;
     protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
-    protected int statusLength=0, statusLevel=0;
-	protected StatusEffect statusEffect=StatusEffect.NONE;
+   
 	protected RenderLayer layer = RenderLayer.MID;
+	
+	protected StatusEffect statusDealt = new StatusEffect(StatusType.NONE, 0, 0);
+	protected ArrayList<StatusEffect> currentEffects = new ArrayList<StatusEffect>();
 	
 	public static void init(boolean deletePlayer){
 		entityManager.reset(deletePlayer);
@@ -49,23 +54,19 @@ public abstract class Entity {
 
 	public void damage() {
 		//everything calls this so they can be hurt whenever something that is against them touches them
-		int damage=0;
+		double damage=0;
 		for (Entity e : entityCollide()) {//checking what is colliding with itself
 			//checking which side the thing that touched it is on 
 			//(making sure enemies only attack the player, player cant attack the core, etc.)
 			if (e.isFriendly() != friendly) {
 				damage+= e.getDamage();//dealing however much damage that entity does	
-				if(e instanceof Bullet) {
-					statusEffect=e.statusEffect;
-					statusLength=e.statusLength;
-					statusLevel=e.statusLevel;
-				}
+				giveStatusEffect(e.statusDealt);
 			}
 		}
 		damage(damage);
 	}
-	public void damage(int amount) {
-		health-=amount;
+	public void damage(double d) {
+		health-=d;
 		if (health <= 0) {//if it has no more health left that it should be dead
 			killed = true;
 		}
@@ -88,13 +89,22 @@ public abstract class Entity {
 	}
 
 	public abstract void move();//move and check for walls
-
+	
 	// getters/setters
-	public void giveStatusEffect(StatusEffect statusEffect, int statusLevel, int statusLength) {
-		this.statusEffect = statusEffect;
-		this.statusLevel=statusLevel;
-		this.statusLength=statusLength;
+	public void giveStatusEffect(StatusEffect effect) {
+		if(effect.getType()==StatusType.NONE) {
+			return;
+		}
+		for(int i=currentEffects.size()-1;i>=0;i--) {
+			if(currentEffects.get(i).getType()==effect.getType()) {
+				System.out.println("removed "+currentEffects.get(i).getType());
+				currentEffects.remove(i);
+				
+			}
+		}
+		currentEffects.add(effect);
 	}
+	
 	public int getX() {
 		return this.x;
 	}
@@ -111,7 +121,7 @@ public abstract class Entity {
 		return height;
 	}
 
-	public int getDamage() {
+	public double getDamage() {
 		return damage;
 	}
 
@@ -147,7 +157,9 @@ public abstract class Entity {
 		System.out.println("couldnt find the opposite direction for'"+dir+"'.");
 		return ' ';
 	}
+	
 	public RenderLayer getLayer() {
 		return layer;
 	}
+	
 }

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.RenderLayer;
 import entity.mobs.enemy.StatusEffect;
+import entity.mobs.enemy.StatusType;
 import entity.mobs.pickups.Pickup;
 import entity.statics.towers.Tower;
 import graphics.Camera;
@@ -23,18 +24,16 @@ public class Bullet extends Mobs{
 	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, boolean friendly){
 		this(startX, startY, targetX, targetY, pic, speed, 1, friendly);
 	}
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, int damage, boolean friendly){
-		this(startX, startY, targetX, targetY, pic, speed, damage, StatusEffect.NONE, 0, 0, friendly);
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, double damage, boolean friendly){
+		this(startX, startY, targetX, targetY, pic, speed, damage, new StatusEffect(StatusType.NONE,0,0), friendly);
 	}
 	
 	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed,
-			int damage,StatusEffect effect,int effectLength,int effectPower, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
+			double damage,StatusEffect effect, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
 		this.damage=damage;
+		this.statusDealt=effect.copy();
 		this.friendly=friendly;
 		this.pic=pic; //Sets this variable to the pics specified, allowing different bullet pictures to be used depending on the parameter
-		this.statusEffect=effect;
-		this.statusLength=effectLength;
-		this.statusLevel=effectPower;
 		layer=RenderLayer.FRONT;
 		
 		int offsetX = pic.getWidth()/2 ; //Offset applied as in some cases the bullet spawns in the top right of the starting sprite, this difference can mainly be seen when player shoots bullets 

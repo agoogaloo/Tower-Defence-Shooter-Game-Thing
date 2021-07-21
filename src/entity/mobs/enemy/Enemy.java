@@ -19,6 +19,7 @@ import graphics.ImageUtils;
 import graphics.particles.ParticleEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
+import graphics.particles.shapes.RectangleShape;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
@@ -41,6 +42,10 @@ public abstract class Enemy extends Mobs {
 	protected Animation[] anims = new Animation[4];	
 	protected Rectangle[] directionBounds = new Rectangle[4];
 	protected BufferedImage currentPic;//the current sprite being drawn onto the screen
+	
+	//status effects;
+	boolean stunned=false, jammed=false;;
+	double weakened=1;
 	
 
 	public Enemy(int x, int y, int direction) { //Enemy Class contains traits of the enemies
@@ -134,9 +139,11 @@ public abstract class Enemy extends Mobs {
 		entityManager.addEntity(new Bullet (x+10,y+10, targetX, targetY,Assets.enemyBullet, 3, false)); //Creates red bullets that shoot towards the player
 	}
 	@Override
-	public void damage(int amount) {
-		super.damage(amount);
+	public void damage(double amount) {
+		super.damage(amount*weakened);
+	
 		if(amount>0) {
+			System.out.println("e");
 			//making the enemy flash white when it gets hit
 			if(ConsoleState.isInstaKillEnemy()) {
 				killed=true;
@@ -152,6 +159,54 @@ public abstract class Enemy extends Mobs {
 			}
 		}
 	}
+	
+	private void updateEffects() {
+		stunned=false;
+		jammed=false;
+		weakened=1;
+		for(int i=currentEffects.size()-1;i>=0;i--) {
+			currentEffects.get(i).update();
+			if(!currentEffects.get(i).isActive()) {
+				currentEffects.remove(i); 
+				continue;
+			}
+			switch (currentEffects.get(i).getType()) {
+			case STUN:
+				stunned=true;
+				break;
+				
+			case JAMMED:
+				jammed=true;
+				break;
+				
+			case WEAKENED:
+				weakened=currentEffects.get(i).getLevel();
+				new ParticleEffect(1, new Straight(new RectangleSpawner(x,y,width,5)
+								,90,0,0.5),new RectangleShape(1, 3, new Timed(new Color(33,166,144), 20)),true);
+				break;
+				
+			case BURN:
+				health-=currentEffects.get(i).getLevel();
+				new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.25),
+						new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(225, 255),
+								ThreadLocalRandom.current().nextInt(120, 140),0), 120,30), 4,5,0.2,0.3), true);
+				break;
+				
+			case POISON:
+				health-=currentEffects.get(i).getLevel();
+				new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.1),
+						new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(0, 20),
+								ThreadLocalRandom.current().nextInt(100, 170),ThreadLocalRandom.current().nextInt(0, 20))
+								, 120,30), 6,0.1), true);
+				break;
+				
+			default:
+				break;
+			}
+			
+			
+		}
+	}
 	@Override
 	public void update() {
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight); //The range which the enemy looks for targets
@@ -165,27 +220,18 @@ public abstract class Enemy extends Mobs {
 			shoot();
 			shotDelay = 0; //Resets shotDelay to prevent enemy from rapidly shooting
 		}
-		if(statusEffect!=StatusEffect.STUN) {
+		updateEffects();
+		
+		if(!stunned) {
 			updateDirection();//setting its direction and moving based on it
 		}
-		updateBounds(); 
 		
-		if(statusEffect!=StatusEffect.STUN) {
+		updateBounds();
+		
+		
+		if(!stunned) {
 			for(Animation i: anims) {
 				i.update();
-			}
-		}if (statusEffect==StatusEffect.BURN){
-			health-=statusLevel;
-			new ParticleEffect(statusLevel, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.25),
-					new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(225, 255),
-							ThreadLocalRandom.current().nextInt(120, 140),0), 120,30), 4,5,0.2,0.3), true);
-		}else if (statusEffect==StatusEffect.POISON){
-			if(statusLength%statusLevel==0) {
-				health-=1;
-				new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.1),
-						new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(0, 20),
-								ThreadLocalRandom.current().nextInt(100, 170),ThreadLocalRandom.current().nextInt(0, 20))
-								, 120,30), 6,0.1), true);
 			}
 		}
 		
@@ -196,11 +242,7 @@ public abstract class Enemy extends Mobs {
 		width=directionBounds[direction].width;
 		height=directionBounds[direction].height;
 		shotDelay++; //Increase shotDelay by one every frame
-		if(statusLength<=0) {
-			statusEffect=StatusEffect.NONE;
-		}else {
-			statusLength--;
-		}
+		
 	}
 	
 	public void render(Graphics g, Camera camera) { //Draws different enemy sprites depending on it's direction 
@@ -211,10 +253,8 @@ public abstract class Enemy extends Mobs {
 		//g.drawRect(Math.round(x+width/2)-camera.getxOffset(),Math.round(y+(height/2))-camera.getyOffset(), 0,0);
 	}
 	
-	public void setStatusEffect(StatusEffect statusEffect, int length, int level) {
-		this.statusEffect = statusEffect;
-		this.statusLength=length;
-		this.statusLevel=level;
-	}
+	
+	
+	
 }
 
