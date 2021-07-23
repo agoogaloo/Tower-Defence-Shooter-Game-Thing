@@ -5,20 +5,16 @@ import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
-import entity.statics.towers.Plant.Tree;
-import entity.statics.towers.Plant.VinePlant;
-import entity.statics.towers.wizard.ElectroWizardTower;
-import entity.statics.towers.wizard.FireWizardTower;
 import graphics.Animation;
 import graphics.Assets;
 
 public class Supportlvl2 extends Tower{
 	public Supportlvl2(int x, int y) {
-		super(x, y, 100, 100, new Animation(Assets.supportLvl2,6), 40);
-		price=2;
+		super(x, y, 90, 90, new Animation(Assets.supportLvl2,6), 40);
+		price=5;
 		damage=5;
-		sellValue=1;
-		statusEffect=new StatusEffect(StatusType.WEAKENED, 1.5,3);
+		sellValue=4;
+		statusEffect=new StatusEffect(StatusType.WEAKENED, 1.2,3);
 		infoText="buying cost $"+price+"\n\nbuffs all towers in its \nrange, letting them to deal \nmore damage ";
 		upgradeIcon=Assets.towerIcons[13];
 		splitUpgrades=true;
@@ -37,7 +33,7 @@ public class Supportlvl2 extends Tower{
 				if(e instanceof Enemy) {
 					e.giveStatusEffect(statusEffect.copy());
 				}else if(e instanceof Tower&& e!=this) {
-					e.giveStatusEffect(new StatusEffect(StatusType.BUFFDMG,1.5,10));
+					e.giveStatusEffect(new StatusEffect(StatusType.BUFFDMG,1.25,10));
 					System.out.println("eee");
 				}
 				
@@ -50,7 +46,7 @@ public class Supportlvl2 extends Tower{
 		if(leftRight=='l') {
 			newTower=new SupportTech(x+width/2, y+height/2);	
 		}else if(leftRight=='r') {
-			newTower=new ElectroWizardTower(x+width/2, y+height/2);
+			newTower=new SupportPlant(x+width/2, y+height/2);
 		}
 	
 		if(newTower!=null&&money>=newTower.getPrice()) {
@@ -66,7 +62,7 @@ public class Supportlvl2 extends Tower{
 		if(leftRight=='l') {
 			return new SupportTech(0,0).getInfoText();
 		}else if(leftRight=='r') {
-			return new VinePlant(0,0).getInfoText();
+			return new SupportPlant(0,0).getInfoText();
 		}else {
 			return "";
 		}

@@ -17,7 +17,7 @@ import entity.statics.hitBox.CircleBox;
 import entity.statics.towers.Tower;
 import graphics.Camera;
 import graphics.ImageUtils;
-import graphics.particles.ParticleEffect;
+import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.shapes.OvalParticle;
@@ -34,7 +34,7 @@ public class Player extends Mobs {
 	
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private int[] towers = {ItemList.WIZARD,ItemList.SUPPORT,ItemList.EMPTY,ItemList.EMPTY};
+	private int[] towers = {ItemList.WIZARD,ItemList.SUPPORT,ItemList.PLANT,ItemList.EMPTY};
 	private ArrayList<Gun> guns;
 	private int gun=0;
 	
@@ -162,7 +162,7 @@ public class Player extends Mobs {
 			currentPic=animator.update(direction, true,State.getInputs().isSpin());
 			if(dustDelay>=15) {
 				
-				new ParticleEffect(3, new Straight(new Point(x+7,y+12),0.5), 
+				new InstantEffect(3, new Straight(new Point(x+7,y+12),0.5), 
 					new OvalParticle(2, new Timed(15)), false);
 				dustDelay=0;
 			}

@@ -16,7 +16,8 @@ import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
-import graphics.particles.ParticleEffect;
+import graphics.particles.EffectOverTime;
+import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
@@ -35,6 +36,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected double buffDamage=1;
 	protected boolean jammed=false;
 	protected StatusEffect statusEffect= new StatusEffect(StatusType.NONE,0,0);
+	protected EffectOverTime effectParticles;
 	protected Entity target; //The specific target the tower gets the x and y of
 	protected Ellipse2D.Float towerRange; //A rectangle of range where the tower can shoot at
 	protected Animation animation;
@@ -65,11 +67,11 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		
 	}
 	public void buildParticles() {
-		new ParticleEffect(7, new Straight(new RectangleSpawner(x,y+(int)(height*0.75),width/2,height/4),220,80,0.3), 
+		new InstantEffect(7, new Straight(new RectangleSpawner(x,y+(int)(height*0.75),width/2,height/4),220,80,0.3), 
 				new ShrinkOvalParticle(new Timed(60) , 6,0.15), true);
-		new ParticleEffect(7, new Straight(new RectangleSpawner(x+width/2,y+(int)(height*0.75),width/2,height/4),-40,80,0.3), 
+		new InstantEffect(7, new Straight(new RectangleSpawner(x+width/2,y+(int)(height*0.75),width/2,height/4),-40,80,0.3), 
 				new ShrinkOvalParticle(new Timed(60) , 6,0.15), true);
-		new ParticleEffect(6, new Straight(new Point(x+width/2,y+(int)(height*0.75)),0.4), 
+		new InstantEffect(6, new Straight(new Point(x+width/2,y+(int)(height*0.75)),0.4), 
 				new ShrinkOvalParticle(new Timed(new Color(181,181,181),60), 7,0.15), true);
 	}
 	
@@ -107,7 +109,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 			shotDelay = reloadTime; //Ensures the tower can't rapidly shoot
 		}
 		shotDelay-=1; //Counts up for every frame, towers can only shoot every 60 frames
+		
 	}
+	
 	
 	@Override
 	public void render(Graphics g, Camera camera) { //Renders the tower
@@ -149,8 +153,16 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		return upgradeIcon;
 	}
 	protected void updateEffects() {
+		
+		if(effectParticles!=null) {
+			effectParticles.update();
+			if(effectParticles.isFinished()) {
+				effectParticles=null;
+			}
+		}
+		
 		jammed=false;
-		buffDamage=1;
+		buffDamage=1;		
 		for(int i=currentEffects.size()-1;i>=0;i--) {
 			currentEffects.get(i).update();
 			if(!currentEffects.get(i).isActive()) {
@@ -163,9 +175,11 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 				break;
 			case BUFFDMG:
 				buffDamage=currentEffects.get(i).getLevel();
-				new ParticleEffect(1, new Straight(new RectangleSpawner(x,y,bounds.width,bounds.height)
-						,-90,0,0.4),new RectangleShape(1, 3, new Timed(new Color(33,166,144), 20)),true);
-				System.out.println("buffed");
+				if(effectParticles==null) {
+					
+					effectParticles= new EffectOverTime(bounds.width*bounds.height/150f,20, new Straight(new RectangleSpawner(x,y,bounds.width,bounds.height)
+						,-90,0,0.4),new RectangleShape(1, 3, new Timed(new Color(33,166,144), 20)),false);
+				}
 			default:
 				break;
 			}

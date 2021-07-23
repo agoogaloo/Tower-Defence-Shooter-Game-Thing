@@ -20,6 +20,9 @@ public class StatusEffect {
 	public double getLevel() {
 		return level;
 	}
+	public int getTimeLeft() {
+		return length;
+	}
 	public boolean isActive() {
 		return length>0;
 	}

@@ -8,21 +8,21 @@ import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
 
-public class SupportTech extends Tower{
-	public SupportTech(int x, int y) {
-		super(x, y, 100, 100, new Animation(Assets.supportTech,6), 30);
-		price=8;
-		sellValue=8;
+public class SupportPlant extends Tower{
+	public SupportPlant(int x, int y) {
+		super(x, y, 100, 100, new Animation(Assets.supportPlant,6), 30);
+		price=4;
+		sellValue=6;
 		damage=1;
-		infoText="upgrade cost $"+price+"\n\njams the guns of enemies in \nthe tower's range so they \nstop shooting at you";
 		
-		
+		infoText="upgrade cost $"+price+"\n\npoisons enemies inside it's \nrange through the powers of \nsci-fi logic";
 		
 	}
 	@Override
 	public Tower createNew(int x, int y) {
-		return new SupportTech(x+width/2, y+height*2);
+		return new SupportPlant(x+width/2, y+height*2);
 	}
+	
 	@Override
 	public void update() {
 		updateEffects();
@@ -34,7 +34,7 @@ public class SupportTech extends Tower{
 					e.getBounds().getWidth(), e.getBounds().getHeight())) {
 				if(e instanceof Enemy) {
 					e.giveStatusEffect(new StatusEffect(StatusType.WEAKENED, 1.2,3));
-					e.giveStatusEffect(new StatusEffect(StatusType.JAMMED, 1, 10));
+					e.giveStatusEffect(new StatusEffect(StatusType.POISON, 0.3, 30));
 				}else if(e instanceof Tower&& e!=this) {
 					e.giveStatusEffect(new StatusEffect(StatusType.BUFFDMG,1.25,10));
 					System.out.println("eee");

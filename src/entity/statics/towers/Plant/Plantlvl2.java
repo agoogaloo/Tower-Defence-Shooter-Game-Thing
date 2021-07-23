@@ -9,7 +9,7 @@ import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.particles.ParticleEffect;
+import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.CircleSpawn;
 import graphics.particles.shapes.ImgShape;
@@ -66,7 +66,7 @@ public class Plantlvl2 extends Tower{
 				}
 			}
 			if(stunned) {
-			new ParticleEffect(20, new Straight(new CircleSpawn(x+width/2,y+height/2
+			new InstantEffect(20, new Straight(new CircleSpawn(x+width/2,y+height/2
 					,(int)towerRange.width/2),0.25),new ImgShape(Assets.greenStars,50, 25),true);
 			}
 		}

@@ -1,7 +1,5 @@
 package graphics.particles;
 
-import java.util.ArrayList;
-
 import graphics.particles.movers.ParticleMover;
 import graphics.particles.shapes.ParticleShape;
 
@@ -11,14 +9,15 @@ import graphics.particles.shapes.ParticleShape;
  * allowing them to all folow the same rules but still be separate from each other with randomizations
  * @author The Computer Man
  */
-public class ParticleEffect {
+public class InstantEffect {
 	
-	ArrayList<Particle> particles=new ArrayList<Particle>();
+	//ArrayList<Particle> particles=new ArrayList<Particle>();
 	
 	
-	public ParticleEffect(int amount, ParticleMover mover, ParticleShape shape, boolean isOnTop) {
+	public InstantEffect(int amount, ParticleMover mover, ParticleShape shape, boolean isOnTop) {
+		
 		for(int i=0;i<amount;i++) {
-			particles.add(new Particle(mover.copy(),shape.copy(), isOnTop));
+			new Particle(mover.copy(),shape.copy(), isOnTop);
 		}
 	}
 }

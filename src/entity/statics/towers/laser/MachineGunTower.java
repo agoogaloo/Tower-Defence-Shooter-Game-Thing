@@ -36,21 +36,23 @@ public class MachineGunTower extends Tower{
 			updateBounds();
 			reloadTime=5;
 			sellValue=10;
+			
+			int range=400;
 			switch (direction) {
 			case 'u':
-				towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y+height-600,20,600); //Creates a rectangle for the towers range 
+				towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y+height-range,20,range); //Creates a rectangle for the towers range 
 				break;
 			case 'l':
-				towerRange=new Ellipse2D.Float(this.x-600+width,this.y-13+height/2,600,21); //Creates a rectangle for the towers range 
+				towerRange=new Ellipse2D.Float(this.x-range+width,this.y-13+height/2,range,21); //Creates a rectangle for the towers range 
 				break;
 			case 'd':
-				towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y,20,600); //Creates a rectangle for the towers range 
+				towerRange=new Ellipse2D.Float(this.x-10+width/2,this.y,20,range); //Creates a rectangle for the towers range 
 				break;
 			case 'r':
-				towerRange=new Ellipse2D.Float(this.x,this.y-13+height/2,600,21); //Creates a rectangle for the towers range 
+				towerRange=new Ellipse2D.Float(this.x,this.y-13+height/2,range,21); //Creates a rectangle for the towers range 
 				break;
 			default:
-				towerRange=new Ellipse2D.Float(this.x,this.y-10,600,20); //Creates a rectangle for the towers range 
+				towerRange=new Ellipse2D.Float(this.x,this.y-10,range,20); //Creates a rectangle for the towers range 
 					
 			}
 	

@@ -1,7 +1,5 @@
 package entity.statics.towers.support;
 
-import java.awt.Color;
-
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
@@ -9,23 +7,17 @@ import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.particles.ParticleEffect;
-import graphics.particles.movers.Straight;
-import graphics.particles.movers.spawnPattern.CircleSpawn;
-import graphics.particles.shapes.ImgShape;
-import graphics.particles.shapes.RectangleShape;
-import graphics.particles.shapes.colourers.Timed;
 
 public class Supportlvl1 extends Tower{
 	//private int particleTimer = 0, particleTime=5;
 	public Supportlvl1(int x, int y) {
-		super(x, y, 100, 100, new Animation(Assets.supportLvl1,6),0);
-		price=2;
+		super(x, y, 90, 90, new Animation(Assets.supportLvl1,6),0);
+		price=3;
 		damage=0;
-		statusEffect=new StatusEffect(StatusType.WEAKENED, 1.5,3);
+		statusEffect=new StatusEffect(StatusType.WEAKENED, 1.2,3);
 		
-		sellValue=1;
-		infoText="weakens any enemies in its \nrange, making them take \nmore damage";
+		sellValue=2;
+		infoText="buying cost $"+price+"\n\nweakens any enemies in its \nrange, making them take \nmore damage";
 		buyIcon=Assets.towerIcons[11];
 		upgradeIcon=Assets.towerIcons[12];
 		

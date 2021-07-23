@@ -48,9 +48,13 @@ public class Main {
 				frames = 0;// reseting the number of frames
 			}
 
-			
-			 while (delta < DELAY) {
+			if(delta >= DELAY) {
+				System.out.println("uh oh things are lagging");
+				
+			}
+			while (delta < DELAY) {
 				 delta = System.nanoTime() - frameStart;// setting delta to how long the frame has lasted for// looping until the frame has lasted the target number of nanoseconds
+			 
 			 }
 			fps=Math.round(1000000000f/delta);
 		}

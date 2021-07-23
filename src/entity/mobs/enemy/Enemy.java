@@ -16,8 +16,9 @@ import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
-import graphics.particles.ParticleEffect;
+import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
 import graphics.particles.shapes.RectangleShape;
 import graphics.particles.shapes.ShrinkOvalParticle;
@@ -151,6 +152,8 @@ public abstract class Enemy extends Mobs {
 			currentPic=ImageUtils.fillPic(currentPic);
 		}
 		if(killed) {
+			new InstantEffect(15, new Straight(new Point((int)x+width/2, (int)y+height/2),0.9),
+					new ShrinkOvalParticle(new Timed(Color.white, 60), 10,0.5), true);
 			int randnum=ThreadLocalRandom.current().nextInt(0,20);//generating a random number to determine what should drop
 			if(randnum==1) {
 				entityManager.addEntity(new Health(x, y));
@@ -181,23 +184,24 @@ public abstract class Enemy extends Mobs {
 				
 			case WEAKENED:
 				weakened=currentEffects.get(i).getLevel();
-				new ParticleEffect(1, new Straight(new RectangleSpawner(x,y,width,5)
+				new InstantEffect(1, new Straight(new RectangleSpawner(x,y,width,5)
 								,90,0,0.5),new RectangleShape(1, 3, new Timed(new Color(33,166,144), 20)),true);
 				break;
 				
 			case BURN:
 				health-=currentEffects.get(i).getLevel();
-				new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.25),
+				new InstantEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.25),
 						new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(225, 255),
 								ThreadLocalRandom.current().nextInt(120, 140),0), 120,30), 4,5,0.2,0.3), true);
 				break;
 				
 			case POISON:
+				System.out.println("poisoned");
 				health-=currentEffects.get(i).getLevel();
-				new ParticleEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.1),
+				new InstantEffect(1, new Straight(new RectangleSpawner(x, y, width, height), -90, 3, 0.1),
 						new ShrinkOvalParticle(new Timed(new Color(ThreadLocalRandom.current().nextInt(0, 20),
 								ThreadLocalRandom.current().nextInt(100, 170),ThreadLocalRandom.current().nextInt(0, 20))
-								, 120,30), 6,0.1), true);
+								, 120,30), 5,0.1), true);
 				break;
 				
 			default:
@@ -211,7 +215,7 @@ public abstract class Enemy extends Mobs {
 	public void update() {
 		Rectangle attackRange = new Rectangle(x,y,rangeWidth,rangeHeight); //The range which the enemy looks for targets
 		Rectangle playerBox = new Rectangle(entityManager.getPlayer().getX(),entityManager.getPlayer().getY(),rangeWidth,rangeHeight); //The player's own box
-		if(playerBox.intersects(attackRange)) {  //If the playerBox is intersects the attackRange attack will be set to true, and the enemy will attack the player 
+		if(playerBox.intersects(attackRange)&&!jammed) {  //If the playerBox is intersects the attackRange attack will be set to true, and the enemy will attack the player 
 			attack = true;
 		}else{ //If the enemy can't detect the player's box it will not attack
 			attack = false; 

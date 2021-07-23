@@ -16,7 +16,7 @@ public class VinePlant extends Tower{
 	public VinePlant(int x, int y) {
 		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 9999);
 		colour=ThreadLocalRandom.current().nextInt(0,Assets.vinePlant.length);
-		upgradeIcon=Assets.towerIcons[10];
+		upgradeIcon=Assets.towerIcons[9];
 		animation= new Animation(Assets.vinePlant[colour]);
 		height/=2;
 		price=4;
@@ -91,6 +91,6 @@ public class VinePlant extends Tower{
 
 	@Override
 	public String select(char leftRight) {
-		return "water the plant to grow its \nvines longer";
+		return "cost: $1\n\nwater the plant to make its \nvines longer";
 	}
 }

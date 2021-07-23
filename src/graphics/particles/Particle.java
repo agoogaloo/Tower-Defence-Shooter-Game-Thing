@@ -14,6 +14,7 @@ public class Particle {
 	private boolean remove=false;
 	
 	public Particle(ParticleMover mover, ParticleShape shape, boolean isOnTop) {
+	
 		particleManager.addParticle(this,isOnTop);
 		this.mover=mover;
 		this.shape=shape;

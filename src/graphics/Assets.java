@@ -131,6 +131,7 @@ public class Assets {
 	public static  final BufferedImage[] supportLvl1=splitSpriteSheet(loadImage("res/textures/towers/support lv1.png"),16,17,8,1);
 	public static  final BufferedImage[] supportLvl2=splitSpriteSheet(loadImage("res/textures/towers/support lv2.png"),16,18,8,1);
 	public static  final BufferedImage[] supportTech=splitSpriteSheet(loadImage("res/textures/towers/support tech.png"),51,45,10,1);
+	public static  final BufferedImage[] supportPlant=splitSpriteSheet(loadImage("res/textures/towers/support plant.png"),32,31,8,1);
 	
 	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 
