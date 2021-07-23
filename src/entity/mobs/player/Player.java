@@ -34,7 +34,7 @@ public class Player extends Mobs {
 	
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private int[] towers = {ItemList.WIZARD,ItemList.SUPPORT,ItemList.PLANT,ItemList.EMPTY};
+	private int[] towers = {ItemList.WIZARD,ItemList.EMPTY,ItemList.EMPTY,ItemList.EMPTY};
 	private ArrayList<Gun> guns;
 	private int gun=0;
 	
@@ -48,7 +48,7 @@ public class Player extends Mobs {
 	private Animator animator=new Animator();
 	
 	private CircleBox spinHitBox;
-	private int spinDamage=30;
+	private int spinDamage=20;
 	private double initXSpeed, initYSpeed;
 	
 	

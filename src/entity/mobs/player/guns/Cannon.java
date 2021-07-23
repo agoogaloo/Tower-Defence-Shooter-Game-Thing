@@ -6,6 +6,12 @@ import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import graphics.Animation;
 import graphics.Assets;
+import graphics.particles.InstantEffect;
+import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.Point;
+import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.ShrinkOvalParticle;
+import graphics.particles.shapes.colourers.Timed;
 
 public class Cannon extends Gun{	
 	public Cannon(EntityManager manager) {
@@ -24,7 +30,9 @@ public class Cannon extends Gun{
 		if (shotDelay >= reloadTime) {	
 			shotDelay=0;
 			shootAnim.setPaused(false);
-			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 7,20,new StatusEffect(StatusType.STUN,1,60), true));
+			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.cannonBullet, 8,30,new StatusEffect(StatusType.STUN,1,60), true));
+			new InstantEffect(6, new Straight(new Point(x,y),0.6), 
+					new ShrinkOvalParticle(new Timed(30),6,0.2), true);
 		}
 		
 	}

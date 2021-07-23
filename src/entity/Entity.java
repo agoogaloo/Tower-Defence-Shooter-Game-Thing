@@ -97,7 +97,7 @@ public abstract class Entity {
 		}
 		for(int i=currentEffects.size()-1;i>=0;i--) {
 			if(currentEffects.get(i).getType()==effect.getType()) {
-				System.out.println("removed "+currentEffects.get(i).getType());
+				//System.out.println("removed "+currentEffects.get(i).getType());
 				currentEffects.remove(i);
 				
 			}

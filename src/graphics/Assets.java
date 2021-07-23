@@ -53,6 +53,7 @@ public class Assets {
 	//loading bullets
 	public static final BufferedImage enemyBullet=loadImage("res/textures/bullets/red bullet.png");
 	public static final BufferedImage yellowBullet=loadImage("res/textures/bullets/yellow bullet.png");
+	public static final BufferedImage cannonBullet=loadImage("res/textures/bullets/cannon.png");
 	//these have different sizes depending on their direction so they are loaded weirdly
 	private static final BufferedImage laserB=loadImage("res/textures/bullets/blue laser.png");
 	private static final BufferedImage laserY=loadImage("res/textures/bullets/laser beam.png");
@@ -131,7 +132,7 @@ public class Assets {
 	public static  final BufferedImage[] supportLvl1=splitSpriteSheet(loadImage("res/textures/towers/support lv1.png"),16,17,8,1);
 	public static  final BufferedImage[] supportLvl2=splitSpriteSheet(loadImage("res/textures/towers/support lv2.png"),16,18,8,1);
 	public static  final BufferedImage[] supportTech=splitSpriteSheet(loadImage("res/textures/towers/support tech.png"),51,45,10,1);
-	public static  final BufferedImage[] supportPlant=splitSpriteSheet(loadImage("res/textures/towers/support plant.png"),32,31,8,1);
+	public static  final BufferedImage[] supportPlant=splitSpriteSheet(loadImage("res/textures/towers/support plant.png"),32,31,10,1);
 	
 	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 

@@ -34,7 +34,6 @@ public class Supportlvl2 extends Tower{
 					e.giveStatusEffect(statusEffect.copy());
 				}else if(e instanceof Tower&& e!=this) {
 					e.giveStatusEffect(new StatusEffect(StatusType.BUFFDMG,1.25,10));
-					System.out.println("eee");
 				}
 				
 			}

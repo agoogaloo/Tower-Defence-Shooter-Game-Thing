@@ -12,7 +12,7 @@ public class ElectroWizardTower extends Tower{
 		height=15;
 		sellValue=7;
 		price=10;
-		damage=25;
+		damage=10;
 		statusEffect=new StatusEffect(StatusType.STUN,1,15);
 		infoText="upgrade cost $"+price+"\n\ngives the wizard the power \nof electricity "
 				+ "letting it \nshoot faster and stun \nenemies to slow them down";

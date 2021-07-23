@@ -22,7 +22,7 @@ public class Pistol extends Gun{
 		if (shotDelay >= reloadTime) {	
 			shotDelay=0;
 			shootAnim.setPaused(false);
-			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 5,10, true));
+			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 5,15, true));
 		}
 		
 	}

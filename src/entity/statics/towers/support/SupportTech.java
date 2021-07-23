@@ -37,7 +37,6 @@ public class SupportTech extends Tower{
 					e.giveStatusEffect(new StatusEffect(StatusType.JAMMED, 1, 10));
 				}else if(e instanceof Tower&& e!=this) {
 					e.giveStatusEffect(new StatusEffect(StatusType.BUFFDMG,1.25,10));
-					System.out.println("eee");
 				}
 				
 			}

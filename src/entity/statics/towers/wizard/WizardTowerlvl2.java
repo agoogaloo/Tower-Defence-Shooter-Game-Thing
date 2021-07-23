@@ -6,10 +6,10 @@ import graphics.Assets;
 
 public class WizardTowerlvl2 extends Tower{
 	public WizardTowerlvl2(int x, int y) {
-		super(x, y, 115, 115, new Animation(Assets.wizardTowerLvl2,6), 30);
+		super(x, y, 115, 115, new Animation(Assets.wizardTowerLvl2,6), 35);
 		price=1;
 		sellValue=2;
-		damage=20;
+		damage=15;
 		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger, with more range \nand bullets";
 		upgradeIcon=Assets.towerIcons[4];
 		splitUpgrades=true;

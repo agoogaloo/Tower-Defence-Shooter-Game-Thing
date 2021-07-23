@@ -8,7 +8,7 @@ public class WizardTowerlvl1 extends Tower{
 	public WizardTowerlvl1(int x, int y) {
 		super(x, y, 100, 100, new Animation(Assets.wizardTowerLvl1,6), 40);
 		price=2;
-		damage=15;
+		damage=10;
 		sellValue=1;
 		infoText="buying cost $"+price+"\n\nan ordinary tower that \nshoots enemies in its range";
 		buyIcon=Assets.towerIcons[2];

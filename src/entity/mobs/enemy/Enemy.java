@@ -144,7 +144,7 @@ public abstract class Enemy extends Mobs {
 		super.damage(amount*weakened);
 	
 		if(amount>0) {
-			System.out.println("e");
+			System.out.println("enemy hit");
 			//making the enemy flash white when it gets hit
 			if(ConsoleState.isInstaKillEnemy()) {
 				killed=true;
