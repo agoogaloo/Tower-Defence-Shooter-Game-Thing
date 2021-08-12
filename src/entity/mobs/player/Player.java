@@ -51,7 +51,7 @@ public class Player extends Mobs {
 	private int spinDamage=20;
 	private double initXSpeed, initYSpeed;
 	
-	
+	private boolean ghostMode=false;//toggles the ghost mode cheat that lets you go through walls
 	
 	private BufferedImage currentPic;//the current image of the player
 	
@@ -168,7 +168,17 @@ public class Player extends Mobs {
 			}
 		}
 		
-		move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
+		if(ghostMode) {
+			trueX+=changeX;
+			trueY+=changeY;
+			x=(int)(trueX);
+			y=(int)(trueY);
+			changeX = 0;// resetting change x and y
+			changeY = 0;
+			updateBounds();
+		}else {
+			move(); //Updates movements, applied by the directional input keys. Also updates bounds and applies wall collision
+		}
 		spinAttack();
 		dustDelay ++;
 		invincibility--;
@@ -283,5 +293,8 @@ public class Player extends Mobs {
 	}
 	public char getDirection() {
 		return direction;
+	}
+	public void toggleGhost() {
+		ghostMode=!ghostMode;
 	}
 }

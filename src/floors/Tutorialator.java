@@ -50,21 +50,24 @@ public class Tutorialator {
 			section1();
 			break;
 		case 2:
-			section2();
+			spinSection();
 			break;
 		case 3:
-			section3();
+			section2();
 			break;
 		case 4:
-			section4();
+			section3();
 			break;
 		case 5:
-			section5();
+			section4();
 			break;
 		case 6:
-			section6();
+			section5();
 			break;
 		case 7:
+			section6();
+			break;
+		case 8:
 			section7();
 			break;
 		}
@@ -98,7 +101,7 @@ public class Tutorialator {
 	private void section1() {
 		//lets you experiment/enemy=bad
 		if(!sectionInit) {//initializing the section
-			 Entity.getEntityManager().addEntity(new TutorialEnemy(142, 480,Enemy.DOWN, 0,999999999,100));
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(142, 480,Enemy.DOWN, 0,999999999,1));
 			 sectionInit=true;
 		}
 		
@@ -110,12 +113,30 @@ public class Tutorialator {
 			nextSection();
 		}
 	}
+	private void spinSection() {
+		//shows spinning
+		if(!sectionInit) {//initializing the section
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(300, 160,Enemy.LEFT, 0,999999999,20));
+			 text.move(50, 168);
+			 sectionInit=true;
+		}
+		
+		
+		if(sectionTime==10)
+			
+			textToAdd="press shift to do a spin attack. spin attacks break bullets so \n you don't get hit, and can make enemies give double drops";
+		if(!areEnemies()) {
+			GameState.getFloor().getRoom(0, 0).unlock(8, 19);
+			nextSection();
+		}
+	}
+	
 	
 	private void section2() {
 		//teaches enemies following paths/coreness
 		if(!sectionInit) {//initializing the section
 			 Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.5, 999999999));
-			 text.move(48, 167);
+			 text.move(48, 168);
 			 sectionInit=true;
 		}
 		
@@ -131,7 +152,7 @@ public class Tutorialator {
 		//towers
 		boolean hasTower=false;		
 		if(sectionTime==10) {
-			text.move(48, 167);
+			text.move(48, 168);
 			textToAdd="you can place or upgrade towers to help you by holding right \n      click and dragging the mouse over the tower you want";
 		}
 		
@@ -154,9 +175,9 @@ public class Tutorialator {
 		
 		if(sectionTime==10) 
 			textToAdd="enemies will shoot back at you. make sure you don't get hit.";
-		else if(sectionTime==40) Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.8,50,50));
+		else if(sectionTime==60) Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.8,50,50));
 		
-		if(!areEnemies()&&sectionTime>40) {
+		if(!areEnemies()&&sectionTime>70) {
 			nextSection();
 			GameState.getFloor().getRoom(0, 0).unlock(21, 8);
 			

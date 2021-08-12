@@ -55,29 +55,39 @@
  "orientation":"orthogonal",
  "properties":[
         {
-         "name":"entrance",
+         "name":"entrDir",
          "type":"string",
          "value":"u"
         }, 
         {
-         "name":"exit",
+         "name":"entrLoc",
+         "type":"string",
+         "value":"0"
+        }, 
+        {
+         "name":"exitDir",
          "type":"string",
          "value":"u"
+        }, 
+        {
+         "name":"exitLoc",
+         "type":"string",
+         "value":"0"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.3.1",
+ "tiledversion":"1.4.3",
  "tileheight":16,
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/..\/..\/..\/tiled maps\/game rooms\/dungeon map tiles.tsx"
+         "source":"..\/..\/..\/..\/tiled stuff\/floor 1 tileset.tsx"
         }, 
         {
          "firstgid":85,
-         "source":"..\/..\/..\/..\/tiled maps\/spawns.tsx"
+         "source":"..\/..\/..\/..\/tiled stuff\/spawns.tsx"
         }],
  "tilewidth":16,
  "type":"map",
- "version":1.2,
+ "version":1.4,
  "width":40
 }

@@ -9,10 +9,10 @@ public class CommandSelector {
 	
 	//Parallel arrays to tell which commands match up with which classes
 	private final String[] commandStrings = new String[] {"Help","EntityCount","ShowHitBox", "ShowFPS",
-			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal","Chest", "Give"};
+			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal","Chest", "Give", "Ghost"};
 	private final Command[] commands = new Command[] {new Help(),new EntityCount(), new ShowHitBox(), 
 			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies(), 
-			new Unlock(),new Money(), new Heal(), new Chest(), new Give()};
+			new Unlock(),new Money(), new Heal(), new Chest(), new Give(), new Ghost()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
@@ -263,6 +263,15 @@ public class CommandSelector {
 				return"paramiter given is not an int";
 			}
 			
+		}
+	}
+	private class Ghost extends Command{
+		private Ghost(){
+			helpText= "lets you go through walls";
+		}
+		public String execute(String params) {
+			Entity.getEntityManager().getPlayer().toggleGhost();
+			return "ghost mode toggled";
 		}
 	}
 	

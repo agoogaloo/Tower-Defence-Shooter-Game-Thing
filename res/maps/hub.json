@@ -38,14 +38,24 @@
  "orientation":"orthogonal",
  "properties":[
         {
-         "name":"entrance",
-         "type":"string",
-         "value":"d"
-        }, 
-        {
-         "name":"exit",
+         "name":"entrDir",
          "type":"string",
          "value":"u"
+        }, 
+        {
+         "name":"entrLoc",
+         "type":"string",
+         "value":"0"
+        }, 
+        {
+         "name":"exitDir",
+         "type":"string",
+         "value":"u"
+        }, 
+        {
+         "name":"exitLoc",
+         "type":"string",
+         "value":"0"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

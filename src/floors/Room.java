@@ -20,7 +20,7 @@ public class Room {
 	private int[][] tiles;
 	private int[][] spawns;
 	private char entrance, exit;
-	private int doorX,doorY, width,height;
+	private int doorX,doorY, width,height, entranceLoc, exitLoc;
 	
 	// the  constructor takes the location and width of the file that should be
 	// loaded all and rooms are squares so the width will be the same as the height
@@ -43,8 +43,52 @@ public class Room {
 			spawns[i] = Arrays.copyOf(original.spawns[i], original.spawns[i].length);
 		}
 	}
-	
 	public Room(JSONObject object) {
+		width=(int)((long)object.get("width"));
+		height=(int)((long)object.get("height"));
+		tiles = new int[width][height];
+		spawns = new int[width][height];
+		
+		JSONArray layers=(JSONArray)object.get("layers");//the array of layers
+		
+		//getting map data
+		JSONObject mapLayer=(JSONObject) layers.get(0);
+		JSONArray mapData=(JSONArray)mapLayer.get("data");
+		System.out.print("width="+width+" height="+height+" size="+mapData.size()+" map:\n");
+		for(int y=0;y<height;y++) {
+			for(int x=0;x<width;x++) {
+				tiles[x][y] =(int)((long) mapData.get((y *width) + x ));			
+			}
+		}
+		
+		//getting spawn data
+		JSONObject spawnLayer=(JSONObject) layers.get(1);
+		JSONArray spawnData=(JSONArray)spawnLayer.get("data");
+		for(int y=0;y<height;y++) {
+			for(int x=0;x<width;x++) {
+				spawns[x][y] =(int)((long) spawnData.get((y *width) + x ));
+			}
+		}
+		
+
+		//getting entrance/exits and their locations
+		JSONArray properties=(JSONArray)object.get("properties");
+		//the map properties are stored alphabetically so we know where each property is in the list
+		JSONObject entrDirObject=(JSONObject)properties.get(0);
+		JSONObject entrLocObject=(JSONObject)properties.get(1);
+		JSONObject exitDirObject=(JSONObject)properties.get(2);
+		JSONObject exitLocObject=(JSONObject)properties.get(3);
+		
+		entrance=((String)entrDirObject.get("value")).charAt(0);
+		exit=((String)exitDirObject.get("value")).charAt(0);
+		
+		entranceLoc=Integer.parseInt((String) entrLocObject.get("value"));
+				
+		exitLoc=Integer.parseInt((String) exitLocObject.get("value"));
+		findDoor();
+	}
+	
+	/*public  Room(JSONObject object) {
 		width=(int)((long)object.get("width"));
 		height=(int)((long)object.get("height"));
 		tiles = new int[width][height];
@@ -77,7 +121,7 @@ public class Room {
 		entrance=((String)entranceObject.get("value")).charAt(0);
 		exit=((String)exitObject.get("value")).charAt(0);
 		findDoor();
-	}
+	}*/
 	private void findDoor() {
 		for(int y=0;y<tiles[0].length;y++) {
 			for(int x=0;x<tiles.length;x++) {				
