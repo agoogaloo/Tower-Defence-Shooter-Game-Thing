@@ -21,20 +21,25 @@ public class Room {
 	private int[][] spawns;
 	private char entrance, exit;
 	private int doorX,doorY, width,height, entranceLoc, exitLoc;
+	private int x, y;
 	
 	// the  constructor takes the location and width of the file that should be
 	// loaded all and rooms are squares so the width will be the same as the height
-	public Room(Room original) {
+	public Room(Room original, int x, int y) {
 		//this constructor lets us copy rooms so we dont change things we dont want to change
 	
 		tiles=new int[original.tiles.length][];
 		spawns=new int[original.spawns.length][];
 		entrance=original.entrance;
 		exit=original.exit;
+		entranceLoc=original.entranceLoc;
+		exitLoc=original.exitLoc;
 		doorX=original.doorX;
 		doorY=original.doorY;
 		width=original.width;
 		height=original.height;
+		this.x=x;
+		this.y=y;
 		
 		for(int i = 0; i < original.tiles.length; i++) {
 			tiles[i] = Arrays.copyOf(original.tiles[i], original.tiles[i].length);
@@ -202,6 +207,12 @@ public class Room {
 	public char getExit() {
 		return exit;
 	}
+	public int getEntranceLoc() {
+		return entranceLoc;
+	}
+	public int getExitLoc() {
+		return exitLoc;
+	}
 
 	public int getWidth() {
 		return width;
@@ -210,5 +221,12 @@ public class Room {
 	public int getHeight() {
 		return height;
 	}
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	
 	
 }

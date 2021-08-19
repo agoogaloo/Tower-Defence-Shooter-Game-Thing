@@ -23,7 +23,7 @@ public class GameState extends State{
 	 * this represents the game when it is actually being played and not in a menu or cutscene or whatever
 	 */
 	//floor index constants
-	public final static int HUBINDEX=4, TUTORIALINDEX=5, FLOOR1=6,FLOOR2=7,FLOOR3=8;
+	public final static int HUBINDEX=8, TUTORIALINDEX=9, FLOOR1=10,FLOOR2=11,FLOOR3=12;
 	//constants that are needed for different things in the gamestate
 	private static int floorIndex;
 	private static Floor floor;
@@ -109,6 +109,7 @@ public class GameState extends State{
 			newFloorIndex=TUTORIALINDEX;
 		switch (newFloorIndex){
 		case HUBINDEX:
+			System.out.println("loading hub from index "+newFloorIndex);
 			path+="hub.json";
 			deletePlayer=true;
 			size=1;
@@ -116,6 +117,7 @@ public class GameState extends State{
 			tiles=Assets.hubtiles;
 			break;
 		case TUTORIALINDEX:
+			System.out.println("loading tutorial from index "+newFloorIndex);
 			path+="tutorial.json";
 			deletePlayer=true;
 			size=1;
@@ -123,9 +125,10 @@ public class GameState extends State{
 			tiles=Assets.level1tiles;
 			break;
 			
-		case FLOOR1:			
+		case FLOOR1:
+			System.out.println("loading floor one from index "+newFloorIndex);
 			path+="floor 1";
-			size=3;
+			size=15;
 			canHaveEnemies=true;
 			tiles=Assets.level1tiles;
 			deletePlayer=true;
@@ -156,8 +159,8 @@ public class GameState extends State{
 		Point playerLoc = new Point(0,0);
 		
 		
-		for (int y = 0; y < floor.getSize()*floor.getRoomSize(); y++) {// looping though all the tiles
-			for (int x = 0; x < floor.getSize()*floor.getRoomSize()*2 ; x++) {
+		for (int y = 0; y < floor.getSize()*floor.getHeight(); y++) {// looping though all the tiles
+			for (int x = 0; x < floor.getSize()*floor.getWidth() ; x++) {
 				switch (floor.getSpawnData(x, y)) {
 				case 1:
 					coreLoc=new Point(x,y);

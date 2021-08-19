@@ -27,7 +27,7 @@ public abstract class Entity {
 	
 	protected double health = 10;
 	protected double damage;
-	protected boolean killed=false, friendly;
+	protected boolean killed=false,solid=false, friendly;
     protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
    
 	protected RenderLayer layer = RenderLayer.MID;
@@ -130,6 +130,9 @@ public abstract class Entity {
 	}
 	public boolean isKilled() {
 		return this.killed;
+	}
+	public boolean isSolid() {
+		return solid;
 	}
 
 	public Rectangle getBounds() {

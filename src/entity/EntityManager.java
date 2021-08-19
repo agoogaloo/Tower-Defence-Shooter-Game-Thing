@@ -23,6 +23,7 @@ public class EntityManager {
 	// an arrayList that holds all the entities in the game
   
 	protected ArrayList<Entity> entities = new ArrayList<Entity>();
+	protected ArrayList<Entity> solids = new ArrayList<Entity>();
 	private int kills=0;
 	Player player;// creating a player
 	Factory factory;//the robot factory at the end of the level
@@ -80,6 +81,12 @@ public class EntityManager {
 				}
 			}
 		}
+		for (int i = solids.size()-1; i >=0 ; i--) {
+			//looping backwards so things arent skipped when other entities are deleted 
+			if(solids.get(i).isSolid()){
+				solids.remove(i); //If an other entity besides the player gets hit remove that entity
+			}
+		}
 	}
 	
 	// same as update but rendering things instead
@@ -113,11 +120,21 @@ public class EntityManager {
 			entities.add(e);
 		}
 	}
+	
+	public void addSolid(Entity e) {
+		if(e!=null) {
+			solids.add(e);
+		}
+	}
 
 	public ArrayList<Entity> getEntities() { //lets us check what entities exist and thier state
 		return entities;
 	}
-
+	
+	public ArrayList<Entity> getSolids() {
+		return solids;
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}

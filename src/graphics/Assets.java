@@ -73,9 +73,13 @@ public class Assets {
 	public static final BufferedImage[] acorn=splitSpriteSheet(loadImage("res/textures/bullets/acorn.png"), 10, 10, 8, 1);
 	public static final BufferedImage[] greenStars=splitSpriteSheet(loadImage("res/textures/particles/green stars.png"), 5, 5, 6, 1);
 	
-	public static final BufferedImage[] hubtiles=splitSpriteSheet(loadImage("res/textures/hub tiles.png"), 16, 16, 7, 12);
-	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/level 1 tiles.png"), 16, 16, 7, 12);
-	public static final BufferedImage[] level2tiles=splitSpriteSheet(loadImage("res/textures/level 2 tiles.png"), 16, 16, 7, 12);
+	//floor tiles and things
+	public static final BufferedImage[] hubtiles=splitSpriteSheet(loadImage("res/textures/floors/hub tiles.png"), 16, 16, 7, 12);
+	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/floors/level 1 tiles.png"), 16, 16, 7, 12);
+	public static final BufferedImage[] level2tiles=splitSpriteSheet(loadImage("res/textures/floors/level 2 tiles.png"), 16, 16, 7, 12);
+	
+	public static final BufferedImage[] lv1DoorVert=splitSpriteSheet(loadImage("res/textures/floors/floor 1 vertical door.png"), 48, 48, 2, 1);
+	public static final BufferedImage[] lv1DoorHor=splitSpriteSheet(loadImage("res/textures/floors/floor 1 horizontal door.png"), 27, 94, 2, 1);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes
 	//private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 23, 2);
 	private static final BufferedImage[] playeridle = splitSpriteSheet(loadImage("res/textures/player combo.png"), 9, 17, 6, 4);

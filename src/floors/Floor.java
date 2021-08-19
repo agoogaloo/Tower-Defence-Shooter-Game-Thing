@@ -1,11 +1,13 @@
 package floors;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.simple.JSONObject;
@@ -25,16 +27,20 @@ public class Floor {
 	 */
 	
 	// declaring variables
-	private Room[][] rooms;
+	private Room[] rooms;
+	private Rectangle[] roomBounds;
+	private int[][] tiles;
+	private int[][] spawns;
+	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
+	private int width=250, height=250;
 
 	// constants
 	public final int TILESIZE = 16, SCREENWIDTH, SCREENHEIGHT;
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
 	private final int[] WALLS = new int[] {36,37,38,39,40,43,44,45,46,47,50,51,52,64,65,66,
 			69,70,71,72,73,76,77,41,42,48,49};
-	private int roomSize=30;
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
 	public Floor(String folder,int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
@@ -43,17 +49,34 @@ public class Floor {
 		PICS = pics;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
-		rooms = new Room[size * 2][size];
+		rooms = new Room[size];
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		if(new File(folder).isDirectory()) {
-			Room[] startRooms= loadAllRooms(folder+"/start");
-			roomSize=Math.max(startRooms[0].getWidth(),startRooms[0].getHeight());
-			rooms = generateFloor(startRooms[ThreadLocalRandom.current().nextInt(0, startRooms.length)],
-					loadAllRooms(folder+"/mid"),loadAllRooms(folder+"/end"));// generating a random floor layout
+			Room[] startRooms = loadAllRooms(folder+"/start");
+			Room[] midRooms = loadAllRooms(folder+"/mid");
+			Room[] endRooms = loadAllRooms(folder+"/end");
+			
+			boolean success = false;
+			while(!success) {
+				success = generateFloor(startRooms[ThreadLocalRandom.current().nextInt(0, startRooms.length)],
+						midRooms,endRooms);// generating a random floor layout
+			}
+			
 		}else {
-			rooms = new Room[][] {{loadRoom(folder)}};// generating a random floor layout
-			roomSize=Math.max(rooms[0][0].getWidth(),rooms[0][0].getHeight());
+			rooms =new Room[] {loadRoom(folder)};
+			width=rooms[0].getWidth();
+			height=rooms[0].getHeight();
+			roomBounds= new Rectangle[] {new Rectangle(0,0,width,height)};
+			tiles=new int[width+1][height+1];
+			spawns=new int[width+1][height+1];
+
+			for(int x=0;x<=width;x++) {
+				for(int y=0;y<=height;y++) {
+					tiles[x][y]=rooms[0].getTile(x, y);
+					spawns[x][y]=rooms[0].getSpawnData(x, y);
+				}	
+			}
 		}
 		
 		
@@ -72,14 +95,21 @@ public class Floor {
 		// initializing variables
 		this.size = 1;
 		PICS = pics;
-		roomSize=50;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
-		rooms =new Room[][] {{loadRoom(path)}};
-		
-		
-		
-		
+		rooms =new Room[] {loadRoom(path)};
+		width=rooms[0].getWidth();
+		height=rooms[0].getHeight();
+		roomBounds= new Rectangle[] {new Rectangle(0,0,width,height)};
+		tiles=new int[width][height];
+		spawns=new int[width][height];
+
+		for(int x=0;x<=width;x++) {
+			for(int y=0;y<=height;y++) {
+				tiles[x][y]=rooms[0].getTile(x, y);
+				spawns[x][y]=rooms[0].getSpawnData(x, y);
+			}	
+		}
 	}	
 
 	// this method draws everything to the screen
@@ -91,65 +121,152 @@ public class Floor {
 						y*TILESIZE-camera.getyOffset()%TILESIZE, null);
 			}
 		}
-		/*
-		for (int y = 0; y < size * ROOMSIZE; y++) {// looping though all the tiles
-			for (int x = 0; x < size * ROOMSIZE * 2; x++) {
-				// these will be whatever place the tile is being rendered at
-				int drawX = x * TILESIZE - camera.getxOffset(), drawY = y * TILESIZE - camera.getyOffset();
-				if (drawX >= -TILESIZE && drawX <= SCREENWIDTH && // checking if it would actually be renderd in the
-																	// screen
-						drawY > -TILESIZE && drawY <= SCREENHEIGHT) {
-					g.drawImage(PICS[getTile(x, y) - 1], drawX, drawY, null);
-					// drawing the proper tile in the proper place
+	}
+	/**
+	 * 
+	 * @param startRoom
+	 * @param midRooms
+	 * @param endRooms
+	 * @return - whether or not the level generation was successful. 
+	 * 
+	 */
+	private boolean generateFloor(Room startRoom, Room[]midRooms, Room[] endRooms) {
+		//arrays to hold the rooms and their locations
+		ArrayList<Room> rooms= new ArrayList<Room>();
+		ArrayList<Rectangle> bounds= new ArrayList<Rectangle>();
+		Rectangle floorBounds = new Rectangle(0,0,width,height);
+		
+		tiles=new int[width][height];
+		spawns=new int[width][height];
+		
+		//making all the tiles start as walls
+		for(int x=0;x<width;x++) {
+			for(int y=0;y<height;y++) {
+				tiles[x][y]=44;
+				
+			}	
+		}
+		
+		//the x and y where the rooms will be added
+		int x=width/2-startRoom.getWidth()/2;
+		int y=height/2-startRoom.getHeight()/2;
+		
+		
+		Room validRoom=new Room(startRoom,x,y);
+		System.out.println("start room: "+ validRoom.getExit()+", "+validRoom.getExitLoc());
+		
+		
+		for (int room = 1; room <=size; room++) {//adding rooms until it is the right size
+			
+			// -- adding the room if we know that it is actually able to go there --
+			
+			rooms.add(validRoom);
+			bounds.add(new Rectangle(x,y,validRoom.getWidth(),validRoom.getHeight()));
+			//looping through the rooms tiles and spawn data to add them all to the floors data
+			for(int i=0;i<validRoom.getWidth();i++) {
+				for(int j=0;j<validRoom.getHeight();j++) {
+					tiles[x+i][y+j]=validRoom.getTile(i, j);
+					spawns[x+i][y+j]=validRoom.getSpawnData(i, j);
 				}
 			}
-		}*/
-
-	}
-
-	private Room[][] generateFloor(Room startRoom, Room[]midRooms, Room[] endRooms) {
-		// declaring variables
-		Room[][] floor = new Room[size * 2][size + 1];
-		Room validRoom = startRoom;// making the 1st room the start room, which only has an exit
-		Room checkRoom = midRooms[0];
-		int x = size, y = size - 1;// making the starting room the bottom middle room
-
-		for (int i = 0; i < size; i++) {// looping until it has created a floor with the proper size
-			floor[x][y] = new Room(validRoom);// adding the rooms to the floor in the right place
-			endRoomX=x;
-			endRoomY=y;
+			
+			if(room==size) {
+				break;
+			}
+			//changing where the next room will be placed based on the previous rooms exit
+			
 			switch (validRoom.getExit()) {
-			// changing where the next room will be placed based on the previous rooms exit
 			case 'u':
-				y--;
+				
+				x+=validRoom.getExitLoc();
 				break;
 			case 'r':
-				x++;
+				x+=validRoom.getWidth();
+				y+=validRoom.getExitLoc();
 				break;
 			case 'l':
-				x--;
+				
+				y+=validRoom.getExitLoc();
 				break;
+			case 'd':
+				y+=validRoom.getHeight();
+				x+=validRoom.getExitLoc();
+				break;
+				
+			default:
+				System.out.println(validRoom.getExit()+" isnt an exit");
+					
 			}
+			
+			// -- finding a room that can be added onto it --
 
-			do {
-				if(i==size-2) {
-					checkRoom = endRooms[ThreadLocalRandom.current().nextInt(0, endRooms.length)];
-					System.out.println("making the last room");
-				}else {
-					checkRoom = midRooms[ThreadLocalRandom.current().nextInt(0, midRooms.length)];
+			ArrayList<Room> possibleRooms;
+			if(room==size-1) {
+				System.out.println("making the end room");
+				possibleRooms=new ArrayList<Room>(Arrays.asList(endRooms));
+			}else {
+				possibleRooms=new ArrayList<Room>(Arrays.asList(midRooms));
+			}
+			
+			boolean roomFound=false;
+
+			while(possibleRooms.size()>0&&!roomFound) {
+				int checkIndex=ThreadLocalRandom.current().nextInt(0, possibleRooms.size());
+				int checkX=x, checkY=y;
+				Room checkRoom = possibleRooms.get(checkIndex);
+				switch (checkRoom.getEntrance()) {
+				
+				case 'u':
+					checkX-=checkRoom.getEntranceLoc();
+					checkY-=checkRoom.getHeight();
+					break;
+				case 'r':
+					checkY-=checkRoom.getEntranceLoc();
+					break;
+				case 'l':
+					checkY-=checkRoom.getEntranceLoc();
+					checkX-=checkRoom.getWidth();
+					break;
+				case 'd':
+					checkX-=checkRoom.getEntranceLoc();
+					break;
 				}
-				// setting check room to a random room
-				System.out.println(
-						"checkRoom entrance=" + checkRoom.getEntrance() + " previous room exit=" + validRoom.getExit());
-				// IF THIS LINE IS BEING SPAMMED IN THE CONSOLE AND THE PROGRAM ISN'T RUNNING IT
-				// IS MISSING A ROOM AND CANT FIND ONE THAT WILL LINE UP
-			} while (checkRoom.getEntrance() != validRoom.getExit());
-			// looping until a room i found that will line up with the previous room
-
-			validRoom = checkRoom;
-			// checkRoom is now confirmed to line up so it can be added to the list the next loop
+				//checking if the room can actually be placed
+				Rectangle checkBounds=new Rectangle(checkX,checkY,checkRoom.getWidth(),checkRoom.getHeight());
+				roomFound=isValidRoom(bounds, checkBounds, floorBounds, validRoom.getExit(), checkRoom.getEntrance());
+				
+				
+				//removing the room from the possible rooms if it is unable to be placed
+				if(!roomFound) {
+					possibleRooms.remove(checkIndex);
+				}else {
+					validRoom=checkRoom;
+					x=checkX;
+					y=checkY;
+				}
+			}
+			if(possibleRooms.size()<=0) {
+				return false;
+			}
+			
 		}
-		return floor;// returning the array
+		return true;
+	}
+	
+	private boolean isValidRoom(ArrayList<Rectangle> bounds, Rectangle checkBounds, Rectangle floorBounds, 
+			char validExit, char checkEntrance) {
+		if(checkEntrance!=validExit) {
+			return false;
+		}
+		for(Rectangle r:bounds) {
+			if(checkBounds.intersects(r)) {
+				return false;
+			}
+		}
+		if(!floorBounds.contains(checkBounds)) {
+			return false;
+		}
+		return true;
 	}
 
 	private Room[] loadAllRooms(String path) {		
@@ -205,7 +322,7 @@ public class Floor {
 	// this lets you get what tile is at a specific x y (in tiles) so you can tell
 	// if it is a wall or whatever
 	public int getTile(int x, int y) {
-		// finding the x y of the room the tile is in
+		/* finding the x y of the room the tile is in
 		int roomX = (int) Math.floor(x / roomSize), roomY = (int) Math.floor(y / roomSize);
 		int result;
 
@@ -218,11 +335,24 @@ public class Floor {
 			result = 44;// 44 is the tile id for the empty background tile
 
 		}
-		return result;// Returning the tile
+		return result;// Returning the tile*/
+		int result;
+		try {
+			result= tiles[x][y];
+		} catch (ArrayIndexOutOfBoundsException e) {// if the floor isnt there then it returns the background tile
+			return  44;// 44 is the tile id for the empty background tile
+
+		}
+		if(result>PICS.length){
+			System.out.println("tile out of bounds");
+			return 34;
+		}
+		return result;
+		
 	}
 	
 	public int getSpawnData(int x, int y) {
-		// finding the x y of the room the tile is in
+		/* finding the x y of the room the tile is in
 		int roomX = (int) Math.floor(x / roomSize), roomY = (int) Math.floor(y / roomSize);
 		int result;
 
@@ -235,7 +365,13 @@ public class Floor {
 			result = 0;
 
 		}
-		return result;// Returning the tile
+		return result;// Returning the tile*/
+		try {
+			return spawns[x][y];
+		} catch (ArrayIndexOutOfBoundsException e) {// if the floor isnt there then it returns the background tile
+			return 0;// 44 is the tile id for the empty background tile
+
+		}
 	}
 
 	/**
@@ -258,7 +394,8 @@ public class Floor {
 	// if you need a specific room it can return it
 	public Room getRoom(int x, int y) {
 		try {
-			return rooms[x][y];
+			return null;
+			//return rooms[x][y];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return null;
 		}
@@ -267,9 +404,11 @@ public class Floor {
 	public int getSize() {
 		return size;
 	}
-	
-	public int getRoomSize() {
-		return roomSize;
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
 	}
 
 	public int getEndRoomX() {

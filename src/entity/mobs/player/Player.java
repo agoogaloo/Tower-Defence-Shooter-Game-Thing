@@ -13,6 +13,7 @@ import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
 import entity.mobs.player.guns.Gun;
 import entity.statics.Core;
+import entity.statics.Door;
 import entity.statics.hitBox.CircleBox;
 import entity.statics.towers.Tower;
 import graphics.Camera;
@@ -74,6 +75,7 @@ public class Player extends Mobs {
 		setLocation(x-width/2, y-height/2);
 		
 		
+		
 	}
 
 	public void reset(int x, int y) {
@@ -83,10 +85,13 @@ public class Player extends Mobs {
 		towerPlacer=new TowerPlacer();
 		miniMap=new MiniMap();
 		
+		entityManager.addEntity(new Door(x, y-50, 'u'));
+		
 	}
 	
 	@Override
 	public void update() {
+		
 		int moveKeys=0;
 		
 		if(!(animator.getCurrentAnimation()==PlayerAnimations.SPIN||animator.getCurrentAnimation()==PlayerAnimations.SPINEND)) {
