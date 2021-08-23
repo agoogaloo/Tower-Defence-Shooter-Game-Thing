@@ -10,15 +10,17 @@ import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.player.Player;
 import entity.statics.Core;
+import graphics.UI.PicElement;
 import states.GameState;
 
 public class MiniMap {
 	//the image that will be drawn onto the screen holding all the data
-	private final int scale=2, updateDelay=30;
+	private final int scale=3, updateDelay=30;
 	private int curentDelay=0;
+	
 	private BufferedImage map= new BufferedImage(GameState.getFloor().getWidth()/scale,
 			GameState.getFloor().getHeight()/scale,BufferedImage.TYPE_4BYTE_ABGR);
-	
+	private PicElement mapUI=new PicElement(333-map.getWidth(),195-map.getHeight(),map);
 	private ArrayList<Point> openedRooms = new ArrayList<Point>();
 	private Point currentRoom=new Point(0,0);
 	
@@ -32,6 +34,7 @@ public class MiniMap {
 		if(curentDelay>=updateDelay) {
 			drawMap(entities);
 			curentDelay=0;
+			mapUI.update(map);
 		}
 		curentDelay++;
 	}
@@ -71,7 +74,7 @@ public class MiniMap {
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(map,333-map.getWidth(),195-map.getHeight(), null);
+		//g.drawImage(map,333-map.getWidth(),195-map.getHeight(), null);
 	}
 	
 	public void resetMap() {

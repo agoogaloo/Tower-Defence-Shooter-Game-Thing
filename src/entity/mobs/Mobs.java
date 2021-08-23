@@ -13,51 +13,13 @@ public abstract class Mobs extends Entity{
 	
 	
 	@Override
-	public void move() {
-		//not moving if the entities corners will be inside of a wall
-		double checkX=trueX+changeX;
-		double checkY=trueY+changeY;
-		
-		//checking if they would move into a wall horizontally
-		//checking left side if they're moving left
-		if(changeX<0) {
-			if (!(GameState.getFloor().checkwall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
-					|| GameState.getFloor().checkwall((int)(checkX) / 16, (bounds.height+(int)(trueY)) / 16)))
-				trueX=checkX;//moving the if they are going into a free area
-			else {
-				trueX =Math.round(checkX/16)*16;//snapping them onto the wall
-			}
-		}else if(changeX>0){//if they are moving right
-			checkX+=bounds.width;
-			if (!(GameState.getFloor().checkwall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
-					|| GameState.getFloor().checkwall((int)Math.round(checkX) / 16, (bounds.height+(int)Math.round(trueY)) / 16))) {
-				trueX=checkX-bounds.width;//moving the if they are going into a free area
-			}else {
-				trueX =Math.round(checkX/16 - 1)*16 - bounds.width+15;
-			}
-		}
-		
-		
+	public void move() {		
+		//horizontal collisions
+		xCollide();
+				
 		//doing vertical wall collisions
-		if(changeY>0) {//moving down collisions
-			checkY+=bounds.height;
-			if (!(GameState.getFloor().checkwall((int)Math.round(trueX) / 16, ((int)Math.round(checkY)) / 16)
-					|| GameState.getFloor().checkwall((bounds.width+(int)Math.round(trueX)) / 16, ((int)Math.round(checkY)) / 16))) {
-				trueY=checkY-bounds.height;
-				
-			}else {
-				trueY =Math.round(checkY/16 - 1)*16-bounds.height+15;
-			}	
-			
-		}else if(changeY<0) {//moving up collisions
-			if (!(GameState.getFloor().checkwall((int)Math.round(trueX)/ 16,(int)Math.round(checkY) / 16)
-					|| GameState.getFloor().checkwall((bounds.width+(int)Math.round(trueX)) / 16, (int)Math.round(checkY)/ 16))) {
-				trueY=checkY;
-				
-			}else {
-				trueY =Math.round(checkY / 16)*16;
-			}
-		}
+		yCollide();
+		
 		
 		
 		x=(int)(trueX);
@@ -66,6 +28,77 @@ public abstract class Mobs extends Entity{
 		changeY = 0;
 		updateBounds();
 	}
+	private void xCollide() {
+		double checkX=trueX+changeX;
+		
+		
+		
+		//doing wall collisions
+		
+		if(changeX<0) {
+			
+			if (GameState.getFloor().checkwall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
+					|| GameState.getFloor().checkwall((int)(checkX) / 16, (bounds.height+(int)(trueY)) / 16)) {
+				
+				trueX =Math.round(checkX/16)*16;//snapping them onto the wall
+				return;
+			}
+			
+		}else if(changeX>0){//if they are moving right
+			checkX+=bounds.width;
+			if (GameState.getFloor().checkwall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
+					|| GameState.getFloor().checkwall((int)Math.round(checkX) / 16, (bounds.height+(int)Math.round(trueY)) / 16)) {
+				trueX =Math.round(checkX/16 - 1)*16 -bounds.width+15;
+				return;
+			}
+			checkX-=bounds.width;//moving the if they are going into a free area
+		}
+		
+		bounds.x=(int)checkX;
+		for(Entity i:entityManager.getSolids()) {
+			if(bounds.intersects(i.getBounds())) {
+				bounds.x=x;
+				return;
+			}
+		}
+		bounds.x=x;
+		trueX=checkX;//moving the if they are going into a free area
+	}
+	
+	private void yCollide() {
+		double checkY=trueY+changeY;
+		
+		
+		if(changeY>0) {//moving down collisions
+			checkY+=bounds.height;
+			if (GameState.getFloor().checkwall((int)Math.round(trueX) / 16, ((int)Math.round(checkY)) / 16)
+					|| GameState.getFloor().checkwall((bounds.width+(int)Math.round(trueX)) / 16, ((int)Math.round(checkY)) / 16)) {
+				
+				trueY =Math.round(checkY/16 - 1)*16-bounds.height+15;
+				return;
+			}
+				checkY-=bounds.height;
+				
+			
+		}else if(changeY<0) {//moving up collisions
+			if (GameState.getFloor().checkwall((int)Math.round(trueX)/ 16,(int)Math.round(checkY) / 16)
+					|| GameState.getFloor().checkwall((bounds.width+(int)Math.round(trueX)) / 16, (int)Math.round(checkY)/ 16)) {
+				trueY =Math.round(checkY / 16)*16;
+				return;
+			}
+		}
+		
+		bounds.y=(int)checkY;
+		for(Entity i:entityManager.getSolids()) {
+			if(bounds.intersects(i.getBounds())) {
+				bounds.y=y;
+				return;
+			}
+		}
+		bounds.y=y;
+		trueY=checkY;
+	}
+	
 	protected void setLocation(int x, int y) {
 		this.x=x;
 		this.y=y;

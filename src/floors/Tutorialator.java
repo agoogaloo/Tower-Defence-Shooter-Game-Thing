@@ -109,7 +109,7 @@ public class Tutorialator {
 		if(sectionTime==180)
 			textToAdd="Robots are bad. Shoot the robot with left click to kill it";
 		if(!areEnemies()) {
-			GameState.getFloor().getRoom(0, 0).unlock(8, 19);
+			GameState.getFloor().getRoom(0, 0).unlock(2);
 			nextSection();
 		}
 	}
@@ -126,7 +126,6 @@ public class Tutorialator {
 			
 			textToAdd="press shift to do a spin attack. spin attacks break bullets so \n you don't get hit, and can make enemies give double drops";
 		if(!areEnemies()) {
-			GameState.getFloor().getRoom(0, 0).unlock(8, 19);
 			nextSection();
 		}
 	}
@@ -179,7 +178,7 @@ public class Tutorialator {
 		
 		if(!areEnemies()&&sectionTime>70) {
 			nextSection();
-			GameState.getFloor().getRoom(0, 0).unlock(21, 8);
+			GameState.getFloor().getRoom(0, 0).unlock(1);
 			
 		}
 			
@@ -233,7 +232,7 @@ public class Tutorialator {
 		}
 		if(!areEnemies()&&sectionTime>60*9) {
 			text.move(77, 172);
-			GameState.getFloor().getRoom(0, 0).unlock(28, 1);
+			GameState.getFloor().getRoom(0, 0).unlock(0);
 			textToAdd="congratulations you have beaten the tutorial";
 			SaveData.tutorialDone();
 			section++;//going to the next section even though it doesnt exist to make this one stop updating

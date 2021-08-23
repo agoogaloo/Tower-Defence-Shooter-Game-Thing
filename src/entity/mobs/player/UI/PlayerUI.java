@@ -31,7 +31,6 @@ public class PlayerUI {
 	
 	//after 22 hearts it just goes off screen so the array doesnt need to go higher
 	public PlayerUI() {
-		System.out.println("ui");
 		for(int i=0;i<healthIcons.length;i++) {
 			healthIcons[i]=new AnimElement(5+(15*i), 5, new Animation(Assets.healthIcon));
 			//this creates all the ui elements for the hearts but most of them will just be invisible

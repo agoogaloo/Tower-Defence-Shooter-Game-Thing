@@ -83,7 +83,7 @@ public class EntityManager {
 		}
 		for (int i = solids.size()-1; i >=0 ; i--) {
 			//looping backwards so things arent skipped when other entities are deleted 
-			if(solids.get(i).isSolid()){
+			if(!solids.get(i).isSolid()){
 				solids.remove(i); //If an other entity besides the player gets hit remove that entity
 			}
 		}
@@ -117,6 +117,9 @@ public class EntityManager {
 	//getters/setters
 	public void addEntity(Entity e) { // allows us to add to the entity manager
 		if(e!=null) {
+			if(e.isSolid()) {
+				solids.add(e);
+			}
 			entities.add(e);
 		}
 	}

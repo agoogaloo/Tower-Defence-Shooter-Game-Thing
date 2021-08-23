@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
 import entity.statics.Chest;
+import entity.statics.Door;
 import floors.Floor;
 import floors.Tutorialator;
 import graphics.Assets;
@@ -150,6 +151,9 @@ public class GameState extends State{
 		floor = new Floor(path,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), tiles);
 		Entity.init(deletePlayer);
+		for(Door i:floor.getDoors()) {
+			Entity.getEntityManager().addEntity(i);
+		}
 		
 		if(newFloorIndex==TUTORIALINDEX)
 			tutorial=new Tutorialator();

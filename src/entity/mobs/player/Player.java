@@ -83,10 +83,7 @@ public class Player extends Mobs {
 		setLocation(x+width/2, y+height/2);
 		ui=new PlayerUI();
 		towerPlacer=new TowerPlacer();
-		miniMap=new MiniMap();
-		
-		entityManager.addEntity(new Door(x, y-50, 'u'));
-		
+		miniMap=new MiniMap();		
 	}
 	
 	@Override

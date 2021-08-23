@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import entity.statics.Door;
 import graphics.Camera;
 
 /*
@@ -153,7 +154,6 @@ public class Floor {
 		
 		
 		Room validRoom=new Room(startRoom,x,y);
-		System.out.println("start room: "+ validRoom.getExit()+", "+validRoom.getExitLoc());
 		
 		
 		for (int room = 1; room <=size; room++) {//adding rooms until it is the right size
@@ -240,9 +240,9 @@ public class Floor {
 				if(!roomFound) {
 					possibleRooms.remove(checkIndex);
 				}else {
-					validRoom=checkRoom;
 					x=checkX;
 					y=checkY;
+					validRoom=new Room(checkRoom,x,y);
 				}
 			}
 			if(possibleRooms.size()<=0) {
@@ -250,6 +250,10 @@ public class Floor {
 			}
 			
 		}
+		this.rooms=new Room[rooms.size()];
+		this.rooms=(Room[])rooms.toArray(this.rooms);
+		roomBounds=new Rectangle[bounds.size()];
+		roomBounds=(Rectangle[])bounds.toArray(roomBounds);
 		return true;
 	}
 	
@@ -393,12 +397,13 @@ public class Floor {
 
 	// if you need a specific room it can return it
 	public Room getRoom(int x, int y) {
-		try {
-			return null;
-			//return rooms[x][y];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return null;
+		for(int i=0;i<rooms.length;i++) {
+			if(roomBounds[i].contains(x, y)) {
+				return rooms[i];
+			}
 		}
+		return null;
+		
 
 	}
 	public int getSize() {
@@ -417,6 +422,15 @@ public class Floor {
 
 	public int getEndRoomY() {
 		return endRoomY;
+	}
+	public ArrayList<Door> getDoors(){
+		ArrayList<Door> list = new ArrayList<>();
+		for(Room r:rooms) {
+			for(Door d:r.getDoors()) {
+				list.add(d);
+			}
+		}
+		return list;
 	}
 	
 }
