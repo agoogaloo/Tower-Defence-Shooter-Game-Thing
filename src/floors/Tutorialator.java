@@ -202,7 +202,7 @@ public class Tutorialator {
 			button.create();
 			sectionInit=true;
 		}
-		button.update(0, 0, 'u');
+		button.update(0, 0 );
 		button.move(464, 64);
 		if(sectionTime==10) 
 			textToAdd=" as your final challenge you need to beat a wave of \nenemies. press the red button in the corner to start";

@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 
 import entity.Entity;
 import entity.statics.Door;
+import entity.statics.towers.laser.TowerSpawn;
 import graphics.Assets;
 /*
  * by: Matthew Milum
@@ -20,13 +21,14 @@ public class Room {
 	 * json files from tiled represents one room.
 	 */
 	// declaring instance variables
-	public final int TILESIZE = 16, DOORVERT=3, DOORHOR=4;
+	public final int TILESIZE = 16, DOORVERT=3, DOORHOR=4, TowerSpawn=5;
 	private int[][] tiles;
 	private int[][] spawns;
 	private char entrance, exit;
 	private int width,height, entranceLoc, exitLoc;
 	private int x, y;
 	private ArrayList<Door> doors = new ArrayList<Door>();
+	private ArrayList<TowerSpawn> towerLocs = new ArrayList<TowerSpawn>();
 	
 	// the  constructor takes the location and width of the file that should be
 	// loaded all and rooms are squares so the width will be the same as the height
@@ -47,6 +49,10 @@ public class Room {
 		for(Door i:original.doors) {
 			Door door=new Door((x+i.getSpawnX())*TILESIZE,(y+i.getSpawnY())*TILESIZE, i.getDirection());
 			doors.add(door);
+		}
+		for(TowerSpawn i:original.towerLocs) {
+			TowerSpawn tower=new TowerSpawn((x+i.getSpawnX())*TILESIZE,(y+i.getSpawnY())*TILESIZE);
+			towerLocs.add(tower);
 		}
 		
 		for(int i = 0; i < original.tiles.length; i++) {
@@ -86,7 +92,11 @@ public class Room {
 				}else if(spawns[x][y]-Assets.level1tiles.length==DOORHOR) {
 					System.out.println("found hor door");
 					doors.add(new Door(x, y, 'l'));
+				}else if(spawns[x][y]-Assets.level1tiles.length==TowerSpawn) {
+					System.out.println("tower loc");
+					towerLocs.add(new TowerSpawn(x, y));
 				}
+				
 			}
 		}
 		
@@ -107,41 +117,6 @@ public class Room {
 		exitLoc=Integer.parseInt((String) exitLocObject.get("value"));
 	}
 	
-	/*public  Room(JSONObject object) {
-		width=(int)((long)object.get("width"));
-		height=(int)((long)object.get("height"));
-		tiles = new int[width][height];
-		spawns = new int[width][height];
-		
-		JSONArray layers=(JSONArray)object.get("layers");//the array of layers
-		
-		JSONObject mapLayer=(JSONObject) layers.get(0);
-		JSONArray mapData=(JSONArray)mapLayer.get("data");
-		System.out.print("width="+width+" height="+height+" size="+mapData.size()+" map:\n");
-		for(int y=0;y<height;y++) {
-			for(int x=0;x<width;x++) {
-				tiles[x][y] =(int)((long) mapData.get((y *width) + x ));			
-			}
-		}
-		
-		JSONObject spawnLayer=(JSONObject) layers.get(1);
-		JSONArray spawnData=(JSONArray)spawnLayer.get("data");
-		for(int y=0;y<height;y++) {
-			for(int x=0;x<width;x++) {
-				spawns[x][y] =(int)((long) spawnData.get((y *width) + x ));
-			}
-		}
-		
-
-		//getting entrance/exits
-		JSONArray properties=(JSONArray)object.get("properties");
-		JSONObject entranceObject=(JSONObject)properties.get(0);
-		JSONObject exitObject=(JSONObject)properties.get(1);
-		entrance=((String)entranceObject.get("value")).charAt(0);
-		exit=((String)exitObject.get("value")).charAt(0);
-		findDoor();
-	}*/
-	
 	public void unlock() {
 		for(Door i:doors) {
 			i.unlock();
@@ -152,6 +127,9 @@ public class Room {
 	}
 	public ArrayList<Door> getDoors() {
 		return doors;
+	}
+	public ArrayList<TowerSpawn> getTowerLocs() {
+		return towerLocs;
 	}
 	
 	public int getTile(int x, int y) {

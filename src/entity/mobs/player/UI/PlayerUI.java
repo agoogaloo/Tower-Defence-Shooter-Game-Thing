@@ -19,8 +19,8 @@ public class PlayerUI {
 	private AnimElement moneyIcon=new AnimElement(5, 20, new Animation(Assets.coin));//the spinning coin in the corner
 	private AnimElement[] healthIcons=new AnimElement[22];//the hearts the show how much health you have left 
 	
-	private PicElement gunIcon=new PicElement(10, 160,null);
-	private PicElement gunBg=new PicElement(10, 160,Assets.gunBg);
+	private PicElement gunIcon=new PicElement(15, 160,null);
+	private PicElement gunBg=new PicElement(15, 160,Assets.gunBg);
 	private PicElement prevGunIcon=new PicElement(1, 175,null);
 	private PicElement prevGunBg=new PicElement(1, 175,Assets.altGunBg);
 	private PicElement nextGunIcon=new PicElement(1, 145,null);

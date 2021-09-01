@@ -32,9 +32,9 @@ public class Door extends Statics{
 		}else {
 			imgs=Assets.lv1DoorVert;
 			width=imgs[0].getWidth();
-			height=imgs[0].getHeight();
+			height=imgs[0].getHeight()-15;
 			this.x=x-16;
-			this.y=y-height+16;
+			this.y=y-height;
 		}
 		updateBounds();
 	}
@@ -55,11 +55,12 @@ public class Door extends Statics{
 	}
 	@Override
 	public void damage(double amount) {
-		unlock();
+		
 	}
 	
 	public void unlock() {
 		solid=false;
+	//	GameState.getFloor().showNextRoom();
 	}
 	public char getDirection() {
 		return direction;

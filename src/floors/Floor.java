@@ -14,7 +14,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import entity.Entity;
 import entity.statics.Door;
+import entity.statics.towers.laser.TowerSpawn;
 import graphics.Camera;
 
 /*
@@ -32,10 +34,13 @@ public class Floor {
 	private Rectangle[] roomBounds;
 	private int[][] tiles;
 	private int[][] spawns;
+	private int currentRoom=1;
 	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
-	private int width=250, height=250;
+	private int width=200, height=200;
+	
+	private final int towersPerRoom=3; 
 
 	// constants
 	public final int TILESIZE = 16, SCREENWIDTH, SCREENHEIGHT;
@@ -77,6 +82,13 @@ public class Floor {
 					tiles[x][y]=rooms[0].getTile(x, y);
 					spawns[x][y]=rooms[0].getSpawnData(x, y);
 				}	
+			}
+		}
+		
+		for(Room r:rooms) {
+			ArrayList<TowerSpawn> arr = r.getTowerLocs();
+			while(arr.size()>towersPerRoom) {
+				arr.remove(ThreadLocalRandom.current().nextInt(0, arr.size()));
 			}
 		}
 		
@@ -322,25 +334,31 @@ public class Floor {
 		
 		return room;// returning the rooms
 	}
+	
+	public void showNextRoom() {
+		if(currentRoom<rooms.length) {
+			currentRoom++;
+		}
+	}
+	
 
 	// this lets you get what tile is at a specific x y (in tiles) so you can tell
 	// if it is a wall or whatever
 	public int getTile(int x, int y) {
-		/* finding the x y of the room the tile is in
-		int roomX = (int) Math.floor(x / roomSize), roomY = (int) Math.floor(y / roomSize);
 		int result;
-
-		try {// if there isnt actually a room at the location it will throw an error so this
-				// catches it
-			result = getRoom(roomX, roomY).getTile(x - roomX * roomSize, y - roomY * roomSize);
-			// returning the proper tile from the proper room
-
-		} catch (NullPointerException e) {// if the floor isnt there then it returns the background tile
-			result = 44;// 44 is the tile id for the empty background tile
-
+		boolean inVisibleRoom=false;
+		for(int i=0;i<currentRoom;i++) {
+			Rectangle r = roomBounds[i];
+			if(x>=r.x&&x<r.x+r.width&&y>=r.y&&y<r.y+r.height) {
+				inVisibleRoom=true;
+				break;
+			}
 		}
-		return result;// Returning the tile*/
-		int result;
+		if(!inVisibleRoom) {
+			return 44;
+		}
+		
+		
 		try {
 			result= tiles[x][y];
 		} catch (ArrayIndexOutOfBoundsException e) {// if the floor isnt there then it returns the background tile
@@ -349,27 +367,13 @@ public class Floor {
 		}
 		if(result>PICS.length){
 			System.out.println("tile out of bounds");
-			return 34;
+			return 34;//a tile that is pretty obvious if it is in the worng spot
 		}
 		return result;
 		
 	}
 	
 	public int getSpawnData(int x, int y) {
-		/* finding the x y of the room the tile is in
-		int roomX = (int) Math.floor(x / roomSize), roomY = (int) Math.floor(y / roomSize);
-		int result;
-
-		try {// if there isnt actually a room at the location it will throw an error so this
-				// catches it
-			result = getRoom(roomX, roomY).getSpawnData(x - roomX * roomSize, y - roomY * roomSize);
-			// returning the proper tile from the proper room
-
-		} catch (NullPointerException e) {// if the floor isnt there then it returns the background tile
-			result = 0;
-
-		}
-		return result;// Returning the tile*/
 		try {
 			return spawns[x][y];
 		} catch (ArrayIndexOutOfBoundsException e) {// if the floor isnt there then it returns the background tile
@@ -406,6 +410,12 @@ public class Floor {
 		
 
 	}
+	public int getCurrentRoom() {
+		return currentRoom;
+	}
+	public Room[] getRooms() {
+		return rooms;
+	}
 	public int getSize() {
 		return size;
 	}
@@ -432,5 +442,31 @@ public class Floor {
 		}
 		return list;
 	}
+	
+	public ArrayList<TowerSpawn> getTowerLocs(){
+		ArrayList<TowerSpawn> list = new ArrayList<>();
+		for(Room r:rooms) {
+			for(TowerSpawn t:r.getTowerLocs()) {
+				list.add(t);
+			}
+		}
+		return list;
+	}
+	
+	public ArrayList<Entity> getFloorEntities() {
+		ArrayList<Entity> list = new ArrayList<>();
+		for(Room r:rooms) {
+			for(Door d:r.getDoors()) {
+				list.add(d);
+			}
+			for(TowerSpawn t:r.getTowerLocs()) {
+				list.add(t);
+			}
+		}
+		
+		return list;
+		
+	}
+	
 	
 }

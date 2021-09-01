@@ -92,10 +92,10 @@ public class Assets {
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
 	//loading towers
-	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 14,1);
 	
-	public static final BufferedImage[] wizardTowerLvl1 =
-			splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 8, 1);
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 14,1);
+	public static final BufferedImage[] towerSpawn = splitSpriteSheet(loadImage("res/textures/towers/tower spawn.png"), 24, 27, 8, 1);
+	public static final BufferedImage[] wizardTowerLvl1 =splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 8, 1);
 	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/textures/towers/fire wizard.png"), 18, 37, 8, 1);
 	public static final BufferedImage[] elecricWizardTower =splitSpriteSheet(loadImage("res/textures/towers/electric wizard.png"),35, 29,8,1);
 	public static final BufferedImage[] wizardTowerLvl2 =splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.2.png"), 26, 33, 8, 1);

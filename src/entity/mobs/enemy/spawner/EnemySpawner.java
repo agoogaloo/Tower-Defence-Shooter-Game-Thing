@@ -1,7 +1,6 @@
 package entity.mobs.enemy.spawner;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,15 +18,15 @@ import graphics.Camera;
 import states.GameState;
 
 public class EnemySpawner {
-	private final int WAVESPERROOM=3;//how long many waves it takes to clear a room 
+	private final int WAVESPERROOM=2;//how long many waves it takes to clear a room 
 	private int enemyDelay=0, heliDelay=0;
 	private int difficulty=3, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
+	
+	private int spawnX=0, spawnY=0;
 	
 	private boolean buttonSpawns =true;
 	
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
-	private ArrayList<Point> visitedRooms=new ArrayList<Point>();//all rooms that have been unlocked/"beaten"
-	private Point lastRoom=new Point(-1,-1);
 	
 	private HeliBot heliBot=new HeliBot(0, 0);
 	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,400,400); // the range that will start spawning the heli
@@ -40,7 +39,7 @@ public class EnemySpawner {
 		if(!buttonSpawns) button.remove(); 
 	}
 	public void update() {
-		
+		/*
 		//getting what room the player is currently standing in (used to determine where to spawn enemies)
 		int roomX=0;
 		//(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
@@ -51,19 +50,14 @@ public class EnemySpawner {
 				//TILESIZE)/GameState.getFloor().getRoomSize();//the y of the room (in rooms not pixels)
 		
 		Point currentRoom=new Point(roomX, roomY);
-		
-		
-		if(!visitedRooms.contains(currentRoom)){//checking if the player is in a new room
-			lastRoom=currentRoom;
-			visitedRooms.add(currentRoom);
-			if(buttonSpawns)
-				button.create();
-		}
+		*/
 		//updating the button that starts the next wave
-		//button.update(lastRoom.x,lastRoom.y,GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).getExit());
+	
+		button.update(spawnX,spawnY);
 		
 		if(waveComplete()&&button.isClicked()) {
-			newWave(lastRoom.x,lastRoom.y,difficulty);
+			setSpawnLoc();
+			newWave(difficulty);
 			button.remove();
 			roomsWaves++;
 			totalWaves++;
@@ -81,14 +75,17 @@ public class EnemySpawner {
 		}
 		
 		if(waveComplete()){//doing things when there is no wave
-			heliDelay=0;//reseting heli time {			
+			heliDelay=0;//reseting heli time 	
+			setSpawnLoc();
+			if(buttonSpawns) {
+				button.create();//reshowing the spawn button
+			}
 			if(roomsWaves%(WAVESPERROOM+1)==0) {
-				GameState.getFloor().getRoom(lastRoom.x,lastRoom.y).unlock();
+				GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1].unlock();
+				GameState.getFloor().showNextRoom();
 				roomsWaves=1;
 			}
-			if(roomsWaves!=1&&buttonSpawns) {
-				button.create();
-			}
+			
 		}
 		
 		
@@ -101,33 +98,54 @@ public class EnemySpawner {
 	public void render(Graphics g, Camera camera) {
 		button.render(g, camera);
 	}
+	private void setSpawnLoc() {
+		Room room=GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1];
+		spawnX=room.getX()*room.TILESIZE;
+		spawnY=room.getY()*room.TILESIZE;
+		
+		
+		switch(room.getExit()) {
+		case 'u':
+			spawnX+=room.getExitLoc()*room.TILESIZE;
+			break;
+		case 'd':
+			spawnX+=(room.getExitLoc()*room.TILESIZE);
+			spawnY+=(room.getHeight()*room.TILESIZE);
+			break;
+		case 'l':
+			spawnY+=room.getExitLoc()*room.TILESIZE;
+			break;
+		case 'r':
+			spawnX+=(room.getWidth()*room.TILESIZE);
+			spawnY+=room.getExitLoc()*room.TILESIZE;
+			break;
+		}
+	}
 	
-	public void newWave(int roomX,int roomY, int enemies) {
+	public void newWave(int enemies) {
 		System.out.println("\n\nSTARTING WAVE "+totalWaves+"\nroomWaves: "+roomsWaves+"\n");
-		Room room=GameState.getFloor().getRoom(roomX, roomY);
-		int spawnX=roomX*room.getWidth()*room.TILESIZE;
-		int spawnY=roomY*room.getHeight()*room.TILESIZE;
+		
+		Room room=GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1];
+		int spawnX=this.spawnX;
+		int spawnY=this.spawnY;
 		int direction=Enemy.DOWN;
+		
 		switch(room.getExit()) {
 		case 'u':
 			direction=Enemy.DOWN;
-			spawnX+=(room.getWidth()*room.TILESIZE)/2;
 			spawnY-=30;
 			break;
 		case 'd':
 			direction=Enemy.UP;
-			spawnX+=(room.getWidth()*room.TILESIZE)/2;
-			spawnY+=(room.getHeight()*room.TILESIZE)+30;
+			spawnY+=30;
 			break;
 		case 'l':
 			direction=Enemy.RIGHT;
-			spawnY+=(room.getHeight()*room.TILESIZE)/2;
 			spawnX-=30;
 			break;
 		case 'r':
 			direction=Enemy.LEFT;
-			spawnX+=(room.getWidth()*room.TILESIZE)+30;
-			spawnY+=(room.getHeight()*room.TILESIZE)/2;
+			spawnX+=+30;
 			break;
 		}
 		for (int i=0;i<enemies;i++) {
@@ -139,8 +157,9 @@ public class EnemySpawner {
 		if(enemiesToAdd.size()>0) {
 			return false;
 		}
-		for(Entity e:Entity.getEntityManager().getEntities()) {
-			if(e instanceof Enemy&&!(e instanceof HeliBot)) {
+		ArrayList<Entity> entities = Entity.getEntityManager().getEntities();
+		for (int i = 0; i < entities.size(); i++) {
+			if(entities.get(i) instanceof Enemy&&!(entities.get(i) instanceof HeliBot)) {
 				return false;
 			}
 		}

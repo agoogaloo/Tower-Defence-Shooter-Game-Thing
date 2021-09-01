@@ -16,6 +16,7 @@ import entity.statics.Core;
 import entity.statics.Door;
 import entity.statics.hitBox.CircleBox;
 import entity.statics.towers.Tower;
+import entity.statics.towers.laser.TowerSpawn;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.particles.InstantEffect;
@@ -84,6 +85,7 @@ public class Player extends Mobs {
 		ui=new PlayerUI();
 		towerPlacer=new TowerPlacer();
 		miniMap=new MiniMap();		
+		
 	}
 	
 	@Override

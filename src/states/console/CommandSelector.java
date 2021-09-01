@@ -1,6 +1,7 @@
 package states.console;
 
 import entity.Entity;
+import floors.Room;
 import states.GameState;
 
 public class CommandSelector {
@@ -154,19 +155,13 @@ public class CommandSelector {
 		}
 		public String execute(String params) {
 			int amount;
-			int spawnRoomX=0;
-					//(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
-					//TILESIZE)/GameState.getFloor().getRoomSize();
-			int spawnRoomY=0;
-			//(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
-			//		TILESIZE)/GameState.getFloor().getRoomSize();
 			try {
 				amount=Integer.parseInt(params);
 			} catch (NumberFormatException e) {
 				return "'"+params+"' is not an integer, no enemies spawned"; 
 			}
 			
-			Entity.getEntityManager().getSpawner().newWave(spawnRoomX, spawnRoomY, amount);
+			Entity.getEntityManager().getSpawner().newWave(amount);
 			return "wave with "+amount+" enemies added to queue\n";
 		}
 	}
@@ -191,14 +186,9 @@ public class CommandSelector {
 
 		@Override
 		public String execute(String params) {
-			for (int y = 0; y < GameState.getFloor().getSize(); y++) {// looping though all the tiles
-				for (int x = 0; x < GameState.getFloor().getSize()*2; x++) {
-					try {
-						GameState.getFloor().getRoom(x, y).unlock();
-					} catch (NullPointerException e) {
-						
-					}
-				}
+			for (Room r: GameState.getFloor().getRooms()) {// looping though all the rooms
+				r.unlock();
+				GameState.getFloor().showNextRoom();
 			}
 			return "rooms unlocked";
 		}
