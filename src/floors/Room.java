@@ -2,12 +2,10 @@ package floors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import entity.Entity;
 import entity.statics.Door;
 import entity.statics.towers.laser.TowerSpawn;
 import graphics.Assets;

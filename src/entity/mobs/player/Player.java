@@ -13,10 +13,8 @@ import entity.mobs.player.UI.PlayerUI;
 import entity.mobs.player.UI.TowerPlacer;
 import entity.mobs.player.guns.Gun;
 import entity.statics.Core;
-import entity.statics.Door;
 import entity.statics.hitBox.CircleBox;
 import entity.statics.towers.Tower;
-import entity.statics.towers.laser.TowerSpawn;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.particles.InstantEffect;
@@ -251,7 +249,7 @@ public class Player extends Mobs {
 		g.drawImage(currentPic,x - camera.getxOffset()-animator.getxOffest(), y - camera.getyOffset()-animator.getyOffest(), null);
 		
 		towerPlacer.render(g, camera);
-		miniMap.render(g);
+		
 	}
 	
 	public void createCore() {

@@ -40,7 +40,7 @@ public class Floor {
 	private int endRoomX, endRoomY;
 	private int width=200, height=200;
 	
-	private final int towersPerRoom=3; 
+	private final int towersPerRoom=4; 
 
 	// constants
 	public final int TILESIZE = 16, SCREENWIDTH, SCREENHEIGHT;
@@ -294,6 +294,7 @@ public class Floor {
 				try {
 					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
 					rooms.add(new Room(object));
+					System.out.println("loading"+file.getPath());
 				} catch (IOException |ParseException e) {
 					System.out.println(file.getPath()+" could not be loaded. Make sure it is a .json file");
 				}

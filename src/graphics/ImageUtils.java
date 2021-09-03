@@ -81,4 +81,55 @@ public class ImageUtils {
 	public static BufferedImage copyImage(BufferedImage source){
 	   return copyImage(source, 0, 0);
 	}
+	
+	public static BufferedImage crop(BufferedImage source, int border) {
+		int top=0, bottom=1, left=0, right=1;
+		for(int x=0;x<source.getWidth();x++) {
+			for(int y=0;y<source.getHeight();y++) {
+				if(new Color(source.getRGB(x, y), true).getAlpha()!=0) {
+				
+					left=x;
+					x=source.getWidth();
+					y=source.getHeight();
+				}
+			}
+		}
+		for(int x=source.getWidth()-1;x>=0;x--) {
+			for(int y=0;y<source.getHeight();y++) {
+				if(new Color(source.getRGB(x, y), true).getAlpha()!=0) {
+					
+					right=x;
+					x=-1;
+					y=source.getHeight();
+				}
+			}
+		}
+		for(int y=0;y<source.getHeight();y++) {
+			for(int x=0;x<source.getWidth();x++) {
+				if(new Color(source.getRGB(x, y), true).getAlpha()!=0) {
+			
+					top=y;
+					x=source.getWidth();
+					y=source.getHeight();
+				}
+			}
+		}
+		for(int y=source.getHeight()-1;y>=0;y--) {
+			for(int x=0;x<source.getWidth();x++) {
+				if(new Color(source.getRGB(x, y), true).getAlpha()!=0) {
+					
+					bottom=y;
+					x=source.getWidth();
+					y=-1;
+				}
+			}
+		}
+
+		BufferedImage b = new BufferedImage(right-left+border*2, bottom-top+border*2,source.getType());
+		Graphics g = b.getGraphics();
+	    g.drawImage(source,-left+border, -top+border, null);
+	   
+	    g.dispose();
+	    return b;
+	}
 }
