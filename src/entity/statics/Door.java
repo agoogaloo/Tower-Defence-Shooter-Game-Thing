@@ -60,6 +60,7 @@ public class Door extends Statics{
 	
 	public void unlock() {
 		solid=false;
+		collisions=false;
 	//	GameState.getFloor().showNextRoom();
 	}
 	public char getDirection() {

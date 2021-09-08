@@ -192,7 +192,7 @@ public class Player extends Mobs {
 			invincibility=2;
 			spinHitBox.updateBounds(x-14, y-11);
 			for(Entity i:spinHitBox.getCollisions()) {
-				if(!i.isFriendly()) {
+				if(!i.isFriendly()&&i.hasCollisions()) {
 					i.damage(spinDamage);
 					
 				}

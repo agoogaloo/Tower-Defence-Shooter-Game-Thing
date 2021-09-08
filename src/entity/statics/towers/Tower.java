@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
 import entity.mobs.Bullet;
@@ -52,6 +51,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	public Tower(int x, int y, int rangeWidth, int rangeHeight,Animation anim, int reloadTime) {
 		friendly=true;
+		collisions=false;
 		width=anim.getCurrentFrame().getWidth();
 		height=anim.getCurrentFrame().getHeight();//setting the size of the tower to the size of the animation
 		this.x = x-width/2;

@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import entity.Entity;
 import entity.mobs.pickups.ItemList;
 import entity.statics.towers.Tower;
+import entity.statics.towers.laser.TowerSpawn;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
 import saveData.Settings;
+import states.GameState;
 import states.State;
 
 public class TowerPlacer {
@@ -30,6 +32,8 @@ public class TowerPlacer {
 	private PicElement background=new PicElement(100, 0, Assets.blank);//created 1st so it will be at the back
 	private int x, y, moneySpent;
 	private Mode mode=Mode.WAITING;
+	
+	
 	
 	private void updateMouseAngle() {
 		if(State.getInputs().getMouseY()-y>7) {
@@ -53,7 +57,10 @@ public class TowerPlacer {
 		}	
 	}
 	private Tower place(int money,Camera camera, char direction) {
+		
 		int hoveredTower=-1;
+		
+		
 		if(mouseUpDown=='u') {
 			if(mouseLeftRight=='l') {
 				hoveredTower=towers[0];
@@ -71,7 +78,7 @@ public class TowerPlacer {
 		if(hoveredTower==-1) {
 			infoText.update("");
 			return null;
-			}
+		}
 		
 		infoText.update(ItemList.getTower(hoveredTower).getInfoText());
 		if(!State.getInputs().isPlace()&&money>=ItemList.getTower(hoveredTower).getPrice()) {
@@ -99,31 +106,70 @@ public class TowerPlacer {
 		}
 		return null;
 	}
+	
 	public Tower update(int money,int[] towers,Camera camera, ArrayList<Entity> entities, char direction) {
 		Tower tower=null;//the tower that will be returned at the end of the method
 		this.towers=towers;
 		//determining if the player is waiting, placing, or upgrading a tower
-		if(State.getInputs().isPlace()) {//checking if the right click is pressed
-			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
-				infoText.move(x-55, y+29);
-				mode=Mode.PLACING;
-			}
-		}
 		if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
 			x=State.getInputs().getMouseX();//setting the location of the menu 
 			y=State.getInputs().getMouseY();//and where the tower will be placed
 		}
+		Entity hoveredEntity=null;
+		
 		for(int i=0;i<entities.size();i++) {
+			if(entities.get(i).getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
+				hoveredEntity=entities.get(i);	
+			}
+		}
+		if(hoveredEntity instanceof Tower) {
+			((Tower) hoveredEntity).hover();
+		}
+		if(hoveredEntity instanceof TowerSpawn) {
+			((TowerSpawn) hoveredEntity).hover();
+		}
+		if(State.getInputs().isPlace()) {//checking if the right click is pressed
+			if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
+			
+				if( hoveredEntity instanceof Tower){
+					((Tower) hoveredEntity).hover();						
+					mode=Mode.UPGRADING;
+					x=hoveredEntity.getX()+hoveredEntity.getWidth()/2-camera.getxOffset();
+					y=hoveredEntity.getY()+hoveredEntity.getHeight()/2-camera.getyOffset();
+					selectedTower=(Tower)(hoveredEntity);//making the entity a tower so it can it can be set as the selected tower
+				}
+				
+				if(hoveredEntity instanceof TowerSpawn && 
+						hoveredEntity.getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){	
+						mode=Mode.PLACING;
+						x=hoveredEntity.getX()+hoveredEntity.getWidth()/2-camera.getxOffset();
+						y=hoveredEntity.getY()+hoveredEntity.getHeight()/2-camera.getyOffset();						
+				}
+			
+				infoText.move(x-55, y+29);
+			}
+		}
+		
+		/*for(int i=0;i<entities.size();i++) {
 			if(entities.get(i) instanceof Tower&&
 					entities.get(i).getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
 				((Tower) entities.get(i)).hover();
 					
-				if(mode==Mode.PLACING) {
+				if(mode==Mode.WAITING) {
 					mode=Mode.UPGRADING;
 					selectedTower=(Tower)(entities.get(i));//making the entity a tower so it can it can be set as the selected tower
 				}
 			}
-		}		
+			if(entities.get(i) instanceof TowerSpawn && 
+					entities.get(i).getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){	
+				if(mode==Mode.WAITING) {
+					mode=Mode.PLACING;
+					x=entities.get(i).getX()+entities.get(i).getWidth()/2-camera.getxOffset();
+					y=entities.get(i).getY()+entities.get(i).getHeight()/2-camera.getyOffset();
+					//selectedTower=(Tower)(entities.get(i));//making the entity a tower so it can it can be set as the selected tower
+				}
+			}
+		}*/		
 		updateMouseAngle();
 		if(mode==Mode.PLACING) {
 			tower = place(money,camera, direction);
@@ -151,6 +197,7 @@ public class TowerPlacer {
 			//making the image the right size
 			background.update(Assets.infobackground.getSubimage(0, 0,120, infoText.getHeight()+6));
 			background.move(x-60, y+27);//putting it into the right place
+			infoText.move(x-55, y+29);
 		}else {
 			background.update(Assets.blank);//making the background disappear if there is no text
 		}
@@ -215,8 +262,6 @@ public class TowerPlacer {
 			
 		}else {
 			infoText.update("");
-			//topPic.update(Assets.blank);
-			//bottomPic.update(Assets.blank);
 		}
 		wheelMenu.update(menuPic);
 		wheelMenu.move(x-26, y-26);

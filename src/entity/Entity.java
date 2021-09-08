@@ -27,7 +27,7 @@ public abstract class Entity {
 	
 	protected double health = 10;
 	protected double damage;
-	protected boolean killed=false,solid=false, friendly;
+	protected boolean killed=false,solid=false,collisions=true, friendly;
     protected Rectangle bounds = new Rectangle(x,y, 10,10); //Gives enemies a hitbox of their width and height
    
 	protected RenderLayer layer = RenderLayer.MID;
@@ -58,7 +58,7 @@ public abstract class Entity {
 		for (Entity e : entityCollide()) {//checking what is colliding with itself
 			//checking which side the thing that touched it is on 
 			//(making sure enemies only attack the player, player cant attack the core, etc.)
-			if (e.isFriendly() != friendly) {
+			if (this.collisions&& e.isFriendly() != friendly && e.hasCollisions()) {
 				damage+= e.getDamage();//dealing however much damage that entity does	
 				giveStatusEffect(e.statusDealt);
 			}
@@ -133,6 +133,9 @@ public abstract class Entity {
 	}
 	public boolean isSolid() {
 		return solid;
+	}
+	public boolean hasCollisions() {
+		return collisions;
 	}
 
 	public Rectangle getBounds() {

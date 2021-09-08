@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 import graphics.Animation;
 import graphics.Assets;
 
-public class Animator {
-	private PlayerAnimations anim;
-	private Animation currentAnim;
-	
+public class Animator {	
 	private Animation idleDown = new Animation(Assets.playerIdleD,6,1,2); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation idleLeft = new Animation(Assets.playerIdleL,6,1,2);
 	private Animation idleUp = new Animation(Assets.playerIdleU,6,1,2);
 	private Animation idleRight = new Animation(Assets.playerIdleR,6,1,2);
+	
+	private PlayerAnimations anim;
+	private Animation currentAnim=idleDown;
 	
 	private Animation runDown = idleDown;// Animation(Assets.playerRunD,6,2,1); //Different animations depending on the direction the player is facing, direction is set in PlayerInput
 	private Animation runLeft = idleLeft;// new Animation(Assets.playerRunL,6);
