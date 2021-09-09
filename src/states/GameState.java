@@ -41,6 +41,7 @@ public class GameState extends State{
 	public GameState(int floorIndex) {
 		//creating the floor
 		newFloor(floorIndex);
+		
 	}
 	
 	@Override
@@ -66,7 +67,11 @@ public class GameState extends State{
 		}
 		
 		// updating the camera position to center on the player
-		camera.centerOnEntity(Entity.getEntityManager().getPlayer());
+		camera.moveToEntity(Entity.getEntityManager().getPlayer());
+		camera.moveToMouse(getInputs().getMouseX(), getInputs().getMouseY());
+	
+		
+		camera.update();
 		if(tutorial!=null)tutorial.update();
 		
 		
@@ -79,7 +84,7 @@ public class GameState extends State{
 			yshake=0;
 		}
 		//moving the camera the right amount
-		camera.move((int)(Math.round(xshake)),(int)(Math.round(yshake)));
+		//camera.move((int)(Math.round(xshake)),(int)(Math.round(yshake)));
 		//the random direction part breaks if screen shake is 0 so it resets to a super small number so it will round 
 		// down to 0 when it is applied
 		getInputs().update();
@@ -191,6 +196,7 @@ public class GameState extends State{
 		}else {
 			Entity.getEntityManager().getPlayer().createCore(playerLoc.x*16+8,playerLoc.y*16+8);
 		}
+		camera.snapToLoc(playerLoc.x*16,playerLoc.y*16);
 	}
 	public static void screenShake(double amount) {
 		screenShake+=amount;
