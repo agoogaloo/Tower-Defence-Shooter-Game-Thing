@@ -8,13 +8,17 @@ import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class Tree extends Tower{
 	private ArrayList<Point> seedLocs = new ArrayList<Point>();
 	public Tree(int x, int y) {
-		super(x, y, 150, 150, new Animation(Assets.tree,12), 60);
+		this(x,y,null);
+	}
+	public Tree(int x, int y,TowerSpawn spawn) {
+		super(x, y, 150, 150, new Animation(Assets.tree,12), 60,spawn);
 		price=4;
 		sellValue=3;
 		damage=6;
@@ -23,7 +27,7 @@ public class Tree extends Tower{
 		
 	}
 	@Override
-	public Tower createNew(int x, int y) {
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
 		return new Tree(x+width*2, y+height*2);
 	}
 

@@ -30,7 +30,8 @@ public class WinState extends State{
 		g.setFont(Assets.myfont);
 		g.drawString("THATS ALL THERE IS FOR NOW, BUT I'LL TRY TO ADD MORE STUFF SOON",25, 80);
 		g.drawString("IF YOU HAVE ANY SUGGESTIONS, FEEDBACK, OR ANYTIHNG ELSE",40, 110);
-		g.drawString("YOU WANT TO TELL ME YOU CAN MESSAGE ME ON DISCORD AT agoogaloo#1948 ",10, 130);
+		g.drawString("YOU CAN JOIN THE DISCORD OR SOMETHING",10, 130);
+		
 		g.setFont(Assets.boldfont);
 		g.drawString("CLICK TO RESTART ",112, 160);
 		

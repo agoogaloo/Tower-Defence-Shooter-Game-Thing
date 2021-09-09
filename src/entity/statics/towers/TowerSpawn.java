@@ -1,4 +1,4 @@
-package entity.statics.towers.laser;
+package entity.statics.towers;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,9 +11,11 @@ import graphics.Camera;
 import graphics.ImageUtils;
 
 public class TowerSpawn extends Statics{
+	public boolean buildable=true;
 	private Animation anim = new Animation(Assets.towerSpawn);
-	int spawnX, spawnY;
-	private boolean hovered;
+	private int spawnX, spawnY;
+	private boolean hovered ;
+	
 	
 	public TowerSpawn(int x, int y) {	
 		collisions=false;
@@ -29,13 +31,16 @@ public class TowerSpawn extends Statics{
 
 	@Override
 	public void update() {
-		
-		//anim.update();
-		
+		anim.update();		
 	}
+	
+	
 
 	@Override
 	public void render(Graphics g, Camera camera) {
+		if(!buildable) {
+			return;
+		}
 		if(hovered) {
 			g.drawImage(ImageUtils.outline(anim.getCurrentFrame(),Color.WHITE), x-camera.getxOffset()-1, y-camera.getyOffset()-1, null);
 		}else {

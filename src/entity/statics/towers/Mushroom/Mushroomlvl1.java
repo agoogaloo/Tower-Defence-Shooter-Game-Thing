@@ -6,6 +6,7 @@ import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -20,7 +21,7 @@ public class Mushroomlvl1 extends Tower{
 		upgradeIcon=Assets.towerIcons[10];
 	}
 	@Override
-	public Tower createNew(int x, int y) {
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
 		return new Mushroomlvl1(x, y);
 	}
 	

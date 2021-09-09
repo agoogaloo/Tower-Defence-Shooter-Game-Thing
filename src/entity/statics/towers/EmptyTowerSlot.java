@@ -26,7 +26,7 @@ public class EmptyTowerSlot extends Tower{
 	}
 
 	@Override
-	public Tower createNew(int x, int y) {
+	public Tower createNew(int x, int y, TowerSpawn spawn) {
 		return new EmptyTowerSlot();
 	}
 }

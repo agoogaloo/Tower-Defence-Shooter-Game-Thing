@@ -5,6 +5,7 @@ import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.particles.InstantEffect;
@@ -16,7 +17,10 @@ public class Plantlvl1 extends Tower{
 	private int minTime=300, wavesToGrow=2;
 	private boolean waveCounted;
 	public Plantlvl1(int x, int y) {
-		super(x, y, 75, 75, new Animation(Assets.plantLvl1,6), 65);
+		this(x,y,null);
+	}
+	public Plantlvl1(int x, int y,TowerSpawn spawn) {
+		super(x, y, 75, 75, new Animation(Assets.plantLvl1,6), 65,spawn);
 		price=2;
 		statusEffect=new StatusEffect(StatusType.STUN, 1, 15);
 		sellValue=1;
@@ -28,9 +32,9 @@ public class Plantlvl1 extends Tower{
 		
 	}
 	@Override
-	public Tower createNew(int x, int y) {
+	public Tower createNew(int x, int y, TowerSpawn spawn) {
 		
-		return new Plantlvl1(x, y);
+		return new Plantlvl1(x, y,spawn);
 		
 	}
 	
@@ -73,10 +77,11 @@ public class Plantlvl1 extends Tower{
 	
 	@Override
 	public int upgrade(char leftRight, int money) {
-		Tower newTower=new Plantlvl2(x+width/2, y+height/2);
+		Tower newTower=new Plantlvl2(x+width/2, y+height/2,spawn);
 		if(money>=newTower.getPrice()) {
 			entityManager.addEntity(newTower);
 			destroy();
+			newTower.init();
 			return newTower.getPrice();
 		}
 		return 0;

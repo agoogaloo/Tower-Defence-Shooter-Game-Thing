@@ -4,16 +4,21 @@ import java.awt.geom.Ellipse2D;
 
 import entity.mobs.Bullet;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class LaserTowerlvl1 extends Tower{
 	char direction;
-	public LaserTowerlvl1(int x,int y) {
-		this(x,y,entityManager.getPlayer().getDirection());
+	public LaserTowerlvl1(int x,int y,TowerSpawn spawn) {
+		this(x,y,spawn,entityManager.getPlayer().getDirection());
 	}
-	public LaserTowerlvl1(int x,int y, char direction) {
+	public LaserTowerlvl1(int x,int y,char direction) {
+		this(x,y,null,direction);
+	}
+	public LaserTowerlvl1(int x,int y,TowerSpawn spawn, char direction) {
 		this.direction=direction;
+		this.spawn=spawn;
 		price=5;
 		sellValue=3;
 		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in the you are \nfaceing when you place it";
@@ -65,8 +70,8 @@ public class LaserTowerlvl1 extends Tower{
 	}
 
 	@Override
-	public Tower createNew(int x, int y) {
-		return new LaserTowerlvl1(x, y);
+	public Tower createNew(int x, int y, TowerSpawn spawn) {
+		return new LaserTowerlvl1(x, y,spawn);
 	}
 	@Override
 	protected void shoot() {
@@ -91,17 +96,18 @@ public class LaserTowerlvl1 extends Tower{
 	}
 	@Override
 	public int upgrade(char leftRight, int money) {
-		Tower newTower=new LaserTowerlvl2(x+width/2, y+2,direction);
+		Tower newTower=new LaserTowerlvl2(x+width/2, y+2,spawn,direction);
 		if(money>=newTower.getPrice()) {
 			entityManager.addEntity(newTower);
 			destroy();
+			newTower.init();
 			return newTower.getPrice();
 		}
 		return 0;		
 	}
 	@Override
 	public String select(char leftRight) {
-		return new LaserTowerlvl2(0, 0, 'r').getInfoText();
+		return new LaserTowerlvl2(0, 0,spawn, 'r').getInfoText();
 	}
 	
 }

@@ -3,12 +3,16 @@ package entity.statics.towers.wizard;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class FireWizardTower extends Tower{
 	public FireWizardTower(int x, int y) {
-		super(x, y, 125, 125, new Animation(Assets.fireWizardTower,6), 30);
+		this(x,y,null);
+	}
+	public FireWizardTower(int x, int y, TowerSpawn spawn) {
+		super(x, y, 125, 125, new Animation(Assets.fireWizardTower,6), 30, spawn);
 		sellValue=5;
 		price=7;
 		damage=1;
@@ -17,8 +21,8 @@ public class FireWizardTower extends Tower{
 		
 	}
 	@Override
-	public Tower createNew(int x, int y) {
-		return new ElectroWizardTower(x+width/2, y+height*2);
+	public Tower createNew(int x, int y, TowerSpawn spawn) {
+		return new FireWizardTower(x+width/2, y+height*2,spawn);
 	}
 	
 	@Override

@@ -7,6 +7,7 @@ import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.particles.InstantEffect;
@@ -17,8 +18,12 @@ import graphics.particles.shapes.ImgShape;
 public class Plantlvl2 extends Tower{
 	private int minTime=300, wavesToGrow=2;
 	private boolean waveCounted;
+	
 	public Plantlvl2(int x, int y) {
-		super(x, y, 110, 110, new Animation(Assets.plantLvl2,6), 55);
+		this(x,y,null);
+	}
+	public Plantlvl2(int x, int y,TowerSpawn spawn) {
+		super(x, y, 110, 110, new Animation(Assets.plantLvl2,6), 55,spawn);
 		price=2;
 		sellValue=2;
 		statusEffect=new StatusEffect(StatusType.STUN, 1, 20);
@@ -29,8 +34,8 @@ public class Plantlvl2 extends Tower{
 		
 	}
 	@Override
-	public Tower createNew(int x, int y) {
-		return new Plantlvl2(x+width*2, y+height*2);
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
+		return new Plantlvl2(x+width*2, y+height*2,spawn);
 	}
 	@Override
 	public void update() {
@@ -77,15 +82,15 @@ public class Plantlvl2 extends Tower{
 	public int upgrade(char leftRight, int money) {
 		Tower newTower=null;
 		if(leftRight=='l') {
-			newTower=new Tree(x+width/2, y+height/2);	
+			newTower=new Tree(x+width/2, y+height/2,spawn);	
 		}else if(leftRight=='r') {
-			newTower=new VinePlant(x+width/2, y+height/2);
+			newTower=new VinePlant(x+width/2, y+height/2,spawn);
 		}
 	
 		if(newTower!=null&&money>=newTower.getPrice()) {
-			newTower.init();
 			entityManager.addEntity(newTower);
 			destroy();
+			newTower.init();
 			return newTower.getPrice();
 		}
 		return 0;

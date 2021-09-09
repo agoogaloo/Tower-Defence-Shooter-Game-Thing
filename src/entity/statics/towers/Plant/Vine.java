@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
-import entity.Entity;
 import entity.RenderLayer;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 import states.GameState;
@@ -80,7 +80,7 @@ public class Vine extends Tower{
 		
 	}
 	@Override
-	public Tower createNew(int x, int y) {
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
 		return new Vine(x,y,startDir,endDir,colourIndex);
 	}
 	public void grow() {
@@ -176,9 +176,9 @@ public class Vine extends Tower{
 
 	@Override
 	public int upgrade(char leftRight, int money) {
-		
 		return 0;
 	}
+	
 	@Override
 	public void destroy() {
 		super.destroy();

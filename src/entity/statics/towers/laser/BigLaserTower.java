@@ -3,15 +3,19 @@ package entity.statics.towers.laser;
 import java.awt.geom.Ellipse2D;
 
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class BigLaserTower extends Tower{
 	char direction;
 	int beamlength=10, shootTime=11;//how long the mega laser will and has been shooting for
-	
 	public BigLaserTower(int x,int y, char direction) {
+		this(x,y,null,direction);
+	}
+	public BigLaserTower(int x,int y, TowerSpawn spawn,char direction ) {
 		this.direction=direction;
+		this.spawn=spawn;
 		price=9;
 		infoText="upgrade cost $"+price+"\n\ncan now shoot a huge laser \nbeam of doom after a long \ncharging time";
 		switch (direction) {
@@ -58,8 +62,8 @@ public class BigLaserTower extends Tower{
 	}
 
 	@Override
-	public Tower createNew(int x, int y) {
-		return new BigLaserTower(x+width/2, y+2,direction);
+	public Tower createNew(int x, int y, TowerSpawn spawn) {
+		return new BigLaserTower(x+width/2, y+2,spawn,direction);
 	}
 	@Override
 	protected void shoot() {

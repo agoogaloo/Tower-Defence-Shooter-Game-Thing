@@ -4,17 +4,16 @@ import java.awt.geom.Ellipse2D;
 
 import entity.mobs.Bullet;
 import entity.statics.towers.Tower;
-import entity.statics.towers.wizard.ElectroWizardTower;
-import entity.statics.towers.wizard.FireWizardTower;
-import entity.statics.towers.wizard.WizardTowerlvl1;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class LaserTowerlvl2 extends Tower{
 	char direction;
-	public LaserTowerlvl2(int x,int y, char direction) {
+	public LaserTowerlvl2(int x,int y,TowerSpawn spawn, char direction) {
 		//assigning the animation based off if its direction
 		this.direction=direction;
+		this.spawn=spawn;
 		price=2;
 		infoText="upgrade cost $"+price+"\n\ngives the tower a bit more \nrange and an increased"
 				+ " rate \nof fire.";
@@ -69,8 +68,8 @@ public class LaserTowerlvl2 extends Tower{
 	}
 
 	@Override
-	public Tower createNew(int x, int y) {
-		return new LaserTowerlvl2(x, y,direction);
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
+		return new LaserTowerlvl2(x, y,spawn,direction);
 	}
 	@Override
 	protected void shoot() {
@@ -99,14 +98,15 @@ public class LaserTowerlvl2 extends Tower{
 		
 		Tower newTower=null;
 		if(leftRight=='l') {
-			newTower=new MachineGunTower(x+width/2, y+2, direction);	
+			newTower=new MachineGunTower(x+width/2, y+2,spawn, direction);	
 		}else if(leftRight=='r') {
-			newTower=new BigLaserTower(x+width/2, y+2, direction);
+			newTower=new BigLaserTower(x+width/2, y+2,spawn, direction);
 		}
 	
 		if(newTower!=null&&money>=newTower.getPrice()) {
 			entityManager.addEntity(newTower);
 			destroy();
+			newTower.init();
 			return newTower.getPrice();
 		}
 		return 0;		
@@ -114,7 +114,7 @@ public class LaserTowerlvl2 extends Tower{
 	@Override
 	public String select(char leftRight) {
 		if(leftRight=='l') {
-			return new MachineGunTower(0,0,'r').getInfoText();
+			return new MachineGunTower(0,0,spawn,'r').getInfoText();
 		}else if(leftRight=='r') {
 			return new BigLaserTower(0,0,'r').getInfoText();	
 		}

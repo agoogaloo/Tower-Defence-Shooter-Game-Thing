@@ -44,16 +44,21 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	protected BufferedImage buyIcon,upgradeIcon;
 	protected int price, sellValue;
 	protected String infoText;
+	protected TowerSpawn spawn;
 	
 	protected boolean hovered=false;
 	protected Tower() {
 		friendly=true;
 	}
 	public Tower(int x, int y, int rangeWidth, int rangeHeight,Animation anim, int reloadTime) {
+		this(x,y,rangeWidth,rangeHeight,anim,reloadTime,null);
+	}
+	public Tower(int x, int y, int rangeWidth, int rangeHeight,Animation anim, int reloadTime, TowerSpawn spawn) {
 		friendly=true;
 		collisions=false;
 		width=anim.getCurrentFrame().getWidth();
 		height=anim.getCurrentFrame().getHeight();//setting the size of the tower to the size of the animation
+		this.spawn=spawn;
 		this.x = x-width/2;
 		this.y = y-height/2;
 		animation=anim;
@@ -64,7 +69,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 		
 	}
 	public void init() {
-		
+		if(spawn!=null) {
+			spawn.buildable=false;
+		}
 	}
 	public void buildParticles() {
 		new InstantEffect(7, new Straight(new RectangleSpawner(x,y+(int)(height*0.75),width/2,height/4),220,80,0.3), 
@@ -80,7 +87,7 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	public void hover() {
 		hovered=true;
 	}
-	public abstract Tower createNew(int x,int y);
+	public abstract Tower createNew(int x,int y, TowerSpawn spawn);
 	
 	public void search() {
 		attack=false; //Attack is normally false
@@ -138,6 +145,9 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	public void destroy() {
 		buildParticles();
 		killed=true;
+		if(spawn!=null) {
+			spawn.buildable=true;
+		}
 	}	
 	//getters/setters
 	public BufferedImage getUpgradeIcon(char leftRight) {

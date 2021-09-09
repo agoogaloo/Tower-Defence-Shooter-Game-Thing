@@ -2,8 +2,8 @@ package entity.statics.towers.Plant;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
@@ -12,9 +12,11 @@ public class VinePlant extends Tower{
 	private boolean waveCounted=false;
 	private int colour;
 	
-	
 	public VinePlant(int x, int y) {
-		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 9999);
+		this(x,y,null);
+	}
+	public VinePlant(int x, int y, TowerSpawn spawn) {
+		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 9999,spawn);
 		colour=ThreadLocalRandom.current().nextInt(0,Assets.vinePlant.length);
 		upgradeIcon=Assets.towerIcons[9];
 		animation= new Animation(Assets.vinePlant[colour]);
@@ -29,6 +31,7 @@ public class VinePlant extends Tower{
 	
 	@Override
 	public void init() {
+		super.init();
 		vines = new Vine[] {
 			new Vine(x+bounds.width/2,y+5,'d','u',colour),
 			new Vine(x+bounds.width/2,y+bounds.height-5,'u','d',colour),
@@ -43,8 +46,8 @@ public class VinePlant extends Tower{
 		
 	}
 	@Override
-	public Tower createNew(int x, int y) {
-		return new VinePlant(x+width*2, y+bounds.height*2);
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
+		return new VinePlant(x+width*2, y+bounds.height*2,spawn);
 	}
 	@Override
 	public void update() {
@@ -83,10 +86,11 @@ public class VinePlant extends Tower{
 	}
 	@Override
 	public void destroy() {
-		super.destroy();
 		for(Vine i:vines) {
 			i.destroy();
 		}
+		super.destroy();
+		
 	}
 
 	@Override

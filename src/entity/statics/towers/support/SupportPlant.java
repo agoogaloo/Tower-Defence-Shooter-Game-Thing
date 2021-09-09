@@ -5,12 +5,16 @@ import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class SupportPlant extends Tower{
 	public SupportPlant(int x, int y) {
-		super(x, y, 100, 100, new Animation(Assets.supportPlant,6), 30);
+		this(x,y,null);
+	}
+	public SupportPlant(int x, int y,TowerSpawn spawn) {
+		super(x, y, 150, 150, new Animation(Assets.supportPlant,6), 30,spawn);
 		price=4;
 		sellValue=6;
 		damage=1;
@@ -19,8 +23,8 @@ public class SupportPlant extends Tower{
 		
 	}
 	@Override
-	public Tower createNew(int x, int y) {
-		return new SupportPlant(x+width/2, y+height*2);
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
+		return new SupportPlant(x+width/2, y+height*2,spawn);
 	}
 	
 	@Override

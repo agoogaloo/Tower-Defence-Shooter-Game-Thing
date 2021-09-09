@@ -9,14 +9,13 @@ import java.util.ArrayList;
 import entity.Entity;
 import entity.mobs.pickups.ItemList;
 import entity.statics.towers.Tower;
-import entity.statics.towers.laser.TowerSpawn;
+import entity.statics.towers.TowerSpawn;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
 import graphics.UI.PicElement;
 import graphics.UI.TextElement;
 import saveData.Settings;
-import states.GameState;
 import states.State;
 
 public class TowerPlacer {
@@ -56,7 +55,7 @@ public class TowerPlacer {
 			mouseLeftRight='n';
 		}	
 	}
-	private Tower place(int money,Camera camera, char direction) {
+	private Tower place(int money,Camera camera, char direction, TowerSpawn spawn) {
 		
 		int hoveredTower=-1;
 		
@@ -82,9 +81,10 @@ public class TowerPlacer {
 		
 		infoText.update(ItemList.getTower(hoveredTower).getInfoText());
 		if(!State.getInputs().isPlace()&&money>=ItemList.getTower(hoveredTower).getPrice()) {
-			Tower tower=ItemList.getTower(hoveredTower).createNew(x+camera.getxOffset(), y+camera.getyOffset());
+			Tower tower=ItemList.getTower(hoveredTower).createNew(x+camera.getxOffset(), y+camera.getyOffset(),spawn);
 			moneySpent=tower.getPrice();
 			tower.buildParticles();
+			tower.init();
 			return tower;
 		}
 		return null;
@@ -139,8 +139,7 @@ public class TowerPlacer {
 					selectedTower=(Tower)(hoveredEntity);//making the entity a tower so it can it can be set as the selected tower
 				}
 				
-				if(hoveredEntity instanceof TowerSpawn && 
-						hoveredEntity.getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){	
+				if(hoveredEntity instanceof TowerSpawn && ((TowerSpawn) hoveredEntity).buildable){	
 						mode=Mode.PLACING;
 						x=hoveredEntity.getX()+hoveredEntity.getWidth()/2-camera.getxOffset();
 						y=hoveredEntity.getY()+hoveredEntity.getHeight()/2-camera.getyOffset();						
@@ -150,29 +149,9 @@ public class TowerPlacer {
 			}
 		}
 		
-		/*for(int i=0;i<entities.size();i++) {
-			if(entities.get(i) instanceof Tower&&
-					entities.get(i).getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
-				((Tower) entities.get(i)).hover();
-					
-				if(mode==Mode.WAITING) {
-					mode=Mode.UPGRADING;
-					selectedTower=(Tower)(entities.get(i));//making the entity a tower so it can it can be set as the selected tower
-				}
-			}
-			if(entities.get(i) instanceof TowerSpawn && 
-					entities.get(i).getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){	
-				if(mode==Mode.WAITING) {
-					mode=Mode.PLACING;
-					x=entities.get(i).getX()+entities.get(i).getWidth()/2-camera.getxOffset();
-					y=entities.get(i).getY()+entities.get(i).getHeight()/2-camera.getyOffset();
-					//selectedTower=(Tower)(entities.get(i));//making the entity a tower so it can it can be set as the selected tower
-				}
-			}
-		}*/		
 		updateMouseAngle();
 		if(mode==Mode.PLACING) {
-			tower = place(money,camera, direction);
+			tower = place(money,camera, direction, (TowerSpawn) hoveredEntity);
 		}else if(mode==Mode.UPGRADING) {
 			tower=upgrade(money,camera);
 		}else if(mode==Mode.WAITING) {

@@ -5,13 +5,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import entity.mobs.Bullet;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class MachineGunTower extends Tower{
 	char direction;
-	public MachineGunTower(int x,int y, char direction) {
+	public MachineGunTower(int x,int y,TowerSpawn spawn, char direction) {
 		this.direction=direction;
+		this.spawn=spawn;
 		price=8;
 		damage=3;
 		infoText="upgrade cost $"+price+"\n\ncan shoot super duper fast";
@@ -59,8 +61,8 @@ public class MachineGunTower extends Tower{
 		}
 
 	@Override
-	public Tower createNew(int x, int y) {
-		return new MachineGunTower(x+width*2, y+2,direction);
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
+		return new MachineGunTower(x+width*2, y+2,spawn,direction);
 	}
 	@Override
 	protected void shoot() {

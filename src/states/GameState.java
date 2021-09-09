@@ -129,19 +129,20 @@ public class GameState extends State{
 		case FLOOR1:
 			System.out.println("loading floor one from index "+newFloorIndex);
 			path+="floor 1";
-			size=7;
+			size=4;
 			canHaveEnemies=true;
 			tiles=Assets.level1tiles;
 			deletePlayer=true;
 			break;
 		case FLOOR2:
 			path+="floor 2";
-			size=4;
+			size=5;
 			canHaveEnemies=true;
 			tiles=Assets.level2tiles;
 			break;
 		case FLOOR3:
 			currentState = new WinState();
+			System.out.println("you win!");
 		default :
 				return;
 		}

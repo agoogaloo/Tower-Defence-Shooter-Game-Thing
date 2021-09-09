@@ -10,6 +10,7 @@ import entity.mobs.player.guns.Pistol;
 import entity.mobs.player.guns.Sniper;
 import entity.statics.towers.EmptyTowerSlot;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import entity.statics.towers.Plant.Plantlvl1;
 import entity.statics.towers.laser.LaserTowerlvl1;
 import entity.statics.towers.support.Supportlvl1;
@@ -29,8 +30,8 @@ public class ItemList {
 	
 	
 	
-	public static Tower newTower(int x, int y, int id) {
-		return towers[id].createNew(x, y);
+	public static Tower newTower(int x, int y,TowerSpawn spawn, int id) {
+		return towers[id].createNew(x, y,spawn);
 	}
 	public static Gun newGun(EntityManager manager, int id) {
 		return guns[id-TOWERS_LEN].createNew(manager);

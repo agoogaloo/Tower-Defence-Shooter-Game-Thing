@@ -5,13 +5,17 @@ import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
 public class Supportlvl1 extends Tower{
-	//private int particleTimer = 0, particleTime=5;
+	
 	public Supportlvl1(int x, int y) {
-		super(x, y, 90, 90, new Animation(Assets.supportLvl1,6),0);
+		this(x,y,null);
+	}
+	public Supportlvl1(int x, int y,TowerSpawn spawn) {
+		super(x, y, 110, 110, new Animation(Assets.supportLvl1,6),0,spawn);
 		price=3;
 		damage=0;
 		statusEffect=new StatusEffect(StatusType.WEAKENED, 1.2,3);
@@ -37,10 +41,11 @@ public class Supportlvl1 extends Tower{
 	
 	@Override
 	public int upgrade(char leftRight, int money) {
-		Tower newTower=new Supportlvl2(x+width/2, y+height/2);
+		Tower newTower=new Supportlvl2(x+width/2, y+height/2,spawn);
 		if(money>=newTower.getPrice()) {
 			entityManager.addEntity(newTower);
 			destroy();
+			newTower.init();
 			return newTower.getPrice();
 		}
 		return 0;
@@ -52,7 +57,7 @@ public class Supportlvl1 extends Tower{
 	}
 
 	@Override
-	public Tower createNew(int x, int y) {
-		return new Supportlvl1(x, y);
+	public Tower createNew(int x, int y,TowerSpawn spawn) {
+		return new Supportlvl1(x, y,spawn);
 	}
 }

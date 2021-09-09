@@ -16,7 +16,7 @@ import org.json.simple.parser.ParseException;
 
 import entity.Entity;
 import entity.statics.Door;
-import entity.statics.towers.laser.TowerSpawn;
+import entity.statics.towers.TowerSpawn;
 import graphics.Camera;
 
 /*
@@ -294,7 +294,6 @@ public class Floor {
 				try {
 					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
 					rooms.add(new Room(object));
-					System.out.println("loading"+file.getPath());
 				} catch (IOException |ParseException e) {
 					System.out.println(file.getPath()+" could not be loaded. Make sure it is a .json file");
 				}

@@ -7,7 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import entity.statics.Door;
-import entity.statics.towers.laser.TowerSpawn;
+import entity.statics.towers.TowerSpawn;
 import graphics.Assets;
 /*
  * by: Matthew Milum
