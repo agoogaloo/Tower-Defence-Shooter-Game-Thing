@@ -1,6 +1,8 @@
 package states.console;
 
 import entity.Entity;
+import entity.mobs.player.Player;
+import entity.statics.Door;
 import floors.Room;
 import states.GameState;
 
@@ -9,11 +11,11 @@ public class CommandSelector {
 	private ConsoleState console;
 	
 	//Parallel arrays to tell which commands match up with which classes
-	private final String[] commandStrings = new String[] {"Help","EntityCount","ShowHitBox", "ShowFPS",
-			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal","Chest", "Give", "Ghost"};
-	private final Command[] commands = new Command[] {new Help(),new EntityCount(), new ShowHitBox(), 
+	private final String[] commandStrings = new String[] {"Help","ShowHitBox", "ShowFPS",
+			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal","Chest", "Give", "Ghost","EntityInfo"};
+	private final Command[] commands = new Command[] {new Help(), new ShowHitBox(), 
 			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies(), 
-			new Unlock(),new Money(), new Heal(), new Chest(), new Give(), new Ghost()};
+			new Unlock(),new Money(), new Heal(), new Chest(), new Give(), new Ghost(),new EntityInfo()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
@@ -78,15 +80,6 @@ public class CommandSelector {
 			return text;
 		}
 	}
-	private class EntityCount extends Command{
-		private EntityCount() {
-			helpText="tells you how many entities there are in the gamestate currently";
-		}
-		
-		public String execute(String params) {
-			return "there are currently"+Entity.getEntityManager().getEntities().size()+" entities\n";
-		}
-	}
 	private class ShowHitBox extends Command{
 		private ShowHitBox(){
 			helpText= "toggles if the hitboxen of all entities is shown or not";
@@ -100,7 +93,7 @@ public class CommandSelector {
 	
 	private class ShowFPS extends Command{
 		private ShowFPS(){
-			helpText= "toggles if you can see the framerate in the top left corner";
+			helpText= "toggles if you can see the framerate and entitycount in the top left corner";
 		}
 		public String execute(String params) {
 			ConsoleState.showFPS=!ConsoleState.showFPS;
@@ -264,6 +257,34 @@ public class CommandSelector {
 		public String execute(String params) {
 			Entity.getEntityManager().getPlayer().toggleGhost();
 			return "ghost mode toggled";
+		}
+	}
+	private class EntityInfo extends Command{
+		private EntityInfo(){
+			helpText= "gives info about an entity that is touching the player";
+		}
+		public String execute(String params) {
+			Player p= Entity.getEntityManager().getPlayer();
+			Entity collision = null;
+			for (Entity i:Entity.getEntityManager().getEntities()) {
+				if(i!=p&& i.getBounds().intersects(p.getBounds())) {
+					collision = i;
+				}
+			}
+			boolean inSolidsArr=false;
+			for (Entity i:Entity.getEntityManager().getSolids()) {
+				if(i==collision) {
+					inSolidsArr=true;
+				}
+			}
+			if(collision !=null) {
+				return "colliding with "+collision.getClass().getTypeName()+ "\n\n"+ "health = "+collision.getHealth()
+						+ "\nsolid = "+collision.isSolid()+"\nin solid arr = "+inSolidsArr
+				+"\ncollisions = "+collision.hasCollisions();
+			}
+			
+			
+			return "player is not touching an entity";
 		}
 	}
 	

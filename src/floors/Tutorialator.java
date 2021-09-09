@@ -6,13 +6,13 @@ import java.awt.Graphics;
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.GreenEnemy;
-import entity.mobs.enemy.HeliBot;
 import entity.mobs.enemy.RedEnemy;
 import entity.mobs.enemy.TutorialEnemy;
 import entity.mobs.enemy.YellowEnemy;
 import entity.mobs.enemy.spawner.SpawnButton;
 import entity.statics.Chest;
 import entity.statics.towers.Tower;
+import entity.statics.towers.TowerSpawn;
 import graphics.Camera;
 import graphics.UI.TextElement;
 import saveData.SaveData;
@@ -149,7 +149,8 @@ public class Tutorialator {
 	private void section3() {
 		
 		//towers
-		boolean hasTower=false;		
+		boolean hasTower=false;	
+		Entity.getEntityManager().addEntity(new TowerSpawn(380, 160));
 		if(sectionTime==10) {
 			text.move(48, 168);
 			textToAdd="you can place or upgrade towers to help you by holding right \n      click and dragging the mouse over the tower you want";

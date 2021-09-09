@@ -18,7 +18,7 @@ import graphics.Camera;
 import states.GameState;
 
 public class EnemySpawner {
-	private final int WAVESPERROOM=3;//how long many waves it takes to clear a room 
+	private final int WAVESPERROOM=1;//how long many waves it takes to clear a room 
 	private int enemyDelay=0, heliDelay=0;
 	private int difficulty=3, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
 	

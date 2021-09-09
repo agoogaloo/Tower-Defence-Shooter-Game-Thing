@@ -134,7 +134,7 @@ public class GameState extends State{
 		case FLOOR1:
 			System.out.println("loading floor one from index "+newFloorIndex);
 			path+="floor 1";
-			size=4;
+			size=10;
 			canHaveEnemies=true;
 			tiles=Assets.level1tiles;
 			deletePlayer=true;
@@ -157,9 +157,7 @@ public class GameState extends State{
 		floor = new Floor(path,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), tiles);
 		Entity.init(deletePlayer);
-		for(Entity i:floor.getFloorEntities()) {
-			Entity.getEntityManager().addEntity(i);
-		}
+		floor.init();
 		
 		if(newFloorIndex==TUTORIALINDEX)
 			tutorial=new Tutorialator();

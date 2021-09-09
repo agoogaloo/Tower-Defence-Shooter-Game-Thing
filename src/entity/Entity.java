@@ -124,6 +124,9 @@ public abstract class Entity {
 	public double getDamage() {
 		return damage;
 	}
+	public double getHealth() {
+		return health;
+	}
 
 	public void destroy() {
 		killed=true;

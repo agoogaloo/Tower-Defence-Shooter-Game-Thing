@@ -10,7 +10,7 @@ public class Camera {
 	 */
 	private int xOffset, yOffset, entityX, entityY,mouseX,mouseY,locX,locY, screenWidth, screenHeight;
 	private float mouseWeight=0.2f, entityWeight=1, locWeight=1;
-	private float speed=0.4f;
+	private float speed=0.45f;
 	
 	//constructors
 	public Camera(int screenWidth, int screenHeight) {

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import entity.Entity;
 import graphics.Assets;
 import saveData.Settings;
 import states.State;
@@ -55,7 +56,12 @@ public class Display extends JPanel {
 		
 		if(ConsoleState.isShowFPS()) {
 			g2d.setFont(Assets.myfont);
-			g2d.drawString("fps: "+Main.Main.getFPS(), 2, 7);
+			if(Entity.getEntityManager()!=null) {
+				g2d.drawString("fps: "+Main.Main.getFPS()+"  Entities: "+Entity.getEntityManager().getEntities().size(), 2, 7);
+			}else {
+				g2d.drawString("fps: "+Main.Main.getFPS(), 2, 7);
+			}
+			
 		}
 		//putting the image onto the display and scaling it
 		g.drawImage(image,0,0,width*scale, height*scale, null);

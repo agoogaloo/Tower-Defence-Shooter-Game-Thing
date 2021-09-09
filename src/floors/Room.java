@@ -45,11 +45,11 @@ public class Room {
 		this.y=y;
 		
 		for(Door i:original.doors) {
-			Door door=new Door((x+i.getSpawnX())*TILESIZE,(y+i.getSpawnY())*TILESIZE, i.getDirection());
+			Door door=new Door(x*TILESIZE+i.getSpawnX(),y*TILESIZE+i.getSpawnY(), i.getDirection());
 			doors.add(door);
 		}
 		for(TowerSpawn i:original.towerLocs) {
-			TowerSpawn tower=new TowerSpawn((x+i.getSpawnX())*TILESIZE,(y+i.getSpawnY())*TILESIZE);
+			TowerSpawn tower=new TowerSpawn(x*TILESIZE+i.getSpawnX(),y*TILESIZE+i.getSpawnY());
 			towerLocs.add(tower);
 		}
 		
@@ -86,13 +86,13 @@ public class Room {
 				spawns[x][y] =(int)((long) spawnData.get((y *width) + x ));
 				if(spawns[x][y]-Assets.level1tiles.length==DOORVERT) {
 					System.out.println("found vert door");
-					doors.add(new Door(x, y, 'u'));
+					doors.add(new Door(x*16, y*16, 'u'));
 				}else if(spawns[x][y]-Assets.level1tiles.length==DOORHOR) {
 					System.out.println("found hor door");
-					doors.add(new Door(x, y, 'l'));
+					doors.add(new Door(x*16, y*16, 'l'));
 				}else if(spawns[x][y]-Assets.level1tiles.length==TowerSpawn) {
 					System.out.println("tower loc");
-					towerLocs.add(new TowerSpawn(x, y));
+					towerLocs.add(new TowerSpawn(x*TILESIZE, y*TILESIZE));
 				}
 				
 			}

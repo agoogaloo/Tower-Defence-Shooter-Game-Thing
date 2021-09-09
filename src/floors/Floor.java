@@ -38,7 +38,7 @@ public class Floor {
 	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
-	private int width=200, height=200;
+	private int width=100, height=100;
 	
 	private final int towersPerRoom=4; 
 
@@ -95,6 +95,8 @@ public class Floor {
 		
 		
 		
+		
+		
 	}
 	
 	/**
@@ -123,7 +125,16 @@ public class Floor {
 				spawns[x][y]=rooms[0].getSpawnData(x, y);
 			}	
 		}
-	}	
+	}
+	public void init() {
+		Room r = rooms[0];
+		for(Door d:r.getDoors()) {
+			Entity.getEntityManager().addEntity(d);
+		}
+		for(TowerSpawn t:r.getTowerLocs()) {
+			Entity.getEntityManager().addEntity(t);
+		}
+	}
 
 	// this method draws everything to the screen
 	public void render(Graphics g, Camera camera) {
@@ -338,6 +349,14 @@ public class Floor {
 	public void showNextRoom() {
 		if(currentRoom<rooms.length) {
 			currentRoom++;
+			Room r = rooms[currentRoom-1];
+			for(Door d:r.getDoors()) {
+				Entity.getEntityManager().addEntity(d);
+			}
+			for(TowerSpawn t:r.getTowerLocs()) {
+				Entity.getEntityManager().addEntity(t);
+			}
+			
 		}
 	}
 	

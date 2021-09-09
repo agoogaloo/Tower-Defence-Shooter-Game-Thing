@@ -30,9 +30,6 @@ public abstract class Mobs extends Entity{
 	}
 	private void xCollide() {
 		double checkX=trueX+changeX;
-		
-		
-		
 		//doing wall collisions
 		
 		if(changeX<0) {
