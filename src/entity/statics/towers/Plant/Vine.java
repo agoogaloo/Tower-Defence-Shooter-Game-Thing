@@ -110,7 +110,7 @@ public class Vine extends Tower{
 				canGrow=false;	
 			}else {
 				nextVine=nextVine(nextEndDir);
-				if(GameState.getFloor().checkwall((nextVine.x+width/2)/16,(nextVine.y+height/2)/16)) {
+				if(GameState.getFloor().checkWall((nextVine.x+width/2)/16,(nextVine.y+height/2)/16)) {
 					canGrow=false; 
 				}
 			}

@@ -38,6 +38,7 @@ public class EntityManager {
 				
 		if(deletePlayer) player=null;
 		entities.clear();//removing any entities that still exist
+		solids.clear();//clearing the solids
 		if(player==null) {
 			//if the player doesnt exist yet then it will make a new player
 			player=new Player(0,0);

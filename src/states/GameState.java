@@ -134,7 +134,7 @@ public class GameState extends State{
 		case FLOOR1:
 			System.out.println("loading floor one from index "+newFloorIndex);
 			path+="floor 1";
-			size=10;
+			size=4;
 			canHaveEnemies=true;
 			tiles=Assets.level1tiles;
 			deletePlayer=true;

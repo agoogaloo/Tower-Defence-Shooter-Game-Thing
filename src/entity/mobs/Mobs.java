@@ -34,8 +34,10 @@ public abstract class Mobs extends Entity{
 		
 		if(changeX<0) {
 			
-			if (GameState.getFloor().checkwall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
-					|| GameState.getFloor().checkwall((int)(checkX) / 16, (bounds.height+(int)(trueY)) / 16)) {
+			if (GameState.getFloor().checkWall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
+					|| GameState.getFloor().checkWall((int)(checkX) / 16, (bounds.height+(int)(trueY)) / 16)
+					|| GameState.getFloor().checkPit((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
+					|| GameState.getFloor().checkPit((int)(checkX) / 16, (bounds.height+(int)(trueY)) / 16)) {
 				
 				trueX =Math.round(checkX/16)*16;//snapping them onto the wall
 				return;
@@ -43,8 +45,10 @@ public abstract class Mobs extends Entity{
 			
 		}else if(changeX>0){//if they are moving right
 			checkX+=bounds.width;
-			if (GameState.getFloor().checkwall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
-					|| GameState.getFloor().checkwall((int)Math.round(checkX) / 16, (bounds.height+(int)Math.round(trueY)) / 16)) {
+			if (GameState.getFloor().checkWall((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
+					|| GameState.getFloor().checkWall((int)Math.round(checkX) / 16, (bounds.height+(int)Math.round(trueY)) / 16)
+					|| GameState.getFloor().checkPit((int)Math.round(checkX)/ 16,(int)Math.round(trueY) / 16)
+					|| GameState.getFloor().checkPit((int)Math.round(checkX) / 16, (bounds.height+(int)Math.round(trueY)) / 16)) {
 				trueX =Math.round(checkX/16 - 1)*16 -bounds.width+15;
 				return;
 			}
@@ -68,8 +72,10 @@ public abstract class Mobs extends Entity{
 		
 		if(changeY>0) {//moving down collisions
 			checkY+=bounds.height;
-			if (GameState.getFloor().checkwall((int)Math.round(trueX) / 16, ((int)Math.round(checkY)) / 16)
-					|| GameState.getFloor().checkwall((bounds.width+(int)Math.round(trueX)) / 16, ((int)Math.round(checkY)) / 16)) {
+			if (GameState.getFloor().checkWall((int)Math.round(trueX) / 16, ((int)Math.round(checkY)) / 16)
+					|| GameState.getFloor().checkWall((bounds.width+(int)Math.round(trueX)) / 16, ((int)Math.round(checkY)) / 16)
+					|| GameState.getFloor().checkPit((int)Math.round(trueX) / 16, ((int)Math.round(checkY)) / 16)
+					|| GameState.getFloor().checkPit((bounds.width+(int)Math.round(trueX)) / 16, ((int)Math.round(checkY)) / 16)) {
 				
 				trueY =Math.round(checkY/16 - 1)*16-bounds.height+15;
 				return;
@@ -78,8 +84,10 @@ public abstract class Mobs extends Entity{
 				
 			
 		}else if(changeY<0) {//moving up collisions
-			if (GameState.getFloor().checkwall((int)Math.round(trueX)/ 16,(int)Math.round(checkY) / 16)
-					|| GameState.getFloor().checkwall((bounds.width+(int)Math.round(trueX)) / 16, (int)Math.round(checkY)/ 16)) {
+			if (GameState.getFloor().checkWall((int)Math.round(trueX)/ 16,(int)Math.round(checkY) / 16)
+					|| GameState.getFloor().checkWall((bounds.width+(int)Math.round(trueX)) / 16, (int)Math.round(checkY)/ 16)
+					|| GameState.getFloor().checkPit((int)Math.round(trueX)/ 16,(int)Math.round(checkY) / 16)
+					|| GameState.getFloor().checkPit((bounds.width+(int)Math.round(trueX)) / 16, (int)Math.round(checkY)/ 16)) {
 				trueY =Math.round(checkY / 16)*16;
 				return;
 			}

@@ -126,7 +126,7 @@ public class HeliBot extends Enemy  {
 			y+=yMove;
 			
 		}
-		if (GameState.getFloor().checkwall((int)x/16,(int)y/16)){
+		if (GameState.getFloor().checkWall((int)x/16,(int)y/16)){
 			changedDistance-=3;
 		}else {
 			changedDistance=TARGETDISTANCE;	

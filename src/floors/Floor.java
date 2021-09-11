@@ -38,15 +38,15 @@ public class Floor {
 	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
-	private int width=100, height=100;
+	private int width=200, height=200;
 	
 	private final int towersPerRoom=4; 
 
 	// constants
 	public final int TILESIZE = 16, SCREENWIDTH, SCREENHEIGHT;
 	private final BufferedImage[] PICS;// the tileset it uses to render itself
-	private final int[] WALLS = new int[] {36,37,38,39,40,43,44,45,46,47,50,51,52,64,65,66,
-			69,70,71,72,73,76,77,41,42,48,49};
+	private final int[] WALLS = new int[] {36,37,38,39,40,43,44,45,46,47,50,51,52}, 
+			PITS = new int[] {48,49,55,56,61,62,63,68,69,70,75,76,77};
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
 	public Floor(String folder,int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
@@ -305,6 +305,7 @@ public class Floor {
 				try {
 					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
 					rooms.add(new Room(object));
+					System.out.println("loading room at "+file.getPath());
 				} catch (IOException |ParseException e) {
 					System.out.println(file.getPath()+" could not be loaded. Make sure it is a .json file");
 				}
@@ -406,7 +407,7 @@ public class Floor {
 	 * @param y - y coordinate in tiles
 	 * @return - true if the tile at x,y is a wall and false if it is not
 	 */
-	public boolean checkwall(int x, int y) {
+	public boolean checkWall(int x, int y) {
 
 		int tile = getTile(x, y);
 		for (int i = 0; i < WALLS.length; i++) {
@@ -417,6 +418,15 @@ public class Floor {
 		return false;
 	}
 	
+	public boolean checkPit(int x, int y) {
+		int tile = getTile(x, y);
+		for (int i = 0; i < PITS.length; i++) {
+			if (PITS[i] == tile) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	// if you need a specific room it can return it
 	public Room getRoom(int x, int y) {

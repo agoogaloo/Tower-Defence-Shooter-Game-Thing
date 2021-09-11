@@ -71,7 +71,7 @@ public class Bullet extends Mobs{
 		//updating the hitboxes location
 		bounds.setLocation(x,y);
 
-		checkWalls((int)(velocityX),(int)(velocityY));
+		checkWalls((int)Math.round(velocityX),(int)Math.round(velocityY));
 		
 	}
 	
@@ -91,16 +91,16 @@ public class Bullet extends Mobs{
 	}
 	
 	private void checkWalls(int xVelocity, int yVelocity) {
-		if(GameState.getFloor().checkwall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
+		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
 			killed = true;//When this is set to true the bullet will be removed from entityManager, thus disappearing		//	Wall collisions using the checkwall method in floors 
 		}																								 					//
-		if(GameState.getFloor().checkwall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
+		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
 			killed = true;																									//
 		}																													//
-		if(GameState.getFloor().checkwall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
+		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
 			killed = true;																									//
 		}																													//
-		if(GameState.getFloor().checkwall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
+		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
 			killed = true;																									//
 		}															
 	}

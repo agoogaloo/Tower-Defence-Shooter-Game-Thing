@@ -60,7 +60,7 @@ public class MiniMap {
 		for(int x=0;x<map.getWidth();x++) {//looping though the width of the minimap
 			for(int y=0;y<map.getHeight();y++) {//looping through the height of the map
 				//drawing the a room pixel if it is not a wall in a room that has been visited
-				if(!GameState.getFloor().checkwall(x*scale, y*scale)) {
+				if(!GameState.getFloor().checkWall(x*scale, y*scale)) {
 					map.setRGB(x, y,new Color(1,1,26).getRGB());//colouring the pixel if it is a part of the room
 				}
 			}
