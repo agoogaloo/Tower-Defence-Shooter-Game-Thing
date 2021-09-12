@@ -35,8 +35,42 @@ public class PauseState extends State{
 					Window.getDisplay().getRelativeHeight()/2-67+12*2,100,8),80, "screenShake", new String[] {"0","5","6","7","8","9",
 					"10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"}),
 			
-			new MenuSelection(new Rectangle(Window.getDisplay().getRelativeWidth()/2-85+6*3,
-					Window.getDisplay().getRelativeHeight()/2-67+12*3, 100,8), "back") {
+			new SettingOption(new Rectangle(Window.getDisplay().getRelativeWidth()/2-85+6*3,
+					Window.getDisplay().getRelativeHeight()/2-67+12*3,100,8),80, "cameraSpeed", new String[] {"30","35","40","45",
+							"50","55","60","65","70","75","80","85","90","95","100"}){
+				public void leftPress() {
+					super.leftPress();
+					GameState.getCamera().setSpeed(Settings.getCamSpeed()/100f);
+				};
+				public void rightPress() {
+					super.rightPress();
+					GameState.getCamera().setSpeed(Settings.getCamSpeed()/100f);
+				};},
+			
+			new SettingOption(new Rectangle(Window.getDisplay().getRelativeWidth()/2-85+6*4,
+					Window.getDisplay().getRelativeHeight()/2-67+12*4,100,8),80, "aimLook", new String[] {"0","5","10","15",
+							"20","25","30","35","40","45","50","55","60","65","70","75","80","85","90"}){
+				public void leftPress() {
+					super.leftPress();
+					GameState.getCamera().setMouseWeight(Settings.getAimLook()/100f);
+				};
+				public void rightPress() {
+					super.rightPress();
+					GameState.getCamera().setMouseWeight(Settings.getAimLook()/100f);
+				};},
+			
+			new MenuSelection(new Rectangle(Window.getDisplay().getRelativeWidth()/2-85+6*6,
+					Window.getDisplay().getRelativeHeight()/2-67+12*6, 100,8), "restore default") {
+					
+				public void select() {
+					Settings.resetData();
+					Main.resetWindow();
+					currentState=new PauseState(game);
+					
+				};
+			},	
+			new MenuSelection(new Rectangle(Window.getDisplay().getRelativeWidth()/2-85+6*7,
+					Window.getDisplay().getRelativeHeight()/2-67+12*7, 100,8), "back") {
 				public void select() {
 					settings.closeSubMenu();
 				};

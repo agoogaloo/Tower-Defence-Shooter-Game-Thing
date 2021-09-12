@@ -78,7 +78,7 @@ public class SettingOption extends MenuObject{
 	private void applychange() {
 		Properties settings = Settings.getProperties();
 		settings.setProperty(name, options[currentValue]);
-		Settings.writeproperties(settings);
+		Settings.writeProperties(settings);
 	}
 
 

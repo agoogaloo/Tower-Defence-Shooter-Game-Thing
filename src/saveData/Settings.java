@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Settings {
-	private static int screenShake, scale;
+	private static int screenShake, scale, camSpeed, aimLook;
 	private static String towerInfo;
 	private static Properties propertiesFile=new Properties();
-	private static String settingsPath="res/saves/settings.properties";
+	private static String settingsPath="res/saves/settings.properties", defaultSettings = "res/saves/defaultSettings.properties" ;
+	
 	public Settings() {
 		reload();
 	}
@@ -27,17 +28,20 @@ public class Settings {
 		}
 		return file;
 	}
-	public static void writeproperties(Properties newProperties) {
+	
+	public static void writeProperties(Properties newProperties) {
 		//this method rewrites the settings file to a new one that is given to it
 		try {
 			newProperties.store(new FileWriter(settingsPath), "this file holds all the settings like screen shake");
+			System.out.println("stored changes"+newProperties.getProperty("screenShake"));
 		} catch (IOException e) {
-			System.out.println("couldnt updtate proprties file");
+			System.out.println("couldnt update properties file");
 			e.printStackTrace();
 		}
 		//updates everything to all the new settings
 		reload();
 	}
+	
 	public static void reload() {
 		propertiesFile=loadProperties(settingsPath);
 		
@@ -45,7 +49,18 @@ public class Settings {
 		screenShake=Integer.parseInt(propertiesFile.getProperty("screenShake"));
 		towerInfo=propertiesFile.getProperty("towerInfo");
 		scale=Integer.parseInt(propertiesFile.getProperty("pixelScale"));
+		camSpeed=Integer.parseInt(propertiesFile.getProperty("cameraSpeed"));
+		aimLook=Integer.parseInt(propertiesFile.getProperty("aimLook"));
 	}
+	
+	public static void resetData(){
+		Properties defaultFile = loadProperties(defaultSettings);
+		System.out.println(defaultFile.getProperty("towerInfo"));
+		writeProperties(defaultFile);
+		
+		
+	}
+	
 	
 	
 	//getters for all the settings
@@ -58,9 +73,17 @@ public class Settings {
 	public static String getTowerInfo() {
 		return towerInfo;
 	}
+	
 	public static Properties getProperties() {
 		return propertiesFile;
 	}
+	public static int getCamSpeed() {
+		return camSpeed;
+	}
+	public static int getAimLook() {
+		return aimLook;
+	}
+	
 	
 	
 }

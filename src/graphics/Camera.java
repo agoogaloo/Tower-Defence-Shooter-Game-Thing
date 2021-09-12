@@ -1,6 +1,7 @@
 package graphics;
 
 import entity.Entity;
+import saveData.Settings;
 
 //@author Matthew
 public class Camera {
@@ -9,8 +10,8 @@ public class Camera {
 	 * causes everything to be drawn in a different place making it look like the camera is moving
 	 */
 	private int xOffset, yOffset, entityX, entityY,mouseX,mouseY,locX,locY, screenWidth, screenHeight;
-	private float mouseWeight=0.2f, entityWeight=1, locWeight=1;
-	private float speed=0.45f;
+	private float mouseWeight=Settings.getAimLook()/100f, entityWeight=1, locWeight=1;
+	private float speed=Settings.getCamSpeed()/100f;
 	
 	//constructors
 	public Camera(int screenWidth, int screenHeight) {
@@ -76,7 +77,7 @@ public class Camera {
 	public void setEntityWeight(int entityWeight) {
 		this.entityWeight = entityWeight;
 	}
-	public void setMouseWeight(int mouseWeight) {
+	public void setMouseWeight(float mouseWeight) {
 		this.mouseWeight = mouseWeight;
 	}
 	public void setLocationWeight(int locationWeight) {
