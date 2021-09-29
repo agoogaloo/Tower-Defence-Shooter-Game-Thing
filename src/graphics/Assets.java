@@ -75,7 +75,7 @@ public class Assets {
 	
 	//floor tiles and things
 	public static final BufferedImage[] hubtiles=splitSpriteSheet(loadImage("res/textures/floors/hub tiles.png"), 16, 16, 7, 12);
-	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/floors/level 1 tiles.png"), 16, 16, 7, 12);
+	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/floors/level 1 tileset.png"), 16, 16, 7, 12);
 	public static final BufferedImage[] level2tiles=splitSpriteSheet(loadImage("res/textures/floors/level 2 tiles.png"), 16, 16, 7, 12);
 	
 	public static final BufferedImage[] lv1DoorVert=splitSpriteSheet(loadImage("res/textures/floors/floor 1 vertical door.png"), 48, 48, 2, 1);

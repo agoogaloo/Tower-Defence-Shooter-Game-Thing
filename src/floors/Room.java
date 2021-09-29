@@ -71,7 +71,7 @@ public class Room {
 		//getting map data
 		JSONObject mapLayer=(JSONObject) layers.get(0);
 		JSONArray mapData=(JSONArray)mapLayer.get("data");
-		System.out.print("width="+width+" height="+height+" size="+mapData.size()+" map:\n");
+		System.out.print("width="+width+" height="+height+" size="+mapData.size());
 		for(int y=0;y<height;y++) {
 			for(int x=0;x<width;x++) {
 				tiles[x][y] =(int)((long) mapData.get((y *width) + x ));			
@@ -91,12 +91,12 @@ public class Room {
 					System.out.println("found hor door");
 					doors.add(new Door(x*16, y*16, 'l'));
 				}else if(spawns[x][y]-Assets.level1tiles.length==TowerSpawn) {
-					System.out.println("tower loc");
 					towerLocs.add(new TowerSpawn(x*TILESIZE, y*TILESIZE));
 				}
 				
 			}
 		}
+		System.out.println("\n");
 		
 
 		//getting entrance/exits and their locations

@@ -150,8 +150,9 @@ public class Tutorialator {
 		
 		//towers
 		boolean hasTower=false;	
-		Entity.getEntityManager().addEntity(new TowerSpawn(380, 160));
+		
 		if(sectionTime==10) {
+			Entity.getEntityManager().addEntity(new TowerSpawn(380, 160));
 			text.move(48, 168);
 			textToAdd="you can place or upgrade towers to help you by holding right \n      click and dragging the mouse over the tower you want";
 		}

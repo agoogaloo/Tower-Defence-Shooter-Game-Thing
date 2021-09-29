@@ -38,7 +38,7 @@ public class Floor {
 	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
-	private int width=200, height=200;
+	private int width=300, height=300;
 	
 	private final int towersPerRoom=4; 
 
@@ -159,6 +159,7 @@ public class Floor {
 		ArrayList<Room> rooms= new ArrayList<Room>();
 		ArrayList<Rectangle> bounds= new ArrayList<Rectangle>();
 		Rectangle floorBounds = new Rectangle(0,0,width,height);
+		ArrayList<Room> usedRooms = new ArrayList<Room>();
 		
 		tiles=new int[width][height];
 		spawns=new int[width][height];
@@ -193,10 +194,7 @@ public class Floor {
 				}
 			}
 			
-			if(room==size) {
-				break;
-			}
-			//changing where the next room will be placed based on the previous rooms exit
+			//changing where the next room will be placed based on the previous rooms exit direction, and size
 			
 			switch (validRoom.getExit()) {
 			case 'u':
@@ -225,10 +223,12 @@ public class Floor {
 
 			ArrayList<Room> possibleRooms;
 			if(room==size-1) {
+				//setting the possible rooms to be the ending rooms it it is placing the last room
 				System.out.println("making the end room");
 				possibleRooms=new ArrayList<Room>(Arrays.asList(endRooms));
 			}else {
 				possibleRooms=new ArrayList<Room>(Arrays.asList(midRooms));
+				
 			}
 			
 			boolean roomFound=false;
@@ -256,7 +256,7 @@ public class Floor {
 				}
 				//checking if the room can actually be placed
 				Rectangle checkBounds=new Rectangle(checkX,checkY,checkRoom.getWidth(),checkRoom.getHeight());
-				roomFound=isValidRoom(bounds, checkBounds, floorBounds, validRoom.getExit(), checkRoom.getEntrance());
+				roomFound=isValidRoom(bounds,usedRooms,checkRoom, checkBounds, floorBounds, validRoom.getExit());
 				
 				
 				//removing the room from the possible rooms if it is unable to be placed
@@ -265,6 +265,7 @@ public class Floor {
 				}else {
 					x=checkX;
 					y=checkY;
+					usedRooms.add(checkRoom);
 					validRoom=new Room(checkRoom,x,y);
 				}
 			}
@@ -280,9 +281,9 @@ public class Floor {
 		return true;
 	}
 	
-	private boolean isValidRoom(ArrayList<Rectangle> bounds, Rectangle checkBounds, Rectangle floorBounds, 
-			char validExit, char checkEntrance) {
-		if(checkEntrance!=validExit) {
+	private boolean isValidRoom(ArrayList<Rectangle> bounds,ArrayList<Room> usedRooms, Room checkRoom, Rectangle checkBounds, 
+			Rectangle floorBounds, char validExit) {
+		if(checkRoom.getEntrance()!=validExit) {
 			return false;
 		}
 		for(Rectangle r:bounds) {
@@ -291,6 +292,9 @@ public class Floor {
 			}
 		}
 		if(!floorBounds.contains(checkBounds)) {
+			return false;
+		}
+		if(usedRooms.contains(checkRoom)) {
 			return false;
 		}
 		return true;

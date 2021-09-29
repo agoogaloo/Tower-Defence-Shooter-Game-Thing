@@ -25,7 +25,6 @@ public class Main {
 		// variables for limiting frame rate
 		final int TARGETFPS = 60, DELAY = 1000000000 / TARGETFPS;
 		long delta = 0, frameStart = System.nanoTime(), fpsTimer = frameStart;
-		int frames = 0;
 
 		while (run) {// running the game while run is true
 			frameStart = System.nanoTime();// getting the time the frame started
@@ -33,30 +32,23 @@ public class Main {
 			// this is where everything in the game actually happens
 			window.update();// updates the window
 			window.render();// draws everything on the window
-			frames++;// adding one to the number of frames that passed
-
-			// checking if it has been one second sense the FPS has been displayed
-			// note: you could get the current time instead of frame start, however would be
-			// a bit slower, and we are just printing the FPS so it's ok if its a bit off.
-			// another note: if you want it more accurate you can take take the frame
-			// rate every few seconds and just divide frames by how many second you
-			// increased
-			if (frameStart - fpsTimer >= 1000000000) {
-				// outputting the number of frames that happened that second
-				//System.out.println(frames + "fps");
-				fpsTimer = frameStart;// reseting the timer
-				frames = 0;// reseting the number of frames
-			}
-
+			
+			
+			
+			delta = System.nanoTime() - frameStart;
 			if(delta >= DELAY) {
-				System.out.println("uh oh things are lagging");
+				
+				System.out.println("\nuh oh things are lagging");
+				System.out.println("it is "+(delta-DELAY) +" nanoseconds behind");
+				System.out.println("FPS is "+1f/(delta/1000000000f));
 				
 			}
 			while (delta < DELAY) {
+				
 				 delta = System.nanoTime() - frameStart;// setting delta to how long the frame has lasted for// looping until the frame has lasted the target number of nanoseconds
 			 
 			 }
-			fps=Math.round(1000000000f/delta);
+			fps=Math.round(1f/(delta/1000000000f));
 		}
 	}
 	//lets other classes get the window so they can know things like window size 
