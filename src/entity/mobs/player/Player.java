@@ -65,7 +65,7 @@ public class Player extends Mobs {
 	public Player(int x, int y) {
 		width = 6; //The specific width of the player
 		height = 13; //The specific height of the player
-		speed = 3.2; //The speed which the player moves at, higher the value the faster the speed
+		speed = 3; //The speed which the player moves at, higher the value the faster the speed
 		health = 6;  //The amount of health the player has, when health hits 0 the player "dies"
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
@@ -119,6 +119,7 @@ public class Player extends Mobs {
 		}
 		
 		if (State.getInputs().isNextGun()) {
+			
 			gun++;
 			if(gun>=guns.size()) {
 				gun=0;

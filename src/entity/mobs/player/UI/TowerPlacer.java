@@ -34,21 +34,21 @@ public class TowerPlacer {
 	
 	
 	
-	private void updateMouseAngle() {
-		if(State.getInputs().getMouseY()-y>7) {
+	private void updateMouseAngle(Camera camera) {
+		if(State.getInputs().getMouseY()+camera.getyOffset()-y>7) {
 			//this means the mouse is in the bottom half
 			mouseUpDown='d';
-		}else if(State.getInputs().getMouseY()-y<-7) {
+		}else if(State.getInputs().getMouseY()+camera.getyOffset()-y<-7) {
 			//this means it is on the top of the circle
 			mouseUpDown='u';
 		}else{
 			//otherwise it is in the middle
 			mouseUpDown='n';
 		}
-		if(State.getInputs().getMouseX()-x>7) {
+		if(State.getInputs().getMouseX()+camera.getxOffset()-x>7) {
 			//this means it is to the right
 			mouseLeftRight='r';
-		}else if(State.getInputs().getMouseX()-x<-7) {
+		}else if(State.getInputs().getMouseX()+camera.getxOffset()-x<-7) {
 			//this means it is to the left
 			mouseLeftRight='l';
 		}else {
@@ -81,7 +81,7 @@ public class TowerPlacer {
 		
 		infoText.update(ItemList.getTower(hoveredTower).getInfoText());
 		if(!State.getInputs().isPlace()&&money>=ItemList.getTower(hoveredTower).getPrice()) {
-			Tower tower=ItemList.getTower(hoveredTower).createNew(x+camera.getxOffset(), y+camera.getyOffset(),spawn);
+			Tower tower=ItemList.getTower(hoveredTower).createNew(x, y,spawn);
 			moneySpent=tower.getPrice();
 			tower.buildParticles();
 			tower.init();
@@ -112,13 +112,13 @@ public class TowerPlacer {
 		this.towers=towers;
 		//determining if the player is waiting, placing, or upgrading a tower
 		if(mode==Mode.WAITING) {//checking if they just pressed the button this frame
-			x=State.getInputs().getMouseX();//setting the location of the menu 
-			y=State.getInputs().getMouseY();//and where the tower will be placed
+			x=State.getInputs().getMouseX()+camera.getxOffset();//setting the location of the menu 
+			y=State.getInputs().getMouseY()+camera.getyOffset();//and where the tower will be placed
 		}
 		Entity hoveredEntity=null;
 		
 		for(int i=0;i<entities.size();i++) {
-			if(entities.get(i).getBounds().contains(x+camera.getxOffset(), y+camera.getyOffset())){
+			if(entities.get(i).getBounds().contains(x, y)){
 				hoveredEntity=entities.get(i);	
 			}
 		}
@@ -134,22 +134,22 @@ public class TowerPlacer {
 				if( hoveredEntity instanceof Tower){
 					((Tower) hoveredEntity).hover();						
 					mode=Mode.UPGRADING;
-					x=hoveredEntity.getX()+hoveredEntity.getWidth()/2-camera.getxOffset();
-					y=hoveredEntity.getY()+hoveredEntity.getHeight()/2-camera.getyOffset();
+					x=hoveredEntity.getX()+hoveredEntity.getWidth()/2;
+					y=hoveredEntity.getY()+hoveredEntity.getHeight()/2;
 					selectedTower=(Tower)(hoveredEntity);//making the entity a tower so it can it can be set as the selected tower
 				}
 				
 				if(hoveredEntity instanceof TowerSpawn && ((TowerSpawn) hoveredEntity).buildable){	
 						mode=Mode.PLACING;
-						x=hoveredEntity.getX()+hoveredEntity.getWidth()/2-camera.getxOffset();
-						y=hoveredEntity.getY()+hoveredEntity.getHeight()/2-camera.getyOffset();						
+						x=hoveredEntity.getX()+hoveredEntity.getWidth()/2;
+						y=hoveredEntity.getY()+hoveredEntity.getHeight()/2;						
 				}
 			
-				infoText.move(x-55, y+29);
+				infoText.move(x-55-camera.getxOffset(), y+29-camera.getyOffset());
 			}
 		}
 		
-		updateMouseAngle();
+		updateMouseAngle(camera);
 		if(mode==Mode.PLACING) {
 			tower = place(money,camera, direction, (TowerSpawn) hoveredEntity);
 		}else if(mode==Mode.UPGRADING) {
@@ -175,8 +175,8 @@ public class TowerPlacer {
 		if(infoText.getText()!="") {
 			//making the image the right size
 			background.update(Assets.infobackground.getSubimage(0, 0,120, infoText.getHeight()+6));
-			background.move(x-60, y+27);//putting it into the right place
-			infoText.move(x-55, y+29);
+			background.move(x-60-camera.getxOffset(), y+27-camera.getyOffset());//putting it into the right place
+			infoText.move(x-55-camera.getxOffset(), y+29-camera.getyOffset());
 		}else {
 			background.update(Assets.blank);//making the background disappear if there is no text
 		}
@@ -243,7 +243,7 @@ public class TowerPlacer {
 			infoText.update("");
 		}
 		wheelMenu.update(menuPic);
-		wheelMenu.move(x-26, y-26);
+		wheelMenu.move(x-26-camera.getxOffset(), y-26-camera.getyOffset());
 	}
 	
 	public int getSpentMoney() {

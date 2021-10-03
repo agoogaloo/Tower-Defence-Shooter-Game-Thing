@@ -79,7 +79,14 @@ public class Assets {
 	public static final BufferedImage[] level2tiles=splitSpriteSheet(loadImage("res/textures/floors/level 2 tiles.png"), 16, 16, 7, 12);
 	
 	public static final BufferedImage[] lv1DoorVert=splitSpriteSheet(loadImage("res/textures/floors/floor 1 vertical door.png"), 48, 48, 2, 1);
-	public static final BufferedImage[] lv1DoorHor=splitSpriteSheet(loadImage("res/textures/floors/floor 1 horizontal door.png"), 27, 94, 2, 1);
+	public static final BufferedImage[] lv1DoorR=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door r.png"), 
+			298, 43, 11, 1);
+	public static final BufferedImage[] lv1DoorL=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door l.png"), 
+			298, 43, 11, 1);
+	public static final BufferedImage[] lv1DoorU=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door u.png"), 
+			28, 216, 11, 1);
+	public static final BufferedImage[] lv1DoorD=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door d.png"), 
+			28, 216, 11, 1);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes
 	//private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 23, 2);
 	private static final BufferedImage[] playeridle = splitSpriteSheet(loadImage("res/textures/player combo.png"), 9, 17, 6, 4);

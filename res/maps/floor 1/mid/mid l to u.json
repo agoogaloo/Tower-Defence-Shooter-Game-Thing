@@ -1,11 +1,4 @@
 { "compressionlevel":0,
- "editorsettings":
-    {
-     "export":
-        {
-         "target":"."
-        }
-    },
  "height":26,
  "infinite":false,
  "layers":[
@@ -28,7 +21,7 @@
          "name":"spawns",
          "opacity":0.68,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":25,
          "x":0,
          "y":0
@@ -58,7 +51,7 @@
          "value":"16"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.7.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -71,6 +64,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":1.4,
+ "version":"1.6",
  "width":25
 }

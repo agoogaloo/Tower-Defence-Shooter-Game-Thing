@@ -15,7 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import entity.Entity;
-import entity.statics.Door;
+import entity.statics.doors.Door;
 import entity.statics.towers.TowerSpawn;
 import graphics.Camera;
 
@@ -41,6 +41,7 @@ public class Floor {
 	private int width=300, height=300;
 	
 	private final int towersPerRoom=4; 
+	private int levelID;
 
 	// constants
 	public final int TILESIZE = 16, SCREENWIDTH, SCREENHEIGHT;
@@ -49,8 +50,9 @@ public class Floor {
 			PITS = new int[] {48,49,55,56,61,62,63,68,69,70,75,76,77};
 	// it holds its own tileset so that it is easy if we want to have different
 	// floor with different themes
-	public Floor(String folder,int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
+	public Floor(String folder,int levelID, int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
+		this.levelID=levelID;
 		this.size = size;
 		PICS = pics;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
@@ -177,7 +179,7 @@ public class Floor {
 		int y=height/2-startRoom.getHeight()/2;
 		
 		
-		Room validRoom=new Room(startRoom,x,y);
+		Room validRoom=new Room(startRoom,levelID,x,y);
 		
 		
 		for (int room = 1; room <=size; room++) {//adding rooms until it is the right size
@@ -266,7 +268,7 @@ public class Floor {
 					x=checkX;
 					y=checkY;
 					usedRooms.add(checkRoom);
-					validRoom=new Room(checkRoom,x,y);
+					validRoom=new Room(checkRoom,levelID,x,y);
 				}
 			}
 			if(possibleRooms.size()<=0) {
@@ -308,7 +310,7 @@ public class Floor {
 			for(File file:folder.listFiles()) {
 				try {
 					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
-					rooms.add(new Room(object));
+					rooms.add(new Room(object,levelID));
 					System.out.println("loading room at "+file.getPath());
 				} catch (IOException |ParseException e) {
 					System.out.println(file.getPath()+" could not be loaded. Make sure it is a .json file");
@@ -340,7 +342,7 @@ public class Floor {
 		Room room=null;// the room it will return
 		try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
-			room=new Room(file);
+			room=new Room(file,levelID);
 			
 		} catch (IOException | ParseException e) {
 			System.out.print("there was a problem loading JSON file at "+path );

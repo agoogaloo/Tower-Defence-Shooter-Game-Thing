@@ -2,7 +2,6 @@ package states.console;
 
 import entity.Entity;
 import entity.mobs.player.Player;
-import entity.statics.Door;
 import floors.Room;
 import states.GameState;
 
@@ -174,16 +173,27 @@ public class CommandSelector {
 	
 	private class Unlock extends Command{
 		private Unlock() {
-			helpText="unlocks all rooms in the current floor";
+			helpText="params: (int amount)      unlocks amount rooms, or all rooms in the floor if no amount is given";
 		}
 
 		@Override
 		public String execute(String params) {
-			for (Room r: GameState.getFloor().getRooms()) {// looping though all the rooms
-				r.unlock();
-				GameState.getFloor().showNextRoom();
+			try {
+				int amount = Integer.parseInt(params);
+				for(int i=0;i<amount;i++) {
+					GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1].unlock();
+					GameState.getFloor().showNextRoom();
+				}
+				
+				
+			}catch(NumberFormatException e) {
+				for (Room r: GameState.getFloor().getRooms()) {// looping though all the rooms
+					r.unlock();
+					GameState.getFloor().showNextRoom();
+				}
+				return"paramiter given is not an int, all rooms unlocked";
 			}
-			return "rooms unlocked";
+				return "unlocked "+params+" rooms";
 		}
 	}
 	private class Money extends Command{
