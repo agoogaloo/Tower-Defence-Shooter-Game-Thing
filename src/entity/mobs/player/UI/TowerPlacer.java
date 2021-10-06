@@ -118,7 +118,7 @@ public class TowerPlacer {
 		Entity hoveredEntity=null;
 		
 		for(int i=0;i<entities.size();i++) {
-			if(entities.get(i).getBounds().contains(x, y)){
+			if(entities.get(i).getBounds().contains(x, y)&& (entities.get(i) instanceof Tower|| entities.get(i) instanceof TowerSpawn)){
 				hoveredEntity=entities.get(i);	
 			}
 		}

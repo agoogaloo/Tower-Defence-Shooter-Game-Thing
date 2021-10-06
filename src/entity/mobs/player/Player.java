@@ -34,7 +34,7 @@ public class Player extends Mobs {
 	
 	private int dustDelay=0; 
 	private int money=10,invincibility=0;
-	private int[] towers = {ItemList.WIZARD,ItemList.EMPTY,ItemList.EMPTY,ItemList.EMPTY};
+	private int[] towers = {ItemList.WIZARD,ItemList.WALL,ItemList.EMPTY,ItemList.EMPTY};
 	private ArrayList<Gun> guns;
 	private int gun=0;
 	

@@ -91,7 +91,7 @@ public class Bullet extends Mobs{
 		for (Entity e : entityCollide()) {//checking what is colliding with itself
 			//checking which side the thing that touched it is on 
 			//(making sure enemies only attack the player, player can't attack the core, etc.)
-			if (e.isFriendly() != friendly&&e.hasCollisions()&&!(e instanceof Pickup)&&!(e instanceof Bullet)) {
+			if ((e.isFriendly() != friendly||e.isSolid())&&e.hasCollisions()&&!(e instanceof Pickup)&&!(e instanceof Bullet)) {
 				destroy();
 			}
 		}

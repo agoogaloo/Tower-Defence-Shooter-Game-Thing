@@ -102,7 +102,7 @@ public class Assets {
 	
 	//loading towers
 	
-	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 14,1);
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 17,1);
 	public static final BufferedImage[] towerSpawn = splitSpriteSheet(loadImage("res/textures/towers/tower spawn.png"), 21, 24, 8, 1);
 	public static final BufferedImage[] wizardTowerLvl1 =splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 8, 1);
 	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/textures/towers/fire wizard.png"), 18, 37, 8, 1);
@@ -146,6 +146,10 @@ public class Assets {
 	public static  final BufferedImage[] supportLvl2=splitSpriteSheet(loadImage("res/textures/towers/support lv2.png"),16,18,8,1);
 	public static  final BufferedImage[] supportTech=splitSpriteSheet(loadImage("res/textures/towers/support tech.png"),51,45,10,1);
 	public static  final BufferedImage[] supportPlant=splitSpriteSheet(loadImage("res/textures/towers/support plant.png"),32,31,10,1);
+	
+	public static  final BufferedImage wallLvl1=loadImage("res/textures/towers/wall.png");
+	public static  final BufferedImage wallHor=loadImage("res/textures/towers/wall Hor.png");
+	public static  final BufferedImage wallVert=loadImage("res/textures/towers/wall Vert.png");
 	
 	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 
