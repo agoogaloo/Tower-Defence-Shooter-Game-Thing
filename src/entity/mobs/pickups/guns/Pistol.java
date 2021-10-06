@@ -1,39 +1,36 @@
-package entity.mobs.player.guns;
+package entity.mobs.pickups.guns;
 
 import entity.EntityManager;
 import entity.mobs.Bullet;
 import graphics.Animation;
 import graphics.Assets;
 
-public class Beam extends Gun{
-
-	public Beam(EntityManager manager) {
+public class Pistol extends Gun{	
+	public Pistol(EntityManager manager) {
 		super(manager);
-		
 	}
-	
+
 	@Override
 	protected void init() {
-		reloadTime=2;
-		icon=Assets.beam;
-		shootAnim=new Animation(Assets.beamShoot);
+		reloadTime=15;
+		icon=Assets.pistol;
+		shootAnim = new Animation(Assets.pistolShoot);
 	}
 
 	@Override
 	public void shoot(int x, int y, int aimX, int aimY) {
-		if (shotDelay >= reloadTime) {
+		if (shotDelay >= reloadTime) {	
 			shotDelay=0;
 			shootAnim.setPaused(false);
-			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.beamBullet, 1.5,1, true));
+			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,40,15, true));
 		}
 		
 	}
 
 	@Override
 	public Gun createNew(EntityManager manager) {
-		return new Beam(manager);
+		return new Pistol(manager);
 	}
 
 	
-
 }

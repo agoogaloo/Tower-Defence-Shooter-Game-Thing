@@ -12,7 +12,7 @@ public class HamburgerBot extends Enemy{
 		super(x, y, direction);
 		health=100;
 		speed=1; //The speed which the enemy travels, higher nubmer resuts in higher speeds
-		//damage=1; //The amount of damage the enemy will do if it collides with the player
+		
 		reloadTime = 14;
 		rangeWidth=300;
 		rangeHeight=300;
@@ -50,7 +50,7 @@ public class HamburgerBot extends Enemy{
 			break;
 		}
 		
-		entityManager.addEntity(new Bullet (x+width/2,y+height/2, targetX+width/2+x, targetY+height/2+y,Assets.enemyBullet, 3, false)); //Creates red bullets that shoot towards the player
-		entityManager.addEntity(new Bullet (x+width/2,y+height/2, -targetX+width/2+x, -targetY+height/2+y,Assets.enemyBullet, 3, false)); //Creates red bullets that shoot towards the player
+		entityManager.addEntity(new Bullet (x+width/2,y+height/2, targetX+width/2+x, targetY+height/2+y,Assets.enemyBullet, 3,100, false)); //Creates red bullets that shoot towards the player
+		entityManager.addEntity(new Bullet (x+width/2,y+height/2, -targetX+width/2+x, -targetY+height/2+y,Assets.enemyBullet, 3,100, false)); //Creates red bullets that shoot towards the player
 	}
 }

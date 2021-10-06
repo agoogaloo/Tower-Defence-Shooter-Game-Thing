@@ -137,13 +137,14 @@ public abstract class Enemy extends Mobs {
 		double targetX, targetY; 
 		targetX = entityManager.getPlayer().getX(); //Sets the players x location as the targetX
 		targetY = entityManager.getPlayer().getY(); //Sets the players y location as the targetY
-		entityManager.addEntity(new Bullet (x+10,y+10, targetX, targetY,Assets.enemyBullet, 3, false)); //Creates red bullets that shoot towards the player
+		entityManager.addEntity(new Bullet (x+10,y+10, targetX, targetY,Assets.enemyBullet, 3,0, false)); //Creates red bullets that shoot towards the player
 	}
 	@Override
 	public void damage(double amount) {
 		super.damage(amount*weakened);
 	
 		if(amount>0) {
+			System.out.println("hit");
 			//making the enemy flash white when it gets hit
 			if(ConsoleState.isInstaKillEnemy()) {
 				killed=true;

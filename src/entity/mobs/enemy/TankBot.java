@@ -35,7 +35,7 @@ public class TankBot extends Enemy{
 			volleyTime--;
 			if(volleyTime<=0) {
 				volleyTime=3;
-				entityManager.addEntity(new Bullet (x+10,y+10, targetX, targetY,Assets.enemyBullet, 4, false));
+				entityManager.addEntity(new Bullet (x+10,y+10, targetX, targetY,Assets.enemyBullet, 4,100, false));
 				volleyShots--;
 			}
 			

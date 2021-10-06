@@ -41,6 +41,8 @@ public class Assets {
 	//loading guns
 	public static final BufferedImage pistol = loadImage("res/textures/guns/pistol.png");
 	public static final BufferedImage[] pistolShoot = splitSpriteSheet(loadImage("res/textures/guns/pistolShoot.png"),32,21,3,1);
+	public static final BufferedImage fireball = loadImage("res/textures/guns/fireball.png");
+	public static final BufferedImage[] fireballShoot = splitSpriteSheet(loadImage("res/textures/guns/fireballShoot.png"),32,21,7,1);
 	public static final BufferedImage beam = loadImage("res/textures/guns/beam.png");
 	public static final BufferedImage[] beamShoot = splitSpriteSheet(loadImage("res/textures/guns/beamShoot.png"),32,21,4,1);
 	public static final BufferedImage beamBullet=loadImage("res/textures/bullets/beamGun.png");

@@ -10,8 +10,12 @@ import entity.RenderLayer;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import entity.mobs.pickups.Pickup;
-import entity.statics.towers.Tower;
 import graphics.Camera;
+import graphics.particles.InstantEffect;
+import graphics.particles.movers.Straight;
+import graphics.particles.movers.spawnPattern.Point;
+import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
 
 public class Bullet extends Mobs{
@@ -20,16 +24,19 @@ public class Bullet extends Mobs{
 	private double velocityX,velocityY, trueX, trueY; //Velocity is how fast bullet travels and it's direction, trueX and trueY are the actual locations of x and y, otherwise they would be 0
 	//int intVelocityX, intVelocityY; //Needed to parse velocityX and velocityY into ints
 	BufferedImage pic; //Sets this bullet picture to a variable
+	int time;
 	
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, boolean friendly){
-		this(startX, startY, targetX, targetY, pic, speed, 1, friendly);
-	}
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, double damage, boolean friendly){
-		this(startX, startY, targetX, targetY, pic, speed, damage, new StatusEffect(StatusType.NONE,0,0), friendly);
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed,int time, boolean friendly){
+		this(startX, startY, targetX, targetY, pic, speed,time, 1, friendly);
 	}
 	
-	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed,
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed,int time, double damage, boolean friendly){
+		this(startX, startY, targetX, targetY, pic, speed,time, damage, new StatusEffect(StatusType.NONE,0,0), friendly);
+	}
+	
+	public Bullet(int startX,int startY,double targetX,double targetY, BufferedImage pic, double speed, int time,
 			double damage,StatusEffect effect, boolean friendly){ //Bullet class, can calculate how the bullet travels and which bullet picture to use
+		this.time=time;
 		this.damage=damage;
 		this.statusDealt=effect.copy();
 		this.friendly=friendly;
@@ -60,13 +67,17 @@ public class Bullet extends Mobs{
 
 	
 	@Override
-	public void update(){		
+	public void update(){
+		
 		trueX+=velocityX; //Applies the velocity the the true variable, allowing the bullet to move in a specific direction and speed depending on the value of velocity
 		trueY+=velocityY;
 		x=((int)(trueX)); //Sets x to the trueX (including the offset) this updates x moving the bullet
 		y=((int)(trueY)); //Sets y to the trueY (including the offset) this updates y moving the bullet
-		//intVelocityX = ((int)(velocityX)); //VelocityX and Y are parsed into these int values, allowing us to use the checkwall method. As checkwall only uses ints when these values are normally doubles
-		//intVelocityY = ((int)(velocityY));
+		
+		time--;
+		if(time<=0) {
+			destroy();
+		}
 		
 		//updating the hitboxes location
 		bounds.setLocation(x,y);
@@ -81,7 +92,7 @@ public class Bullet extends Mobs{
 			//checking which side the thing that touched it is on 
 			//(making sure enemies only attack the player, player can't attack the core, etc.)
 			if (e.isFriendly() != friendly&&e.hasCollisions()&&!(e instanceof Pickup)&&!(e instanceof Bullet)) {
-				killed=true;
+				destroy();
 			}
 		}
 	}
@@ -92,17 +103,27 @@ public class Bullet extends Mobs{
 	
 	private void checkWalls(int xVelocity, int yVelocity) {
 		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
-			killed = true;//When this is set to true the bullet will be removed from entityManager, thus disappearing		//	Wall collisions using the checkwall method in floors 
+			destroy();//When this is set to true the bullet will be removed from entityManager, thus disappearing		//	Wall collisions using the checkwall method in floors 
 		}																								 					//
 		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
-			killed = true;																									//
+			destroy();																								//
 		}																													//
 		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
-			killed = true;																									//
+			destroy();																								//
 		}																													//
 		if(GameState.getFloor().checkWall((x+xVelocity)/16,(y+yVelocity)/16)){ 					//
-			killed = true;																									//
+			destroy();																									//
 		}															
+	}
+	@Override
+	public void destroy() {
+		if(killed) {
+			return;
+		}
+		killed=true;
+		new InstantEffect(5, new Straight(new Point(x+width/2,y+height/2),0.75), 
+				new OvalParticle(2, new Timed(10)), false);
+		
 	}
 }
 

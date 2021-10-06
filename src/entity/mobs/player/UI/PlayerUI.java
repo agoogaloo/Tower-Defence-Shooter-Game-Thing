@@ -2,7 +2,7 @@ package entity.mobs.player.UI;
 
 import java.util.ArrayList;
 
-import entity.mobs.player.guns.Gun;
+import entity.mobs.pickups.guns.Gun;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.UI.AnimElement;

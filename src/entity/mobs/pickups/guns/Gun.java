@@ -1,4 +1,4 @@
-package entity.mobs.player.guns;
+package entity.mobs.pickups.guns;
 
 import java.awt.image.BufferedImage;
 

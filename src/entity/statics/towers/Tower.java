@@ -102,7 +102,8 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 	}
 	
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.yellowBullet,8,damage*buffDamage
+		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX()+target.getWidth()/2,
+				target.getY()+target.getHeight()/2,Assets.yellowBullet,8,30,damage*buffDamage
 				,statusEffect, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
 	}			
 

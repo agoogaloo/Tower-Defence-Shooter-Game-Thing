@@ -47,7 +47,7 @@ public class Tree extends Tower{
 	}
 	@Override
 	protected void shoot() {
-		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.acorn[0],5,damage
+		entityManager.addEntity(new Bullet(x+width/2,y+height/2,target.getX(),target.getY(),Assets.acorn[0],5,100,damage
 				,statusEffect, true));
 		seedLocs.add(new Point(target.getX(),target.getY()));
 		

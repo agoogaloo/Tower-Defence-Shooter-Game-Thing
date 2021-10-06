@@ -1,62 +1,57 @@
-package entity.statics.towers.wizard;
+package entity.mobs.pickups.guns;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
+import entity.Entity;
+import entity.EntityManager;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
-import entity.statics.towers.Tower;
-import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
+import graphics.particles.EffectOverTime;
 import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
 import graphics.particles.shapes.OvalParticle;
+import graphics.particles.shapes.RectangleShape;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 
-public class FireWizardTower extends Tower{
-	public FireWizardTower(int x, int y) {
-		this(x,y,null);
+public class Fireball extends Gun{	
+	public Fireball(EntityManager manager) {
+		super(manager);
 	}
-	public FireWizardTower(int x, int y, TowerSpawn spawn) {
-		super(x, y, 125, 125, new Animation(Assets.fireWizardTower,6), 40, spawn);
-		sellValue=5;
-		price=7;
-		damage=1;
-		statusEffect=new StatusEffect(StatusType.BURN, 0.7, 30);
-		infoText="upgrade cost $"+price+"\n\ngives the wizard fire \npowers letting him burn \nenemies to deal damage over \ntime ";
+
+	@Override
+	protected void init() {
+		reloadTime=30;
+		icon=Assets.fireball;
+		shootAnim = new Animation(Assets.fireballShoot);
+	}
+
+	@Override
+	public void shoot(int x, int y, int aimX, int aimY) {
+		if (shotDelay >= reloadTime) {	
+			shotDelay=0;
+			shootAnim.setPaused(false);
+			manager.addEntity(new FireBullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,50, true));
+		}
 		
 	}
+
 	@Override
-	protected void shoot() {
-		entityManager.addEntity(new FireBullet(x+width/2,y+height/2,target.getX()+target.getWidth()/2,
-				target.getY()+target.getHeight()/2,Assets.yellowBullet,8,30,
-				damage*buffDamage, true)); //Creates a friendly bullet that goes towards the enemy entity detected 
-	}
-	@Override
-	public Tower createNew(int x, int y, TowerSpawn spawn) {
-		return new FireWizardTower(x+width/2, y+height*2,spawn);
-	}
-	
-	@Override
-	public int upgrade(char leftRight, int money) {
-		return 0;
-	}
-	
-	@Override
-	public String select(char leftRight) {
-		return "already at full power";//saying that you cant upgrade it anymore when you try to upgrade it
+	public Gun createNew(EntityManager manager) {
+		return new Fireball(manager);
 	}
 	
 	private class FireBullet extends Bullet{
 		public FireBullet(int startX, int startY, double targetX, double targetY, BufferedImage pic, double speed,
-				int time,double damage, boolean friendly) {
-			super(startX, startY, targetX, targetY, pic, speed, time,damage,new StatusEffect(StatusType.BURN, 0.75, 80), friendly);
+				int time, boolean friendly) {
+			super(startX, startY, targetX, targetY, pic, speed, time,10,new StatusEffect(StatusType.BURN, 0.75, 100), friendly);
 							
 		}
 		@Override
@@ -79,4 +74,6 @@ public class FireWizardTower extends Tower{
 		}
 		
 	}
+
+	
 }
