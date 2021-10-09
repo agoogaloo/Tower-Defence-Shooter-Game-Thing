@@ -8,6 +8,7 @@ import entity.mobs.Bullet;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.GreenEnemy;
 import entity.mobs.enemy.RedEnemy;
+import entity.mobs.enemy.TankBot;
 import entity.mobs.enemy.TutorialEnemy;
 import entity.mobs.enemy.YellowEnemy;
 import entity.mobs.enemy.spawner.SpawnButton;
@@ -283,15 +284,19 @@ public class Tutorialator {
 		case 15:
 			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,Enemy.DOWN));
 			break;
-		case 60*3:
-			Entity.getEntityManager().addEntity(new YellowEnemy(464, 16,Enemy.DOWN));
-			break;
-		case 60*7:
+		case 60:
 			Entity.getEntityManager().addEntity(new GreenEnemy(464, 16,Enemy.DOWN));
 			break;
-		case 60*9:
+		case 60*4:
 			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,Enemy.DOWN));
 			break;
+		case (int) (60*5.5):
+			Entity.getEntityManager().addEntity(new TankBot(464, 16,Enemy.DOWN));
+			break;
+		case 60*7:
+			Entity.getEntityManager().addEntity(new RedEnemy(464, 16,Enemy.DOWN));
+			break;
+			
 		}
 		if(!areEnemies()&&sectionTime>60*9) {
 			text.move(79, 172);

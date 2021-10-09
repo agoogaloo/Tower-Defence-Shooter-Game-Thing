@@ -27,7 +27,7 @@ public class WallU extends Tower{
 		collisions=true;
 		price=4;
 		sellValue=5;
-		infoText="buying cost $"+price+"\n\nadds a spawn platform above it, letting you place more towers";
+		infoText="buying cost $"+price+"\n\nadds a spawn platform above \nit, letting you place more \ntowers";
 		buyIcon=Assets.towerIcons[14];
 	
 

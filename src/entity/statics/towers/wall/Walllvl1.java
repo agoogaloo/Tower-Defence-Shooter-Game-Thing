@@ -26,7 +26,7 @@ public class Walllvl1 extends Tower{
 		splitUpgrades=true;
 		price=4;
 		sellValue=2;
-		infoText="buying cost $"+price+"\n\na wall that can't be shot or walked through";
+		infoText="buying cost $"+price+"\n\na wall that can't be shot or \nwalked through";
 		buyIcon=Assets.towerIcons[14];
 		upgradeIcon=Assets.towerIcons[15];
 		

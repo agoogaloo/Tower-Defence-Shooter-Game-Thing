@@ -70,7 +70,7 @@ public class Player extends Mobs {
 		damage=0; // The amount of damage the player will do when it runs into an enemy
 		friendly=true; //its "team" so that it enemies will deal damage to you but you wont damage other things on your "team"
 		camera=GameState.getCamera(); //The camera will follow the player
-		guns=new ArrayList<Gun>(Arrays.asList(ItemList.newGun(entityManager, ItemList.PISTOL),ItemList.newGun(entityManager, ItemList.FIREBALL)));
+		guns=new ArrayList<Gun>(Arrays.asList(ItemList.newGun(entityManager, ItemList.PISTOL)));
 		setLocation(x-width/2, y-height/2);
 		
 		
