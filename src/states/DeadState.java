@@ -19,16 +19,26 @@ public class DeadState extends State{
 			,updatespeed=3;
 	BufferedImage background;
 	GameState gameState;
-	Menu menu = new Menu(new Rectangle(), new MenuObject[] {
-			new MenuSelection(new Rectangle(90, 130,45,10), "RESTART",Color.white,Color.red) {
-				public void select() { currentState=new GameState(GameState.FLOOR1);};
-			},new MenuSelection(new Rectangle(180, 130,50,10), "BACK TO HUB", Color.white,Color.red) {
-				public void select() { currentState=new GameState();};
-			}
-	});
+	Menu menu;
+	
 	public DeadState(GameState gameState) {
 		this.gameState=gameState;
 		floorIndex=GameState.getFloorIndex();
+		
+		menu = new Menu(new Rectangle(), new MenuObject[] {
+				new MenuSelection(new Rectangle(90, 130,45,10), "RESTART",Color.white,Color.red) {
+					public void select() { 
+						if(floorIndex==GameState.TUTORIALINDEX) {
+							currentState=new GameState(GameState.TUTORIALINDEX);
+						}else {
+							currentState=new GameState(GameState.FLOOR1);
+						}
+						
+					};
+				},new MenuSelection(new Rectangle(180, 130,50,10), "BACK TO HUB", Color.white,Color.red) {
+					public void select() { currentState=new GameState();};
+				}
+		});
 		
 		background=new BufferedImage(Window.getDisplay().getRelativeWidth(),
 				Window.getDisplay().getRelativeHeight(),BufferedImage.TYPE_INT_ARGB);

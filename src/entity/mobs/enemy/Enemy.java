@@ -145,11 +145,12 @@ public abstract class Enemy extends Mobs {
 	
 		if(amount>0) {
 			System.out.println("hit");
+			currentPic=ImageUtils.fillPic(currentPic);
 			//making the enemy flash white when it gets hit
 			if(ConsoleState.isInstaKillEnemy()) {
 				killed=true;
 			}
-			currentPic=ImageUtils.fillPic(currentPic);
+			
 		}
 		if(killed) {
 			new InstantEffect(15, new Straight(new Point((int)x+width/2, (int)y+height/2),0.9),

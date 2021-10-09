@@ -9,7 +9,7 @@ import graphics.Assets;
 import graphics.Camera;
 
 public class Chest extends Statics{
-	private static int[] items= {ItemList.LASER,ItemList.PLANT,ItemList.SUPPORT, ItemList.BEAM, ItemList.SNIPER,
+	private static int[] items= {ItemList.LASER,ItemList.PLANT,ItemList.SUPPORT,ItemList.WALL, ItemList.BEAM, ItemList.SNIPER,
 			ItemList.CANNON, ItemList.FIREBALL};
 	
 	public Chest(int x,int y) {

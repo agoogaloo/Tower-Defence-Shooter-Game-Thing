@@ -8,15 +8,15 @@ import entity.statics.towers.TowerSpawn;
 import graphics.Animation;
 import graphics.Assets;
 
-public class Walllvl1 extends Tower{
+public class WallHor extends Tower{
 
-	public Walllvl1(int x, int y) {
+	public WallHor(int x, int y) {
 		this(x,y,null);
 		
 	}
 	
-	public Walllvl1(int x, int y, TowerSpawn spawn) {
-		super(x, y, 0,0,new Animation(new BufferedImage[] { Assets.wallLvl1},6), 40,spawn);
+	public WallHor(int x, int y, TowerSpawn spawn) {
+		super(x, y, 0,0,new Animation(new BufferedImage[] { Assets.wallHor},6), 0,spawn);
 		if(entityManager.getPlayer()!=null) {
 			height-=entityManager.getPlayer().getHeight()+1;
 		}
@@ -24,12 +24,11 @@ public class Walllvl1 extends Tower{
 		solid=true;
 		collisions=true;
 		splitUpgrades=true;
-		price=4;
-		sellValue=2;
-		infoText="buying cost $"+price+"\n\na wall that can't be shot or walked through";
+		price=2;
+		sellValue=3;
+		infoText="buying cost $"+price+"\n\nmakes the wall much wider";
 		buyIcon=Assets.towerIcons[14];
-		upgradeIcon=Assets.towerIcons[15];
-		
+		upgradeIcon=Assets.towerIcons[17];
 	}
 	@Override
 	public void update() {
@@ -43,9 +42,9 @@ public class Walllvl1 extends Tower{
 	public int upgrade(char leftRight, int money) {
 		Tower newTower=null;
 		if(leftRight=='l') {
-			newTower=new WallVert(x+width/2, y+(height+entityManager.getPlayer().getHeight()+1)/2,spawn);	
+			newTower=new WallU(x+width/2, y+(height+entityManager.getPlayer().getHeight()+1)/2,spawn);	
 		}else if(leftRight=='r') {
-			newTower=new WallHor(x+width/2, y+(height+entityManager.getPlayer().getHeight()+1)/2,spawn);
+			newTower=new WallD(x+width/2, y+(height+entityManager.getPlayer().getHeight()+1)/2,spawn);
 		}
 	
 		if(newTower!=null&&money>=newTower.getPrice()) {
@@ -60,9 +59,9 @@ public class Walllvl1 extends Tower{
 	@Override
 	public String select(char leftRight) {
 		if(leftRight=='l') {
-			return new WallVert(0,0).getInfoText();
+			return new WallU(0,0).getInfoText();
 		}else if(leftRight=='r') {
-			return new WallHor(0,0).getInfoText();
+			return new WallD(0,0).getInfoText();
 		}else {
 			return "";
 		}
@@ -71,7 +70,7 @@ public class Walllvl1 extends Tower{
 	@Override
 	public Tower createNew(int x, int y, TowerSpawn spawn) {
 		
-		return new Walllvl1(x, y, spawn);
+		return new WallHor(x, y, spawn);
 	}
 
 }

@@ -5,7 +5,7 @@ package graphics;
 import java.awt.image.BufferedImage;
 public class Animation {
 	
-	private boolean looping=true, paused=false;
+	private boolean looping=true, paused=false, reversed=false;
 	private int frameCount; //Keeps track of the frames so it can change at proper times
 	private int frameDelay; //The delay between frame changing
 	private int currentFrame; //This is the frame the program will draw
@@ -38,7 +38,11 @@ public class Animation {
 		
 		if (frameCount > frameDelay) { //When this frame count surpasses the delay specified run this code
 			frameCount = 0; //Resets frame count so this way it can keep track of when to change to the next picture,
-			currentFrame++; //Move on to the next frame/picture 
+			if(reversed) {
+				currentFrame--;
+			}else {
+				currentFrame++; //Move on to the next frame/picture 
+			}
 			if (currentFrame > totalFrames -1) { //Similar to when you run an array in a for loop. In this case it will run through all the frames, when you reach the last frame reset from the 1st frame 
 				if(!looping) {
 					paused=true;
@@ -86,6 +90,9 @@ public class Animation {
 	}
 	public int getyOffset() {
 		return yOffset;
+	}
+	public void reverse() {
+		reversed=!reversed;
 	}
 	
 }

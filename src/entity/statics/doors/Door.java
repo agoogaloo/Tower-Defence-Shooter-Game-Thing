@@ -10,17 +10,19 @@ import states.GameState;
 
 public abstract class Door extends Statics{
 
+	protected boolean vertical;
 	protected char direction;
 	protected Animation anim;
 	protected int spawnX, spawnY;
 	
 
-	public Door(int x, int y, char direction) {
+	public Door(int x, int y, char direction, boolean vertical) {
 		solid=true;
 		spawnX=x;
 		spawnY=y;
 		layer=RenderLayer.BACK;
 		this.direction=direction;
+		this.vertical=vertical;
 	}
 	
 	@Override
@@ -42,19 +44,27 @@ public abstract class Door extends Statics{
 	@Override
 	public void damage(double amount) {}
 	
-	public static Door getProperDoor(int x, int y, int levelID, char direction) {
+	public static Door getProperDoor(int x, int y, int levelID, char direction, boolean vertical) {
 		switch(levelID) {
+		case GameState.TUTORIALINDEX:
+			return new TutDoor(x, y, direction, vertical);
+		
 		case GameState.FLOOR1: 
-			return new Floor1Door(x,y, direction);
+			return new Floor1Door(x,y, direction, vertical);
 			
 		default: 
-			return new Floor1Door(x,y, direction);
+			return new Floor1Door(x,y, direction, vertical);
 		}	
 	}
 	
 	public void unlock() {
 		solid=false;
 		collisions=false;
+	}
+	public void reLock() {
+		entityManager.addSolid(this);
+		solid=true;
+		collisions=true;
 	}
 	public char getDirection() {
 		return direction;
@@ -64,5 +74,8 @@ public abstract class Door extends Statics{
 	}
 	public int getSpawnY() {
 		return spawnY;
+	}
+	public boolean isVertical() {
+		return vertical;
 	}
 }

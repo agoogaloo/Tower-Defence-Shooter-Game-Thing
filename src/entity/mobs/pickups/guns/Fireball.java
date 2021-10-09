@@ -4,20 +4,17 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
-import entity.Entity;
 import entity.EntityManager;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.particles.EffectOverTime;
 import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
 import graphics.particles.shapes.OvalParticle;
-import graphics.particles.shapes.RectangleShape;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 
@@ -30,7 +27,7 @@ public class Fireball extends Gun{
 	protected void init() {
 		reloadTime=30;
 		icon=Assets.fireball;
-		shootAnim = new Animation(Assets.fireballShoot);
+		shootAnim = new Animation(Assets.fireballShoot, 5);
 	}
 
 	@Override

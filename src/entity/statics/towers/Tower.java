@@ -116,6 +116,10 @@ public abstract class Tower extends Statics { //extends from statics as towers d
 			shoot(); //Calls shoot method
 			shotDelay = reloadTime; //Ensures the tower can't rapidly shoot
 		}
+		if(spawn!=null&& spawn.isKilled()) {
+			Entity.getEntityManager().getPlayer().giveMoney(sellValue);
+			destroy();
+		}
 		shotDelay-=1; //Counts up for every frame, towers can only shoot every 60 frames
 		
 	}

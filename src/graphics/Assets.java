@@ -42,7 +42,7 @@ public class Assets {
 	public static final BufferedImage pistol = loadImage("res/textures/guns/pistol.png");
 	public static final BufferedImage[] pistolShoot = splitSpriteSheet(loadImage("res/textures/guns/pistolShoot.png"),32,21,3,1);
 	public static final BufferedImage fireball = loadImage("res/textures/guns/fireball.png");
-	public static final BufferedImage[] fireballShoot = splitSpriteSheet(loadImage("res/textures/guns/fireballShoot.png"),32,21,7,1);
+	public static final BufferedImage[] fireballShoot = splitSpriteSheet(loadImage("res/textures/guns/fireballShoot.png"),34,23,5,1);
 	public static final BufferedImage beam = loadImage("res/textures/guns/beam.png");
 	public static final BufferedImage[] beamShoot = splitSpriteSheet(loadImage("res/textures/guns/beamShoot.png"),32,21,4,1);
 	public static final BufferedImage beamBullet=loadImage("res/textures/bullets/beamGun.png");
@@ -80,7 +80,10 @@ public class Assets {
 	public static final BufferedImage[] level1tiles=splitSpriteSheet(loadImage("res/textures/floors/level 1 tileset.png"), 16, 16, 7, 12);
 	public static final BufferedImage[] level2tiles=splitSpriteSheet(loadImage("res/textures/floors/level 2 tiles.png"), 16, 16, 7, 12);
 	
-	public static final BufferedImage[] lv1DoorVert=splitSpriteSheet(loadImage("res/textures/floors/floor 1 vertical door.png"), 48, 48, 2, 1);
+	public static final BufferedImage[] tutDoorVert=splitSpriteSheet(loadImage("res/textures/floors/tutorial door vert.png"), 
+			48, 48, 9, 1);
+	public static final BufferedImage[] tutDoorHor=splitSpriteSheet(loadImage("res/textures/floors/tutorial door hor.png"), 
+			9, 64, 5, 1);
 	public static final BufferedImage[] lv1DoorR=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door r.png"), 
 			298, 43, 11, 1);
 	public static final BufferedImage[] lv1DoorL=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door l.png"), 
@@ -102,7 +105,7 @@ public class Assets {
 	
 	//loading towers
 	
-	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 17,1);
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 18,1);
 	public static final BufferedImage[] towerSpawn = splitSpriteSheet(loadImage("res/textures/towers/tower spawn.png"), 21, 24, 8, 1);
 	public static final BufferedImage[] wizardTowerLvl1 =splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 8, 1);
 	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/textures/towers/fire wizard.png"), 18, 37, 8, 1);

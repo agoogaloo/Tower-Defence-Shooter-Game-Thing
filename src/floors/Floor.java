@@ -321,20 +321,6 @@ public class Floor {
 			e.printStackTrace();
 		}
 		
-		
-		/*try {
-			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
-			JSONArray layers=(JSONArray)(file.get("layers"));
-			for(int i=0;i<layers.size();i++) {
-				JSONObject data=(JSONObject)(layers.get(i));
-				rooms.add(new Room(data));
-			}
-		} catch (IOException | ParseException e) {
-			System.out.print("there was a problem loading JSON file at "+path );
-			e.printStackTrace();
-			
-		}*/
-		
 		return rooms.toArray(new Room[0]);// returning the rooms
 	}
 	

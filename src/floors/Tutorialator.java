@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import entity.Entity;
+import entity.mobs.Bullet;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.enemy.GreenEnemy;
 import entity.mobs.enemy.RedEnemy;
@@ -13,6 +14,8 @@ import entity.mobs.enemy.spawner.SpawnButton;
 import entity.statics.Chest;
 import entity.statics.towers.Tower;
 import entity.statics.towers.TowerSpawn;
+import entity.statics.towers.wizard.WizardTowerlvl2;
+import graphics.Assets;
 import graphics.Camera;
 import graphics.UI.TextElement;
 import saveData.SaveData;
@@ -22,7 +25,7 @@ import states.GameState;
  * things that need to be taught
  * - towers 
  * - enemies shooting?
- * - you shooting?? \,
+ *
  * - core taking damage\,
  * 
  * 
@@ -30,7 +33,7 @@ import states.GameState;
 public class Tutorialator {
 	private String textToAdd=""; 
 	private TextElement text;
-	private Chest chest = new Chest(447, 187);
+	private Chest chest = new Chest(488, 344);
 	SpawnButton button = new SpawnButton();
 	private boolean sectionInit=false;
 	private int section=1, sectionTime=0;
@@ -47,34 +50,39 @@ public class Tutorialator {
 		
 		switch(section) {
 		case 1:
-			section1();
+			introSection();
 			break;
 		case 2:
 			spinSection();
 			break;
 		case 3:
-			section2();
+			invincibilitySection();
 			break;
 		case 4:
-			section3();
+			coreSection();
 			break;
 		case 5:
-			section4();
+			towerSection();
 			break;
 		case 6:
-			section5();
+			upgradesSection();
 			break;
 		case 7:
-			section6();
+			section4();
 			break;
 		case 8:
+			section5();
+			break;
+		case 9:
+			section6();
+			break;
+		case 10:
 			section7();
 			break;
 		}
 		
 		
 		if(textToAdd.length()>0) {
-			System.out.println(section);
 			text.update(text.getText()+textToAdd.charAt(0));
 			textToAdd=textToAdd.substring(1);
 		}
@@ -98,63 +106,96 @@ public class Tutorialator {
 		return false;
 		
 	}
-	private void section1() {
+	private void introSection() {
 		//lets you experiment/enemy=bad
 		if(!sectionInit) {//initializing the section
-			 Entity.getEntityManager().addEntity(new TutorialEnemy(142, 480,Enemy.DOWN, 0,999999999,1));
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(141, 475,Enemy.DOWN, 0,999999999,1));
 			 sectionInit=true;
 		}
 		
-		text.move(60, 172);
+		text.move(62, 172);
 		if(sectionTime==180)
 			textToAdd="Robots are bad. Shoot the robot with left click to kill it";
 		if(!areEnemies()) {
-			GameState.getFloor().getRoom(0, 0).unlock(2);
+			
 			nextSection();
 		}
 	}
 	private void spinSection() {
 		//shows spinning
 		if(!sectionInit) {//initializing the section
-			 Entity.getEntityManager().addEntity(new TutorialEnemy(300, 160,Enemy.LEFT, 0,999999999,20));
-			 text.move(50, 168);
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(92, 475,Enemy.RIGHT, 0,999999999,20));
+			 Entity.getEntityManager().addEntity(new TutorialEnemy(191, 475,Enemy.LEFT, 0,999999999,20));
+			 text.move(74, 168);
 			 sectionInit=true;
 		}
 		
 		
 		if(sectionTime==10)
 			
-			textToAdd="press shift to do a spin attack. spin attacks break bullets so \n you don't get hit, and can make enemies give double drops";
+			textToAdd="           press shift to do a melee spin attack. \nkilling enemies with it gives you X2 the reward";
 		if(!areEnemies()) {
+			GameState.getFloor().getRoom(0, 0).unlock(3);
+			
+			nextSection();
+		}
+	}
+	private void invincibilitySection() {
+		//shows spinning
+		if(!sectionInit) {//initializing the section
+			 text.move(85, 168);
+			 sectionInit=true;
+		}
+		if(sectionTime%10==0) {
+			 Entity.getEntityManager().addEntity(new Bullet(130, 327,160,327,Assets.yellowBullet, 1,60,false));
+			 Entity.getEntityManager().addEntity(new Bullet(130, 337,160,337,Assets.yellowBullet, 1,60,false));
+			 Entity.getEntityManager().addEntity(new Bullet(130, 347,160,347,Assets.yellowBullet, 1,60,false));
+		}
+		
+		if(sectionTime==10) {
+			textToAdd="         the spin attack also lets you slice \nthrough bullets without taking any damage. ";
+		}
+		if(Entity.getEntityManager().getPlayer().getY()<=275) {
+			GameState.getFloor().getRoom(0, 0).getDoors().get(3).reLock();
+
 			nextSection();
 		}
 	}
 	
 	
-	private void section2() {
+	private void coreSection() {
 		//teaches enemies following paths/coreness
 		if(!sectionInit) {//initializing the section
-			 Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.5, 999999999));
-			 text.move(48, 168);
+			
+			 text.move(50, 168);
 			 sectionInit=true;
 		}
 		
 		
-		if(sectionTime==10)
+		if(sectionTime==10) {
 			textToAdd=" the big blue heart is your core thingy. You take damage if an \nenemy touches it, so you should stop them before they reach it";
+		}
+		if(sectionTime==30) {
+			Entity.getEntityManager().addEntity(new TutorialEnemy(380, 182,Enemy.LEFT, 0.5, 999999999,50));
+		}
 		
-		if(!areEnemies()) nextSection();
+		if(!areEnemies()&&sectionTime>30) {
+			nextSection();
+		}
 	}
 	
-	private void section3() {
-		
+	private void towerSection() {
 		//towers
 		boolean hasTower=false;	
 		
 		if(sectionTime==10) {
-			Entity.getEntityManager().addEntity(new TowerSpawn(380, 160));
-			text.move(48, 168);
-			textToAdd="you can place or upgrade towers to help you by holding right \n      click and dragging the mouse over the tower you want";
+			
+			Entity.getEntityManager().addEntity(new TowerSpawn(295, 155,true));
+			Entity.getEntityManager().addEntity(new TowerSpawn(245, 140,true));
+			Entity.getEntityManager().addEntity(new TowerSpawn(85, 150,true));
+			text.move(60, 168);
+			textToAdd="  you can place towers to help you by right clicking on\n"
+					+ "tower platforms and releasing over the tower you want";
 		}
 		
 		for(Entity e: Entity.getEntityManager().getEntities()) {
@@ -167,27 +208,47 @@ public class Tutorialator {
 			nextSection();
 		}
 	}
+	private void upgradesSection() {
+		//towers
+		
+		if(sectionTime==10) {
+			text.move(100, 168);
+			textToAdd="right clicking a placed tower will\n         let you upgrade or sell it";
+		}
+		
+		for(Entity e: Entity.getEntityManager().getEntities()) {
+			if(e instanceof WizardTowerlvl2) {
+				GameState.getFloor().getRoom(0, 0).unlock(1);	
+				text.update("");
+				textToAdd="";
+			}
+		}
+	
+		if(Entity.getEntityManager().getPlayer().getX()>=350) {//going to the next section if they upgraded a tower
+			nextSection();
+		}
+	}
 	
 	private void section4() {
 		if(!sectionInit) {//initializing the section
-			text.move(50, 172);
+			text.move(52, 172);
 			sectionInit=true;
 		}
 		
 		if(sectionTime==10) 
-			textToAdd="enemies will shoot back at you. make sure you don't get hit.";
-		else if(sectionTime==60) Entity.getEntityManager().addEntity(new TutorialEnemy(380, 160,Enemy.LEFT, 0.8,50,50));
+			textToAdd="enemies will try to shoot back at you. try not to get hit.";
+		else if(sectionTime==70) Entity.getEntityManager().addEntity(new TutorialEnemy(464, 16,Enemy.DOWN, 0.8,50,60));
 		
 		if(!areEnemies()&&sectionTime>70) {
 			nextSection();
-			GameState.getFloor().getRoom(0, 0).unlock(1);
+			GameState.getFloor().getRoom(0, 0).unlock(2);
 			
 		}
 			
 	}
 	private void section5() {
 		if(!sectionInit) {//initializing the section
-			text.move(75, 172);
+			text.move(85, 172);
 			sectionInit=true;
 		}
 		if(sectionTime==10) {
@@ -200,7 +261,7 @@ public class Tutorialator {
 	private void section6() {
 		
 		if(!sectionInit) {//initializing the section
-			text.move(69, 167);
+			text.move(71, 167);
 			button.create();
 			sectionInit=true;
 		}
@@ -233,7 +294,7 @@ public class Tutorialator {
 			break;
 		}
 		if(!areEnemies()&&sectionTime>60*9) {
-			text.move(77, 172);
+			text.move(79, 172);
 			GameState.getFloor().getRoom(0, 0).unlock(0);
 			textToAdd="congratulations you have beaten the tutorial";
 			SaveData.tutorialDone();
@@ -248,7 +309,10 @@ public class Tutorialator {
 	public void render(Graphics g, Camera camera) {
 		button.render(g, camera);
 		g.setColor(new Color(23,70,79));
-		if(text.getText().length()>0)
-			g.fillRoundRect(45, 170, 250, 20, 5, 5);
+		if(text.getText().length()>0) {
+			g.fillRoundRect(47, 170, 250, 20, 5, 5);
+			//g.setColor(Color.white);
+			//g.drawRect(77, 170, 190, 20 );
+		}
 	}
 }

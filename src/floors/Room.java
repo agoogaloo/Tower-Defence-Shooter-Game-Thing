@@ -11,7 +11,7 @@ import entity.statics.towers.TowerSpawn;
 import graphics.Assets;
 /*
  * by: Matthew Milum
- */
+ */import states.GameState;
 
 public class Room {
 	/*
@@ -45,11 +45,11 @@ public class Room {
 		this.y=y;
 		
 		for(Door i:original.doors) {
-			Door door= Door.getProperDoor(x*TILESIZE+i.getSpawnX(),y*TILESIZE+i.getSpawnY(),levelID, i.getDirection());
+			Door door= Door.getProperDoor(x*TILESIZE+i.getSpawnX(),y*TILESIZE+i.getSpawnY(),levelID, i.getDirection(),i.isVertical());
 			doors.add(door);
 		}
 		for(TowerSpawn i:original.towerLocs) {
-			TowerSpawn tower=new TowerSpawn(x*TILESIZE+i.getSpawnX(),y*TILESIZE+i.getSpawnY());
+			TowerSpawn tower=new TowerSpawn(x*TILESIZE+i.getSpawnX(),y*TILESIZE+i.getSpawnY(),false);
 			towerLocs.add(tower);
 		}
 		
@@ -104,9 +104,9 @@ public class Room {
 				spawns[x][y] =(int)((long) spawnData.get((y *width) + x ));
 				if(spawns[x][y]-Assets.level1tiles.length==DOORVERT||spawns[x][y]-Assets.level1tiles.length==DOORHOR) {
 					System.out.println("found door");
-					doors.add(Door.getProperDoor(x*16, y*16,levelID, exit));
+					doors.add(Door.getProperDoor(x*16, y*16,levelID, exit,spawns[x][y]-Assets.level1tiles.length==DOORVERT));
 				}else if(spawns[x][y]-Assets.level1tiles.length==TowerSpawn) {
-					towerLocs.add(new TowerSpawn(x*TILESIZE, y*TILESIZE));
+					towerLocs.add(new TowerSpawn(x*TILESIZE, y*TILESIZE,false));
 				}
 				
 			}

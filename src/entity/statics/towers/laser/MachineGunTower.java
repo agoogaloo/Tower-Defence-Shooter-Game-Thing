@@ -70,19 +70,19 @@ public class MachineGunTower extends Tower{
 		switch(direction) {
 		case 'u':
 			//shoots straight up
-			entityManager.addEntity(new Bullet(x+width/2+offset-5,y,x+width/2+offset-5,y-2,Assets.YellowLaser[1],8,damage, true));
+			entityManager.addEntity(new Bullet(x+width/2+offset-5,y,x+width/2+offset-5,y-2,Assets.YellowLaser[1],8,55,damage, true));
 			break;
 		case 'l':
 			//shoots straight left
-			entityManager.addEntity(new Bullet(x,y+offset,x-2,y+offset,Assets.YellowLaser[0],8,damage, true));
+			entityManager.addEntity(new Bullet(x,y+offset,x-2,y+offset,Assets.YellowLaser[0],8,55,damage, true));
 			break;
 		case 'r':
 			//shoots straight right
-			entityManager.addEntity(new Bullet(x+width,y+offset,x+2+width,y+offset,Assets.YellowLaser[0],8,damage, true));
+			entityManager.addEntity(new Bullet(x+width,y+offset,x+2+width,y+offset,Assets.YellowLaser[0],8,55,damage, true));
 			break;
 		case 'd':
 			//shoots straight up
-			entityManager.addEntity(new Bullet(x+width/2+offset-5,y+height,x+width/2+offset-5,y+height+2,Assets.YellowLaser[1],8,damage, true));
+			entityManager.addEntity(new Bullet(x+width/2+offset-5,y+height,x+width/2+offset-5,y+height+2,Assets.YellowLaser[1],8,55,damage, true));
 			break;
 		}
 		}
