@@ -10,9 +10,9 @@ import graphics.particles.shapes.colourers.Timed;
 
 public class TutDoor extends Door{
 	
-	public TutDoor(int x, int y, char direction, boolean vertical) {
-		super(x, y, direction,vertical);
-		if(vertical) {
+	public TutDoor(int x, int y, char direction) {
+		super(x, y, direction);
+		if(direction=='u'||direction=='d') {
 			anim = new Animation(Assets.tutDoorVert);
 			this.x=x-16;
 			this.y=y-16;
@@ -37,7 +37,7 @@ public class TutDoor extends Door{
 		if(!solid&&anim.getFrameIndex()!=anim.getlength()-1) {
 			anim.update();
 			if(anim.getFrameIndex()>anim.getlength()-3) {
-				if(vertical) {
+				if(direction=='u'||direction=='d') {
 				new InstantEffect(20, new Straight(new RectangleSpawner(x,y+43,width,5),0.75), 
 						new OvalParticle(2, new Timed(20)), false);
 				}else {

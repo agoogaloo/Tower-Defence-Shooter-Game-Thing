@@ -23,7 +23,7 @@ public class GameState extends State{
 	 * this represents the game when it is actually being played and not in a menu or cutscene or whatever
 	 */
 	//floor index constants
-	public final static int HUBINDEX=8, TUTORIALINDEX=9, FLOOR1=10,FLOOR2=11,FLOOR3=12;
+	public final static int HUBINDEX=1, TUTORIALINDEX=2, FLOOR1=3,FLOOR2=4,FLOOR3=5,CORESPAWN=13, PLAYERSPAWN=14;
 	//constants that are needed for different things in the gamestate
 	private static int floorIndex;
 	private static Floor floor;
@@ -169,12 +169,12 @@ public class GameState extends State{
 		for (int y = 0; y < floor.getSize()*floor.getHeight(); y++) {// looping though all the tiles
 			for (int x = 0; x < floor.getSize()*floor.getWidth() ; x++) {
 				switch (floor.getSpawnData(x, y)) {
-				case 1:
+				case CORESPAWN:
 					coreLoc=new Point(x,y);
 					System.out.println("found core spawn");
 					break;
 		
-				case 2:
+				case PLAYERSPAWN:
 					playerLoc=new Point(x,y);
 					System.out.println("found player spawn");
 					break;

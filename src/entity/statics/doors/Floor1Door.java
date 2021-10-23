@@ -12,9 +12,9 @@ public class Floor1Door extends Door{
 	float speed=0;
 	
 	
-	public Floor1Door(int x, int y, char direction,boolean vertical) {
+	public Floor1Door(int x, int y, char direction) {
 		
-		super(x, y, direction,vertical);
+		super(x, y, direction);
 		
 		switch(direction) {
 		case 'l':

@@ -32,7 +32,7 @@ public class MainMenu extends State{
 		g.drawString("CLICK TO START",120, 138);
 		
 		g.setFont(Assets.myfont);
-		g.drawString("version 0.7.0",2, 7);
+		g.drawString("version 0.8.dev",2, 7);
 		/*g.drawLine(333/2,0, 333/2,200);
 		g.drawLine(333/2-50,0, 333/2-50,200);
 		g.drawLine(333/2+50,0, 333/2+50,200);

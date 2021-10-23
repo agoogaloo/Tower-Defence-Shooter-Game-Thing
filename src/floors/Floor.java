@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import entity.Entity;
+import entity.statics.breakables.Breakable;
 import entity.statics.doors.Door;
 import entity.statics.towers.TowerSpawn;
 import graphics.Camera;
@@ -61,9 +62,9 @@ public class Floor {
 		// there are no down rooms so that it wont loop on itself which means that the
 		// tallest the floor will be it however many rooms it has
 		if(new File(folder).isDirectory()) {
-			Room[] startRooms = loadAllRooms(folder+"/start");
-			Room[] midRooms = loadAllRooms(folder+"/mid");
-			Room[] endRooms = loadAllRooms(folder+"/end");
+			RoomTemplate[] startRooms = loadAllRooms(folder+"/start");
+			RoomTemplate[] midRooms = loadAllRooms(folder+"/mid");
+			RoomTemplate[] endRooms = loadAllRooms(folder+"/end");
 			
 			boolean success = false;
 			while(!success) {
@@ -72,7 +73,7 @@ public class Floor {
 			}
 			
 		}else {
-			rooms =new Room[] {loadRoom(folder)};
+			rooms =new Room[] {new Room(loadRoomTemplate(folder), levelID, 0,0)};
 			width=rooms[0].getWidth();
 			height=rooms[0].getHeight();
 			roomBounds= new Rectangle[] {new Rectangle(0,0,width,height)};
@@ -108,13 +109,13 @@ public class Floor {
 	 * @param screenHeight
 	 * @param pics
 	 */
-	public Floor(String path, int screenWidth, int screenHeight, BufferedImage[] pics) {
+	public Floor(String path, int levelID, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		// initializing variables
 		this.size = 1;
 		PICS = pics;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
-		rooms =new Room[] {loadRoom(path)};
+		rooms =new Room[] {new Room(loadRoomTemplate(path),levelID, 0,0) };
 		width=rooms[0].getWidth();
 		height=rooms[0].getHeight();
 		roomBounds= new Rectangle[] {new Rectangle(0,0,width,height)};
@@ -136,6 +137,10 @@ public class Floor {
 		for(TowerSpawn t:r.getTowerLocs()) {
 			Entity.getEntityManager().addEntity(t);
 		}
+		for(Breakable b:r.getBreakables()) {
+			Entity.getEntityManager().addEntity(b);
+			System.out.println("breakable");
+		}
 	}
 
 	// this method draws everything to the screen
@@ -156,12 +161,12 @@ public class Floor {
 	 * @return - whether or not the level generation was successful. 
 	 * 
 	 */
-	private boolean generateFloor(Room startRoom, Room[]midRooms, Room[] endRooms) {
+	private boolean generateFloor(RoomTemplate startRoom, RoomTemplate[]midRooms, RoomTemplate[] endRooms) {
 		//arrays to hold the rooms and their locations
 		ArrayList<Room> rooms= new ArrayList<Room>();
 		ArrayList<Rectangle> bounds= new ArrayList<Rectangle>();
 		Rectangle floorBounds = new Rectangle(0,0,width,height);
-		ArrayList<Room> usedRooms = new ArrayList<Room>();
+		ArrayList<RoomTemplate> usedRooms = new ArrayList<RoomTemplate>();
 		
 		tiles=new int[width][height];
 		spawns=new int[width][height];
@@ -223,13 +228,13 @@ public class Floor {
 			
 			// -- finding a room that can be added onto it --
 
-			ArrayList<Room> possibleRooms;
+			ArrayList<RoomTemplate> possibleRooms;
 			if(room==size-1) {
 				//setting the possible rooms to be the ending rooms it it is placing the last room
 				System.out.println("making the end room");
-				possibleRooms=new ArrayList<Room>(Arrays.asList(endRooms));
+				possibleRooms=new ArrayList<RoomTemplate>(Arrays.asList(endRooms));
 			}else {
-				possibleRooms=new ArrayList<Room>(Arrays.asList(midRooms));
+				possibleRooms=new ArrayList<RoomTemplate>(Arrays.asList(midRooms));
 				
 			}
 			
@@ -238,7 +243,7 @@ public class Floor {
 			while(possibleRooms.size()>0&&!roomFound) {
 				int checkIndex=ThreadLocalRandom.current().nextInt(0, possibleRooms.size());
 				int checkX=x, checkY=y;
-				Room checkRoom = possibleRooms.get(checkIndex);
+				RoomTemplate checkRoom = possibleRooms.get(checkIndex);
 				switch (checkRoom.getEntrance()) {
 				
 				case 'u':
@@ -283,7 +288,7 @@ public class Floor {
 		return true;
 	}
 	
-	private boolean isValidRoom(ArrayList<Rectangle> bounds,ArrayList<Room> usedRooms, Room checkRoom, Rectangle checkBounds, 
+	private boolean isValidRoom(ArrayList<Rectangle> bounds,ArrayList<RoomTemplate> usedRooms, RoomTemplate checkRoom, Rectangle checkBounds, 
 			Rectangle floorBounds, char validExit) {
 		if(checkRoom.getEntrance()!=validExit) {
 			return false;
@@ -302,15 +307,15 @@ public class Floor {
 		return true;
 	}
 
-	private Room[] loadAllRooms(String path) {		
-		ArrayList<Room> rooms = new ArrayList<Room>();// an arraylist to hold all the rooms
+	private RoomTemplate[] loadAllRooms(String path) {		
+		ArrayList<RoomTemplate> rooms = new ArrayList<RoomTemplate>();// an arraylist to hold all the rooms
 		final File folder = new File(path);
 		
 		try {
 			for(File file:folder.listFiles()) {
 				try {
 					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
-					rooms.add(new Room(object,levelID));
+					rooms.add(new RoomTemplate(object));
 					System.out.println("loading room at "+file.getPath());
 				} catch (IOException |ParseException e) {
 					System.out.println(file.getPath()+" could not be loaded. Make sure it is a .json file");
@@ -321,14 +326,14 @@ public class Floor {
 			e.printStackTrace();
 		}
 		
-		return rooms.toArray(new Room[0]);// returning the rooms
+		return rooms.toArray(new RoomTemplate[0]);// returning the rooms
 	}
 	
-	private Room loadRoom(String path){
-		Room room=null;// the room it will return
+	private RoomTemplate loadRoomTemplate(String path){
+		RoomTemplate room=null;// the room it will return
 		try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
-			room=new Room(file,levelID);
+			room=new RoomTemplate(file);
 			
 		} catch (IOException | ParseException e) {
 			System.out.print("there was a problem loading JSON file at "+path );
