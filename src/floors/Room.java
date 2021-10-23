@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import entity.Entity;
 import entity.statics.breakables.Breakable;
 import entity.statics.doors.Door;
 import entity.statics.towers.TowerSpawn;
@@ -21,9 +22,11 @@ public class Room {
 	private char entrance, exit;
 	private int width,height, entranceLoc, exitLoc;
 	private int x, y;
+	private boolean opened=false;
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private ArrayList<TowerSpawn> towerLocs = new ArrayList<TowerSpawn>();
 	private ArrayList<Breakable> breakables = new ArrayList<Breakable>();
+	private ArrayList<Room> connectedRooms = new  ArrayList<Room>();
 	
 	// the  constructor takes the location and width of the file that should be
 	// loaded all and rooms are squares so the width will be the same as the height
@@ -57,14 +60,57 @@ public class Room {
 		}
 	}
 	
-	public void unlock() {
-		for(Door i:doors) {
-			i.unlock();
+	/**
+	 * unlocks all doors in the room
+	 * @return - the amount of doors it unlocks
+	 */
+	
+	public int open() {
+		int unlocks=0;
+		if(!opened) {
+			for(Door d:doors) {
+				Entity.getEntityManager().addEntity(d);
+			}
+			for(TowerSpawn t:towerLocs) {
+				Entity.getEntityManager().addEntity(t);
+			}
+			
+			opened=true;
+			return unlocks;
 		}
+		
+		for(Door i:doors) {
+			if(i.isSolid()) {
+				unlocks++;
+				i.unlock();
+			}
+		}
+		for(Room r:connectedRooms) {
+			r.open();
+		}
+		return unlocks;
 	}
+		
 	public void unlock(int index) {
 		doors.get(index).unlock();
+		for(Door i:doors) {
+			if(i.isSolid()) {
+				return;
+			}
+		}
+		opened=true;
 	}
+	public boolean isOpened() {
+		return opened;
+	}
+	
+	public void addConnectedRoom(Room room) {
+		connectedRooms.add(room);
+	}
+	public ArrayList<Room> getConnectedRooms() {
+		return connectedRooms;
+	}
+	
 	public ArrayList<Door> getDoors() {
 		return doors;
 	}
@@ -87,6 +133,15 @@ public class Room {
 			return 0;
 		}
 		return spawns[x][y]-Assets.level1tiles.length;
+	}
+	
+	public Room getLastRoom() {
+		for(Room r:connectedRooms) {
+			if(r.isOpened()) {
+				return r.getLastRoom();
+			}
+		}
+		return this;
 	}
 	// getters/setters
 	public char getEntrance() {

@@ -186,6 +186,7 @@ public class Player extends Mobs {
 		dustDelay ++;
 		invincibility--;
 		GameState.newFloor(GameState.getFloor().getSpawnData((x+width/2)/16, (y+height/2)/16));
+		//System.out.println(x+", "+y);
 	}
 	
 	private void spinAttack() {

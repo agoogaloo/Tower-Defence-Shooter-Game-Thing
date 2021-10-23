@@ -14,7 +14,7 @@ public class RoomTemplate {
 	 * json files from tiled represents one room.
 	 */
 	// declaring instance variables
-	public final int DOORU=8, DOORR=9,DOORD=10,DOORL=11, TOWERSPAWN=12, BREAKABLE=16;
+	public final int DOORU=8, DOORR=9,DOORD=10,DOORL=11, TOWERSPAWN=12, BREAKABLE=17;
 	private int[][] tiles;
 	private int[][] spawns;
 	private char entrance, exit;

@@ -81,8 +81,7 @@ public class EnemySpawner {
 				button.create();//reshowing the spawn button
 			}
 			if(roomsWaves%(WAVESPERROOM+1)==0) {
-				GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1].unlock();
-				GameState.getFloor().showNextRoom();
+				GameState.getFloor().unlockNextRoom();
 				roomsWaves=1;
 			}
 			
@@ -99,7 +98,7 @@ public class EnemySpawner {
 		button.render(g, camera);
 	}
 	private void setSpawnLoc() {
-		Room room=GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1];
+		Room room=GameState.getFloor().getLastRoom();
 		spawnX=room.getX()*room.TILESIZE;
 		spawnY=room.getY()*room.TILESIZE;
 		
@@ -125,7 +124,7 @@ public class EnemySpawner {
 	public void newWave(int enemies) {
 		System.out.println("\n\nSTARTING WAVE "+totalWaves+"\nroomWaves: "+roomsWaves+"\n");
 		
-		Room room=GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1];
+		Room room=GameState.getFloor().getLastRoom();
 		int spawnX=this.spawnX;
 		int spawnY=this.spawnY;
 		int direction=Enemy.DOWN;

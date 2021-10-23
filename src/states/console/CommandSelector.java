@@ -181,15 +181,14 @@ public class CommandSelector {
 			try {
 				int amount = Integer.parseInt(params);
 				for(int i=0;i<amount;i++) {
-					GameState.getFloor().getRooms()[GameState.getFloor().getCurrentRoom()-1].unlock();
-					GameState.getFloor().showNextRoom();
+					GameState.getFloor().unlockNextRoom();
 				}
 				
 				
 			}catch(NumberFormatException e) {
 				for (Room r: GameState.getFloor().getRooms()) {// looping though all the rooms
-					r.unlock();
-					GameState.getFloor().showNextRoom();
+					r.open();
+					GameState.getFloor().unlockNextRoom();
 				}
 				return"paramiter given is not an int, all rooms unlocked";
 			}

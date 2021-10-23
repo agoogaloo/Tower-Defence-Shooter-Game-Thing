@@ -73,4 +73,5 @@ public abstract class Door extends Statics{
 	public int getSpawnY() {
 		return spawnY;
 	}
+	
 }

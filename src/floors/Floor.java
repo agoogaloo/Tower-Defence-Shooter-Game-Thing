@@ -15,7 +15,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import entity.Entity;
-import entity.statics.breakables.Breakable;
 import entity.statics.doors.Door;
 import entity.statics.towers.TowerSpawn;
 import graphics.Camera;
@@ -35,7 +34,6 @@ public class Floor {
 	private Rectangle[] roomBounds;
 	private int[][] tiles;
 	private int[][] spawns;
-	private int currentRoom=1;
 	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
@@ -65,11 +63,12 @@ public class Floor {
 			RoomTemplate[] startRooms = loadAllRooms(folder+"/start");
 			RoomTemplate[] midRooms = loadAllRooms(folder+"/mid");
 			RoomTemplate[] endRooms = loadAllRooms(folder+"/end");
+			RoomTemplate[] shops = loadAllRooms(folder+"/shops");
 			
 			boolean success = false;
 			while(!success) {
 				success = generateFloor(startRooms[ThreadLocalRandom.current().nextInt(0, startRooms.length)],
-						midRooms,endRooms);// generating a random floor layout
+						midRooms,endRooms,shops);// generating a random floor layout
 			}
 			
 		}else {
@@ -94,6 +93,7 @@ public class Floor {
 				arr.remove(ThreadLocalRandom.current().nextInt(0, arr.size()));
 			}
 		}
+		
 		
 		
 		
@@ -131,7 +131,8 @@ public class Floor {
 	}
 	public void init() {
 		Room r = rooms[0];
-		for(Door d:r.getDoors()) {
+		r.open();
+		/*for(Door d:r.getDoors()) {
 			Entity.getEntityManager().addEntity(d);
 		}
 		for(TowerSpawn t:r.getTowerLocs()) {
@@ -140,7 +141,7 @@ public class Floor {
 		for(Breakable b:r.getBreakables()) {
 			Entity.getEntityManager().addEntity(b);
 			System.out.println("breakable");
-		}
+		}*/
 	}
 
 	// this method draws everything to the screen
@@ -161,7 +162,7 @@ public class Floor {
 	 * @return - whether or not the level generation was successful. 
 	 * 
 	 */
-	private boolean generateFloor(RoomTemplate startRoom, RoomTemplate[]midRooms, RoomTemplate[] endRooms) {
+	private boolean generateFloor(RoomTemplate startRoom, RoomTemplate[]midRooms, RoomTemplate[] endRooms, RoomTemplate[] shops) {
 		//arrays to hold the rooms and their locations
 		ArrayList<Room> rooms= new ArrayList<Room>();
 		ArrayList<Rectangle> bounds= new ArrayList<Rectangle>();
@@ -201,6 +202,7 @@ public class Floor {
 				}
 			}
 			
+			
 			//changing where the next room will be placed based on the previous rooms exit direction, and size
 			
 			switch (validRoom.getExit()) {
@@ -230,7 +232,7 @@ public class Floor {
 
 			ArrayList<RoomTemplate> possibleRooms;
 			if(room==size-1) {
-				//setting the possible rooms to be the ending rooms it it is placing the last room
+				//setting the possible rooms to be the ending rooms if it is placing the last room
 				System.out.println("making the end room");
 				possibleRooms=new ArrayList<RoomTemplate>(Arrays.asList(endRooms));
 			}else {
@@ -269,11 +271,15 @@ public class Floor {
 				//removing the room from the possible rooms if it is unable to be placed
 				if(!roomFound) {
 					possibleRooms.remove(checkIndex);
-				}else {
+					
+				}else if (room<size){
 					x=checkX;
 					y=checkY;
 					usedRooms.add(checkRoom);
-					validRoom=new Room(checkRoom,levelID,x,y);
+					
+					Room newRoom = new Room(checkRoom,levelID,x,y);
+					validRoom.addConnectedRoom(newRoom);
+					validRoom=newRoom;
 				}
 			}
 			if(possibleRooms.size()<=0) {
@@ -281,11 +287,97 @@ public class Floor {
 			}
 			
 		}
+		
+		//generating the shop
+		Room shop = generateShop(shops, rooms.get(0), bounds, floorBounds);
+		System.out.println("adding the shop");
+		if(shop==null) {
+			return false;
+		}
+		rooms.get(0).addConnectedRoom(shop);
+		rooms.add(shop);
+		bounds.add(new Rectangle(shop.getX(),shop.getY(),shop.getWidth(),shop.getHeight()));
+		System.out.println("coord:"+shop.getX()+", "+shop.getY()+" width: "+shop.getWidth()+" height: "+shop.getHeight());
+			
+		for(int i=0;i<shop.getWidth();i++) {
+			for(int j=0;j<shop.getHeight();j++) {
+				tiles[shop.getX()+i][shop.getY()+j]=shop.getTile(i, j);
+				spawns[shop.getX()+i][shop.getY()+j]=shop.getSpawnData(i, j);
+			}
+		}
+		
+		
+		
+		
+		
+		//making the rooms and their bounds into regular arrays, and adding them to the level 
 		this.rooms=new Room[rooms.size()];
 		this.rooms=(Room[])rooms.toArray(this.rooms);
 		roomBounds=new Rectangle[bounds.size()];
-		roomBounds=(Rectangle[])bounds.toArray(roomBounds);
+		roomBounds=(Rectangle[])bounds.toArray(roomBounds);		
 		return true;
+	}
+	private Room generateShop(RoomTemplate[] shops, Room startRoom,ArrayList<Rectangle> bounds,Rectangle floorBounds) {
+		ArrayList<RoomTemplate> possibleRooms=new ArrayList<RoomTemplate>(Arrays.asList(shops));
+		boolean roomFound=false;
+		
+		int x=startRoom.getX();
+		int y=startRoom.getY();
+		
+		switch (startRoom.getEntrance()) {
+		
+		case 'u':
+			x-=startRoom.getEntranceLoc();
+			y-=startRoom.getHeight();
+			break;
+		case 'r':
+			y+=startRoom.getEntranceLoc();
+			break;
+		case 'l':
+			y+=startRoom.getEntranceLoc();
+			x+=startRoom.getWidth();
+			break;
+		case 'd':
+			x+=startRoom.getEntranceLoc();
+			break;
+		}	
+		while(possibleRooms.size()>0&&!roomFound) {
+			int checkIndex=ThreadLocalRandom.current().nextInt(0, possibleRooms.size());
+			int checkX=x, checkY=y;
+			RoomTemplate checkRoom = possibleRooms.get(checkIndex);
+			switch (checkRoom.getEntrance()) {
+			
+			case 'u':
+				checkX-=checkRoom.getEntranceLoc();
+				checkY-=checkRoom.getHeight();
+				break;
+			case 'r':
+				checkY-=checkRoom.getEntranceLoc();
+				checkX-=checkRoom.getWidth();
+				break;
+			case 'l':
+				checkY-=checkRoom.getEntranceLoc();
+				
+				break;
+			case 'd':
+				checkX-=checkRoom.getEntranceLoc();
+				checkY-=checkRoom.getHeight();
+				break;
+			}
+			//checking if the room can actually be placed
+			Rectangle checkBounds=new Rectangle(checkX,checkY,checkRoom.getWidth(),checkRoom.getHeight());
+			roomFound=isValidRoom(bounds,new ArrayList<RoomTemplate>(),checkRoom, checkBounds, floorBounds, startRoom.getEntrance());
+			
+			
+			//removing the room from the possible rooms if it is unable to be placed
+			if(!roomFound) {
+				possibleRooms.remove(checkIndex);
+			}else {			
+				Room newRoom = new Room(checkRoom,levelID,checkX,checkY);
+				return newRoom;
+			}
+		}
+		return null;	
 	}
 	
 	private boolean isValidRoom(ArrayList<Rectangle> bounds,ArrayList<RoomTemplate> usedRooms, RoomTemplate checkRoom, Rectangle checkBounds, 
@@ -344,29 +436,15 @@ public class Floor {
 		return room;// returning the rooms
 	}
 	
-	public void showNextRoom() {
-		if(currentRoom<rooms.length) {
-			currentRoom++;
-			Room r = rooms[currentRoom-1];
-			for(Door d:r.getDoors()) {
-				Entity.getEntityManager().addEntity(d);
-			}
-			for(TowerSpawn t:r.getTowerLocs()) {
-				Entity.getEntityManager().addEntity(t);
-			}
-			
-		}
-	}
-	
 
 	// this lets you get what tile is at a specific x y (in tiles) so you can tell
 	// if it is a wall or whatever
 	public int getTile(int x, int y) {
 		int result;
 		boolean inVisibleRoom=false;
-		for(int i=0;i<currentRoom;i++) {
+		for(int i=0;i<rooms.length;i++) {
 			Rectangle r = roomBounds[i];
-			if(x>=r.x&&x<r.x+r.width&&y>=r.y&&y<r.y+r.height) {
+			if(rooms[i].isOpened()&&r.contains(x,y)) {
 				inVisibleRoom=true;
 				break;
 			}
@@ -383,7 +461,7 @@ public class Floor {
 
 		}
 		if(result>PICS.length){
-			System.out.println("tile out of bounds");
+			System.out.println("tile "+result+" is out of bounds");
 			return 34;//a tile that is pretty obvious if it is in the worng spot
 		}
 		return result;
@@ -436,8 +514,12 @@ public class Floor {
 		
 
 	}
-	public int getCurrentRoom() {
-		return currentRoom;
+	public void unlockNextRoom() {
+		rooms[0].open();
+		System.out.println(rooms.length);
+	}
+	public Room getLastRoom() {
+		return rooms[0].getLastRoom();
 	}
 	public Room[] getRooms() {
 		return rooms;
@@ -489,10 +571,6 @@ public class Floor {
 				list.add(t);
 			}
 		}
-		
 		return list;
-		
 	}
-	
-	
 }
