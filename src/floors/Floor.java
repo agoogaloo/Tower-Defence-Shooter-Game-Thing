@@ -516,7 +516,6 @@ public class Floor {
 	}
 	public void unlockNextRoom() {
 		rooms[0].open();
-		System.out.println(rooms.length);
 	}
 	public Room getLastRoom() {
 		return rooms[0].getLastRoom();
