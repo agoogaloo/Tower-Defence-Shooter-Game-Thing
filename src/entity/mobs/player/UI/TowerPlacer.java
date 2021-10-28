@@ -28,7 +28,7 @@ public class TowerPlacer {
 	private PicElement wheelMenu=new PicElement(100, 0, Assets.blank);
 	private BufferedImage menuPic;
 	private Graphics2D menuGraphics;
-	private TextElement infoText=new TextElement(100, 0,TextElement.BIGMONOWIDTH,TextElement.BIGMONOHEIGHT,5,"",Assets.bigMonoFont);
+	private TextElement infoText=new TextElement(100, 0,TextElement.SMALLMONOWIDTH,TextElement.SMALLMONOHEIGHT,"");
 	private PicElement background=new PicElement(100, 0, Assets.blank);//created 1st so it will be at the back
 	private int x, y, moneySpent;
 	private Mode mode=Mode.WAITING;
