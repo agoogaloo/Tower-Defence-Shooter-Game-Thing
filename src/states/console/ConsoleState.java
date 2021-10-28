@@ -76,7 +76,7 @@ public class ConsoleState extends State{
 		
 		//drawing the text
 		g.setColor(new Color(255,255,255));
-		g.setFont(Assets.myfont);
+		g.setFont(Assets.smallMonoFont);
 		
 		//drawing the line thats being typed in the rectangle at the bottom
 		g.drawString(currentLine, 7, 190);

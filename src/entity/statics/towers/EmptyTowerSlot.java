@@ -9,7 +9,7 @@ public class EmptyTowerSlot extends Tower{
 		price=0;
 		damage=0;
 		sellValue=0;
-		infoText="you don't have a tower \nequiped in this slot ";
+		infoText="you don't have a tower equiped in this slot";
 		buyIcon=Assets.towerIcons[0];
 		killed=true;
 	}

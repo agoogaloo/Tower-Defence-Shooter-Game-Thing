@@ -55,7 +55,7 @@ public class Display extends JPanel {
 		
 		
 		if(ConsoleState.isShowFPS()) {
-			g2d.setFont(Assets.myfont);
+			g2d.setFont(Assets.smallMonoFont);
 			if(Entity.getEntityManager()!=null) {
 				g2d.drawString("fps: "+Main.Main.getFPS()+"  Entities: "+Entity.getEntityManager().getEntities().size(), 2, 7);
 			}else {

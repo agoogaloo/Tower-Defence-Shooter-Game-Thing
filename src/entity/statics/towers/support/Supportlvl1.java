@@ -21,7 +21,7 @@ public class Supportlvl1 extends Tower{
 		statusEffect=new StatusEffect(StatusType.WEAKENED, 1.2,3);
 		
 		sellValue=2;
-		infoText="buying cost $"+price+"\n\nweakens any enemies in its \nrange, making them take \nmore damage";
+		infoText="-buying cost $"+price+"- \n \n weakens any enemies in its range, making them take more damage";
 		buyIcon=Assets.towerIcons[11];
 		upgradeIcon=Assets.towerIcons[12];
 		

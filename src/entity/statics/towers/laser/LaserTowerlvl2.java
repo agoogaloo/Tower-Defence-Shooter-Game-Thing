@@ -15,8 +15,7 @@ public class LaserTowerlvl2 extends Tower{
 		this.direction=direction;
 		this.spawn=spawn;
 		price=2;
-		infoText="upgrade cost $"+price+"\n\ngives the tower a bit more \nrange and an increased"
-				+ " rate \nof fire.";
+		infoText="-upgrade cost $"+price+"- \n \n gives the tower a bit more range and a faster rate of fire.";
 		upgradeIcon=Assets.towerIcons[7];
 		switch (direction) {
 		case 'u':

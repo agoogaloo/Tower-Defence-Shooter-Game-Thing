@@ -19,7 +19,7 @@ public class SupportPlant extends Tower{
 		sellValue=6;
 		damage=1;
 		
-		infoText="upgrade cost $"+price+"\n\npoisons enemies inside it's \nrange through the powers of \nsci-fi logic";
+		infoText="-upgrade cost $"+price+"- \n \n poisons enemies inside it's range through the powers of sci-fi logic";
 		
 	}
 	@Override

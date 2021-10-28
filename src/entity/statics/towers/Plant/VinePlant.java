@@ -24,7 +24,7 @@ public class VinePlant extends Tower{
 		price=4;
 		sellValue=3;
 		damage=5;
-		infoText="water cost: "+price+"\n\n a plant that grows long \nvines which damage enemies";	
+		infoText="-water cost $"+price+"- \n \n a plant that grows long vines which damage enemies";	
 		waveCounted=entityManager.getSpawner().waveComplete();
 		
 	}
@@ -95,6 +95,6 @@ public class VinePlant extends Tower{
 
 	@Override
 	public String select(char leftRight) {
-		return "cost: $1\n\nwater the plant to make its \nvines longer";
+		return "-water cost $1- \n \n water the plant to make its vines longer";
 	}
 }

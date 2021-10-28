@@ -27,7 +27,7 @@ public class WallD extends Tower{
 		collisions=true;
 		price=4;
 		sellValue=5;
-		infoText="buying cost $"+price+"\n\nadds a spawn platform below \nit, letting you place more \ntowers";
+		infoText="-buying cost $"+price+"- \n \n adds a spawn platform below it, letting you place more towers";
 		buyIcon=Assets.towerIcons[14];
 		
 

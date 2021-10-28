@@ -15,7 +15,7 @@ public class PlayerUI {
 	 */
 	//used to tell if you have healed/taken damage
 	private int oldHealth;
-	private TextElement money=new TextElement(18, 20, "", Assets.MozartNbp);//the number saying how much money you have
+	private TextElement money=new TextElement(18, 21, "", Assets.bigMonoFont);//the number saying how much money you have
 	private AnimElement moneyIcon=new AnimElement(5, 20, new Animation(Assets.coin));//the spinning coin in the corner
 	private AnimElement[] healthIcons=new AnimElement[22];//the hearts the show how much health you have left 
 	

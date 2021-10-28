@@ -27,7 +27,7 @@ public class WinState extends State{
 		g.setColor(Color.white);
 		g.drawString("THANKS ALOT FOR PLAYING",82, 40);
 	
-		g.setFont(Assets.myfont);
+		g.setFont(Assets.smallMonoFont);
 		g.drawString("THATS ALL THERE IS FOR NOW, BUT I'LL TRY TO ADD MORE STUFF SOON",25, 80);
 		g.drawString("IF YOU HAVE ANY SUGGESTIONS, FEEDBACK, OR ANYTIHNG ELSE",40, 110);
 		g.drawString("YOU CAN JOIN THE DISCORD OR SOMETHING",10, 130);

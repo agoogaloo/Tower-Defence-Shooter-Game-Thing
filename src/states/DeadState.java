@@ -75,7 +75,7 @@ public class DeadState extends State{
 		g.setColor(Color.white);
 		g.drawString("YOU DIED",134, 40);
 		
-		g.setFont(Assets.myfont);
+		g.setFont(Assets.smallMonoFont);
 		String floor="";
 		switch (floorIndex) {
 		case GameState.HUBINDEX:

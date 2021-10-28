@@ -29,7 +29,7 @@ public class Plantlvl2 extends Tower{
 		statusEffect=new StatusEffect(StatusType.STUN, 1, 20);
 		upgradeIcon=Assets.towerIcons[10];
 		splitUpgrades=true;
-		infoText="water cost $"+price+"\n\nwater the plant to help it \ngrow faster";
+		infoText="-water cost $"+price+"- \n \n water the plant to help it grow faster";
 		waveCounted=!entityManager.getSpawner().waveComplete();
 		
 	}

@@ -19,11 +19,11 @@ public class Tree extends Tower{
 	}
 	public Tree(int x, int y,TowerSpawn spawn) {
 		super(x, y, 150, 150, new Animation(Assets.tree,12), 60,spawn);
-		price=4;
+		price=3;
 		sellValue=3;
 		damage=6;
 		statusEffect= new StatusEffect(StatusType.STUN, 1, 10);
-		infoText="water cost $"+price+"\n\ngrows into a big tree that \nshoots acorns at enemies \nthat grow into new buds";
+		infoText="-water cost $"+price+"- \n \n grows into a big tree that shoots acorns at enemies, which will into new buds";
 		
 	}
 	@Override
@@ -55,6 +55,6 @@ public class Tree extends Tower{
 
 	@Override
 	public String select(char leftRight) {
-		return "already completely grown";
+		return "already fully grown";
 	}
 }

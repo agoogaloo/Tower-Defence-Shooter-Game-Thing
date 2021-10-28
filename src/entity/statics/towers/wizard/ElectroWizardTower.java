@@ -18,8 +18,8 @@ public class ElectroWizardTower extends Tower{
 		price=10;
 		damage=10;
 		statusEffect=new StatusEffect(StatusType.STUN,1,15);
-		infoText="upgrade cost $"+price+"\n\ngives the wizard the power \nof electricity "
-				+ "letting it \nshoot faster and stun \nenemies to slow them down";
+		infoText="-upgrade cost $"+price+"- \n \n gives the wizard the power of electricity "
+				+ "letting it shoot faster and stun enemies to slow them down";
 		
 	}
 	@Override

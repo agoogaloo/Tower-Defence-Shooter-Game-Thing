@@ -17,7 +17,7 @@ public class BigLaserTower extends Tower{
 		this.direction=direction;
 		this.spawn=spawn;
 		price=9;
-		infoText="upgrade cost $"+price+"\n\ncan now shoot a huge laser \nbeam of doom after a long \ncharging time";
+		infoText="-upgrade cost $"+price+"- \n \n can now shoot a huge laser beam of doom after a long charge time";
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.bigLaserTowerU,6);

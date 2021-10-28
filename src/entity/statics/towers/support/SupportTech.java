@@ -18,7 +18,7 @@ public class SupportTech extends Tower{
 		price=8;
 		sellValue=8;
 		damage=1;
-		infoText="upgrade cost $"+price+"\n\njams the guns of enemies in \nthe tower's range so they \nstop shooting at you";
+		infoText="-upgrade cost $"+price+"- \n \n jams the guns of enemies in the tower's range so they can't shoot at you";
 		
 		
 		

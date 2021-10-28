@@ -26,7 +26,7 @@ public class WallHor extends Tower{
 		splitUpgrades=true;
 		price=2;
 		sellValue=3;
-		infoText="buying cost $"+price+"\n\nmakes the wall much wider";
+		infoText="-buying cost $"+price+"- \n \n makes the wall much wider";
 		buyIcon=Assets.towerIcons[14];
 		upgradeIcon=Assets.towerIcons[17];
 	}

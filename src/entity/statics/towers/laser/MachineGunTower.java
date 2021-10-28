@@ -16,7 +16,7 @@ public class MachineGunTower extends Tower{
 		this.spawn=spawn;
 		price=8;
 		damage=3;
-		infoText="upgrade cost $"+price+"\n\ncan shoot super duper fast";
+		infoText="-upgrade cost $"+price+"- \n \n can shoot super duper fast";
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.machineGunTowerU,6);

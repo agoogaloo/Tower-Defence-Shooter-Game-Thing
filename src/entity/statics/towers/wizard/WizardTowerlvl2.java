@@ -14,7 +14,7 @@ public class WizardTowerlvl2 extends Tower{
 		price=1;
 		sellValue=2;
 		damage=15;
-		infoText="upgrade cost $"+price+"\n\nmakes the wizard tower \nstronger, with more range \nand bullets";
+		infoText="-upgrade cost $"+price+"- \n \n makes the wizard tower stronger, with more range and more bullets";
 		upgradeIcon=Assets.towerIcons[4];
 		splitUpgrades=true;
 	

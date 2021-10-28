@@ -24,7 +24,7 @@ public class Plantlvl1 extends Tower{
 		price=2;
 		statusEffect=new StatusEffect(StatusType.STUN, 1, 15);
 		sellValue=1;
-		infoText="planting cost $"+price+"\n\na tiny bud that's waiting to \ngrow up. It occasionally \nstuns enemies around it";
+		infoText="-planting cost $"+price+"- \n \n a tiny bud that will slowly grow up. It occasionally stuns enemies around it";
 		buyIcon=Assets.towerIcons[8];
 		upgradeIcon=Assets.towerIcons[9];
 		waveCounted=!entityManager.getSpawner().waveComplete();

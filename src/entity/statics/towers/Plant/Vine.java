@@ -189,6 +189,6 @@ public class Vine extends Tower{
 
 	@Override
 	public String select(char leftRight) {
-		return "a vine that damages enemies \nthat touch it.";
+		return "a vine that damages enemies that touch it.";
 	}
 }

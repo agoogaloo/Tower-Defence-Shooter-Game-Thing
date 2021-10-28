@@ -29,7 +29,7 @@ public class FireWizardTower extends Tower{
 		price=7;
 		damage=1;
 		statusEffect=new StatusEffect(StatusType.BURN, 0.7, 30);
-		infoText="upgrade cost $"+price+"\n\ngives the wizard fire \npowers letting him burn \nenemies to deal damage over \ntime ";
+		infoText="-upgrade cost $"+price+"- \n \n gives the wizard fire powers letting him burn enemies to deal damage over time ";
 		
 	}
 	@Override

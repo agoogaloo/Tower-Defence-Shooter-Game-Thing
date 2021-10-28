@@ -26,7 +26,7 @@ public class WallVert extends Tower{
 		splitUpgrades=true;
 		price=2;
 		sellValue=3;
-		infoText="buying cost $"+price+"\n\nmakes the wall much taller";
+		infoText="-buying cost $"+price+"- \n \n makes the wall much taller";
 		buyIcon=Assets.towerIcons[14];
 		upgradeIcon=Assets.towerIcons[16];
 	}

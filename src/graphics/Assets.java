@@ -18,8 +18,8 @@ public class Assets {
 	 * this class holds and loads all the images, sounds or other assets 
 	 * so other classes can access them easily
 	 */
-	public static final Font MozartNbp=loadFont("res/MozartNbp.ttf");
-	public static final Font myfont=loadFont("res/smallfont.ttf");
+	public static final Font smallMonoFont=loadFont("res/smallmonofont.ttf");
+	public static final Font bigMonoFont=loadFont("res/monofont.ttf");
 	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
 	public static final Font boldfont=loadFont("res/boldfont.ttf");
 	
@@ -159,6 +159,8 @@ public class Assets {
 	
 	public static  final BufferedImage mushroom=loadImage("res/textures/towers/mushroom lv.1.png");
 
+	//shop keep
+	public static  final BufferedImage[] shopIdle=splitSpriteSheet(loadImage("res/textures/shop guy.png"),13,20,6,1);
 	
 	//player animations
 	public static  final BufferedImage[] playerIdleD=Arrays.copyOfRange(playeridle, 0, 6);

@@ -21,13 +21,14 @@ import states.State;
 public class TowerPlacer {
 	// an enum that will be used to tell whether the player is placing or upgrading a tower or just doing nothing
 	private enum Mode{PLACING,UPGRADING,WAITING}
+	private final int TEXTWIDTH=110;
 	private int[] towers;
 	private Tower selectedTower;
 	private char mouseUpDown='n',mouseLeftRight='n';//set to l,r,u,d,or n depending on where the mouse is
 	private PicElement wheelMenu=new PicElement(100, 0, Assets.blank);
 	private BufferedImage menuPic;
 	private Graphics2D menuGraphics;
-	private TextElement infoText=new TextElement(100, 0,7,"");
+	private TextElement infoText=new TextElement(100, 0,TextElement.BIGMONOWIDTH,TextElement.BIGMONOHEIGHT,5,"",Assets.bigMonoFont);
 	private PicElement background=new PicElement(100, 0, Assets.blank);//created 1st so it will be at the back
 	private int x, y, moneySpent;
 	private Mode mode=Mode.WAITING;
@@ -79,7 +80,8 @@ public class TowerPlacer {
 			return null;
 		}
 		
-		infoText.update(ItemList.getTower(hoveredTower).getInfoText());
+		infoText.update(ItemList.getTower(hoveredTower).getInfoText(), TEXTWIDTH);
+		infoText.centre();
 		if(!State.getInputs().isPlace()&&money>=ItemList.getTower(hoveredTower).getPrice()) {
 			Tower tower=ItemList.getTower(hoveredTower).createNew(x, y,spawn);
 			moneySpent=tower.getPrice();
@@ -91,7 +93,8 @@ public class TowerPlacer {
 	}
 	private Tower upgrade(int money,Camera camera) {		
 		if(mouseUpDown=='u') {
-			infoText.update(selectedTower.select(mouseLeftRight));
+			infoText.update(selectedTower.select(mouseLeftRight),TEXTWIDTH);
+			infoText.centre();
 			if(!State.getInputs().isPlace()) {
 				moneySpent+=selectedTower.upgrade(mouseLeftRight, money);
 			}
@@ -174,9 +177,9 @@ public class TowerPlacer {
 		//drawing the text background if there is upgrade/placing tower text
 		if(infoText.getText()!="") {
 			//making the image the right size
-			background.update(Assets.infobackground.getSubimage(0, 0,120, infoText.getHeight()+6));
-			background.move(x-60-camera.getxOffset(), y+27-camera.getyOffset());//putting it into the right place
-			infoText.move(x-55-camera.getxOffset(), y+29-camera.getyOffset());
+			background.update(Assets.infobackground.getSubimage(0, 0,infoText.getWidth()+5, infoText.getHeight()+6));
+			background.move(x-infoText.getWidth()/2-camera.getxOffset()-3, y+27-camera.getyOffset());//putting it into the right place
+			infoText.move(x-infoText.getWidth()/2-camera.getxOffset(), y+29-camera.getyOffset());
 		}else {
 			background.update(Assets.blank);//making the background disappear if there is no text
 		}

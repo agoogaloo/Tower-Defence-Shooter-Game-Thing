@@ -19,7 +19,7 @@ public class Supportlvl2 extends Tower{
 		damage=5;
 		sellValue=4;
 		statusEffect=new StatusEffect(StatusType.WEAKENED, 1.2,3);
-		infoText="buying cost $"+price+"\n\nbuffs all towers in its \nrange, letting them to deal \nmore damage ";
+		infoText="-buying cost $"+price+"- \n \n buffs all towers in its range, letting them to deal more damage ";
 		upgradeIcon=Assets.towerIcons[13];
 		splitUpgrades=true;
 		

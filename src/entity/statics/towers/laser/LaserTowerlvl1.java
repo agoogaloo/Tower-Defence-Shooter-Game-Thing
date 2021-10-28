@@ -21,7 +21,7 @@ public class LaserTowerlvl1 extends Tower{
 		this.spawn=spawn;
 		price=5;
 		sellValue=3;
-		infoText="buying cost $"+price+"\n\nA tower that can shoot very \nfar but only in the you are \nfaceing when you place it";
+		infoText="-buying cost $"+price+"- \n \n A tower that can shoot very far but only in the you are facing when you place it";
 		
 		buyIcon=Assets.towerIcons[5];
 		upgradeIcon=Assets.towerIcons[6];
