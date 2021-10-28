@@ -10,7 +10,6 @@ import entity.mobs.enemy.GreenEnemy;
 import entity.mobs.enemy.RedEnemy;
 import entity.mobs.enemy.TankBot;
 import entity.mobs.enemy.TutorialEnemy;
-import entity.mobs.enemy.YellowEnemy;
 import entity.mobs.enemy.spawner.SpawnButton;
 import entity.statics.Chest;
 import entity.statics.towers.Tower;
@@ -84,7 +83,9 @@ public class Tutorialator {
 		
 		
 		if(textToAdd.length()>0) {
-			text.update(text.getText()+textToAdd.charAt(0));
+			text.update(text.getText()+textToAdd.charAt(0), 180);
+			text.centre();
+			text.move(333/2-text.getWidth()/2+10,172-text.getHeight()/2);
 			textToAdd=textToAdd.substring(1);
 		}
 		sectionTime++;
@@ -113,8 +114,6 @@ public class Tutorialator {
 			 Entity.getEntityManager().addEntity(new TutorialEnemy(141, 475,Enemy.DOWN, 0,999999999,1));
 			 sectionInit=true;
 		}
-		
-		text.move(62, 172);
 		if(sectionTime==180)
 			textToAdd="Robots are bad. Shoot the robot with left click to kill it";
 		if(!areEnemies()) {
@@ -127,14 +126,13 @@ public class Tutorialator {
 		if(!sectionInit) {//initializing the section
 			 Entity.getEntityManager().addEntity(new TutorialEnemy(92, 475,Enemy.RIGHT, 0,999999999,20));
 			 Entity.getEntityManager().addEntity(new TutorialEnemy(191, 475,Enemy.LEFT, 0,999999999,20));
-			 text.move(74, 168);
 			 sectionInit=true;
 		}
 		
 		
 		if(sectionTime==10)
 			
-			textToAdd="           press shift to do a melee spin attack. \nkilling enemies with it gives you X2 the reward";
+			textToAdd="press shift to do a melee spin attack. killing enemies with it gives you X2 the reward";
 		if(!areEnemies()) {
 			GameState.getFloor().getRoom(0, 0).unlock(3);
 			
@@ -144,7 +142,6 @@ public class Tutorialator {
 	private void invincibilitySection() {
 		//shows spinning
 		if(!sectionInit) {//initializing the section
-			 text.move(85, 168);
 			 sectionInit=true;
 		}
 		if(sectionTime%10==0) {
@@ -154,7 +151,7 @@ public class Tutorialator {
 		}
 		
 		if(sectionTime==10) {
-			textToAdd="         the spin attack also lets you slice \nthrough bullets without taking any damage. ";
+			textToAdd="the spin attack also lets you slice through bullets without taking any damage.";
 		}
 		if(Entity.getEntityManager().getPlayer().getY()<=275) {
 			GameState.getFloor().getRoom(0, 0).getDoors().get(3).reLock();
@@ -168,13 +165,13 @@ public class Tutorialator {
 		//teaches enemies following paths/coreness
 		if(!sectionInit) {//initializing the section
 			
-			 text.move(50, 168);
+			 
 			 sectionInit=true;
 		}
 		
 		
 		if(sectionTime==10) {
-			textToAdd=" the big blue heart is your core thingy. You take damage if an \nenemy touches it, so you should stop them before they reach it";
+			textToAdd="the big blue heart is your core thingy. You take damage if an enemy touches it, so you should stop them before they reach it";
 		}
 		if(sectionTime==30) {
 			Entity.getEntityManager().addEntity(new TutorialEnemy(380, 182,Enemy.LEFT, 0.5, 999999999,50));
@@ -194,9 +191,8 @@ public class Tutorialator {
 			Entity.getEntityManager().addEntity(new TowerSpawn(295, 155,true));
 			Entity.getEntityManager().addEntity(new TowerSpawn(245, 140,true));
 			Entity.getEntityManager().addEntity(new TowerSpawn(85, 150,true));
-			text.move(60, 168);
-			textToAdd="  you can place towers to help you by right clicking on\n"
-					+ "tower platforms and releasing over the tower you want";
+			
+			textToAdd="you can place towers to help you by right clicking on tower platforms and releasing over the tower you want";
 		}
 		
 		for(Entity e: Entity.getEntityManager().getEntities()) {
@@ -213,8 +209,8 @@ public class Tutorialator {
 		//towers
 		
 		if(sectionTime==10) {
-			text.move(100, 168);
-			textToAdd="right clicking a placed tower will\n         let you upgrade or sell it";
+			
+			textToAdd="right clicking a placed tower will let you upgrade or sell it";
 		}
 		
 		for(Entity e: Entity.getEntityManager().getEntities()) {
@@ -232,7 +228,7 @@ public class Tutorialator {
 	
 	private void section4() {
 		if(!sectionInit) {//initializing the section
-			text.move(52, 172);
+			
 			sectionInit=true;
 		}
 		
@@ -249,7 +245,7 @@ public class Tutorialator {
 	}
 	private void section5() {
 		if(!sectionInit) {//initializing the section
-			text.move(85, 172);
+			
 			sectionInit=true;
 		}
 		if(sectionTime==10) {
@@ -262,14 +258,14 @@ public class Tutorialator {
 	private void section6() {
 		
 		if(!sectionInit) {//initializing the section
-			text.move(71, 167);
+			
 			button.create();
 			sectionInit=true;
 		}
 		button.update(0, 0 );
 		button.move(464, 64);
 		if(sectionTime==10) 
-			textToAdd=" as your final challenge you need to beat a wave of \nenemies. press the red button in the corner to start";
+			textToAdd="as your final challenge you need to beat a wave of enemies. press the red button in the corner to start";
 		
 		if(button.isClicked()) {
 			nextSection();
@@ -315,7 +311,7 @@ public class Tutorialator {
 		button.render(g, camera);
 		g.setColor(new Color(23,70,79));
 		if(text.getText().length()>0) {
-			g.fillRoundRect(47, 170, 250, 20, 5, 5);
+			g.fillRoundRect( text.getX()-3,text.getY(), text.getWidth()+5, text.getHeight()+3, 7, 7);
 			//g.setColor(Color.white);
 			//g.drawRect(77, 170, 190, 20 );
 		}
