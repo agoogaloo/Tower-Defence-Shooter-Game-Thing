@@ -14,7 +14,7 @@ public class RoomTemplate {
 	 * json files from tiled represents one room.
 	 */
 	// declaring instance variables
-	public final int DOORU=8, DOORR=9,DOORD=10,DOORL=11, TOWERSPAWN=12, BREAKABLE=17;
+	public final int DOORU=8, DOORR=9,DOORD=10,DOORL=11, TOWERSPAWN=12,ITEMSALE=15,SHOPKEEP=16, BREAKABLE=17;
 	private int[][] tiles;
 	private int[][] spawns;
 	private char entrance, exit;
@@ -22,6 +22,8 @@ public class RoomTemplate {
 	private ArrayList<DoorTemplate> doors = new ArrayList<DoorTemplate>();
 	private ArrayList<Point> towerLocs = new ArrayList<Point>();
 	private ArrayList<Point> breakables = new ArrayList<Point>();
+	private ArrayList<Point> shopKeep = new ArrayList<Point>();
+	private ArrayList<Point> saleItem = new ArrayList<Point>();
 	
 	
 	
@@ -70,27 +72,36 @@ public class RoomTemplate {
 				
 				switch(spawns[x][y]-Assets.level1tiles.length) {
 				case DOORU:
-					//System.out.println("door");
 					doors.add(new DoorTemplate(x, y, 'u'));
 					break;
+					
 				case DOORD:
-					//System.out.println("door");
 					doors.add(new DoorTemplate(x, y, 'd'));
 					break;
+					
 				case DOORL:
-					//System.out.println("door");
 					doors.add(new DoorTemplate(x, y, 'l'));
 					break;
+					
 				case DOORR:
-					//System.out.println("door");
 					doors.add(new DoorTemplate(x, y, 'r'));
 					break;
+					
 				case TOWERSPAWN:
-					//System.out.println("tower");
 					towerLocs.add(new Point(x, y));
 					break;
+					
+				case ITEMSALE:
+					saleItem.add(new Point(x, y));
+					break;
+					
+				case SHOPKEEP:
+					shopKeep.add(new Point(x, y));
+					break;
+					
 				case BREAKABLE:
 					breakables.add(new Point(x, y));
+					break;
 				}
 				
 			}
@@ -116,6 +127,12 @@ public class RoomTemplate {
 	
 	public ArrayList<Point> getTowerLocs() {
 		return towerLocs;
+	}
+	public ArrayList<Point> getSaleItem() {
+		return saleItem;
+	}
+	public ArrayList<Point> getShopKeep() {
+		return shopKeep;
 	}
 	
 	public ArrayList<Point> getBreakables() {

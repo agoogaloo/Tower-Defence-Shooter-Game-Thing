@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
+import entity.mobs.ShopKeep;
+import entity.statics.Chest;
 import entity.statics.breakables.Breakable;
 import entity.statics.doors.Door;
 import entity.statics.towers.TowerSpawn;
@@ -24,13 +26,13 @@ public class Room {
 	private int x, y;
 	private boolean opened=false;
 	private ArrayList<Door> doors = new ArrayList<Door>();
-	private ArrayList<TowerSpawn> towerLocs = new ArrayList<TowerSpawn>();
-	private ArrayList<Breakable> breakables = new ArrayList<Breakable>();
+	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private ArrayList<Room> connectedRooms = new  ArrayList<Room>();
+
 	
 	// the  constructor takes the location and width of the file that should be
 	// loaded all and rooms are squares so the width will be the same as the height
-	public Room(RoomTemplate template,int levelID, int x, int y) {
+	public Room(RoomTemplate template,int levelID, int maxTowers, int x, int y) {
 		//this constructor lets us copy rooms so we dont change things we dont want to change
 	
 		tiles=template.getTiles();
@@ -44,22 +46,35 @@ public class Room {
 		this.x=x;
 		this.y=y;
 		
+		for(Point i:template.getTowerLocs()) {
+			TowerSpawn tower=new TowerSpawn(TILESIZE*(x+i.x),TILESIZE*(y+i.y),false);
+			entities.add(tower);
+		}
+		while(entities.size()>maxTowers) {
+			entities.remove(ThreadLocalRandom.current().nextInt(0, entities.size()));
+		}
+		
 		for(DoorTemplate i:template.getDoors()) {
 			Door door= Door.getProperDoor(TILESIZE*(x+i.getX()),TILESIZE*(y+i.getY()),levelID, i.getDirection());
 			doors.add(door);
+			entities.add(door);
 		}
-		for(Point i:template.getTowerLocs()) {
-			TowerSpawn tower=new TowerSpawn(TILESIZE*(x+i.x),TILESIZE*(y+i.y),false);
-			towerLocs.add(tower);
-		}
+		
 		for(Point i:template.getBreakables()) {
 			if(ThreadLocalRandom.current().nextBoolean()) {
 				Breakable breakable=Breakable.getProperBreakable(levelID,TILESIZE*(x+i.x),TILESIZE*(y+i.y));
-				breakables.add(breakable);
+				entities.add(breakable);
 			}
 		}
+		for(Point i:template.getShopKeep()) {
+				ShopKeep shopKeep = new ShopKeep(TILESIZE*(x+i.x)+8,TILESIZE*(y+i.y)+8);
+				entities.add(shopKeep);
+				//entities.add(new Chest(TILESIZE*(x+i.x)+8,TILESIZE*(y+i.y)+8));
+		}
+		
 	}
 	
+
 	/**
 	 * unlocks all doors in the room
 	 * @return - the amount of doors it unlocks
@@ -68,15 +83,10 @@ public class Room {
 	public int open() {
 		int unlocks=0;
 		if(!opened) {
-			for(Door d:doors) {
-				Entity.getEntityManager().addEntity(d);
+			for(Entity i:entities) {
+				Entity.getEntityManager().addEntity(i);
 			}
-			for(TowerSpawn t:towerLocs) {
-				Entity.getEntityManager().addEntity(t);
-			}
-			for(Breakable b:breakables) {
-				Entity.getEntityManager().addEntity(b);
-			}
+			
 			
 			opened=true;
 			return unlocks;
@@ -116,12 +126,6 @@ public class Room {
 	
 	public ArrayList<Door> getDoors() {
 		return doors;
-	}
-	public ArrayList<TowerSpawn> getTowerLocs() {
-		return towerLocs;
-	}
-	public ArrayList<Breakable> getBreakables() {
-		return breakables;
 	}
 	
 	public int getTile(int x, int y) {

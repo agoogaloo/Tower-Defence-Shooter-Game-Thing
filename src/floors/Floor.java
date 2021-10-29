@@ -72,7 +72,7 @@ public class Floor {
 			}
 			
 		}else {
-			rooms =new Room[] {new Room(loadRoomTemplate(folder), levelID, 0,0)};
+			rooms =new Room[] {new Room(loadRoomTemplate(folder), levelID,towersPerRoom, 0,0)};
 			width=rooms[0].getWidth();
 			height=rooms[0].getHeight();
 			roomBounds= new Rectangle[] {new Rectangle(0,0,width,height)};
@@ -85,21 +85,7 @@ public class Floor {
 					spawns[x][y]=rooms[0].getSpawnData(x, y);
 				}	
 			}
-		}
-		
-		for(Room r:rooms) {
-			ArrayList<TowerSpawn> arr = r.getTowerLocs();
-			while(arr.size()>towersPerRoom) {
-				arr.remove(ThreadLocalRandom.current().nextInt(0, arr.size()));
-			}
-		}
-		
-		
-		
-		
-		
-		
-		
+		}		
 	}
 	
 	/**
@@ -115,7 +101,7 @@ public class Floor {
 		PICS = pics;
 		SCREENHEIGHT = screenHeight;//needs the screen width/height 
 		SCREENWIDTH = screenWidth;//so it knows if tiles should be rendered or not
-		rooms =new Room[] {new Room(loadRoomTemplate(path),levelID, 0,0) };
+		rooms =new Room[] {new Room(loadRoomTemplate(path),levelID, towersPerRoom,0,0) };
 		width=rooms[0].getWidth();
 		height=rooms[0].getHeight();
 		roomBounds= new Rectangle[] {new Rectangle(0,0,width,height)};
@@ -185,7 +171,7 @@ public class Floor {
 		int y=height/2-startRoom.getHeight()/2;
 		
 		
-		Room validRoom=new Room(startRoom,levelID,x,y);
+		Room validRoom=new Room(startRoom,levelID,towersPerRoom,x,y);
 		
 		
 		for (int room = 1; room <=size; room++) {//adding rooms until it is the right size
@@ -277,7 +263,7 @@ public class Floor {
 					y=checkY;
 					usedRooms.add(checkRoom);
 					
-					Room newRoom = new Room(checkRoom,levelID,x,y);
+					Room newRoom = new Room(checkRoom,levelID,towersPerRoom,x,y);
 					validRoom.addConnectedRoom(newRoom);
 					validRoom=newRoom;
 				}
@@ -373,7 +359,7 @@ public class Floor {
 			if(!roomFound) {
 				possibleRooms.remove(checkIndex);
 			}else {			
-				Room newRoom = new Room(checkRoom,levelID,checkX,checkY);
+				Room newRoom = new Room(checkRoom,levelID,towersPerRoom,checkX,checkY);
 				return newRoom;
 			}
 		}
@@ -550,7 +536,7 @@ public class Floor {
 		return list;
 	}
 	
-	public ArrayList<TowerSpawn> getTowerLocs(){
+	/*public ArrayList<TowerSpawn> getTowerLocs(){
 		ArrayList<TowerSpawn> list = new ArrayList<>();
 		for(Room r:rooms) {
 			for(TowerSpawn t:r.getTowerLocs()) {
@@ -558,9 +544,9 @@ public class Floor {
 			}
 		}
 		return list;
-	}
+	}*/
 	
-	public ArrayList<Entity> getFloorEntities() {
+	/*public ArrayList<Entity> getFloorEntities() {
 		ArrayList<Entity> list = new ArrayList<>();
 		for(Room r:rooms) {
 			for(Door d:r.getDoors()) {
@@ -571,5 +557,5 @@ public class Floor {
 			}
 		}
 		return list;
-	}
+	}*/
 }
