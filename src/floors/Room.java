@@ -74,6 +74,9 @@ public class Room {
 			for(TowerSpawn t:towerLocs) {
 				Entity.getEntityManager().addEntity(t);
 			}
+			for(Breakable b:breakables) {
+				Entity.getEntityManager().addEntity(b);
+			}
 			
 			opened=true;
 			return unlocks;
