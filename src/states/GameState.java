@@ -153,10 +153,11 @@ public class GameState extends State{
 		floorIndex=newFloorIndex;
 		
 		UIElement.getUIManager().clear();//clearing the ui things
-		floor = new Floor(path,newFloorIndex,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
+		floor = Floor.getRightFloor(path,newFloorIndex,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), tiles);
 		Entity.getEntityManager().reset(deletePlayer);
 		floor.init();
+		
 		
 		if(newFloorIndex==TUTORIALINDEX)
 			tutorial=new Tutorialator();

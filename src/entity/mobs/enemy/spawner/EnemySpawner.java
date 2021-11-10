@@ -24,7 +24,7 @@ public class EnemySpawner {
 	
 	private int spawnX=0, spawnY=0;
 	
-	private boolean buttonSpawns =true;
+	private boolean buttonSpawns =true, waveJustFinished=false;
 	
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
 	
@@ -39,18 +39,6 @@ public class EnemySpawner {
 		if(!buttonSpawns) button.remove(); 
 	}
 	public void update() {
-		/*
-		//getting what room the player is currently standing in (used to determine where to spawn enemies)
-		int roomX=0;
-		//(Entity.getEntityManager().getPlayer().getX()/GameState.getFloor().
-			//	TILESIZE)/GameState.getFloor().getRoomSize();//the x of the room (in rooms not pixels)
-		
-		int roomY=0;
-				//(Entity.getEntityManager().getPlayer().getY()/GameState.getFloor().
-				//TILESIZE)/GameState.getFloor().getRoomSize();//the y of the room (in rooms not pixels)
-		
-		Point currentRoom=new Point(roomX, roomY);
-		*/
 		//updating the button that starts the next wave
 	
 		button.update(spawnX,spawnY);
@@ -59,6 +47,7 @@ public class EnemySpawner {
 			setSpawnLoc();
 			newWave(difficulty);
 			button.remove();
+			waveJustFinished=false;
 			roomsWaves++;
 			totalWaves++;
 			difficulty++;
@@ -83,6 +72,10 @@ public class EnemySpawner {
 			if(roomsWaves%(WAVESPERROOM+1)==0) {
 				GameState.getFloor().unlockNextRoom();
 				roomsWaves=1;
+			}
+			if(!waveJustFinished) {
+				waveJustFinished=true;
+				GameState.getFloor().endWave();
 			}
 			
 		}

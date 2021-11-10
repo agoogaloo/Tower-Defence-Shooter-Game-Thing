@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import graphics.Camera;
+import states.GameState;
 
 /*
  * by: Matthew Milum
@@ -23,10 +24,10 @@ import graphics.Camera;
 public class Floor {
 	
 	// declaring variables
-	private Room[] rooms;
-	private Rectangle[] roomBounds;
-	private int[][] tiles;
-	private int[][] spawns;
+	protected Room[] rooms;
+	protected Rectangle[] roomBounds;
+	protected int[][] tiles;
+	protected int[][] spawns;
 	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
@@ -379,6 +380,15 @@ public class Floor {
 		
 		return room;// returning the rooms
 	}
+	public static Floor getRightFloor(String folder,int levelID, int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
+		switch(levelID) {
+		case GameState.FLOOR2:
+			return new FactoryFloor(folder, levelID, size, screenWidth, screenHeight, pics);
+		default:
+			return new Floor(folder, levelID, size, screenWidth, screenHeight, pics);	
+		}
+	}
+	
 	/**
 	 * lets you get the tile index of a tile at a specific location
 	 * @param x - the x coordinate in tiles
@@ -485,4 +495,8 @@ public class Floor {
 	public int getEndRoomY() {
 		return endRoomY;
 	}
+	public void endWave() {
+		System.out.println("wave ended");
+	}
+	
 }
