@@ -39,13 +39,14 @@ public class MiniMap {
 		updateMap();
 		
 		//drawing the enemies
-		for (Entity e: entities) {
-			if(e instanceof Enemy) {
-				map.setRGB(e.getX()/(16*scale), e.getY()/(16*scale), Color.RED.getRGB());
-			}else if(e instanceof Player) {
-				map.setRGB(e.getX()/(16*scale), e.getY()/(16*scale), new Color(53,179,53).getRGB());
-			}else if(e instanceof Core) {
-				map.setRGB(e.getX()/(16*scale), e.getY()/(16*scale), new Color(57,51,204).getRGB());
+		
+		for (int i=0;i<0;i++) {
+			if(entities.get(i) instanceof Enemy) {
+				map.setRGB(entities.get(i).getX()/(16*scale), entities.get(i).getY()/(16*scale), Color.RED.getRGB());
+			}else if(entities.get(i) instanceof Player) {
+				map.setRGB(entities.get(i).getX()/(16*scale), entities.get(i).getY()/(16*scale), new Color(53,179,53).getRGB());
+			}else if(entities.get(i) instanceof Core) {
+				map.setRGB(entities.get(i).getX()/(16*scale), entities.get(i).getY()/(16*scale), new Color(57,51,204).getRGB());
 			}
 		}	
 	

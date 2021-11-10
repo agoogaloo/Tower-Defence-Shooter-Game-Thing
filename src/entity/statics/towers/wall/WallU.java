@@ -28,7 +28,7 @@ public class WallU extends Tower{
 		price=4;
 		sellValue=5;
 		infoText="-buying cost $"+price+"- \n \n adds a spawn platform above it, letting you place more towers";
-		buyIcon=Assets.towerIcons[14];
+		buyIcon=Assets.towerIcons[15];
 	
 
 		

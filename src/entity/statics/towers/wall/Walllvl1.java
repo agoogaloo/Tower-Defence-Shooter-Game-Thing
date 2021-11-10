@@ -27,8 +27,8 @@ public class Walllvl1 extends Tower{
 		price=4;
 		sellValue=2;
 		infoText="-buying cost $"+price+"- \n \n a wall that can't be shot or walked through";
-		buyIcon=Assets.towerIcons[14];
-		upgradeIcon=Assets.towerIcons[15];
+		buyIcon=Assets.towerIcons[15];
+		upgradeIcon=Assets.towerIcons[16];
 		
 	}
 	@Override

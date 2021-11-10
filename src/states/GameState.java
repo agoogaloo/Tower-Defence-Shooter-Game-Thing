@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
+import entity.mobs.shops.ItemStand;
 import entity.statics.Chest;
 import floors.Floor;
 import floors.Tutorialator;
@@ -133,7 +134,7 @@ public class GameState extends State{
 		case FLOOR1:
 			System.out.println("loading floor one from index "+newFloorIndex);
 			path+="floor 1";
-			size=4;
+			size=7;
 			canHaveEnemies=true;
 			tiles=Assets.level1tiles;
 			deletePlayer=true;
@@ -155,7 +156,7 @@ public class GameState extends State{
 		UIElement.getUIManager().clear();//clearing the ui things
 		floor = new Floor(path,newFloorIndex,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), tiles);
-		Entity.init(deletePlayer);
+		Entity.getEntityManager().reset(deletePlayer);
 		floor.init();
 		
 		if(newFloorIndex==TUTORIALINDEX)
@@ -184,8 +185,7 @@ public class GameState extends State{
 		}
 		Entity.getEntityManager().getPlayer().reset(playerLoc.x*16,playerLoc.y*16);
 		if(newFloorIndex!=TUTORIALINDEX&&newFloorIndex!=HUBINDEX) {
-			Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+28,playerLoc.y*16-55));
-			Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16-12,playerLoc.y*16-55));
+			Entity.getEntityManager().addEntity(new Chest(playerLoc.x*16+6,playerLoc.y*16-40));
 		}
 		
 		if(coreLoc!=null) {

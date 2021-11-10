@@ -22,8 +22,8 @@ public class Supportlvl1 extends Tower{
 		
 		sellValue=2;
 		infoText="-buying cost $"+price+"- \n \n weakens any enemies in its range, making them take more damage";
-		buyIcon=Assets.towerIcons[11];
-		upgradeIcon=Assets.towerIcons[12];
+		buyIcon=Assets.towerIcons[12];
+		upgradeIcon=Assets.towerIcons[13];
 		
 	}
 	@Override

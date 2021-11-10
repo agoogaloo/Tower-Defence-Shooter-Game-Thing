@@ -11,10 +11,10 @@ public class Health extends Pickup{
 	/*
 	 * the money that is dropped when enemies die
 	 */
-	Animation anim;
+
 	public Health(int x, int y) {
-		super(x, y, 11, 11);
-		anim=new Animation(Assets.healthIcon);//giving it an animation
+		super(x, y,new Animation(Assets.healthIcon), 11, 11);
+		
 		updateBounds();//making its bounds the right size and place
 	}
 
@@ -24,7 +24,7 @@ public class Health extends Pickup{
 	}
 
 	@Override
-	void playerCollide(Player p) {
+	protected void playerCollide(Player p) {
 		p.heal(1);
 	}
 	@Override

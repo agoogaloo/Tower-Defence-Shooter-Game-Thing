@@ -50,6 +50,9 @@ public abstract class Door extends Statics{
 		case GameState.FLOOR1: 
 			return new Floor1Door(x,y, direction);
 			
+		case GameState.FLOOR2: 
+			return new Floor2Door(x,y, direction);
+			
 		default: 
 			return new Floor1Door(x,y, direction);
 		}	

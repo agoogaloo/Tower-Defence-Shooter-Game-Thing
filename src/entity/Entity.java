@@ -35,9 +35,7 @@ public abstract class Entity {
 	protected StatusEffect statusDealt = new StatusEffect(StatusType.NONE, 0, 0);
 	protected ArrayList<StatusEffect> currentEffects = new ArrayList<StatusEffect>();
 	
-	public static void init(boolean deletePlayer){
-		entityManager.reset(deletePlayer);
-	}
+	public void init() {}
 
 	protected ArrayList<Entity> entityCollide() {
 		// this is used to see what is colliding with what

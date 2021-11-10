@@ -2,18 +2,19 @@ package entity.statics.breakables;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ThreadLocalRandom;
 
 import entity.statics.Statics;
+import graphics.Assets;
 import graphics.Camera;
 import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
-import graphics.particles.shapes.OvalParticle;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
 import states.GameState;
 
-public abstract class Breakable extends Statics{
+public class Breakable extends Statics{
 	
 	protected BufferedImage pic;
 	private int spawnX, spawnY;
@@ -27,6 +28,9 @@ public abstract class Breakable extends Statics{
 		this.x=x;
 		this.y=y-height+16;
 		updateBounds();		
+	}
+	public Breakable(BufferedImage[] pics, int x, int y) {
+		this(pics[ThreadLocalRandom.current().nextInt(pics.length)],x,y);
 	}
 	@Override
 	public void update() {
@@ -55,8 +59,9 @@ public abstract class Breakable extends Statics{
 	public static Breakable getProperBreakable(int floorID, int x, int y) {
 		switch(floorID) {
 		case GameState.FLOOR1: case GameState.TUTORIALINDEX:
-			return new Floor1Breakable(x,y);
-			
+			return new Breakable(Assets.lv1Breakables,x,y);
+		case GameState.FLOOR2: 
+			return new Breakable(Assets.lv2Breakables,x,y);	
 		default:
 			return new Floor1Breakable(x,y);
 		

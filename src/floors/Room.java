@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
-import entity.mobs.ShopKeep;
-import entity.statics.Chest;
+import entity.mobs.pickups.GunTowerItem;
+import entity.mobs.pickups.ItemList;
+import entity.mobs.shops.ItemStand;
+import entity.mobs.shops.ShopKeep;
 import entity.statics.breakables.Breakable;
 import entity.statics.doors.Door;
 import entity.statics.towers.TowerSpawn;
@@ -66,11 +68,21 @@ public class Room {
 				entities.add(breakable);
 			}
 		}
+		ShopKeep shopKeep=null;
 		for(Point i:template.getShopKeep()) {
-				ShopKeep shopKeep = new ShopKeep(TILESIZE*(x+i.x)+8,TILESIZE*(y+i.y)+8);
+				shopKeep = new ShopKeep(TILESIZE*(x+i.x)+8,TILESIZE*(y+i.y)+8);
 				entities.add(shopKeep);
-				//entities.add(new Chest(TILESIZE*(x+i.x)+8,TILESIZE*(y+i.y)+8));
+			
 		}
+		for(Point i:template.getSaleItem()) {
+			if(shopKeep!=null) {
+				shopKeep.makeItemStand(TILESIZE*(x+i.x)+8,TILESIZE*(y+i.y)+8);
+			}else {
+				ItemStand item = new ItemStand(new GunTowerItem(0,0,ThreadLocalRandom.current().nextInt(
+						ItemList.TOWERS_LEN+ItemList.GUNS_LEN)),15, TILESIZE*(x+i.x)+8,TILESIZE*(y+i.y)+8);
+				entities.add(item);
+			}
+	}
 		
 	}
 	
@@ -85,6 +97,7 @@ public class Room {
 		if(!opened) {
 			for(Entity i:entities) {
 				Entity.getEntityManager().addEntity(i);
+				i.init();
 			}
 			
 			

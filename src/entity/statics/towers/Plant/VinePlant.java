@@ -18,7 +18,7 @@ public class VinePlant extends Tower{
 	public VinePlant(int x, int y, TowerSpawn spawn) {
 		super(x, y, 115, 115, new Animation(Assets.vinePlant[0]), 9999,spawn);
 		colour=ThreadLocalRandom.current().nextInt(0,Assets.vinePlant.length);
-		upgradeIcon=Assets.towerIcons[9];
+		upgradeIcon=Assets.towerIcons[10];
 		animation= new Animation(Assets.vinePlant[colour]);
 		height/=2;
 		price=4;

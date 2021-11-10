@@ -33,7 +33,7 @@ import states.console.ConsoleState;
 	 * this is the robot enemy guy that will go around the path to the core and try to shoot you
 	 */
 public abstract class Enemy extends Mobs {
-	public static final int DOWN=0,LEFT=1,UP=2,RIGHT=3;
+	public static final int DOWN=0,LEFT=1,UP=2,RIGHT=3, UPTILE=18, RIGHTTILE=19,DOWNTILE=20, LEFTTILE=21;
 	protected int direction, bufferedDirection; //Depending on the direction the enemy will face different ways
 	protected int reloadTime, shotDelay, turnDelay; //Shot delay to make sure enemies can not shoot rapidly
 	protected int rangeWidth = 150, rangeHeight = 150; //The specific width and height of the enemy's attack range
@@ -61,7 +61,7 @@ public abstract class Enemy extends Mobs {
 		damage=0;
 	}
 
-	protected void init() {
+	public void init() {
 		width=directionBounds[direction].width;
 		height=directionBounds[direction].height;
 		bounds=(Rectangle) directionBounds[direction].clone();
@@ -75,22 +75,22 @@ public abstract class Enemy extends Mobs {
 	
 	public void updateDirection() {
   //this checks what tile the enemy is currently on and changes its direction if it is a corner path tile
-		int tile=GameState.getFloor().getTile(Math.round((x+width/2)/16f-0.5f),Math.round((y+(height/2))/16-0.5f));
+		int tile=GameState.getFloor().getSpawnData(Math.round((x+width/2)/16f-0.5f),Math.round((y+(height/2))/16-0.5f));
 		if(bufferedDirection==direction) {//doing things if the enemy doesnt need to turn soon
 			//setting turn delay to the right amount so that they will end up centered
 			
 			
 			//getting ready to turn of they see a turning tile
-			if(tile==4||tile==13) {
+			if(tile==RIGHTTILE) {
 				bufferedDirection=RIGHT;
 				
-			}else if(tile==5||tile==6) {
+			}else if(tile==DOWNTILE) {
 				bufferedDirection=DOWN;
 				
-			}else if(tile==12||tile==7) {
+			}else if(tile==LEFTTILE) {
 				bufferedDirection=LEFT;
 				
-			}else if(tile==11||tile==14) {
+			}else if(tile==UPTILE) {
 				bufferedDirection=UP;
 			}
 			int distance=0;

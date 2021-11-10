@@ -23,8 +23,8 @@ public class LaserTowerlvl1 extends Tower{
 		sellValue=3;
 		infoText="-buying cost $"+price+"- \n \n A tower that can shoot very far but only in the you are facing when you place it";
 		
-		buyIcon=Assets.towerIcons[5];
-		upgradeIcon=Assets.towerIcons[6];
+		buyIcon=Assets.towerIcons[6];
+		upgradeIcon=Assets.towerIcons[7];
 		switch (direction) {
 		case 'u':
 			animation=new Animation(Assets.laserTowerLvl1U,6);

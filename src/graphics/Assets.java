@@ -92,9 +92,15 @@ public class Assets {
 			28, 216, 11, 1);
 	public static final BufferedImage[] lv1DoorD=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door d.png"), 
 			28, 216, 11, 1);
+	public static final BufferedImage[] lv2DoorVert=splitSpriteSheet(loadImage("res/textures/floors/factory door vert.png"), 
+			48, 48, 10, 1);
+	//public static final BufferedImage[] lv2DoorHor=splitSpriteSheet(loadImage("res/textures/floors/floor 1 door r.png"), 
+	//		298, 43, 11, 1);
 	
 	public static final BufferedImage[] lv1Breakables=splitSpriteSheet(loadImage("res/textures/floors/floor 1 breakables.png"), 
 			16, 20, 5, 1);
+	public static final BufferedImage[] lv2Breakables=splitSpriteSheet(loadImage("res/textures/floors/factory breakables.png"), 
+			16, 20, 3, 1);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes
 	//private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 23, 2);
 	private static final BufferedImage[] playeridle = splitSpriteSheet(loadImage("res/textures/player combo.png"), 9, 17, 6, 4);
@@ -108,7 +114,7 @@ public class Assets {
 	
 	//loading towers
 	
-	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 18,1);
+	public static final BufferedImage[] towerIcons = splitSpriteSheet(loadImage("res/textures/towers/tower icons.png"), 50,50, 19,1);
 	public static final BufferedImage[] towerSpawn = splitSpriteSheet(loadImage("res/textures/towers/tower spawn.png"), 21, 24, 8, 1);
 	public static final BufferedImage[] wizardTowerLvl1 =splitSpriteSheet(loadImage("res/textures/towers/wizard lvl.1.png"), 26, 33, 8, 1);
 	public static final BufferedImage[] fireWizardTower =splitSpriteSheet(loadImage("res/textures/towers/fire wizard.png"), 18, 37, 8, 1);
@@ -161,6 +167,7 @@ public class Assets {
 
 	//shop keep
 	public static  final BufferedImage[] shopIdle=splitSpriteSheet(loadImage("res/textures/shop guy.png"),13,20,6,1);
+	public static  final BufferedImage[] itemStand=splitSpriteSheet(loadImage("res/textures/item stand.png"),23,31,5,1);
 	
 	//player animations
 	public static  final BufferedImage[] playerIdleD=Arrays.copyOfRange(playeridle, 0, 6);
@@ -215,6 +222,7 @@ public class Assets {
 		for(int y=0;y<columns;y++) {//looping through the image vertically
 			for(int x=0;x<rows;x++) {//looping horizontally
 				pics[(y*rows)+x]=sheet.getSubimage(x*width, y*height, width, height);
+				
 				//spliting the image and putting it in the array
 			}
 		}

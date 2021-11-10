@@ -27,8 +27,8 @@ public class WallVert extends Tower{
 		price=2;
 		sellValue=3;
 		infoText="-buying cost $"+price+"- \n \n makes the wall much taller";
-		buyIcon=Assets.towerIcons[14];
-		upgradeIcon=Assets.towerIcons[16];
+		buyIcon=Assets.towerIcons[15];
+		upgradeIcon=Assets.towerIcons[17];
 	}
 	@Override
 	public void update() {
