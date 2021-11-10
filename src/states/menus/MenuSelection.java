@@ -1,6 +1,7 @@
 package states.menus;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -11,6 +12,7 @@ public class MenuSelection extends MenuObject{
 	private String name;
 	private boolean isHovered=false;
 	private Color colour, hoverColour;
+	private Font font = Assets.bigMonoFont;
 	
 	public MenuSelection(Rectangle bounds, String name) {
 		this(bounds,name,Color.white,Color.black);
@@ -24,7 +26,7 @@ public class MenuSelection extends MenuObject{
 
 	@Override
 	protected void renderObject(Graphics g) {
-		g.setFont(Assets.bigpixelfont);//setting the font
+		g.setFont(font);//setting the font
 		if(selected||isHovered) {
 			g.setColor(hoverColour);//setting the colour for the menu text
 			g.drawString(name.toUpperCase(), bounds.x+1, bounds.y+bounds.height);

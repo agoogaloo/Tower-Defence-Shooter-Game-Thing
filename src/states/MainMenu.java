@@ -2,17 +2,47 @@ package states;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import graphics.Assets;
+import states.menus.Menu;
+import states.menus.MenuObject;
+import states.menus.MenuSelection;
+import window.Window;
 
 public class MainMenu extends State{
+	MainMenu thisState=this;
+	
+	private Menu menu = new Menu(new Rectangle(20,20,100,8), new MenuObject[] {
+			new MenuSelection(new Rectangle(Window.getDisplay().getRelativeWidth()/2-30,
+					Window.getDisplay().getRelativeHeight()/2+20, 100,8), "Play") {
+				public void select() {
+					currentState=new GameState();
+				};
+			},
+			new MenuSelection(new Rectangle(Window.getDisplay().getRelativeWidth()/2-30,
+					Window.getDisplay().getRelativeHeight()/2+30,100,8), "Settings") {
+				
+				public void select() {
+					currentState=new SettingsState(thisState);
+				};
+			},
+			new MenuSelection(new Rectangle(Window.getDisplay().getRelativeWidth()/2-30,
+					Window.getDisplay().getRelativeHeight()/2+40, 100,8), "Quit") {
+				public void select() {
+					Main.Main.quitGame();
+				};
+			},	
+	});
+	
+	public MainMenu() {
+		menu.select();
+	}
 
 	@Override
 	public void update() {
 		getInputs().update();
-		if(getInputs().isSelect()) {
-			currentState=new GameState();
-		}	
+		menu.update(getInputs());	
 	}
 
 	@Override
@@ -26,10 +56,10 @@ public class MainMenu extends State{
 		g.drawString("IMAGINE A GOOD MENU HERE",83, 71);
 		g.setColor(Color.white);
 		g.drawString("IMAGINE A GOOD MENU HERE",82, 70);
+		menu.render(g);
 		
 		
 	
-		g.drawString("CLICK TO START",120, 138);
 		
 		g.setFont(Assets.smallMonoFont);
 		g.drawString("VERSION 0.8.DEV",2, 7);

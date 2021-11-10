@@ -15,12 +15,12 @@ public class Main {
 	 */
 	private static Window window;//creating a window so we can see things
 	private static int fps=0;
+	private static boolean run=true;
 	public static void main(String[] args) {
 		Settings.reload();
 		SaveData.reload();
 		window= new Window(333*Settings.getScale(), 200*Settings.getScale());
 		State.init();
-		boolean run = true;
 
 		// variables for limiting frame rate
 		final int TARGETFPS = 60, DELAY = 1000000000 / TARGETFPS;
@@ -50,6 +50,8 @@ public class Main {
 			 }
 			fps=Math.round(1f/(delta/1000000000f));
 		}
+		
+		window.getFrame().dispose();
 	}
 	//lets other classes get the window so they can know things like window size 
 	public static Window getWindow() {
@@ -60,5 +62,8 @@ public class Main {
 	}
 	public static void resetWindow() {//this lets us reset the window to apply things like window scaling
 		window.resize(333*Settings.getScale(), 200*Settings.getScale());
+	}
+	public static void quitGame() {
+		run=false;
 	}
 }

@@ -1,6 +1,7 @@
 package states.menus;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Properties;
@@ -11,6 +12,7 @@ import saveData.Settings;
 public class SettingOption extends MenuObject{
 	private String name;
 	private String[] options;
+	private Font font = Assets.bigMonoFont;
 	private int currentValue;
 	private int valueOffset;
 	private boolean hovered=false;
@@ -33,7 +35,7 @@ public class SettingOption extends MenuObject{
 	public void renderObject(Graphics g) {
 		//BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 		//Graphics g = img.getGraphics();
-		g.setFont(Assets.bigpixelfont);//setting the font
+		g.setFont(font);//setting the font
 		
 		if(selected||hovered) {
 			g.setColor(Color.BLACK);//setting the colour for the menu text

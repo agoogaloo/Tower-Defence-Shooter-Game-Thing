@@ -21,10 +21,6 @@ import graphics.Camera;
  */
 
 public class Floor {
-	/*
-	 * this class is the randomly generated floor made out of several rooms that
-	 * have been created in the json files in the res folder
-	 */
 	
 	// declaring variables
 	private Room[] rooms;
@@ -34,7 +30,7 @@ public class Floor {
 	
 	private int size;// how many rooms big the floor is
 	private int endRoomX, endRoomY;
-	private int width=350, height=350;
+	private int width=250, height=250;
 	
 	private final int towersPerRoom=4; 
 	private int levelID;
