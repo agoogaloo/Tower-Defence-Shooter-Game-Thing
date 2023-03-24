@@ -28,4 +28,9 @@ public class YellowEnemy extends Enemy{
 		
 		
 	}
+
+	@Override
+	public Enemy createNew(int x, int y, int direction) {
+		return new YellowEnemy(x, y, direction);
+	}
 }

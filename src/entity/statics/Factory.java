@@ -3,8 +3,6 @@ package entity.statics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import graphics.Animation;
-import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
 import states.GameState;

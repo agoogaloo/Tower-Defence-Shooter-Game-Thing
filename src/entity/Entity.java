@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
 import entity.mobs.enemy.StatusType;
 import graphics.Camera;

@@ -60,7 +60,8 @@ public abstract class Enemy extends Mobs {
 		friendly=false;
 		damage=0;
 	}
-
+	public abstract Enemy createNew(int x, int y, int direction);
+	
 	public void init() {
 		width=directionBounds[direction].width;
 		height=directionBounds[direction].height;

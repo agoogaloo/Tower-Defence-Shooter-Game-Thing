@@ -142,4 +142,10 @@ public class HeliBot extends Enemy  {
 	@Override
 	public void damage(double amount) {
 	}
+
+
+	@Override
+	public Enemy createNew(int x, int y, int direction) {
+		return new HeliBot(x, y);
+	}
 }

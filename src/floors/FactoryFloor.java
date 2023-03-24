@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 import graphics.particles.InstantEffect;
 import graphics.particles.movers.Straight;
-import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.movers.spawnPattern.RectangleSpawner;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
@@ -14,7 +13,7 @@ public class FactoryFloor extends Floor{
 
 	public FactoryFloor(String folder, int levelID, int size, int screenWidth, int screenHeight, BufferedImage[] pics) {
 		super(folder, levelID, size, screenWidth, screenHeight, pics);
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	@Override

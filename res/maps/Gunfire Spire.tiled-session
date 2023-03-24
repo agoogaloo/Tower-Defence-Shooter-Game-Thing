@@ -1,0 +1,217 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "floor 2/mid/mid d-d.json",
+    "expandedProjectPaths": [
+        "floor 2",
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Users/aguy2/Documents/tiled stuff/floor 2.tsx": {
+            "scaleInDock": 1.5
+        },
+        "C:/Users/aguy2/Documents/tiled stuff/neo tileset.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/aguy2/Documents/tiled stuff/spawns.tsx": {
+            "scaleInDock": 2
+        },
+        "floor 2/end/end D.json": {
+            "scale": 3.0246323529411763,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 136.04959280418134,
+                "y": 136.04959280418134
+            }
+        },
+        "floor 2/end/end L.json": {
+            "scale": 3.0246323529411763,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 136.04959280418134,
+                "y": 136.04959280418134
+            }
+        },
+        "floor 2/end/end R.json": {
+            "scale": 3.0246323529411763,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 136.04959280418134,
+                "y": 136.04959280418134
+            }
+        },
+        "floor 2/end/end U.json": {
+            "scale": 3.0246323529411763,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 136.04959280418134,
+                "y": 136.04959280418134
+            }
+        },
+        "floor 2/mid/mid d-d.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 164.75,
+                "y": 178.75
+            }
+        },
+        "floor 2/mid/mid d-l.json": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 184.33333333333334,
+                "y": 184.33333333333331
+            }
+        },
+        "floor 2/mid/mid d-r.json": {
+            "scale": 2.3372159090909093,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.01458611887685,
+                "y": 176.0641789230582
+            }
+        },
+        "floor 2/mid/mid l-d.json": {
+            "scale": 2.448511904761905,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.30144645678863,
+                "y": 168.06126169928285
+            }
+        },
+        "floor 2/mid/mid l-l.json": {
+            "scale": 3.2136718749999997,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.26741217940929,
+                "y": 128.04667558040597
+            }
+        },
+        "floor 2/mid/mid l-u.json": {
+            "scale": 2.8565972222222222,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 136.00097240792513,
+                "y": 144.0525100279567
+            }
+        },
+        "floor 2/mid/mid r-d.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 152.33333333333334,
+                "y": 160.33333333333331
+            }
+        },
+        "floor 2/mid/mid r-r.json": {
+            "scale": 3.6727678571428566,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 151.79287711194848,
+                "y": 112.04084113285526
+            }
+        },
+        "floor 2/mid/mid r-u.json": {
+            "scale": 2.448511904761905,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.30144645678863,
+                "y": 168.06126169928285
+            }
+        },
+        "floor 2/mid/mid u-l.json": {
+            "scale": 2.448511904761905,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.30144645678863,
+                "y": 168.06126169928285
+            }
+        },
+        "floor 2/mid/mid u-r.json": {
+            "scale": 2.448511904761905,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 160.30144645678863,
+                "y": 168.06126169928285
+            }
+        },
+        "floor 2/mid/mid u-u.json": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 152.25,
+                "y": 160.25
+            }
+        },
+        "floor 2/start/start D1.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 184.25,
+                "y": 176.25
+            }
+        },
+        "floor 2/start/start L1.json": {
+            "scale": 2.3372159090909093,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 144.40257688100158,
+                "y": 176.0641789230582
+            }
+        },
+        "floor 2/start/start R1.json": {
+            "scale": 2.05675,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 168.4696730278352,
+                "y": 200.07293059438433
+            }
+        },
+        "floor 2/start/start U1.json": {
+            "scale": 2.3372159090909093,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 128.14391637291845,
+                "y": 176.0641789230582
+            }
+        }
+    },
+    "map.width": 20,
+    "openFiles": [
+        "floor 2/mid/mid d-d.json",
+        "floor 2/mid/mid d-l.json",
+        "floor 2/mid/mid d-r.json",
+        "floor 2/mid/mid l-d.json",
+        "floor 2/mid/mid l-l.json",
+        "floor 2/mid/mid l-u.json",
+        "floor 2/mid/mid r-d.json",
+        "floor 2/mid/mid r-r.json",
+        "floor 2/mid/mid r-u.json",
+        "floor 2/mid/mid u-l.json",
+        "floor 2/mid/mid u-r.json",
+        "floor 2/mid/mid u-u.json",
+        "floor 2/start/start D1.json",
+        "floor 2/start/start R1.json",
+        "floor 2/start/start L1.json",
+        "floor 2/start/start U1.json"
+    ],
+    "project": "Gunfire Spire.tiled-project",
+    "recentFiles": [
+        "floor 2/start/start U1.json",
+        "floor 2/start/start L1.json",
+        "floor 2/start/start R1.json",
+        "floor 2/start/start D1.json",
+        "floor 2/mid/mid u-u.json",
+        "floor 2/mid/mid u-r.json",
+        "floor 2/mid/mid u-l.json",
+        "floor 2/mid/mid r-u.json",
+        "floor 2/mid/mid r-r.json",
+        "floor 2/mid/mid r-d.json",
+        "floor 2/mid/mid l-u.json",
+        "floor 2/mid/mid l-l.json"
+    ]
+}

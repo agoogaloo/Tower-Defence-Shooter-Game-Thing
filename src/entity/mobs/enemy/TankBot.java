@@ -47,4 +47,8 @@ public class TankBot extends Enemy{
 		targetY = entityManager.getPlayer().getY(); //Sets the players y location as the targetY
 		volleyShots=3;
 	}
+	@Override
+	public Enemy createNew(int x, int y, int direction) {
+		return new TankBot(x, y, direction);
+	}
 }

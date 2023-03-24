@@ -18,9 +18,14 @@ import graphics.Camera;
 import states.GameState;
 
 public class EnemySpawner {
+	private final int[] ENEMIES = new int[]{EnemyList.RED,EnemyList.GREEN,EnemyList.YELLOW,
+		EnemyList.HAMBURGER, EnemyList.TANK};
+	private final int[] BULLETDIFF = new int[]{2,1,3,3,2};
+	private final int[] TOWERDIFF = new int[]{2,3,1,2,3};
+	
 	private final int WAVESPERROOM=3;//how long many waves it takes to clear a room 
 	private int enemyDelay=0, heliDelay=0;
-	private int difficulty=3, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
+	private int difficulty=5, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
 	
 	private int spawnX=0, spawnY=0;
 	
@@ -29,7 +34,8 @@ public class EnemySpawner {
 	private ArrayList<Enemy> enemiesToAdd=new ArrayList<Enemy>();
 	
 	private HeliBot heliBot=new HeliBot(0, 0);
-	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,400,400); // the range that will start spawning the heli
+	// the range that will start spawning the heli
+	protected Ellipse2D.Float heliSpawnRange=new Ellipse2D.Float(0,0,400,400); 
 	private boolean useHeli=true;
 	
 	private SpawnButton button=new SpawnButton();
@@ -144,6 +150,17 @@ public class EnemySpawner {
 			enemiesToAdd.add(randomEnemy(spawnX+8, spawnY+8,direction));
 		}
 	}
+	private ArrayList<Enemy> CreateEnemies(int x,int y,int direction){
+		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+
+		int[] focusDiffArr;
+		int[] secondDiffArr;
+		int diffLenience = 3;
+
+
+
+		return enemies;
+	}
 	
 	public boolean waveComplete() {
 		if(enemiesToAdd.size()>0) {
@@ -182,7 +199,8 @@ public class EnemySpawner {
 			if(heliSpawnRange.x>0&&heliSpawnRange.y>0) {
 				heliBot=new HeliBot((int)heliSpawnRange.x, (int)heliSpawnRange.y);
 			} else{
-				heliBot=new HeliBot((int)(heliSpawnRange.x+heliSpawnRange.width), (int)(heliSpawnRange.y+heliSpawnRange.width));
+				heliBot=new HeliBot((int)(heliSpawnRange.x+heliSpawnRange.width), 
+				(int)(heliSpawnRange.y+heliSpawnRange.width));
 			}
 			Entity.getEntityManager().addEntity(heliBot);
 		}

@@ -19,4 +19,10 @@ public class RedEnemy extends Enemy{
 		directionBounds[RIGHT]=new Rectangle(3,0,14,24);
 		init();
 	}
+
+	@Override
+	public Enemy createNew(int x, int y, int direction) {
+		
+		return new RedEnemy(x, y, direction);	
+	}
 }

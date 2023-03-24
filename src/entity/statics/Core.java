@@ -3,8 +3,6 @@ package entity.statics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import com.sun.imageio.plugins.common.ImageUtil;
-
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import graphics.Animation;

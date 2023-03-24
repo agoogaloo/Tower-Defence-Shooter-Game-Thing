@@ -53,4 +53,8 @@ public class HamburgerBot extends Enemy{
 		entityManager.addEntity(new Bullet (x+width/2,y+height/2, targetX+width/2+x, targetY+height/2+y,Assets.enemyBullet, 3,100, false)); //Creates red bullets that shoot towards the player
 		entityManager.addEntity(new Bullet (x+width/2,y+height/2, -targetX+width/2+x, -targetY+height/2+y,Assets.enemyBullet, 3,100, false)); //Creates red bullets that shoot towards the player
 	}
+	@Override
+	public Enemy createNew(int x, int y, int direction) {
+		return new HamburgerBot(x, y, direction);
+	}
 }

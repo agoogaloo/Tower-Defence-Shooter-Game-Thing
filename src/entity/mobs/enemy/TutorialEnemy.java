@@ -18,5 +18,11 @@ public class TutorialEnemy extends Enemy {
 		this.speed=speed;
 		this.health=health;
 	}
+	@Override
+	public Enemy createNew(int x, int y, int direction) {
+		return new TutorialEnemy(x, y, direction, 0, 100);
+	}
+
+	
 
 }

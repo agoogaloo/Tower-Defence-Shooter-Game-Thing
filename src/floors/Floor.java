@@ -331,6 +331,8 @@ public class Floor {
 		}
 		for(Rectangle r:bounds) {
 			if(checkBounds.intersects(r)) {
+				
+				System.out.println(checkRoom.name+"hitting another room");
 				return false;
 			}
 		}
@@ -351,9 +353,10 @@ public class Floor {
 		try {
 			for(File file:folder.listFiles()) {
 				try {
-					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
-					rooms.add(new RoomTemplate(object));
 					System.out.println("loading room at "+file.getPath());
+					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
+					rooms.add(new RoomTemplate(object,file.getPath()));
+					
 				} catch (IOException |ParseException e) {
 					System.out.println(file.getPath()+" could not be loaded. Make sure it is a .json file");
 				}
@@ -370,7 +373,7 @@ public class Floor {
 		RoomTemplate room=null;// the room it will return
 		try {
 			JSONObject file=(JSONObject)(new JSONParser().parse(new FileReader(path)));
-			room=new RoomTemplate(file);
+			room=new RoomTemplate(file,path);
 			
 		} catch (IOException | ParseException e) {
 			System.out.print("there was a problem loading JSON file at "+path );

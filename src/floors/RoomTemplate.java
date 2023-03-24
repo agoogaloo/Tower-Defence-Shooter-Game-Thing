@@ -19,6 +19,7 @@ public class RoomTemplate {
 	private int[][] spawns;
 	private char entrance, exit;
 	private int width,height, entranceLoc, exitLoc;
+	String name;
 	private ArrayList<DoorTemplate> doors = new ArrayList<DoorTemplate>();
 	private ArrayList<Point> towerLocs = new ArrayList<Point>();
 	private ArrayList<Point> breakables = new ArrayList<Point>();
@@ -27,7 +28,8 @@ public class RoomTemplate {
 	
 	
 	
-	public RoomTemplate(JSONObject object) {
+	public RoomTemplate(JSONObject object, String name) {
+		this.name=name;
 		width=(int)((long)object.get("width"));
 		height=(int)((long)object.get("height"));
 		tiles = new int[width][height];
@@ -60,7 +62,7 @@ public class RoomTemplate {
 				
 		exitLoc=Integer.parseInt((String) exitLocObject.get("value"));
 				
-		System.out.print("width="+width+" height="+height+" entr="+entrance+" exit="+exit);
+		//System.out.print("width="+width+" height="+height+" entr="+entrance+" exit="+exit);
 		
 		
 		//getting spawn data

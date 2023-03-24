@@ -18,10 +18,10 @@ public class Floor2Door extends Door{
 		
 		switch(direction) {
 		case 'l': case 'r':
-			anim = new Animation(Assets.lv1DoorL,5,0,-2);
-			width=Assets.lv1DoorL[0].getWidth();
+			anim = new Animation(Assets.tutDoorHor);
+			width=Assets.tutDoorHor[0].getWidth();
 			height=48;
-			this.x=x-Assets.lv1DoorL[0].getWidth();
+			this.x=x-Assets.tutDoorHor[0].getWidth();
 			this.y=y-height+32-5;
 			break;
 			
@@ -34,11 +34,11 @@ public class Floor2Door extends Door{
 			this.y=y-16;
 			break;
 		default:
-			anim = new Animation(Assets.lv1DoorL,5);
-			width=Assets.lv1DoorL[0].getWidth();
+			anim = new Animation(Assets.lv2DoorVert);
+			width=48;
 			height=48;
-			this.x=x-Assets.lv1DoorL[0].getWidth();
-			this.y=y-height+32;
+			this.x=x-16;
+			this.y=y-16;
 			break;
 		}
 		anim.setLooping(false);

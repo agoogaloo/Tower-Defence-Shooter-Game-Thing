@@ -2,9 +2,6 @@ package entity.statics.towers.Mushroom;
 
 import java.awt.image.BufferedImage;
 
-import entity.Entity;
-import entity.mobs.enemy.Enemy;
-import entity.mobs.enemy.StatusType;
 import entity.statics.towers.Tower;
 import entity.statics.towers.TowerSpawn;
 import graphics.Animation;

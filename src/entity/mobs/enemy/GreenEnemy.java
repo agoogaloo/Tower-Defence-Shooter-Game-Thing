@@ -6,9 +6,6 @@ import graphics.Animation;
 import graphics.Assets;
 
 public class GreenEnemy extends Enemy {
-
-	
-	
 	public GreenEnemy(int x, int y, int direction) {
 		super(x, y, direction);
 		//changing the animations to the right pictures
@@ -29,4 +26,11 @@ public class GreenEnemy extends Enemy {
 		health=75;
 		reloadTime = 40;
 	}
+
+	@Override
+	public Enemy createNew(int x, int y, int direction) {
+		return new GreenEnemy(x, y, direction);
+	}
+
+
 }

@@ -203,17 +203,12 @@ public class Player extends Mobs {
 		}
 		if(animator.getCurrentAnimation()==PlayerAnimations.SPIN&&spinHitBox==null) {
 			entityManager.addEntity(spinHitBox=new CircleBox(x-14, y-11, 35,35,true));
-			
-			
 		}
+		
 		if(animator.getCurrentAnimation()==PlayerAnimations.SPINEND&&spinHitBox!=null) {
 			spinHitBox.destroy();
 			spinHitBox=null;
 		}
-		
-		
-		
-		
 	}
 	
 	private void tower() { //Tower method to create a tower

@@ -11,17 +11,17 @@ public class CommandSelector {
 	
 	//Parallel arrays to tell which commands match up with which classes
 	private final String[] commandStrings = new String[] {"Help","ShowHitBox", "ShowFPS",
-			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal","Chest", "Give", "Ghost","EntityInfo"};
+			"Freeze", "Fs", "NewWave","InstaKillEnemy", "Unlock","Money","Heal","Chest", "Give", "Ghost","EntityInfo", "loadLevel"};
 	private final Command[] commands = new Command[] {new Help(), new ShowHitBox(), 
 			new ShowFPS(), new Freeze(), new FrameSkip(), new EnemyWave(), new InstaKillEnemies(), 
-			new Unlock(),new Money(), new Heal(), new Chest(), new Give(), new Ghost(),new EntityInfo()};
+			new Unlock(),new Money(), new Heal(), new Chest(), new Give(), new Ghost(),new EntityInfo(), new LoadLevel()};
 	
 	public CommandSelector(ConsoleState console) {
 		this.console = console;
 	}
 	
 	/**
-	 * this will execute the right command with the right paramiters when it is called
+	 * this will execute the right command with the right parameters when it is called
 	 * 
 	 * @param command - the entire line that has been typed into the console to give the command including the paramiters 
 	 * @return the text the the command wants to display on the console or to let you know it didnt recognize a command
@@ -294,6 +294,22 @@ public class CommandSelector {
 			
 			
 			return "player is not touching an entity";
+		}
+	}
+	private class LoadLevel extends Command{
+		private LoadLevel(){
+			helpText= "params: (int level id)  loads the level/floor with id";
+		}
+		public String execute(String params) {
+			try {
+				int id = Integer.parseInt(params);
+				GameState.newFloor(id);
+				return "loaded floor: "+id;
+				
+			}catch(NumberFormatException e) {
+				return"paramiter given is not an int";
+			}
+			
 		}
 	}
 	

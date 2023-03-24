@@ -100,7 +100,7 @@ public class Assets {
 	public static final BufferedImage[] lv1Breakables=splitSpriteSheet(loadImage("res/textures/floors/floor 1 breakables.png"), 
 			16, 20, 5, 1);
 	public static final BufferedImage[] lv2Breakables=splitSpriteSheet(loadImage("res/textures/floors/factory breakables.png"), 
-			16, 20, 3, 1);
+			16, 20, 4, 1);
 	//these are private because they are only used to split into other animations which are then actualy used by other classes
 	//private static final BufferedImage[] player = splitSpriteSheet(loadImage("res/textures/player idle.png"), 14, 24, 23, 2);
 	private static final BufferedImage[] playeridle = splitSpriteSheet(loadImage("res/textures/player combo.png"), 9, 17, 6, 4);
