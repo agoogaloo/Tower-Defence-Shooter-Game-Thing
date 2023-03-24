@@ -143,7 +143,7 @@ public class CommandSelector {
 	
 	private class EnemyWave extends Command{
 		private EnemyWave(){
-			helpText= "params: (int amount)      spawns amount enemies at the end of the \n    players current room";
+			helpText= "params: (int amount)      spawns a wave at the end of the players current \nroom with amount difficulty";
 		}
 		public String execute(String params) {
 			int amount;

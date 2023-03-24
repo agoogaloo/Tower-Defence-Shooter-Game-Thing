@@ -16,7 +16,7 @@ public class TankBot extends Enemy{
 		health = 275;
 		reloadTime = 240;
 		
-		//using the blue enemy animations so it looks different
+		
 		anims[DOWN] = new Animation(Assets.tankBotD,4); //Different animations depending on the direction the enemy is facing
 		anims[LEFT] = new Animation(Assets.tankBotL,4);
 		anims[UP] = new Animation(Assets.tankBotU,4);

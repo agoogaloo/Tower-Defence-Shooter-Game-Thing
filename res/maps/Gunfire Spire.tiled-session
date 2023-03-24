@@ -3,14 +3,17 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "floor 2/mid/mid d-d.json",
+    "activeFile": "floor 2/start/start D1.json",
     "expandedProjectPaths": [
+        "floor 2/start",
         "floor 2",
-        "."
+        ".",
+        "floor 2/mid"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "C:/Users/aguy2/Documents/tiled stuff/floor 2.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1.5
         },
         "C:/Users/aguy2/Documents/tiled stuff/neo tileset.tsx": {
@@ -55,23 +58,23 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 164.75,
+                "x": 147.75,
                 "y": 178.75
             }
         },
         "floor 2/mid/mid d-l.json": {
             "scale": 1.5,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 184.33333333333334,
+                "x": 161.66666666666663,
                 "y": 184.33333333333331
             }
         },
         "floor 2/mid/mid d-r.json": {
             "scale": 2.3372159090909093,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 120.01458611887685,
+                "x": 105.46736355901298,
                 "y": 176.0641789230582
             }
         },
@@ -79,7 +82,7 @@
             "scale": 2.448511904761905,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 160.30144645678863,
+                "x": 146.41546128600947,
                 "y": 168.06126169928285
             }
         },
@@ -87,7 +90,7 @@
             "scale": 3.2136718749999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 120.26741217940929,
+                "x": 109.68761395405377,
                 "y": 128.04667558040597
             }
         },
@@ -95,7 +98,7 @@
             "scale": 2.8565972222222222,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 136.00097240792513,
+                "x": 124.09869940440012,
                 "y": 144.0525100279567
             }
         },
@@ -103,23 +106,23 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 152.33333333333334,
+                "x": 129.66666666666663,
                 "y": 160.33333333333331
             }
         },
         "floor 2/mid/mid r-r.json": {
-            "scale": 3.6727678571428566,
+            "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 151.79287711194848,
-                "y": 112.04084113285526
+                "x": 144.75,
+                "y": 132.75
             }
         },
         "floor 2/mid/mid r-u.json": {
             "scale": 2.448511904761905,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 160.30144645678863,
+                "x": 146.41546128600947,
                 "y": 168.06126169928285
             }
         },
@@ -127,7 +130,7 @@
             "scale": 2.448511904761905,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 160.30144645678863,
+                "x": 146.41546128600947,
                 "y": 168.06126169928285
             }
         },
@@ -135,7 +138,7 @@
             "scale": 2.448511904761905,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 160.30144645678863,
+                "x": 146.41546128600947,
                 "y": 168.06126169928285
             }
         },
@@ -143,7 +146,7 @@
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 152.25,
+                "x": 135.25,
                 "y": 160.25
             }
         },
@@ -151,7 +154,7 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 184.25,
+                "x": 167.25,
                 "y": 176.25
             }
         },
@@ -159,7 +162,7 @@
             "scale": 2.3372159090909093,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 144.40257688100158,
+                "x": 144.61650662452897,
                 "y": 176.0641789230582
             }
         },
@@ -167,7 +170,7 @@
             "scale": 2.05675,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 168.4696730278352,
+                "x": 168.71277500911629,
                 "y": 200.07293059438433
             }
         },
@@ -175,7 +178,7 @@
             "scale": 2.3372159090909093,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 128.14391637291845,
+                "x": 128.35784611644584,
                 "y": 176.0641789230582
             }
         }
@@ -201,17 +204,17 @@
     ],
     "project": "Gunfire Spire.tiled-project",
     "recentFiles": [
-        "floor 2/start/start U1.json",
-        "floor 2/start/start L1.json",
-        "floor 2/start/start R1.json",
-        "floor 2/start/start D1.json",
-        "floor 2/mid/mid u-u.json",
-        "floor 2/mid/mid u-r.json",
-        "floor 2/mid/mid u-l.json",
-        "floor 2/mid/mid r-u.json",
-        "floor 2/mid/mid r-r.json",
-        "floor 2/mid/mid r-d.json",
+        "floor 2/mid/mid d-d.json",
+        "floor 2/mid/mid d-l.json",
+        "floor 2/mid/mid d-r.json",
+        "floor 2/mid/mid l-d.json",
+        "floor 2/mid/mid l-l.json",
         "floor 2/mid/mid l-u.json",
-        "floor 2/mid/mid l-l.json"
+        "floor 2/mid/mid r-d.json",
+        "floor 2/mid/mid r-r.json",
+        "floor 2/mid/mid r-u.json",
+        "floor 2/mid/mid u-l.json",
+        "floor 2/mid/mid u-r.json",
+        "floor 2/mid/mid u-u.json"
     ]
 }

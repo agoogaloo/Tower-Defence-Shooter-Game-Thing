@@ -96,9 +96,9 @@ public abstract class Enemy extends Mobs {
 			}
 			int distance=0;
 			if(direction==DOWN) {
-				distance+=2+directionBounds[bufferedDirection].height/2-directionBounds[direction].height/2;
+				distance+=8-directionBounds[bufferedDirection].height/2+directionBounds[direction].height/2;
 			}else if(direction==UP) {
-				distance+=14+directionBounds[bufferedDirection].height/2-directionBounds[direction].height/2;
+				distance+=8+directionBounds[bufferedDirection].height/2-directionBounds[direction].height/2;
 			}else if(direction==LEFT) {
 				distance+=8+directionBounds[bufferedDirection].width/2-directionBounds[direction].width/2;
 			}else if(direction==RIGHT) {
@@ -126,9 +126,7 @@ public abstract class Enemy extends Mobs {
 		case RIGHT:
 			trueX+=speed;
 			break;
-		}
-		
-		
+		}		
 		x=(int)(trueX);
 		y=(int)(trueY);
 		

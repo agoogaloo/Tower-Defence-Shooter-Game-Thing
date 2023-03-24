@@ -54,13 +54,14 @@ public class GameState extends State{
 		}else if(getInputs().isConsole()) {
 			currentState=new ConsoleState(this);
 		}
-		if(ConsoleState.isGameFrozen()) {
-			return;
-		}
+		
+
 		
 		
 		Particle.getParticleManager().update();
-		Entity.getEntityManager().update();
+		if(!ConsoleState.isGameFrozen()) {
+			Entity.getEntityManager().update();
+		}
 		if(Entity.getEntityManager().getPlayer().isKilled()&&currentState==this) {
 			State.currentState=new DeadState(this);
 		}
@@ -107,6 +108,7 @@ public class GameState extends State{
 		
 		String path="res/maps/";
 		int size=0;
+		int difficulty = 4;
 		boolean deletePlayer=false;
 		BufferedImage[] tiles;
 		
@@ -143,6 +145,7 @@ public class GameState extends State{
 			size=5;
 			canHaveEnemies=true;
 			tiles=Assets.level2tiles;
+			difficulty = 6;
 			break;
 		case FLOOR3:
 			currentState = new WinState();
@@ -155,7 +158,7 @@ public class GameState extends State{
 		UIElement.getUIManager().clear();//clearing the ui things
 		floor = Floor.getRightFloor(path,newFloorIndex,size, Window.getDisplay().getWidth()/Window.getDisplay().getScale(),
 				Window.getDisplay().getHeight()/Window.getDisplay().getScale(), tiles);
-		Entity.getEntityManager().reset(deletePlayer);
+		Entity.getEntityManager().reset(deletePlayer,difficulty);
 		floor.init();
 		
 		

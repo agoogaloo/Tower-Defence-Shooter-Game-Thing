@@ -110,6 +110,7 @@ public class Assets {
 	private static final BufferedImage[] enemyYellow = splitSpriteSheet(loadImage("res/textures/enemies/robot yellow.png"), 21, 25, 4, 4);
 	private static final BufferedImage[] hamburgerBot = splitSpriteSheet(loadImage("res/textures/enemies/hamburger bot.png"), 33, 25, 4, 4);
 	private static final BufferedImage[] heliBot = splitSpriteSheet(loadImage("res/textures/enemies/flying bot.png"), 30, 26, 4, 4);
+	private static final BufferedImage[] babyBot = splitSpriteSheet(loadImage("res/textures/enemies/baby bot.png"), 16, 14, 4, 4);
 	public static final BufferedImage[] core = splitSpriteSheet(loadImage("res/textures/core.png"), 40, 35, 3, 3);
 	
 	//loading towers
@@ -212,6 +213,13 @@ public class Assets {
 	public static final BufferedImage[] heliBotL = Arrays.copyOfRange(heliBot, 4, 8);
 	public static final BufferedImage[] heliBotU = Arrays.copyOfRange(heliBot, 8, 12);
 	public static final BufferedImage[] heliBotR = Arrays.copyOfRange(heliBot, 12, 16);
+
+
+	public static final BufferedImage[] babyBotD = Arrays.copyOfRange(babyBot, 0, 4);
+	public static final BufferedImage[] babyBotL = Arrays.copyOfRange(babyBot, 4, 8);
+	public static final BufferedImage[] babyBotU = Arrays.copyOfRange(babyBot, 8, 12);
+	public static final BufferedImage[] babyBotR = Arrays.copyOfRange(babyBot, 12, 16);
+	
 	//other enemy stuff	
 	public static final BufferedImage[] waveIcon=splitSpriteSheet(loadImage("res/textures/enemies/wave.png"), 15,16, 3,1);
 	public static final BufferedImage[] waveDirections=splitSpriteSheet(loadImage("res/textures/enemies/wave directions.png"), 27,34, 8,1);

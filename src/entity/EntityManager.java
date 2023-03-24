@@ -27,9 +27,9 @@ public class EntityManager {
 	private int kills=0;
 	Player player;// creating a player
 	Factory factory;//the robot factory at the end of the level
-	EnemySpawner spawner=new EnemySpawner(false);//the thing that controls when/where enemies spawn
+	EnemySpawner spawner=new EnemySpawner(false,4);//the thing that controls when/where enemies spawn
 
-	public void reset(boolean deletePlayer) {
+	public void reset(boolean deletePlayer, int difficulty) {
 
   	// this initializes/resets the entity manager and is seperate from the constructor so
 		// the player can add the core to the array if it was added in the constructor the
@@ -51,7 +51,7 @@ public class EntityManager {
 		entities.add(player);// adding the player and factory to the arraylist so it will be updated and rendered
 		//entities.add(factory);
 		
-		spawner=new EnemySpawner(GameState.canHaveEnemies());
+		spawner=new EnemySpawner(GameState.canHaveEnemies(), difficulty);
 	}
 
 	// this method updates all the entitys in the entities arrayList and removes the dead ones

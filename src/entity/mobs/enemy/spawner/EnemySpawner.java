@@ -7,25 +7,20 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
-import entity.mobs.enemy.GreenEnemy;
-import entity.mobs.enemy.HamburgerBot;
 import entity.mobs.enemy.HeliBot;
-import entity.mobs.enemy.RedEnemy;
-import entity.mobs.enemy.TankBot;
-import entity.mobs.enemy.YellowEnemy;
 import floors.Room;
 import graphics.Camera;
 import states.GameState;
 
 public class EnemySpawner {
 	private final int[] ENEMIES = new int[]{EnemyList.RED,EnemyList.GREEN,EnemyList.YELLOW,
-		EnemyList.HAMBURGER, EnemyList.TANK};
-	private final int[] BULLETDIFF = new int[]{2,1,3,3,2};
-	private final int[] TOWERDIFF = new int[]{2,3,1,2,3};
+		EnemyList.HAMBURGER, EnemyList.TANK, EnemyList.BABYBOT};
+	private final int[] BULLETDIFF = new int[]{2,1,3,3,2,1};
+	private final int[] TOWERDIFF = new int[]{2,3,1,2,3,1};
 	
 	private final int WAVESPERROOM=3;//how long many waves it takes to clear a room 
 	private int enemyDelay=0, heliDelay=0;
-	private int difficulty=5, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
+	private int difficulty=4, roomsWaves=1, totalWaves=0;//dificulty and how many waves have happened in this room
 	
 	private int spawnX=0, spawnY=0;
 	
@@ -40,8 +35,9 @@ public class EnemySpawner {
 	
 	private SpawnButton button=new SpawnButton();
 	
-	public EnemySpawner(boolean buttonSpawns) {
+	public EnemySpawner(boolean buttonSpawns, int difficulty) {
 		this.buttonSpawns=buttonSpawns;
+		this.difficulty = difficulty;
 		if(!buttonSpawns) button.remove(); 
 	}
 	public void update() {
@@ -120,7 +116,7 @@ public class EnemySpawner {
 		}
 	}
 	
-	public void newWave(int enemies) {
+	public void newWave(int difficulty) {
 		System.out.println("\n\nSTARTING WAVE "+totalWaves+"\nroomWaves: "+roomsWaves+"\n");
 		
 		Room room=GameState.getFloor().getLastRoom();
@@ -146,20 +142,75 @@ public class EnemySpawner {
 			spawnX+=+30;
 			break;
 		}
-		for (int i=0;i<enemies;i++) {
-			enemiesToAdd.add(randomEnemy(spawnX+8, spawnY+8,direction));
+		boolean focus = ThreadLocalRandom.current().nextBoolean();
+		System.out.println("making wave with focus:"+focus);
+		ArrayList<Integer> enemies = CreateEnemies(difficulty,focus);
+		for (int i:enemies) {
+			enemiesToAdd.add(EnemyList.newEnemy(i,spawnX+8, spawnY+8,direction));
 		}
 	}
-	private ArrayList<Enemy> CreateEnemies(int x,int y,int direction){
-		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Integer> CreateEnemies(int difficulty,boolean towerFocus){
+		
+		ArrayList<Integer> enemyIDs = new ArrayList<Integer>();
+		int diffLenience = difficulty/2;
+		boolean balanced = false;
 
 		int[] focusDiffArr;
 		int[] secondDiffArr;
-		int diffLenience = 3;
+		int focusDiff = 0 , secondDiff = 0;
+		if (towerFocus){
+			focusDiffArr = TOWERDIFF;
+			secondDiffArr = BULLETDIFF;
+		}else{
+			focusDiffArr = BULLETDIFF;
+			secondDiffArr = TOWERDIFF;
+		}
+		//adjusting the enemies until its balanced enough
+		while (!balanced){
+			//adding enemies until target dificulty is reached
+			if(focusDiff<difficulty){
+				int id = ThreadLocalRandom.current().nextInt(0,ENEMIES.length);
+				enemyIDs.add(id);
+				focusDiff+=focusDiffArr[id];
+				secondDiff+=secondDiffArr[id];
+			}else if(focusDiff>difficulty+diffLenience || secondDiff<difficulty-diffLenience){
+				//getting the enemies that are too hard
+				ArrayList<Integer> probEnemies = new ArrayList<Integer>();
+				for (int i=0 ; i<enemyIDs.size();i++){
+					if (focusDiffArr[enemyIDs.get(i)]>secondDiffArr[enemyIDs.get(i)
+					]){
+						probEnemies.add(i);
+					}
+				}
+				if(probEnemies.size()>0){
+					int remEnemy = ThreadLocalRandom.current().nextInt(0,probEnemies.size());
+					focusDiff-=focusDiffArr[enemyIDs.get(remEnemy)];
+					secondDiff-=secondDiffArr[enemyIDs.get(remEnemy)];
+					enemyIDs.remove(remEnemy);
+				}
 
+			}else if(secondDiff>difficulty){
+				//getting the enemies that are too hard
+				ArrayList<Integer> probEnemies = new ArrayList<Integer>();
+				for (int i=0 ; i<enemyIDs.size();i++){
+					if (secondDiffArr[enemyIDs.get(i)]>focusDiffArr[enemyIDs.get(i)]){
+						probEnemies.add(i);
+					}
+				}
+				if(probEnemies.size()>0){
+					int remEnemy = ThreadLocalRandom.current().nextInt(0,probEnemies.size());
+					focusDiff-=focusDiffArr[enemyIDs.get(remEnemy)];
+					secondDiff-=secondDiffArr[enemyIDs.get(remEnemy)];
+					enemyIDs.remove(remEnemy);
+				}
+			}else{
+				balanced = true;
+			}
 
-
-		return enemies;
+		}
+		System.out.println("wave of difficulty "+difficulty+" enemies:"+enemyIDs.toString()+
+		" focusdiff:"+focusDiff+" second diff:"+secondDiff);
+		return enemyIDs;
 	}
 	
 	public boolean waveComplete() {
@@ -208,21 +259,9 @@ public class EnemySpawner {
 	
 	
 	private Enemy randomEnemy(int x, int y, int direction) {
-		switch(ThreadLocalRandom.current().nextInt(0,5)) {
-		case 0:
-			return new RedEnemy(x, y, direction);
-		case 1:
-			return new TankBot(x, y, direction);
-		case 2:
-			return new GreenEnemy(x, y, direction);
-		case 3:
-			return new YellowEnemy(x, y, direction);
-		case 4:
-			return new HamburgerBot(x,y,direction);
-		default:
-			System.out.println("random enemy number out of range so a normal one was made");
-			return new RedEnemy(x, y, direction);		
-		}
+		int id = ThreadLocalRandom.current().nextInt(0,ENEMIES.length);
+		return EnemyList.newEnemy(id, x, y, direction);
+
 	}
 	
 	public void setButtonLocation(int x, int y) {
