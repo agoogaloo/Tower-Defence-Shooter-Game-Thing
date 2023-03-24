@@ -62,7 +62,7 @@ public class MainMenu extends State{
 	
 		
 		g.setFont(Assets.smallMonoFont);
-		g.drawString("VERSION 0.8.DEV",2, 7);
+		g.drawString("VERSION 0.8.0",2, 7);
 		/*g.drawLine(333/2,0, 333/2,200);
 		g.drawLine(333/2-50,0, 333/2-50,200);
 		g.drawLine(333/2+50,0, 333/2+50,200);
