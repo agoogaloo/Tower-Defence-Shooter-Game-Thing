@@ -16,14 +16,18 @@ public class ConsoleState extends State{
 	private String currentLine="", allText="";
 	boolean copyBackGround=true;
 	//a bunch of booleans showing if certain commands are active or not
-	static boolean showHitBoxen=false, gameFrozen=false, instaKillEnemy=false, showFPS=false;
+	static boolean showHitBoxen=false, gameFrozen=false, instaKillEnemy=false, showFPS=false; 
+	public static boolean cheatsUsed = false;
 	
 	public ConsoleState(GameState game) {
 		this.game=game;//this is used so it can continue the game and not restart it when you push f12 again
 	}
 	
 	
-	@Override
+	
+	
+	
+    @Override
 	public void update() {
 		KeyEvent key=getInputs().getTypedKey();
 		if(key!=null) {//updating the text if you push something
@@ -98,8 +102,6 @@ public class ConsoleState extends State{
 	}
 	public static boolean isShowFPS() {
 		return showFPS;
-	}
-	
-	
+	}	
 
 }

@@ -35,6 +35,8 @@ public class CommandSelector {
 			//checking if they match ignoring case because it is kind of pointless
 			if(commandStrings[i].equalsIgnoreCase(splitCommand[0])) {
 				//executing the matching command in the parallel array with paramiters given
+				ConsoleState.cheatsUsed=true;
+				System.out.println("cheat used"+ConsoleState.cheatsUsed);
 				return commands[i].execute(splitCommand[1]);
 			}
 		}
@@ -108,7 +110,6 @@ public class CommandSelector {
 		}
 		public String execute(String params) {
 			ConsoleState.gameFrozen=!ConsoleState.gameFrozen;
-			
 			return "game frozen: "+ConsoleState.gameFrozen+"\n";
 		}
 	}

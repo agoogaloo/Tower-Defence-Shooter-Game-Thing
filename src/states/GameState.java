@@ -122,6 +122,7 @@ public class GameState extends State{
 			size=1;
 			canHaveEnemies=false;
 			tiles=Assets.hubtiles;
+			ConsoleState.cheatsUsed = false;
 			break;
 		case TUTORIALINDEX:
 			System.out.println("loading tutorial from index "+newFloorIndex);

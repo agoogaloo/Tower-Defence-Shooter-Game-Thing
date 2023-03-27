@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import graphics.Assets;
+import states.console.ConsoleState;
 
 public class WinState extends State{
 
@@ -31,9 +32,16 @@ public class WinState extends State{
 		g.drawString("THATS ALL THERE IS FOR NOW, BUT I'LL TRY TO ADD MORE STUFF SOON",25, 80);
 		g.drawString("IF YOU HAVE ANY SUGGESTIONS, FEEDBACK, OR ANYTIHNG ELSE",40, 110);
 		g.drawString("YOU CAN JOIN THE DISCORD OR SOMETHING",10, 130);
-		
+
+		if(ConsoleState.cheatsUsed){
+			g.setColor(new Color(45,135,153));
+			g.drawString("cheat menu used", 2, 7);
+			g.setColor(Color.white);
+		}
 		g.setFont(Assets.boldfont);
 		g.drawString("CLICK TO RESTART ",112, 160);
+
+		
 		
 		/*g.drawLine(333/2,0, 333/2,200);
 		g.drawLine(333/2-50,0, 333/2-50,200);
