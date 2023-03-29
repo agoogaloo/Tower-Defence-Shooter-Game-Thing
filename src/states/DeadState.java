@@ -20,9 +20,12 @@ public class DeadState extends State{
 	BufferedImage background;
 	GameState gameState;
 	Menu menu;
+
+	long timeTaken;
 	
-	public DeadState(GameState gameState) {
+	public DeadState(GameState gameState, long startTime) {
 		this.gameState=gameState;
+		timeTaken = System.currentTimeMillis()-startTime;
 		floorIndex=GameState.getFloorIndex();
 		
 		menu = new Menu(new Rectangle(), new MenuObject[] {
@@ -63,12 +66,16 @@ public class DeadState extends State{
 
 	@Override
 	public void render(Graphics g) {
+		long millis = timeTaken;
+		long seconds =timeTaken/(1000);
+		long minutes =seconds/60;
 		g.drawImage(background,0,0,null);
 		if(gameUpdates>0) {
 			return;
 		}
 		g.setColor(new Color(1,1,26));//setting the background colour
-		g.fillRect(Window.getDisplay().getRelativeWidth()/2-125,Window.getDisplay().getRelativeHeight()/2-75,250,150); 
+		g.fillRect(Window.getDisplay().getRelativeWidth()/2-125,Window.getDisplay().getRelativeHeight()/2-75,
+		250,150); 
 		g.setFont(Assets.boldfont);
 		g.setColor(Color.red);
 		g.drawString("YOU DIED",135, 41);
@@ -95,6 +102,8 @@ public class DeadState extends State{
 		g.drawString("FLOOR"+": "+floor.toUpperCase(),145, 70);
 		g.drawString("KILLS"+": "+Entity.getEntityManager().getKills(),145, 80);
 		g.drawString("MONEY"+": "+Entity.getEntityManager().getPlayer().getMoney(),145, 90);
+		g.drawString("TIME"+": "+String.format("%02d",minutes%60)+":"+String.format("%02d",seconds%60) +
+		"."+String.format("%03d",millis%1000)+"",145, 100);
 		menu.render(g);
 				
 		

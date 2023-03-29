@@ -32,7 +32,7 @@ public class GameState extends State{
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
 	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
-	
+	private static long startTime = 0;
 	public GameState() {
 		this(HUBINDEX);
 		
@@ -63,7 +63,7 @@ public class GameState extends State{
 			Entity.getEntityManager().update();
 		}
 		if(Entity.getEntityManager().getPlayer().isKilled()&&currentState==this) {
-			State.currentState=new DeadState(this);
+			State.currentState=new DeadState(this, startTime);
 		}
 		
 		// updating the camera position to center on the player
@@ -131,6 +131,7 @@ public class GameState extends State{
 			size=1;
 			canHaveEnemies=false;
 			tiles=Assets.level1tiles;
+			startTime = System.currentTimeMillis();
 			break;
 			
 		case FLOOR1:
@@ -140,6 +141,7 @@ public class GameState extends State{
 			canHaveEnemies=true;
 			tiles=Assets.level1tiles;
 			deletePlayer=true;
+			startTime = System.currentTimeMillis();
 			break;
 		case FLOOR2:
 			path+="floor 2";
@@ -149,7 +151,7 @@ public class GameState extends State{
 			difficulty = 6;
 			break;
 		case FLOOR3:
-			currentState = new WinState();
+			currentState = new WinState(startTime);
 			System.out.println("you win!");
 		default :
 				return;
@@ -220,4 +222,8 @@ public class GameState extends State{
 		return canHaveEnemies;
 		
 	}
+	public static long getStartTime() {
+		return startTime;
+	}
+	
 }

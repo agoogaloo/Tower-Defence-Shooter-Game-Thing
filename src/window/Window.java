@@ -22,7 +22,7 @@ public class Window {
 		// initializing variables
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		
-		frame = new JFrame("a title");
+		frame = new JFrame("Gunfire Spire");
 		
 		frame.setResizable(false);// not letting you resize the window so it doesn't mess things up when rendering
 		resize(width, height);
