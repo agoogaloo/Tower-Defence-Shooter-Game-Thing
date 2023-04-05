@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import Main.Constants;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
@@ -51,16 +52,16 @@ public class SpawnButton {
 		if(bounds.x<15) {
 			bounds.x=15;
 			left=true;
-		}else if(bounds.x>303) {
-			bounds.x=303;
+		}else if(bounds.x>Constants.screenWidth-30) {
+			bounds.x=Constants.screenWidth-30;
 			right=true;
 		}
 		
 		if(bounds.y<20) {
 			bounds.y=25;
 			up=true;
-		}else if(bounds.y>170){
-			bounds.y=170;
+		}else if(bounds.y>Constants.screenHeight-30){
+			bounds.y=Constants.screenHeight-30;
 			down=true;
 		}
 		

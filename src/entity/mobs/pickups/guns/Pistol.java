@@ -1,5 +1,6 @@
 package entity.mobs.pickups.guns;
 
+import audio.AudioManager;
 import entity.EntityManager;
 import entity.mobs.Bullet;
 import graphics.Animation;
@@ -23,6 +24,7 @@ public class Pistol extends Gun{
 			shotDelay=0;
 			shootAnim.setPaused(false);
 			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,40,15, true));
+			AudioManager.playSound(AudioManager.hit);
 		}
 		
 	}

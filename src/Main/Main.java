@@ -1,4 +1,5 @@
 package Main;
+import audio.AudioManager;
 import saveData.SaveData;
 import saveData.Settings;
 import states.State;
@@ -19,7 +20,8 @@ public class Main {
 	public static void main(String[] args) {
 		Settings.reload();
 		SaveData.reload();
-		window= new Window(333*Settings.getScale(), 200*Settings.getScale());
+		AudioManager.playSound(AudioManager.hit);
+		window= new Window(Constants.screenWidth*Settings.getScale(), Constants.screenHeight*Settings.getScale());
 		State.init();
 
 		// variables for limiting frame rate

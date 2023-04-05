@@ -76,18 +76,18 @@ public class ConsoleState extends State{
 		g.clearRect(0, 0, Window.getDisplay().getWidth(),  Window.getDisplay().getHeight());
 		//drawing the box that you type in
 		g.setColor(new Color(20,20,20));
-		g.fillRect(5, 183, 250, 9);
+		g.fillRect(5, 163, 250, 9);
 		
 		//drawing the text
 		g.setColor(new Color(255,255,255));
 		g.setFont(Assets.smallMonoFont);
 		
 		//drawing the line thats being typed in the rectangle at the bottom
-		g.drawString(currentLine, 7, 190);
+		g.drawString(currentLine, 7, 170);
 		
 		//drawing all the previous outputs from the array at the right place so it scrolls up
 		for(int i=0;i<allTextArray.length;i++) {
-			g.drawString(allTextArray[i], 5, 185-allTextArray.length*7+i*7);
+			g.drawString(allTextArray[i], 5, 165-allTextArray.length*7+i*7);
 		}
 	}
 	

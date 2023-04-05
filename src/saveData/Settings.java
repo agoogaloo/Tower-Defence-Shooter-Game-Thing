@@ -8,6 +8,7 @@ import java.util.Properties;
 
 public class Settings {
 	private static int screenShake, scale, camSpeed, aimLook;
+	private static int effectVol, musicVol;
 	private static String towerInfo;
 	private static Properties propertiesFile=new Properties();
 	private static String settingsPath="res/saves/settings.properties", defaultSettings = "res/saves/defaultSettings.properties" ;
@@ -51,6 +52,10 @@ public class Settings {
 		scale=Integer.parseInt(propertiesFile.getProperty("pixelScale"));
 		camSpeed=Integer.parseInt(propertiesFile.getProperty("cameraSpeed"));
 		aimLook=Integer.parseInt(propertiesFile.getProperty("aimLook"));
+		effectVol=Integer.parseInt(propertiesFile.getProperty("effectVol"));
+		musicVol=Integer.parseInt(propertiesFile.getProperty("musicVol"));
+		
+		
 	}
 	
 	public static void resetData(){

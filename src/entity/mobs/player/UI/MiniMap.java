@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import Main.Constants;
 import entity.Entity;
 import entity.mobs.enemy.Enemy;
 import entity.mobs.player.Player;
@@ -54,7 +55,7 @@ public class MiniMap {
 		map=ImageUtils.crop(map,0);
 		map=ImageUtils.outline(map,Color.WHITE);
 		
-		mapUI.move(330-map.getWidth(),197-map.getHeight());
+		mapUI.move(Constants.screenWidth-2-map.getWidth(),Constants.screenHeight-2-map.getHeight());
 	}
 	
 	private void updateMap() {

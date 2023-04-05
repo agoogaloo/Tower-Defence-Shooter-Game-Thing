@@ -3,6 +3,7 @@ package floors;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import Main.Constants;
 import entity.Entity;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.Enemy;
@@ -85,7 +86,7 @@ public class Tutorialator {
 		if(textToAdd.length()>0) {
 			text.update(text.getText()+textToAdd.charAt(0), 180);
 			text.centre();
-			text.move(333/2-text.getWidth()/2+10,172-text.getHeight()/2);
+			text.move(Constants.screenWidth/2-text.getWidth()/2+5,Constants.screenHeight-15-text.getHeight()/2);
 			textToAdd=textToAdd.substring(1);
 		}
 		sectionTime++;

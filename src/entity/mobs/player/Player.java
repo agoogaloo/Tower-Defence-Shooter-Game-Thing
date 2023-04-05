@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import audio.AudioManager;
 import entity.Entity;
 import entity.mobs.Mobs;
 import entity.mobs.pickups.ItemList;
@@ -163,11 +164,12 @@ public class Player extends Mobs {
 			dustDelay=20;
 		}else {
 			currentPic=animator.update(direction, true,State.getInputs().isSpin());
+			//making dust/walking sounds
 			if(dustDelay>=15) {
-				
 				new InstantEffect(3, new Straight(new Point(x+7,y+12),0.5), 
 					new OvalParticle(2, new Timed(15)), false);
 				dustDelay=0;
+				AudioManager.playSound(AudioManager.walking);
 			}
 		}
 		
@@ -232,6 +234,7 @@ public class Player extends Mobs {
 						GameState.screenShake(0.75);
 						currentPic=ImageUtils.fillPic(currentPic);
 						invincibility=30;
+						AudioManager.playSound(AudioManager.hit);
 						System.out.println("damaged by "+e.getClass().getSimpleName()+" for "+e.getDamage()+" damage");
 					}
 				}
