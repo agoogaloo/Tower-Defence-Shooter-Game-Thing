@@ -9,6 +9,7 @@ import graphics.Animation;
 import graphics.Assets;
 import graphics.Camera;
 import graphics.ImageUtils;
+import states.GameState;
 
 //@author Matthew
 
@@ -40,6 +41,8 @@ public class Core extends Statics{
 			if(e instanceof Enemy) {//making sure the entity is an enemy
 				damageTaken+=1;//an enemy has reached the core so it should deal 10 damage to the player
 				currentPic=ImageUtils.fillPic(currentPic);
+				GameState.screenShake(0.75);
+
 			}
 		}
 	}

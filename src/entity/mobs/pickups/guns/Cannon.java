@@ -11,6 +11,7 @@ import graphics.particles.movers.Straight;
 import graphics.particles.movers.spawnPattern.Point;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
+import states.GameState;
 
 public class Cannon extends Gun{	
 	public Cannon(EntityManager manager) {
@@ -30,6 +31,8 @@ public class Cannon extends Gun{
 			shotDelay=0;
 			shootAnim.setPaused(false);
 			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.cannonBullet, 8,60,30,new StatusEffect(StatusType.STUN,1,60), true));
+			GameState.screenShake(0.5);
+
 			new InstantEffect(6, new Straight(new Point(x,y),0.6), 
 					new ShrinkOvalParticle(new Timed(30),6,0.2), true);
 		}

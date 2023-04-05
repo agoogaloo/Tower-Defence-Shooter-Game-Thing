@@ -5,6 +5,7 @@ import entity.EntityManager;
 import entity.mobs.Bullet;
 import graphics.Animation;
 import graphics.Assets;
+import states.GameState;
 
 public class Pistol extends Gun{	
 	public Pistol(EntityManager manager) {
@@ -25,6 +26,7 @@ public class Pistol extends Gun{
 			shootAnim.setPaused(false);
 			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,40,15, true));
 			AudioManager.playSound(AudioManager.hit);
+			GameState.screenShake(0.1);
 		}
 		
 	}

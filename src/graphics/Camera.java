@@ -45,6 +45,10 @@ public class Camera {
 		yOffset=y- screenHeight / 2;
 		
 	}
+	public void move(int x, int y){
+		xOffset+=x;
+		yOffset+=y;
+	}
 	public void moveToEntity(Entity e) {
 		//positioning the camera so that the inputed entity is in the middle
 		entityX = e.getX() - screenWidth / 2 + e.getWidth() / 2;

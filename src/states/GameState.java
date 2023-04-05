@@ -31,7 +31,8 @@ public class GameState extends State{
 	private static boolean canHaveEnemies=true;
 	private static final Camera camera= new Camera(Window.getDisplay().getWidth()/Window.getDisplay().getScale(), 
 			Window.getDisplay().getHeight()/Window.getDisplay().getScale());
-	private static double screenShake=0.01;//a number from 0-1 indicating how much screen shake there should be
+	private static double screenShake=0.0;//how much the screen will shake from 0-1
+	private static double shakeX = 0, shakeY = 0;//current offsets from screenshake
 	private static long startTime = 0;
 	public GameState() {
 		this(HUBINDEX);
@@ -44,18 +45,13 @@ public class GameState extends State{
 	}
 	
 	@Override
-	public void update() {
-		double xshake=0,yshake=0;
-		int maxScreenShake=Settings.getScreenShake();
-		
-		
+	public void update(){
+
 		if(getInputs().isPause()) {
 			currentState=new PauseState(this);
 		}else if(getInputs().isConsole()) {
 			currentState=new ConsoleState(this);
 		}
-		
-
 		
 		
 		Particle.getParticleManager().update();
@@ -74,22 +70,35 @@ public class GameState extends State{
 		camera.update();
 		if(tutorial!=null)tutorial.update();
 		
+		//doing screenshake
+		double shakeDeltaX, shakeDeltaY;
+		double maxShakeOffset = Settings.getScreenShake()*screenShake;
 		
 		//moving the screen in a random direction by the current screen shake amount
-		if(maxScreenShake>0) {//makes sure that screen shake is enabled so it doesnt break everytihng
-			xshake=ThreadLocalRandom.current().nextDouble(-screenShake*maxScreenShake,screenShake*maxScreenShake);
-			yshake=screenShake*maxScreenShake-xshake;
+		if(maxShakeOffset>0) {//makes sure that screen shake is enabled so it doesnt break everytihng
+			shakeDeltaX=ThreadLocalRandom.current().nextDouble(-maxShakeOffset/2,maxShakeOffset/2);
+			shakeDeltaY=maxShakeOffset/2-shakeDeltaX;
+
+			shakeX+=shakeDeltaX;
+			shakeY+=shakeDeltaY;
+
+			shakeX = Math.min(shakeX, maxShakeOffset);
+			shakeX = Math.max(shakeX,-maxShakeOffset);
+			shakeY = Math.min(shakeY, maxShakeOffset);
+			shakeY = Math.max(shakeY,-maxShakeOffset);
+
 		}else {
-			xshake=0;
-			yshake=0;
+			shakeX = 0;
+			shakeY = 0;
 		}
+		screenShake = Math.max(0,screenShake-0.1);
+
 		//moving the camera the right amount
-		//camera.move((int)(Math.round(xshake)),(int)(Math.round(yshake)));
-		//the random direction part breaks if screen shake is 0 so it resets to a super small number so it will round 
-		// down to 0 when it is applied
+		camera.move((int)(Math.round(shakeX)),(int)(Math.round(shakeY)));
+		//the random direction part breaks if screen 
 		getInputs().update();
-		screenShake=0.000000001;
 	}
+	
 
 	@Override
 	public void render(Graphics g) {

@@ -4,6 +4,7 @@ import entity.EntityManager;
 import entity.mobs.Bullet;
 import graphics.Animation;
 import graphics.Assets;
+import states.GameState;
 
 public class Beam extends Gun{
 
@@ -24,6 +25,8 @@ public class Beam extends Gun{
 		if (shotDelay >= reloadTime) {
 			shotDelay=0;
 			shootAnim.setPaused(false);
+			GameState.screenShake(0.08);
+
 			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.beamBullet, 1.25,150,1, true));
 		}
 		

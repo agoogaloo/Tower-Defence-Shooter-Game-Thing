@@ -231,7 +231,7 @@ public class Player extends Mobs {
 					
 					if(e.getDamage()>0) {//making sure you actually take damage from the entity
 						//shaking the screen so it feels like you actually got hit
-						GameState.screenShake(0.75);
+						GameState.screenShake(0.5);
 						currentPic=ImageUtils.fillPic(currentPic);
 						invincibility=30;
 						AudioManager.playSound(AudioManager.hit);

@@ -17,6 +17,7 @@ import graphics.particles.movers.spawnPattern.RectangleSpawner;
 import graphics.particles.shapes.OvalParticle;
 import graphics.particles.shapes.ShrinkOvalParticle;
 import graphics.particles.shapes.colourers.Timed;
+import states.GameState;
 
 public class Fireball extends Gun{	
 	public Fireball(EntityManager manager) {
@@ -35,6 +36,7 @@ public class Fireball extends Gun{
 		if (shotDelay >= reloadTime) {	
 			shotDelay=0;
 			shootAnim.setPaused(false);
+			GameState.screenShake(0.1);
 			manager.addEntity(new FireBullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,50, true));
 		}
 		
