@@ -33,7 +33,7 @@ import states.TowerPickup;
 public class Player extends Mobs {
 	//declaring variables
 	
-	private int dustDelay=0; 
+	private int dustDelay=0, walkCount = 0; 
 	private int money=10,invincibility=0;
 	private int[] towers = {ItemList.WIZARD,ItemList.EMPTY,ItemList.EMPTY,ItemList.EMPTY};
 	private ArrayList<Gun> guns;
@@ -120,13 +120,14 @@ public class Player extends Mobs {
 		}
 		
 		if (State.getInputs().isNextGun()) {
-			
+			AudioManager.playSound(AudioManager.gunSwitch);
 			gun++;
 			if(gun>=guns.size()) {
 				gun=0;
 			}
 		}
 		if (State.getInputs().isPrevGun()) {
+			AudioManager.playSound(AudioManager.gunSwitch);
 			gun--;
 			if(gun<0) {
 				gun=guns.size()-1;
@@ -136,6 +137,12 @@ public class Player extends Mobs {
 		if(moveKeys>=2) {
 			changeX/=1.25;
 			changeY/=1.25;
+		}
+		if(State.getInputs().isSpin()&&!(animator.getCurrentAnimation()==PlayerAnimations.SPIN||
+			animator.getCurrentAnimation()==PlayerAnimations.SPINEND)){
+			AudioManager.playSound(AudioManager.spin);
+			changeX*=1.5;
+			changeY*=1.5;
 		}
 		
 		if(animator.getCurrentAnimation()==PlayerAnimations.SPIN||animator.getCurrentAnimation()==PlayerAnimations.SPINSTART) {
@@ -165,10 +172,11 @@ public class Player extends Mobs {
 		}else {
 			currentPic=animator.update(direction, true,State.getInputs().isSpin());
 			//making dust/walking sounds
-			if(dustDelay>=15) {
+			if(dustDelay>=20) {
 				new InstantEffect(3, new Straight(new Point(x+7,y+12),0.5), 
 					new OvalParticle(2, new Timed(15)), false);
 				dustDelay=0;
+				walkCount++;
 				AudioManager.playSound(AudioManager.walking);
 			}
 		}

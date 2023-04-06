@@ -2,6 +2,7 @@ package entity.mobs.pickups;
 
 import java.awt.Graphics;
 
+import audio.AudioManager;
 import entity.mobs.player.Player;
 import graphics.Animation;
 import graphics.Assets;
@@ -24,6 +25,7 @@ public class Money extends Pickup{
 	@Override
 	protected void playerCollide(Player p) {
 		p.giveMoney(1);
+		AudioManager.playSound(AudioManager.coin);
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ public class Main {
 	public static void main(String[] args) {
 		Settings.reload();
 		SaveData.reload();
-		AudioManager.playSound(AudioManager.hit);
+		AudioManager.load();
 		window= new Window(Constants.screenWidth*Settings.getScale(), Constants.screenHeight*Settings.getScale());
 		State.init();
 

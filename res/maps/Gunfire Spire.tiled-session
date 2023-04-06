@@ -17,10 +17,234 @@
             "scaleInDock": 1.5
         },
         "C:/Users/aguy2/Documents/tiled stuff/neo tileset.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1.5
         },
         "C:/Users/aguy2/Documents/tiled stuff/spawns.tsx": {
             "scaleInDock": 2
+        },
+        "floor 1/end/endd.json": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 156.875,
+                "y": 66.375
+            }
+        },
+        "floor 1/end/endl.json": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 199.125,
+                "y": 148.375
+            }
+        },
+        "floor 1/end/endr.json": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 154.49999999999997,
+                "y": 158.16666666666666
+            }
+        },
+        "floor 1/end/endu.json": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120.375,
+                "y": 182.125
+            }
+        },
+        "floor 1/mid/mid d to d.json": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 36.5,
+                "y": 176.5
+            }
+        },
+        "floor 1/mid/mid d to l.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 9,
+                "y": 147.66666666666666
+            }
+        },
+        "floor 1/mid/mid d to r.json": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 342.8333333333333,
+                "y": 338.16666666666663
+            }
+        },
+        "floor 1/mid/mid d to u.json": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 143.16666666666669,
+                "y": 24.83333333333333
+            }
+        },
+        "floor 1/mid/mid l to d.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 226.75,
+                "y": 176.75
+            }
+        },
+        "floor 1/mid/mid l to l.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 174.33333333333331,
+                "y": 189.66666666666666
+            }
+        },
+        "floor 1/mid/mid l to u.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 189.75,
+                "y": 238.25
+            }
+        },
+        "floor 1/mid/mid r to d .json": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 285.5,
+                "y": 170.5
+            }
+        },
+        "floor 1/mid/mid r to r.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 210.33333333333337,
+                "y": 148.33333333333331
+            }
+        },
+        "floor 1/mid/mid r to u.json": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 133.83333333333331,
+                "y": 96.83333333333333
+            }
+        },
+        "floor 1/mid/mid u to l.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 133.75,
+                "y": 126.75
+            }
+        },
+        "floor 1/mid/mid u to l2.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 199.75,
+                "y": 243.75
+            }
+        },
+        "floor 1/mid/mid u to r.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 210.75,
+                "y": 189.25
+            }
+        },
+        "floor 1/mid/mid u to r2.json": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 233.5,
+                "y": 175.5
+            }
+        },
+        "floor 1/mid/mid u to u.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 295.75,
+                "y": 273.75
+            }
+        },
+        "floor 1/shops/shop d big.json": {
+            "scale": 2.8499999999999996,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 168.24561403508773,
+                "y": 104.03508771929826
+            }
+        },
+        "floor 1/start/start d.json": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 195.5,
+                "y": 195.5
+            }
+        },
+        "floor 1/start/start d2.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 280.75,
+                "y": 262.25
+            }
+        },
+        "floor 1/start/start l.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 202.99999999999997,
+                "y": 234.33333333333331
+            }
+        },
+        "floor 1/start/start l2.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 53.75,
+                "y": 353.75
+            }
+        },
+        "floor 1/start/start r.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 208.25,
+                "y": 170.25
+            }
+        },
+        "floor 1/start/start r2.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 180.99999999999997,
+                "y": 179.66666666666666
+            }
+        },
+        "floor 1/start/start u.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 210.33333333333337,
+                "y": 149.66666666666666
+            }
+        },
+        "floor 1/start/start u2.json": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 36.16666666666666,
+                "y": 199.5
+            }
         },
         "floor 2/end/end D.json": {
             "scale": 3.0246323529411763,
@@ -90,7 +314,7 @@
             "scale": 3.2136718749999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 109.68761395405377,
+                "x": 109.99878449009364,
                 "y": 128.04667558040597
             }
         },
@@ -162,7 +386,7 @@
             "scale": 2.3372159090909093,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 144.61650662452897,
+                "x": 144.83043636805638,
                 "y": 176.0641789230582
             }
         },
@@ -170,7 +394,7 @@
             "scale": 2.05675,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 168.71277500911629,
+                "x": 168.95587699039746,
                 "y": 200.07293059438433
             }
         },
@@ -178,7 +402,7 @@
             "scale": 2.3372159090909093,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 128.35784611644584,
+                "x": 128.57177585997326,
                 "y": 176.0641789230582
             }
         }
@@ -204,17 +428,17 @@
     ],
     "project": "Gunfire Spire.tiled-project",
     "recentFiles": [
-        "floor 2/mid/mid d-d.json",
-        "floor 2/mid/mid d-l.json",
-        "floor 2/mid/mid d-r.json",
-        "floor 2/mid/mid l-d.json",
-        "floor 2/mid/mid l-l.json",
-        "floor 2/mid/mid l-u.json",
-        "floor 2/mid/mid r-d.json",
-        "floor 2/mid/mid r-r.json",
-        "floor 2/mid/mid r-u.json",
-        "floor 2/mid/mid u-l.json",
-        "floor 2/mid/mid u-r.json",
-        "floor 2/mid/mid u-u.json"
+        "floor 1/end/endr.json",
+        "floor 1/end/endu.json",
+        "floor 1/end/endl.json",
+        "floor 1/end/endd.json",
+        "floor 1/mid/mid d to d.json",
+        "floor 1/mid/mid l to l.json",
+        "floor 1/mid/mid u to r2.json",
+        "floor 1/mid/mid u to r.json",
+        "floor 1/mid/mid u to l2.json",
+        "floor 1/mid/mid u to l.json",
+        "floor 1/mid/mid r to u.json",
+        "floor 1/mid/mid r to r.json"
     ]
 }

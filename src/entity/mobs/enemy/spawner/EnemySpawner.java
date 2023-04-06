@@ -55,7 +55,7 @@ public class EnemySpawner {
 			difficulty++;
 		}
 		
-		if(enemyDelay>120-difficulty*4) {
+		if(enemyDelay>145-difficulty*5) {
 			enemyDelay=0;
 			Entity.getEntityManager().addEntity(enemiesToAdd.get(0));
 			enemiesToAdd.remove(0);

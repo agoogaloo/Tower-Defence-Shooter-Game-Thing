@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
+import audio.AudioManager;
 import entity.mobs.Bullet;
 import entity.mobs.Mobs;
 import entity.mobs.pickups.Health;
@@ -143,7 +144,7 @@ public abstract class Enemy extends Mobs {
 		super.damage(amount*weakened);
 	
 		if(amount>0) {
-			System.out.println("hit");
+			AudioManager.playSound(AudioManager.enemyHit);
 			currentPic=ImageUtils.fillPic(currentPic);
 			//making the enemy flash white when it gets hit
 			if(ConsoleState.isInstaKillEnemy()) {
@@ -152,8 +153,12 @@ public abstract class Enemy extends Mobs {
 			
 		}
 		if(killed) {
+			AudioManager.playSound(AudioManager.enemyDie);
+			new InstantEffect(15, new Straight(new Point((int)x+width/2, (int)y+height/2),0.6),
+					new ShrinkOvalParticle(new Timed(Color.darkGray, 60), 12,0.5), true);
 			new InstantEffect(15, new Straight(new Point((int)x+width/2, (int)y+height/2),0.9),
-					new ShrinkOvalParticle(new Timed(Color.white, 60), 10,0.5), true);
+					new ShrinkOvalParticle(new Timed(Color.white, 60), 10,0.3), true);
+			
 			int randnum=ThreadLocalRandom.current().nextInt(0,20);//generating a random number to determine what should drop
 			if(randnum==1) {
 				entityManager.addEntity(new Health(x, y));

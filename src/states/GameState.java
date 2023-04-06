@@ -117,7 +117,7 @@ public class GameState extends State{
 		
 		String path="res/maps/";
 		int size=0;
-		int difficulty = 4;
+		int difficulty = 5;
 		boolean deletePlayer=false;
 		BufferedImage[] tiles;
 		
@@ -157,7 +157,7 @@ public class GameState extends State{
 			size=5;
 			canHaveEnemies=true;
 			tiles=Assets.level2tiles;
-			difficulty = 6;
+			difficulty = 8;
 			break;
 		case FLOOR3:
 			currentState = new WinState(startTime);

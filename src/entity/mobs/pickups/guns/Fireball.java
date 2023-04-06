@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
+import audio.AudioManager;
 import entity.EntityManager;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
@@ -37,6 +38,7 @@ public class Fireball extends Gun{
 			shotDelay=0;
 			shootAnim.setPaused(false);
 			GameState.screenShake(0.1);
+			AudioManager.playSound(AudioManager.fireBall);
 			manager.addEntity(new FireBullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,50, true));
 		}
 		
@@ -50,7 +52,7 @@ public class Fireball extends Gun{
 	private class FireBullet extends Bullet{
 		public FireBullet(int startX, int startY, double targetX, double targetY, BufferedImage pic, double speed,
 				int time, boolean friendly) {
-			super(startX, startY, targetX, targetY, pic, speed, time,10,new StatusEffect(StatusType.BURN, 0.75, 100), friendly);
+			super(startX, startY, targetX, targetY, pic, speed, time,5,new StatusEffect(StatusType.BURN, 0.75, 100), friendly);
 							
 		}
 		@Override

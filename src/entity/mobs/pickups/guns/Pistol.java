@@ -24,8 +24,8 @@ public class Pistol extends Gun{
 		if (shotDelay >= reloadTime) {	
 			shotDelay=0;
 			shootAnim.setPaused(false);
-			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,40,15, true));
-			AudioManager.playSound(AudioManager.hit);
+			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 5.5,40,10, true));
+			AudioManager.playSound(AudioManager.pistol);
 			GameState.screenShake(0.1);
 		}
 		

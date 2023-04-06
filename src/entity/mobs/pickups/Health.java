@@ -2,6 +2,7 @@ package entity.mobs.pickups;
 
 import java.awt.Graphics;
 
+import audio.AudioManager;
 import entity.mobs.player.Player;
 import graphics.Animation;
 import graphics.Assets;
@@ -26,6 +27,7 @@ public class Health extends Pickup{
 	@Override
 	protected void playerCollide(Player p) {
 		p.heal(1);
+		AudioManager.playSound(AudioManager.heal);
 	}
 	@Override
 	public void render(Graphics g, Camera camera) {

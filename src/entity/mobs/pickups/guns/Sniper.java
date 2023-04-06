@@ -26,7 +26,7 @@ public class Sniper extends Gun{
 			shootAnim.setPaused(false);
 			GameState.screenShake(0.3);
 
-			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 15,30,60, true));
+			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 15,30,40, true));
 		}
 		
 	}

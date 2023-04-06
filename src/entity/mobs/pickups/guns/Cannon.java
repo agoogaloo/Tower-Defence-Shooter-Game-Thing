@@ -1,5 +1,6 @@
 package entity.mobs.pickups.guns;
 
+import audio.AudioManager;
 import entity.EntityManager;
 import entity.mobs.Bullet;
 import entity.mobs.enemy.StatusEffect;
@@ -30,8 +31,9 @@ public class Cannon extends Gun{
 		if (shotDelay >= reloadTime) {	
 			shotDelay=0;
 			shootAnim.setPaused(false);
-			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.cannonBullet, 8,60,30,new StatusEffect(StatusType.STUN,1,60), true));
+			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.cannonBullet, 8,60,50,new StatusEffect(StatusType.STUN,1,60), true));
 			GameState.screenShake(0.5);
+			AudioManager.playSound(AudioManager.cannon);
 
 			new InstantEffect(6, new Straight(new Point(x,y),0.6), 
 					new ShrinkOvalParticle(new Timed(30),6,0.2), true);

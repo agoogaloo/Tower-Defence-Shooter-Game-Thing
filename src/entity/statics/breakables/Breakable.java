@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
+import audio.AudioManager;
 import entity.statics.Statics;
 import graphics.Assets;
 import graphics.Camera;
@@ -53,6 +54,7 @@ public class Breakable extends Statics{
 		super.destroy();
 		new InstantEffect(10, new Straight(new Point(x+width/2,y+height/2),0.75), 
 				new ShrinkOvalParticle(new Timed(15),5,0.25), false);
+		AudioManager.playSound(AudioManager.decorSmash);
 		
 	}
 	
