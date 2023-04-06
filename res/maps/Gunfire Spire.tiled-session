@@ -3,12 +3,14 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "floor 2/start/start D1.json",
+    "activeFile": "floor 2/mid/mid d-l.json",
     "expandedProjectPaths": [
-        "floor 2/start",
         "floor 2",
+        "floor 1/end",
+        "floor 1",
+        "floor 2/mid",
         ".",
-        "floor 2/mid"
+        "floor 2/start"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -409,25 +411,11 @@
     },
     "map.width": 20,
     "openFiles": [
-        "floor 2/mid/mid d-d.json",
-        "floor 2/mid/mid d-l.json",
-        "floor 2/mid/mid d-r.json",
-        "floor 2/mid/mid l-d.json",
-        "floor 2/mid/mid l-l.json",
-        "floor 2/mid/mid l-u.json",
-        "floor 2/mid/mid r-d.json",
-        "floor 2/mid/mid r-r.json",
-        "floor 2/mid/mid r-u.json",
-        "floor 2/mid/mid u-l.json",
-        "floor 2/mid/mid u-r.json",
-        "floor 2/mid/mid u-u.json",
-        "floor 2/start/start D1.json",
-        "floor 2/start/start R1.json",
-        "floor 2/start/start L1.json",
-        "floor 2/start/start U1.json"
+        "floor 2/mid/mid d-l.json"
     ],
     "project": "Gunfire Spire.tiled-project",
     "recentFiles": [
+        "floor 2/mid/mid d-l.json",
         "floor 1/end/endr.json",
         "floor 1/end/endu.json",
         "floor 1/end/endl.json",
@@ -438,7 +426,6 @@
         "floor 1/mid/mid u to r.json",
         "floor 1/mid/mid u to l2.json",
         "floor 1/mid/mid u to l.json",
-        "floor 1/mid/mid r to u.json",
-        "floor 1/mid/mid r to r.json"
+        "floor 1/mid/mid r to u.json"
     ]
 }
