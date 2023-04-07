@@ -143,14 +143,14 @@ public class EnemySpawner {
 			break;
 		}
 		boolean focus = ThreadLocalRandom.current().nextBoolean();
-		System.out.println("making wave with focus:"+focus);
+		System.out.println("making wave with towers focus:"+focus);
 		ArrayList<Integer> enemies = CreateEnemies(difficulty,focus);
 		for (int i:enemies) {
 			enemiesToAdd.add(EnemyList.newEnemy(i,spawnX+8, spawnY+8,direction));
 		}
 	}
 	private ArrayList<Integer> CreateEnemies(int difficulty,boolean towerFocus){
-		
+		int tries = 0, maxTries = 100;
 		ArrayList<Integer> enemyIDs = new ArrayList<Integer>();
 		int diffLenience = difficulty/2;
 		boolean balanced = false;
@@ -187,6 +187,7 @@ public class EnemySpawner {
 					focusDiff-=focusDiffArr[enemyIDs.get(remEnemy)];
 					secondDiff-=secondDiffArr[enemyIDs.get(remEnemy)];
 					enemyIDs.remove(remEnemy);
+				
 				}
 
 			}else if(secondDiff>difficulty){
@@ -206,6 +207,12 @@ public class EnemySpawner {
 			}else{
 				balanced = true;
 			}
+			tries++;
+			if(tries>=maxTries){
+				balanced = true;
+				System.out.println("couldnt perfectly balance wave after "+tries+" tries. its probably good enough");
+			}
+
 
 		}
 		System.out.println("wave of difficulty "+difficulty+" enemies:"+enemyIDs.toString()+

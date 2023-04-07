@@ -21,7 +21,7 @@ public class Assets {
 	public static final Font smallMonoFont=loadFont("res/smallmonofont.ttf");
 	public static final Font bigMonoFont=loadFont("res/monofont.ttf");
 	public static final Font bigpixelfont=loadFont("res/bigpixelfont.ttf");
-	public static final Font boldfont=loadFont("res/boldfont.ttf");
+	public static final Font boldfont=loadFont("res/neoBold.ttf");
 	
 	public static final BufferedImage cursor = loadImage("res/textures/cursor.png");
 	//spliting all the spritesheets int the right pictures and holding them in arrays
@@ -50,6 +50,8 @@ public class Assets {
 	public static final BufferedImage[] sniperShoot = splitSpriteSheet(loadImage("res/textures/guns/sniperShoot.png"),32,21,2,1);
 	public static final BufferedImage cannon = loadImage("res/textures/guns/cannon.png");
 	public static final BufferedImage[] cannonShoot = splitSpriteSheet(loadImage("res/textures/guns/cannonShoot.png"),32,21,4,1);
+	public static final BufferedImage shotgun = loadImage("res/textures/guns/shotgun.png");
+	public static final BufferedImage[] shotGunShoot = splitSpriteSheet(loadImage("res/textures/guns/shotGunShoot.png"),32,21,7,1);
 	
 	
 	//loading bullets

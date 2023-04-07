@@ -116,7 +116,7 @@ public class CommandSelector {
 	
 	private class FrameSkip extends Command{
 		private FrameSkip(){
-			helpText= "params: (int amount)      skips the game forward by amount frames and\n"
+			helpText= "params: (int amount)   skips the game forward by amount frames and\n"
 					+ "    freezes it. If no amount is given it will skip 1 frame\n"
 					+ "    (can be unfrozen with the freeze command)";
 		}
@@ -144,7 +144,7 @@ public class CommandSelector {
 	
 	private class EnemyWave extends Command{
 		private EnemyWave(){
-			helpText= "params: (int amount)      spawns a wave at the end of the players current \nroom with amount difficulty";
+			helpText= "params: (int amount)   spawns a wave at the end of the players current \nroom with amount difficulty";
 		}
 		public String execute(String params) {
 			int amount;
@@ -174,7 +174,7 @@ public class CommandSelector {
 	
 	private class Unlock extends Command{
 		private Unlock() {
-			helpText="params: (int amount)      unlocks amount rooms, or all rooms in the floor if no amount is given";
+			helpText="params: (int amount)   unlocks amount rooms, or all rooms in the floor if no amount is given";
 		}
 
 		@Override
@@ -198,7 +198,7 @@ public class CommandSelector {
 	}
 	private class Money extends Command{
 		private Money() {
-			helpText="params: (int amount)      gives you money";
+			helpText="params: (int amount)   gives you money";
 		}
 		@Override
 		public String execute(String params) {
@@ -217,7 +217,7 @@ public class CommandSelector {
 	}
 	private class Heal extends Command{
 		private Heal() {
-			helpText="params: (int amount)      gives you amount health";
+			helpText="params: (int amount)   gives you health";
 		}
 		@Override
 		public String execute(String params) {
@@ -246,7 +246,7 @@ public class CommandSelector {
 	}
 	private class Give extends Command{
 		private Give(){
-			helpText= "params: (int id)  gives you an item of id";
+			helpText= "params: (int id)   gives you an item with specified id";
 		}
 		public String execute(String params) {
 			try {
@@ -299,7 +299,7 @@ public class CommandSelector {
 	}
 	private class LoadLevel extends Command{
 		private LoadLevel(){
-			helpText= "params: (int level id)  loads the level/floor with id";
+			helpText= "params: (int level id)   loads the level/floor with id";
 		}
 		public String execute(String params) {
 			try {

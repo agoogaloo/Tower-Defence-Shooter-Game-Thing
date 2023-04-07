@@ -10,6 +10,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import javax.swing.SpinnerDateModel;
+
 import Main.Main;
 import saveData.Settings;
 
@@ -27,7 +29,7 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 	//declaring variables
 	private KeyEvent typedKey;
 	private boolean[] keys = new boolean[256]; //Contains all possible keys in an array list
-	private boolean up, down, left, right, shoot, place, nextGun, prevGun; //Keys and actions that are game needs
+	private boolean up, down, left, right, shoot,rClick, place, nextGun, prevGun; //Keys and actions that are game needs
 	private PushButton console = new PushButton(), pause = new PushButton(), select = new PushButton(), upPushed=new PushButton(),
 			downPushed=new PushButton(), leftPushed=new PushButton(),rightPushed=new PushButton(), spinPushed=new PushButton();
 	
@@ -50,14 +52,17 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 		down = keys[KeyEvent.VK_DOWN]||keys[KeyEvent.VK_S]; //If the key is pushed return the specific boolean associated to the key as true or if it is not pushed return false 
 		left = keys[KeyEvent.VK_LEFT]||keys[KeyEvent.VK_A]; 
 		right = keys[KeyEvent.VK_RIGHT]||keys[KeyEvent.VK_D];
+		place = keys[KeyEvent.VK_SHIFT]||keys[KeyEvent.VK_E];
+
 		pause.update(keys[KeyEvent.VK_ESCAPE]);
 		console.update(keys[KeyEvent.VK_F12]);
-		spinPushed.update(keys[KeyEvent.VK_SHIFT]||keys[KeyEvent.VK_NUMPAD0]);
+		
 		upPushed.update(up);
 		select.update(shoot);
 		downPushed.update(down);
 		leftPushed.update(left);
 		rightPushed.update(right);
+		spinPushed.update(rClick);
 	}
 	
 	//mouse wheel methods
@@ -95,7 +100,7 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 		if(e.getButton()==1) {
 			shoot=true;//the shoot command will be activated when the mouse is clicked
 		}else if(e.getButton()==3) {
-			place=true;
+			rClick=true;
 		}
 	}
 	@Override
@@ -104,7 +109,7 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 			shoot=false;//it has been released so the command can stop now
 			
 		}else if(e.getButton()==3) {
-			place=false;
+			rClick=false;
 		};
 		
 	}
@@ -153,7 +158,7 @@ public class Inputs implements MouseListener,MouseWheelListener, MouseMotionList
 		return shoot;
 	}
 	public boolean isPlace() { 
-		return place;	
+		return place;
 	}
 	public boolean isSelect() {
 		return select.getPushed();

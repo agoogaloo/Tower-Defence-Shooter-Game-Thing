@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import Main.Constants;
 import graphics.Assets;
 import states.menus.Menu;
 import states.menus.MenuObject;
@@ -53,16 +54,16 @@ public class MainMenu extends State{
 		g.drawImage(Assets.infobackground.getSubimage(0, 0,117,100),216,100,null);
 		g.setFont(Assets.boldfont);
 		g.setColor(new Color(45,135,153));
-		g.drawString("IMAGINE A GOOD MENU HERE",83, 71);
+		g.drawString("IMAGINE A GOOD MENU HERE",Constants.screenWidth/2-120, 60);
 		g.setColor(Color.white);
-		g.drawString("IMAGINE A GOOD MENU HERE",82, 70);
+		g.drawString("IMAGINE A GOOD MENU HERE",Constants.screenWidth/2-120+1, 59);
 		menu.render(g);
 		
 		
 	
 		
 		g.setFont(Assets.smallMonoFont);
-		g.drawString("VERSION 0.8.0",2, 7);
+		g.drawString("VERSION 0.9.0",2, 7);
 		/*g.drawLine(333/2,0, 333/2,200);
 		g.drawLine(333/2-50,0, 333/2-50,200);
 		g.drawLine(333/2+50,0, 333/2+50,200);

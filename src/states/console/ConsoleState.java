@@ -13,7 +13,7 @@ public class ConsoleState extends State{
 	GameState game;
 	Graphics backGround;
 	CommandSelector commandSelector=new CommandSelector(this);
-	private String currentLine="", allText="";
+	private String currentLine="", allText="Welcome to the debug menu. type 'help' to get a list of commands ";
 	boolean copyBackGround=true;
 	//a bunch of booleans showing if certain commands are active or not
 	static boolean showHitBoxen=false, gameFrozen=false, instaKillEnemy=false, showFPS=false; 
@@ -76,18 +76,18 @@ public class ConsoleState extends State{
 		g.clearRect(0, 0, Window.getDisplay().getWidth(),  Window.getDisplay().getHeight());
 		//drawing the box that you type in
 		g.setColor(new Color(20,20,20));
-		g.fillRect(5, 163, 250, 9);
+		g.fillRect(5, 168, 250, 9);
 		
 		//drawing the text
 		g.setColor(new Color(255,255,255));
 		g.setFont(Assets.smallMonoFont);
 		
 		//drawing the line thats being typed in the rectangle at the bottom
-		g.drawString(currentLine, 7, 170);
+		g.drawString(currentLine, 7, 175);
 		
 		//drawing all the previous outputs from the array at the right place so it scrolls up
 		for(int i=0;i<allTextArray.length;i++) {
-			g.drawString(allTextArray[i], 5, 165-allTextArray.length*7+i*7);
+			g.drawString(allTextArray[i], 5, 170-allTextArray.length*7+i*7);
 		}
 	}
 	

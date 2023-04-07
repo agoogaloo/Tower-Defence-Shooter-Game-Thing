@@ -353,7 +353,6 @@ public class Floor {
 		try {
 			for(File file:folder.listFiles()) {
 				try {
-					System.out.println("loading room at "+file.getPath());
 					JSONObject object=(JSONObject)(new JSONParser().parse(new FileReader(file.getPath())));
 					rooms.add(new RoomTemplate(object,file.getPath()));
 					

@@ -1,5 +1,6 @@
 package entity.mobs.pickups.guns;
 
+import audio.AudioManager;
 import entity.EntityManager;
 import entity.mobs.Bullet;
 import graphics.Animation;
@@ -25,6 +26,7 @@ public class Sniper extends Gun{
 			shotDelay=0;
 			shootAnim.setPaused(false);
 			GameState.screenShake(0.3);
+			AudioManager.playSound(AudioManager.pistol);
 
 			manager.addEntity(new Bullet(x, y, aimX, aimY, Assets.yellowBullet, 15,30,40, true));
 		}

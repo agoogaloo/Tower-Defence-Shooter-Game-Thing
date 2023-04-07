@@ -3,20 +3,23 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "floor 2/mid/mid d-l.json",
+    "activeFile": "floor 2/start/start D1.json",
     "expandedProjectPaths": [
-        "floor 2",
-        "floor 1/end",
-        "floor 1",
-        "floor 2/mid",
         ".",
-        "floor 2/start"
+        "floor 2",
+        "floor 1/start",
+        "floor 1",
+        "floor 2/start",
+        "floor 1/end"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "C:/Users/aguy2/Documents/tiled stuff/floor 2.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1.5
+            "scaleInDock": 3
+        },
+        "C:/Users/aguy2/Documents/tiled stuff/hub Tiles.tsx": {
+            "scaleInDock": 4
         },
         "C:/Users/aguy2/Documents/tiled stuff/neo tileset.tsx": {
             "scaleInDock": 1.5
@@ -193,11 +196,11 @@
             }
         },
         "floor 1/start/start d2.json": {
-            "scale": 2,
+            "scale": 1.6964,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 280.75,
-                "y": 262.25
+                "x": 270.27823626503186,
+                "y": 302.110351332233
             }
         },
         "floor 1/start/start l.json": {
@@ -209,11 +212,11 @@
             }
         },
         "floor 1/start/start l2.json": {
-            "scale": 2,
+            "scale": 1.3741,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 53.75,
-                "y": 353.75
+                "x": 105.88748999345026,
+                "y": 257.9870460665163
             }
         },
         "floor 1/start/start r.json": {
@@ -221,7 +224,7 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 208.25,
-                "y": 170.25
+                "y": 240.25
             }
         },
         "floor 1/start/start r2.json": {
@@ -236,16 +239,16 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 210.33333333333337,
+                "x": 210.99999999999997,
                 "y": 149.66666666666666
             }
         },
         "floor 1/start/start u2.json": {
-            "scale": 3,
+            "scale": 1.2925,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 36.16666666666666,
-                "y": 199.5
+                "x": 162.862669245648,
+                "y": 186.84719535783364
             }
         },
         "floor 2/end/end D.json": {
@@ -292,8 +295,8 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 161.66666666666663,
-                "y": 184.33333333333331
+                "x": 184.33333333333331,
+                "y": 183.66666666666666
             }
         },
         "floor 2/mid/mid d-r.json": {
@@ -407,25 +410,38 @@
                 "x": 128.57177585997326,
                 "y": 176.0641789230582
             }
+        },
+        "hub.json": {
+            "scale": 8,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 164.5625,
+                "y": 226.0625
+            }
         }
     },
     "map.width": 20,
     "openFiles": [
-        "floor 2/mid/mid d-l.json"
+        "floor 2/mid/mid d-l.json",
+        "hub.json",
+        "floor 2/start/start D1.json",
+        "floor 2/start/start L1.json",
+        "floor 2/start/start R1.json",
+        "floor 2/start/start U1.json"
     ],
     "project": "Gunfire Spire.tiled-project",
     "recentFiles": [
         "floor 2/mid/mid d-l.json",
-        "floor 1/end/endr.json",
-        "floor 1/end/endu.json",
-        "floor 1/end/endl.json",
-        "floor 1/end/endd.json",
-        "floor 1/mid/mid d to d.json",
-        "floor 1/mid/mid l to l.json",
-        "floor 1/mid/mid u to r2.json",
-        "floor 1/mid/mid u to r.json",
-        "floor 1/mid/mid u to l2.json",
-        "floor 1/mid/mid u to l.json",
-        "floor 1/mid/mid r to u.json"
+        "hub.json",
+        "floor 2/start/start U1.json",
+        "floor 2/start/start R1.json",
+        "floor 2/start/start L1.json",
+        "floor 2/start/start D1.json",
+        "floor 1/start/start d.json",
+        "floor 1/start/start d2.json",
+        "floor 1/start/start l.json",
+        "floor 1/start/start l2.json",
+        "floor 1/start/start r.json",
+        "floor 1/start/start r2.json"
     ]
 }

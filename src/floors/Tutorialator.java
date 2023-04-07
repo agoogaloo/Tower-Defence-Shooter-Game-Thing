@@ -133,7 +133,7 @@ public class Tutorialator {
 		
 		if(sectionTime==10)
 			
-			textToAdd="press shift to do a melee spin attack. killing enemies with it gives you X2 the reward";
+			textToAdd="right click to do a melee spin attack. killing enemies with it gives you X2 the reward";
 		if(!areEnemies()) {
 			GameState.getFloor().getRoom(0, 0).unlock(3);
 			
@@ -193,7 +193,7 @@ public class Tutorialator {
 			Entity.getEntityManager().addEntity(new TowerSpawn(245, 140,true));
 			Entity.getEntityManager().addEntity(new TowerSpawn(85, 150,true));
 			
-			textToAdd="you can place towers to help you by right clicking on tower platforms and releasing over the tower you want";
+			textToAdd="you can place towers to help you by pressing shift/e while hovering over tower platforms and releasing over the tower you want";
 		}
 		
 		for(Entity e: Entity.getEntityManager().getEntities()) {
